@@ -1,8 +1,8 @@
-# Project Vision WS2018/19
+# Trabit
 
-Repository for the winter semester of '18/19 "Project Vision" class at Cologne University Of Applied Sciences.
+Repository für das semesterübergreifende Projekt des Medieninformatik Masters an der Technischen Hochschule Köln.
 
-## Authors
+## Autoren
 
 * **Konstantin Gaarz** - [kgaarz](https://github.com/kgaarz)
 * **Julian Arera** - [jarera](https://github.com/Jarera)
