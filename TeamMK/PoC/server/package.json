@@ -1,0 +1,30 @@
+{
+  "name": "trabit-node-server",
+  "version": "1.0.0",
+  "description": "server for the study-project trabit",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kgaarz/Trabit.git"
+  },
+  "keywords": [
+    "Trabit"
+  ],
+  "author": "Team Trabit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kgaarz/Trabit/issues"
+  },
+  "homepage": "https://github.com/kgaarz/Trabit#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.5",
+    "nodemon": "^1.19.1"
+  }
+}
