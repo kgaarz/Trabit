@@ -8,8 +8,10 @@ app.use(bodyParser.json());
 
 //import routes
 const postsRoute = require('./routes/posts');
+const directionsRoute = require('./routes/directions');
 
 app.use('/posts', postsRoute);
+app.use('/directions', directionsRoute);
 
 //routes
 app.get('/', (req, res) => {
