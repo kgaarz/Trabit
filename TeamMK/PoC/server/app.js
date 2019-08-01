@@ -10,10 +10,12 @@ app.use(bodyParser.json());
 const postsRoute = require('./routes/posts');
 const directionsRoute = require('./routes/directions');
 const flinksterRoute = require('./routes/flinkster');
+const incidentsRoute = require('./routes/incidents');
 
 app.use('/posts', postsRoute);
 app.use('/directions', directionsRoute);
 app.use('/flinkster', flinksterRoute);
+app.use('/incidents', incidentsRoute);
 
 //routes
 app.get('/', (req, res) => {
