@@ -3,51 +3,72 @@ const axios = require('axios');
 const router = express.Router();
 require('dotenv/config');
 
-router.post('/', (req, res) => {
-  var mode = req.body.mode ? req.body.mode : 'driving';
-
-  axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + req.body.origin + '&destination=' + req.body.destination +
-      '&mode=' + mode + '&departure_time=' + req.body.departure_time + '&key=' + process.env.DIRECTIONS_KEY)
-    .then(response => {
-      console.log(response.data);
-      res.send(response.data);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-});
 
 router.get('/', (req, res) => {
   if (req.query.origin && req.query.destination) {
 
     var mode = req.query.mode ? req.query.mode : 'driving';
-    var now;
-
-    if (!req.query.departure_time) {
-      now = new Date().getTime();
-    } else {
-      console.log(req.query.departure_time);
-      console.log(new Date().getTime());
-      now = req.query.departure_time > new Date().getTime() ? req.query.departure_time : res.send("Ungültige Abfahrtszeit");
-    }
-
+    
+    var depature_time = checkDepartureTime(req.query.departure_time, res);
+	  
     axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + req.query.origin + '&destination=' + req.query.destination +
-        '&mode=' + mode + '&departure_time=' + now + '&key=' + process.env.DIRECTIONS_KEY)
+        '&mode=' + mode + '&departure_time=' + depature_time + '&key=' + process.env.DIRECTIONS_KEY)
       .then(response => {
-        console.log(response.data);
-        res.send(response.data);
+		res.send(response.data);
       })
       .catch(error => {
         console.log(error);
       });
   } else {
-    res.send("Gib Start & Ziel ein!");
+    res.status(400).send("Gib Start & Ziel ein!");
   }
 });
 
+
+router.get('/traffic', (req, res) => {
+  if (req.query.origin && req.query.destination) {
+
+    var mode = req.query.mode ? req.query.mode : 'driving';
+    
+    var depature_time = checkDepartureTime(req.query.departure_time, res);
+	  
+    axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + req.query.origin + '&destination=' + req.query.destination +
+        '&mode=' + mode + '&departure_time=' + depature_time + '&key=' + process.env.DIRECTIONS_KEY)
+      .then(response => {
+		var traffic = checkTraffic(response);
+		res.send("Traffic: " + traffic + " min");
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  } else {
+    res.status(400).send("Gib Start & Ziel ein!");
+  }
+});
+
+
+function checkDepartureTime(departure_time, res){
+	if (!departure_time) {
+      var now = new Date().getTime();
+    } else {
+      var now = new Date(departure_time*1000).valueOf() > new Date().getTime() ? departure_time : res.send("Ungültige Abfahrtszeit");
+    }   
+	return now;
+}
+
+function checkTraffic(json){
+	var time = json.data.routes[0].legs[0].duration_in_traffic.value - json.data.routes[0].legs[0].duration.value;
+	
+	var hr = ~~(time / 3600);
+    var min = ~~((time % 3600) / 60);
+    var sec = time % 60;
+    var sec_min = "";
+    if (hr > 0) {
+         sec_min += "" + hrs + ":" + (min < 10 ? "0" : "");
+    }
+    sec_min += "" + min + ":" + (sec < 10 ? "0" : "");
+    sec_min += "" + sec;
+    return sec_min;
+}
+
 module.exports = router;
-
-
-
-//50.941357, 6.958307
-//51.023180, 7.562370
