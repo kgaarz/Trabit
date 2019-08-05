@@ -11,11 +11,13 @@ const postsRoute = require('./routes/posts');
 const directionsRoute = require('./routes/directions');
 const flinksterRoute = require('./routes/flinkster');
 const incidentsRoute = require('./routes/incidents');
+const routesRoute = require('./routes/routes');
 
 app.use('/posts', postsRoute);
 app.use('/directions', directionsRoute);
 app.use('/flinkster', flinksterRoute);
 app.use('/incidents', incidentsRoute);
+app.use('/routes', routesRoute);
 
 //routes
 app.get('/', (req, res) => {
