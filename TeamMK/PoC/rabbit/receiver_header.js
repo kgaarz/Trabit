@@ -34,7 +34,7 @@ amqp.connect('amqp://localhost', function(error0, connection) {
       }
       
       keyValueHeader.forEach(function(header) {
-        channel.bindQueue(q.queue, exchange, header);
+        channel.bindQueue(q.queue, exchange, header), keyValueHeader;
       });
 
       channel.consume(q.queue, function(msg) {
