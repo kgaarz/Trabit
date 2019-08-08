@@ -10,15 +10,17 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     }
     var exchange = 'headers_logs';
     var args = process.argv.slice(2);
-    var header = {ID: 1,LatLon: 34232},
+    var header = {ID: 1,LatLon: 34232};
     var msg = args.slice(1).join(' ') || 'Hello World!';
+    var rountingKey= "";
 
     channel.assertExchange(exchange, 'headers', {
       durable: false
     });
-    channel.publish(exchange, header, Buffer.from(msg));
-    for(let[key, value] of Object.entries(header)){
-    console.log(" [x] Sent %s:'%s'", key, value, msg);}
+    channel.publish(exchange, rountingKey, Buffer.from(msg), header);
+    //for(let[key, value] of Object.entries(header)){
+    console.log("Sent Header:"+header.ID+"; "+header.LatLon+ " and Message: " +msg);
+  
   });
 
   setTimeout(function() { 
