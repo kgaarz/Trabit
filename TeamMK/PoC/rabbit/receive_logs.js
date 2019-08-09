@@ -40,7 +40,7 @@ amqp.connect('amqp://localhost', function(error0, connection) {
 
 var amqp = require('amqplib/callback_api');
 
-var args = ['info','warning'];
+var args = ['warning'];
 //process.argv.slice(2);
 
 if (args.length == 0) {
