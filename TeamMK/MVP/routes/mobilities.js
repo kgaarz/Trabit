@@ -3,31 +3,10 @@ const axios = require('axios');
 const router = express.Router();
 const Mobilities = require('../models/Mobilities');
 require('dotenv/config');
+const getRoute = require('../logic/getRoutes');
 
 router.get('/:mobilitiesID', (req, res) => {
-    const mobilitiesID=req.params.mobilitiesID
-    Mobilities.findById(
-        mobilitiesID
-      )
-      .exec()
-      .then(doc => {
-        if (doc) {
-
-            res.status(200).send(doc);
-        } else {
-          res
-            .status(404)
-            .json({
-              message: "No valid entry found for provided ID"
-            });
-        }
-      })
-      .catch(err => {
-        res.status(502).json({
-            message: "Database-Connection failed",
-            error: err
-        });
-      });
+  getRoute(req.params.mobilitiesID, Mobilities, res);
 });
 
 router.post('/:userID', (req, res) => {
@@ -35,7 +14,7 @@ router.post('/:userID', (req, res) => {
 });
 
 router.put('/:userID/:mobilitiesID', (req, res) => {
-
+  deleteRoute(req.params.mobilitiesID, Mobilities, res);
 });
 
 module.exports = router;

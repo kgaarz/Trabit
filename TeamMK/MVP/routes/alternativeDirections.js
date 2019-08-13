@@ -3,31 +3,11 @@ const axios = require('axios');
 const router = express.Router();
 const AlternativeDirections = require('../models/AlternativeDirections');
 require('dotenv/config');
+const getRoute = require('../logic/getRoutes');
+const deleteRoute = require('../logic/deleteRoutes');
 
 router.get('/:alternativeDirectionID', (req, res) => {
-    const alternativeDirectionID=req.params.alternativeDirectionID
-    AlternativeDirections.findById(
-        alternativeDirectionID
-      )
-      .exec()
-      .then(doc => {
-        if (doc) {
-
-            res.status(200).send(doc);
-        } else {
-          res
-            .status(404)
-            .json({
-              message: "No valid entry found for provided ID"
-            });
-        }
-      })
-      .catch(err => {
-        res.status(502).json({
-            message: "Database-Connection failed",
-            error: err
-        });
-      });
+  getRoute(req.params.alternativeDirectionID, AlternativeDirections, res);
 });
 
 router.post('/:userID/:trafficID', (req, res) => {
@@ -35,7 +15,7 @@ router.post('/:userID/:trafficID', (req, res) => {
 });
 
 router.delete('/:alternativeDirectionID', (req, res) => {
-
+  deleteRoute(req.params.alternativeDirectionID, AlternativeDirections, res);
 });
 
 module.exports = router;

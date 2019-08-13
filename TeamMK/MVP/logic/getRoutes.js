@@ -1,12 +1,12 @@
-module.exports = function deleteRoute(id, schema, res) {
-  schema.findOneAndDelete(
+module.exports = function getRoute(id, schema, res) {
+  schema.findById(
       id
     )
     .exec()
     .then(doc => {
       if (doc) {
         res.status(200).send({
-          message: "Successfully deleted",
+          message: "Successfully get data",
           data: doc
         });
       } else {
