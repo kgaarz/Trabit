@@ -93,11 +93,11 @@ const SelectionSchema = mongoose.Schema({
 		type: Number,
 		required: true
 	},
-  route: {
-    type: Object,
-    of: RouteSchema,
-    required: true
-  }
+    route: {
+    	type: Object,
+    	of: RouteSchema,
+    	required: true
+  	}
 })
 
 const DirectionsSelectionSchema = mongoose.Schema({

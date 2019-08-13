@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
-const DirectionsSelection = require('../models/DirectionsSelections');
+const DirectionsSelections = require('../models/DirectionsSelections');
 const User = require('../models/User');
 require('dotenv/config');
 
@@ -56,12 +56,20 @@ router.post('/:userID', (req, res) => {
         var mobilityChainRoute = generateMobilityChainRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
 
         Promise.all([fastestRoute,sustainableRoute, mobilityChainRoute]).then(values =>{
-          var routeSelection = [];
-          for(i=0; i<values.length; i++){
-            
-          }
-
-
+          const directionsSelections = new DirectionsSelections({
+			  selections: values
+		  });
+		  directionsSelections.save(function(error, result) {
+			  if (result) {
+				  res.status(200).send(result.id);
+        	  }
+           	  if (error) {
+				res.status(502).json({
+					message: "Database-Connection failed",
+					error: err
+      			});
+        	  }
+      	  });
         });
 
 
@@ -98,16 +106,24 @@ function generateFastestRoute(availableMobilityOptions, origin, destination, dep
           const newRoute = {
             distance: jsonData.distance.value,
             duration: jsonData.duration.value,
-            start_location: [jsonData.start_location.lng, jsonData.start_location.lat],
-            end_location: [jsonData.end_location.lng, jsonData.end_location.lat],
+            start_location: {lat: jsonData.start_location.lat, lng: jsonData.start_location.lng},
+            end_location: {lat: jsonData.end_location.lat, lng: jsonData.end_location.lng},
             steps: comprimisedSteps
           };
-          resolve(newRoute);
+		  const selectionOption = {
+			  modes: [mode],
+			  duration: jsonData.duration.value,
+			  distance: jsonData.distance.value,
+			  switches: 0,
+              sustainability: 100000000000,
+			  route: newRoute
+		  }
+          resolve(selectionOption);
         }).catch(error => {
           reject(error);
         });
     });
-  }
+}
 
   function generateSustainableRoute(availableMobilityOptions, origin, destination, depatureTime){
   return new Promise(function(resolve, reject) {
@@ -121,11 +137,19 @@ function generateFastestRoute(availableMobilityOptions, origin, destination, dep
         const newRoute = {
           distance: jsonData.distance.value,
           duration: jsonData.duration.value,
-          start_location: [jsonData.start_location.lng, jsonData.start_location.lat],
-          end_location: [jsonData.end_location.lng, jsonData.end_location.lat],
+          start_location: {lat: jsonData.start_location.lat, lng: jsonData.start_location.lng},
+          end_location: {lat: jsonData.end_location.lat, lng: jsonData.end_location.lng},
           steps: comprimisedSteps
         };
-        resolve(newRoute);
+        const selectionOption = {
+			  modes: [mode],
+			  duration: jsonData.duration.value,
+			  distance: jsonData.distance.value,
+			  switches: 0,
+              sustainability: 0,
+			  route: newRoute
+		  }
+          resolve(selectionOption);
       }).catch(error => {
         reject(error);
       });
@@ -144,11 +168,19 @@ function generateFastestRoute(availableMobilityOptions, origin, destination, dep
         const newRoute = {
           distance: jsonData.distance.value,
           duration: jsonData.duration.value,
-          start_location: [jsonData.start_location.lng, jsonData.start_location.lat],
-          end_location: [jsonData.end_location.lng, jsonData.end_location.lat],
+          start_location: {lat: jsonData.start_location.lat, lng: jsonData.start_location.lng},
+          end_location: {lat: jsonData.end_location.lat, lng: jsonData.end_location.lng},
           steps: comprimisedSteps
         };
-        resolve(newRoute);
+		const selectionOption = {
+			  modes: [mode],
+			  duration: jsonData.duration.value,
+			  distance: jsonData.distance.value,
+			  switches: newRoute.steps.length,
+              sustainability: 100,
+			  route: newRoute
+		  }
+          resolve(selectionOption);
       }).catch(error => {
         reject(error);
       });
