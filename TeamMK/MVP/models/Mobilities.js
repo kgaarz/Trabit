@@ -1,12 +1,15 @@
 const mongoose = require('mongoose');
 
-const MobilitiesSchema = mongoose.Schema({
-	surroundingMobilities: {
-		type: Array,
-		of: SurroundingMobilitiesSchema,
-		required: true
-	}
-})
+const GeoLocationSchema = new mongoose.Schema({
+  lat: {
+    type: Number,
+    required: true
+  },
+  lng: {
+    type: Number,
+    required: true
+  }
+});
 
 const SurroundingMobilitiesSchema = mongoose.Schema({
 	mode: {
@@ -20,15 +23,12 @@ const SurroundingMobilitiesSchema = mongoose.Schema({
 	}
 })
 
-const GeoLocationSchema = new mongoose.Schema({
-  lat: {
-    type: Number,
-    required: true
-  },
-  lng: {
-    type: Number,
-    required: true
-  }
-});
+const MobilitiesSchema = mongoose.Schema({
+	surroundingMobilities: {
+		type: Array,
+		of: SurroundingMobilitiesSchema,
+		required: true
+	}
+})
 
 module.exports = mongoose.model('Mobilities', MobilitiesSchema)
