@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const router = express.Router();
 const Directions = require('../models/Directions');
+const DirectionsSelection = require('../models/DirectionsSelections');
 require('dotenv/config');
 
 router.get('/:directionID', (req, res) => {
@@ -31,7 +32,30 @@ router.get('/:directionID', (req, res) => {
 });
 
 router.post('/:userID/:directionSelectionID', (req, res) => {
-
+  const selection = req.body.selection;
+  DirectionsSelection.findById(
+    req.params.directionSelectionID
+  )
+  .exec()
+  .then(doc=>{
+    if (doc) {
+      var selectedRoute = doc.selections[selection];
+      console.log(selectedRoute);
+      const directions = new Directions({
+        userID: req.params.userID,
+        distance: selectedRoute.distance,
+        duration: selectedRoute.duration,
+        startLocation: {
+          lat: selectedRoute.route.startLocation.lat,
+          lng: selectedRoute.route.startLocation.lng
+        },
+        endLocation:{
+          lat: selectedRoute.route.endLocation.lat,
+          lng: selectedRoute.route.endLocation.lng
+        }
+      })
+    }
+  });
 });
 
 router.put('/:directionID/:alternativeDirectionID', (req, res) => {
