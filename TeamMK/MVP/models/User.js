@@ -16,7 +16,7 @@ const availableMobilityOptionsSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   },
-  e_car: {
+  eCar: {
     type: Boolean,
     required: true
   },
@@ -32,11 +32,11 @@ const availableMobilityOptionsSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   },
-  e_motorScooter: {
+  eMotorScooter: {
     type: Boolean,
     required: true
   },
-  e_scooter: {
+  eScooter: {
     type: Boolean,
     required: true
   },

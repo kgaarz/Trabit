@@ -12,7 +12,7 @@ const GeoLocationSchema = new mongoose.Schema({
 });
 
 const DirectionsSchema = mongoose.Schema({
-  user_id: {
+  userID: {
     type: String,
     required: true
   },
@@ -24,12 +24,12 @@ const DirectionsSchema = mongoose.Schema({
     type: Number,
     required: true
   },
-  start_location: {
+  startLocation: {
     type: Object,
     of: GeoLocationSchema,
     required: true
   },
-  end_location: {
+  endLocation: {
     type: Object,
     of: GeoLocationSchema,
     required: true
