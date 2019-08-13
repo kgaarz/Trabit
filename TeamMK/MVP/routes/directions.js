@@ -1,17 +1,18 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
+const Directions = require('../models/Directions');
 require('dotenv/config');
 
 router.get('/:directionID', (req, res) => {
     const directionID=req.params.directionID
-    Routes.findById(
+    Directions.findById(
         directionID
       )
       .exec()
       .then(doc => {
         if (doc) {
-            
+
             res.status(200).send(doc);
         } else {
           res

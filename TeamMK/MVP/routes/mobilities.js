@@ -1,17 +1,18 @@
 const express = require('express');
 const axios = require('axios');
 const router = express.Router();
+const Mobilities = require('../models/Mobilities');
 require('dotenv/config');
 
 router.get('/:mobilitiesID', (req, res) => {
     const mobilitiesID=req.params.mobilitiesID
-    Routes.findById(
+    Mobilities.findById(
         mobilitiesID
       )
       .exec()
       .then(doc => {
         if (doc) {
-            
+
             res.status(200).send(doc);
         } else {
           res
