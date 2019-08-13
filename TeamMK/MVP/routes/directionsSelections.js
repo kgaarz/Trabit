@@ -3,6 +3,7 @@ const router = express.Router();
 const DirectionsSelections = require('../models/DirectionsSelections');
 const User = require('../models/User');
 const generateRoutes = require('../logic/generateRoutes');
+const deleteRoute = require('../logic/deleteRoutes');
 require('dotenv/config');
 
 router.get('/:directionSelectionID', (req, res) => {
@@ -66,7 +67,7 @@ router.post('/:userID', (req, res) => {
             if (error) {
               res.status(502).json({
                 message: "Database-Connection failed",
-                error: err
+                error: error
               });
             }
           });
@@ -88,29 +89,7 @@ router.post('/:userID', (req, res) => {
 });
 
 router.delete('/:directionSelectionID', (req, res) => {
-  const directionSelectionID = req.params.directionSelectionID
-  DirectionsSelections.findOneAndDelete(
-      directionSelectionID
-    )
-    .exec()
-    .then(doc => {
-      if (doc) {
-
-        res.status(200).send(doc);
-      } else {
-        res
-          .status(404)
-          .json({
-            message: "No valid entry found for provided ID"
-          });
-      }
-    })
-    .catch(err => {
-      res.status(502).json({
-        message: "Database-Connection failed",
-        error: err
-      });
-    });
+  deleteRoute(req.params.directionSelectionID, DirectionsSelections, res);
 });
 
 module.exports = router;

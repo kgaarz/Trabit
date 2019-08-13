@@ -13,11 +13,11 @@ module.exports = {
           const newRoute = {
             distance: jsonData.distance.value,
             duration: jsonData.duration.value,
-            start_location: {
+            startLocation: {
               lat: jsonData.start_location.lat,
               lng: jsonData.start_location.lng
             },
-            end_location: {
+            endLocation: {
               lat: jsonData.end_location.lat,
               lng: jsonData.end_location.lng
             },
@@ -50,11 +50,11 @@ module.exports = {
           const newRoute = {
             distance: jsonData.distance.value,
             duration: jsonData.duration.value,
-            start_location: {
+            startLocation: {
               lat: jsonData.start_location.lat,
               lng: jsonData.start_location.lng
             },
-            end_location: {
+            endLocation: {
               lat: jsonData.end_location.lat,
               lng: jsonData.end_location.lng
             },
@@ -87,11 +87,11 @@ module.exports = {
           const newRoute = {
             distance: jsonData.distance.value,
             duration: jsonData.duration.value,
-            start_location: {
+            startLocation: {
               lat: jsonData.start_location.lat,
               lng: jsonData.start_location.lng
             },
-            end_location: {
+            endLocation: {
               lat: jsonData.end_location.lat,
               lng: jsonData.end_location.lng
             },

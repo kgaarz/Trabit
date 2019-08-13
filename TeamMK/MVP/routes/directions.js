@@ -4,6 +4,7 @@ const router = express.Router();
 const Directions = require('../models/Directions');
 const DirectionsSelection = require('../models/DirectionsSelections');
 require('dotenv/config');
+const deleteRoute = require('../logic/deleteRoutes');
 
 router.get('/:directionID', (req, res) => {
     const directionID=req.params.directionID
@@ -40,7 +41,6 @@ router.post('/:userID/:directionSelectionID', (req, res) => {
   .then(doc=>{
     if (doc) {
       var selectedRoute = doc.selections[selection];
-      console.log(selectedRoute);
       const directions = new Directions({
         userID: req.params.userID,
         distance: selectedRoute.distance,
@@ -52,8 +52,21 @@ router.post('/:userID/:directionSelectionID', (req, res) => {
         endLocation:{
           lat: selectedRoute.route.endLocation.lat,
           lng: selectedRoute.route.endLocation.lng
-        }
+        },
+		steps: selectedRoute.route.steps
       })
+	  
+	  directions.save(function(error, result) {
+            if (result) {
+              res.status(200).send(result.id);
+            }
+            if (error) {
+              res.status(502).json({
+                message: "Database-Connection failed",
+                error: error
+              });
+            }
+       });
     }
   });
 });
@@ -63,7 +76,7 @@ router.put('/:directionID/:alternativeDirectionID', (req, res) => {
 });
 
 router.delete('/:directionID', (req, res) => {
-
+  deleteRoute(req.params.directionID, Directions, res);
 });
 
 module.exports = router;
