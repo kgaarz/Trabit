@@ -50,11 +50,20 @@ router.post('/:userID', (req, res) => {
           message: 'depatureTime is required!'
         });
 
-        generateRoutes(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime).then(
-          function(result){
-            console.log(result)
+
+        var fastestRoute = generateFastestRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
+        var sustainableRoute = generateSustainableRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
+        var mobilityChainRoute = generateMobilityChainRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
+
+        Promise.all([fastestRoute,sustainableRoute, mobilityChainRoute]).then(values =>{
+          var routeSelection = [];
+          for(i=0; i<values.length; i++){
+            
           }
-        );
+
+
+        });
+
 
         //res.status(200).send(doc);
       } else {
@@ -77,7 +86,7 @@ router.delete('/:directionSelectionID', (req, res) => {
 
 });
 
-function generateRoutes(availableMobilityOptions, origin, destination, depatureTime) {
+function generateFastestRoute(availableMobilityOptions, origin, destination, depatureTime) {
   return new Promise(function(resolve, reject) {
 
       const mode = "driving";
@@ -99,6 +108,53 @@ function generateRoutes(availableMobilityOptions, origin, destination, depatureT
         });
     });
   }
+
+  function generateSustainableRoute(availableMobilityOptions, origin, destination, depatureTime){
+  return new Promise(function(resolve, reject) {
+
+    const mode = "bicycling";
+    axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + origin.lat + "," + origin.lng + '&destination=' + destination.lat + "," + destination.lng + '&mode=' + mode + '&departure_time=' + depatureTime + '&key=' + process.env.DIRECTIONS_KEY)
+      .then(response => {
+        jsonData = response.data.routes[0].legs[0];
+        var comprimisedSteps = comprimiseSteps(jsonData.steps);
+
+        const newRoute = {
+          distance: jsonData.distance.value,
+          duration: jsonData.duration.value,
+          start_location: [jsonData.start_location.lng, jsonData.start_location.lat],
+          end_location: [jsonData.end_location.lng, jsonData.end_location.lat],
+          steps: comprimisedSteps
+        };
+        resolve(newRoute);
+      }).catch(error => {
+        reject(error);
+      });
+  });
+}
+
+  function generateMobilityChainRoute(availableMobilityOptions, origin, destination, depatureTime){
+  return new Promise(function(resolve, reject) {
+
+    const mode = "transit";
+    axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + origin.lat + "," + origin.lng + '&destination=' + destination.lat + "," + destination.lng + '&mode=' + mode + '&departure_time=' + depatureTime + '&key=' + process.env.DIRECTIONS_KEY)
+      .then(response => {
+        jsonData = response.data.routes[0].legs[0];
+        var comprimisedSteps = comprimiseSteps(jsonData.steps);
+
+        const newRoute = {
+          distance: jsonData.distance.value,
+          duration: jsonData.duration.value,
+          start_location: [jsonData.start_location.lng, jsonData.start_location.lat],
+          end_location: [jsonData.end_location.lng, jsonData.end_location.lat],
+          steps: comprimisedSteps
+        };
+        resolve(newRoute);
+      }).catch(error => {
+        reject(error);
+      });
+  });
+}
+  
 
   function comprimiseSteps(data) {
     var steps = [];
