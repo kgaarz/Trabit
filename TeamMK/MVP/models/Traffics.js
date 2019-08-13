@@ -11,28 +11,41 @@ const GeoLocationSchema = new mongoose.Schema({
   }
 });
 
+const OriginDestinationSchema = new mongoose.Schema({
+  origin: {
+    type: Object,
+    of: GeoLocationSchema,
+    required: true
+  },
+  destination: {
+    type: Object,
+    of: GeoLocationSchema,
+    required: true
+  }
+});
+
 const IncidentsSchema = mongoose.Schema({
-	trafficitemid: {
-		type: Number,
-    	required: true
-	},
-	geolocation: {
-		type: Object,
-		of: GeoLocationSchema,
-		required: true
-	},
-	trafficdescription: {
-		type: String,
-		required: true
-	}
+  trafficitemid: {
+    type: Number,
+    required: true
+  },
+  geolocation: {
+    type: Object,
+    of: OriginDestinationSchema,
+    required: true
+  },
+  trafficdescription: {
+    type: String,
+    required: true
+  }
 })
 
 const TrafficsSchema = mongoose.Schema({
-    traffic: {
-		type: Array,
-		of: IncidentsSchema,
-		required: true
-	}
+  traffic: {
+    type: Array,
+    of: IncidentsSchema,
+    required: true
+  }
 })
 
 module.exports = mongoose.model('Traffics', TrafficsSchema)
