@@ -6,6 +6,11 @@ require('dotenv/config');
 
 app.use(bodyParser.json());
 
+//Settings festlegen
+const settings = {
+    port: process.env.PORT || 3000,
+};
+
 //import routes
 const mobilitiesRoute = require('./routes/mobilities');
 const alternativeDirectionsRoute = require('./routes/alternativeDirections');
@@ -28,4 +33,6 @@ mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () => {
   mongoose.connection.readyState == 1 ? console.log("DB connected"): console.log("DB disconnected");
 });
 
-app.listen(3000);
+app.listen(settings.port, function() {
+    console.log("Server ist auf Port " + settings.port + " gestartet.");
+});
