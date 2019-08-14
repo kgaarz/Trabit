@@ -19,6 +19,10 @@ app.use('/directionsSelections', directionsSelectionsRoute);
 app.use('/directions', directionsRoute);
 app.use('/traffics', trafficsRoute);
 
+app.get('/', (req, res) => {
+  res.send('Trabit-Server ist online!');
+});
+
 //connect to db
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () => {
   mongoose.connection.readyState == 1 ? console.log("DB connected"): console.log("DB disconnected");
