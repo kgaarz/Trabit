@@ -3,8 +3,8 @@ const axios = require('axios');
 const router = express.Router();
 const AlternativeDirections = require('../models/AlternativeDirections');
 require('dotenv/config');
-const getRoute = require('../logic/getRoutes');
-const deleteRoute = require('../logic/deleteRoutes');
+const getRoute = require('../controllers/getRoutes');
+const deleteRoute = require('../controllers/deleteRoutes');
 
 router.get('/:alternativeDirectionID', (req, res) => {
   getRoute(req.params.alternativeDirectionID, AlternativeDirections, res);

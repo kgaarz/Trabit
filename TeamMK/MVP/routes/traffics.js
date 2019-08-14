@@ -4,9 +4,9 @@ const router = express.Router();
 const Traffics = require('../models/Traffics');
 const Directions = require('../models/Directions');
 require('dotenv/config');
-const getRoute = require('../logic/getRoutes');
-const deleteRoute = require('../logic/deleteRoutes');
-const comprimiseTraffic = require('../logic/comprimiseTraffic');
+const getRoute = require('../controllers/getRoutes');
+const deleteRoute = require('../controllers/deleteRoutes');
+const trafficController = require('../controllers/trafficController');
 
 router.get('/:trafficID', (req, res) => {
   getRoute(req.params.trafficID, Traffics, res);
@@ -27,7 +27,7 @@ router.post('/:directionID', (req, res) => {
 
         // Jeden Step einzeln nach Traffic abfragen
         for (i = 0; i < doc.steps.length; i++) {
-          var temp = comprimiseTraffic(doc, i, comprimisedTraffic);
+          var temp = trafficController(doc, i, comprimisedTraffic);
           temp.then(function(result) {
             comprimisedTraffic = result;
           }, function(error) {

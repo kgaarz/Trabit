@@ -4,8 +4,8 @@ const router = express.Router();
 const Directions = require('../models/Directions');
 const DirectionsSelection = require('../models/DirectionsSelections');
 require('dotenv/config');
-const getRoute = require('../logic/getRoutes');
-const deleteRoute = require('../logic/deleteRoutes');
+const getRoute = require('../controllers/getRoutes');
+const deleteRoute = require('../controllers/deleteRoutes');
 
 router.get('/:directionID', (req, res) => {
   getRoute(req.params.directionID, Directions, res);

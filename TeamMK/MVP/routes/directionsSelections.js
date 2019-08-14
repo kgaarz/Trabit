@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const DirectionsSelections = require('../models/DirectionsSelections');
 const User = require('../models/User');
-const generateRoutes = require('../logic/generateRoutes');
-const getRoute = require('../logic/getRoutes');
-const deleteRoute = require('../logic/deleteRoutes');
+const directionSelectionController = require('../controllers/directionSelectionController');
+const getRoute = require('../controllers/getRoutes');
+const deleteRoute = require('../controllers/deleteRoutes');
 require('dotenv/config');
 
 router.get('/:directionSelectionID', (req, res) => {
@@ -31,9 +31,9 @@ router.post('/:userID', (req, res) => {
         });
 
 
-        var fastestRoute = generateRoutes.generateFastestRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
-        var sustainableRoute = generateRoutes.generateSustainableRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
-        var mobilityChainRoute = generateRoutes.generateMobilityChainRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
+        var fastestRoute = directionSelectionController.generateFastestRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
+        var sustainableRoute = directionSelectionController.generateSustainableRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
+        var mobilityChainRoute = directionSelectionController.generateMobilityChainRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
 
         Promise.all([fastestRoute, sustainableRoute, mobilityChainRoute]).then(values => {
           const directionsSelections = new DirectionsSelections({
