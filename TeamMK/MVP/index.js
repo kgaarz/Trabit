@@ -11,7 +11,7 @@ const settings = {
     port: process.env.PORT || 3000,
 };
 
-//import routes
+//Routes importiert
 const mobilitiesRoute = require('./routes/mobilities');
 const alternativeDirectionsRoute = require('./routes/alternativeDirections');
 const directionsSelectionsRoute = require('./routes/directionsSelections');
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
   res.send('Trabit-Server ist online!');
 });
 
-//connect to db
+//Verbindung zur DB
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () => {
   mongoose.connection.readyState == 1 ? console.log("DB connected"): console.log("DB disconnected");
 });
