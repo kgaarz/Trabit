@@ -1,7 +1,69 @@
 const axios = require('axios');
+const Directions = require('../models/Directions');
+const Traffics = require('../models/Traffics');
 require('dotenv/config');
 
-module.exports = async function comprimiseTraffic(doc, i, comprimisedTraffic) {
+module.exports = {
+  postNewTraffic: function(id, res) {
+    Directions.findById(
+        id
+      )
+      .exec()
+      .then(doc => {
+        if (doc) {
+
+          var comprimisedTraffic = {
+            "incidents": []
+          };
+
+          // Jeden Step einzeln nach Traffic abfragen
+          for (i = 0; i < doc.steps.length; i++) {
+            var temp = comprimiseTraffic(doc, i, comprimisedTraffic);
+            temp.then(function(result) {
+              comprimisedTraffic = result;
+            }, function(error) {
+              res.status(400);
+            });
+
+          }
+          setTimeout(function() {
+            //res.json(comprimisedTraffic);
+            const traffic = new Traffics({
+              traffic: comprimisedTraffic
+            });
+            traffic.save(function(error, result) {
+              if (result) {
+                res.status(200).send(result.id);
+              }
+              if (error) {
+                res.status(502).json({
+                  message: "Database-Connection failed",
+                  error: error
+                });
+              }
+            });
+          }, 500);
+        } else {
+          res
+            .status(404)
+            .json({
+              message: "No valid entry found for provided ID"
+            });
+        }
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: err
+        });
+      });
+  },
+
+  updateTraffic: function(directionID, trafficID, res) {
+    //TODO: Funktion muss noch eingebaut werden
+  }
+}
+
+async function comprimiseTraffic(doc, i, comprimisedTraffic) {
   return new Promise(function(resolve, reject) {
 
     axios.get('https://traffic.api.here.com/traffic/6.0/incidents.json?corridor=' + doc.steps[i].start_location.lat + "," + doc.steps[i].start_location.lng + ';' + doc.steps[i].end_location.lat + "," + doc.steps[i].end_location.lng + ';' + "10" + '&app_id=' + process.env.HERE_APP_ID + '&app_code=' + process.env.HERE_APP_CODE)
