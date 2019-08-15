@@ -41,7 +41,7 @@ module.exports = {
       });
   },
 
-  updateDirections: function(directionID, alternativeDirectionID, res) {
-    //TODO: Funktion muss noch eingebaut werden
+  updateDirections: function(directionID, alternativeDirectionID, req, res) {
+    
   }
 }

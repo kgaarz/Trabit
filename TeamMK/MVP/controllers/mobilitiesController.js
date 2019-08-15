@@ -11,12 +11,37 @@ module.exports = {
       .exec()
       .then(doc => {
         if (doc) {
-          if (doc.availableMobilityOptions.car) {
-            var flinksterData = getFlinksterData(req);
-            var cabData = getCabData(req);
-			var hereData = getHereData(req);
+          var flinksterData, cabData, hereData;
+          var availableMobility = doc.availableMobilityOptions;
 
-            Promise.all([flinksterData, cabData, hereData]).then(values => {
+          
+          if(availableMobility.sharing){
+
+            if(availableMobility.trainTicket){
+              if (availableMobility.driverLicence) {
+                flinksterData = getFlinksterData(req);
+                cabData = getCabData(req);
+                hereData = getHereData(req);
+              }
+              else{
+                cabData = getCabData(req);
+                hereData = getHereData(req);
+              }
+            }
+            else{
+              flinksterData = getFlinksterData(req);
+              cabData = getCabData(req);  
+            }
+            if(!availableMobility.driverLicence){
+              cabData = getCabData(req);
+              hereData = getHereData(req);        
+            }
+          }else if (availableMobility.trainTicket){
+            hereData= getHereData(req);
+          }
+          
+
+          Promise.all([flinksterData, cabData, hereData]).then(values => {
 				var mobilities = new Mobilities ({
 					cars: values[0],
 					bikes: values[1],
@@ -37,7 +62,7 @@ module.exports = {
             }).catch(error => {
               res.status(404).send(error);
             });
-          }
+          
         } else {
           res
             .status(404)
@@ -46,6 +71,7 @@ module.exports = {
             });
         }
       })
+    
       .catch(err => {
         res.status(502).json({
           message: "Database-Connection failed",
@@ -54,7 +80,7 @@ module.exports = {
       });
   },
 
-  updateMobilities: function(userID, mobilitiesID, res) {
+  updateMobilities: function(userID, mobilitiesID, req, res) {
     //TODO: Funktion muss noch eingebaut werden
   }
 }
