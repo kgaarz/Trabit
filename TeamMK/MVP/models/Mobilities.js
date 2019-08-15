@@ -1,32 +1,16 @@
 const mongoose = require('mongoose');
 
-const GeoLocationSchema = new mongoose.Schema({
-  lat: {
-    type: Number,
-    required: true
-  },
-  lng: {
-    type: Number,
-    required: true
-  }
-});
-
-const SurroundingMobilitiesSchema = mongoose.Schema({
-	mode: {
-		type: String,
+const MobilitiesSchema = mongoose.Schema({
+	cars: {
+		type: Array,
 		required: true
 	},
-	geolocation: {
-		type: Object,
-		of: GeoLocationSchema,
-		required: true
-	}
-})
-
-const MobilitiesSchema = mongoose.Schema({
-	surroundingMobilities: {
+	bikes: {
 		type: Array,
-		of: SurroundingMobilitiesSchema,
+		required: true
+	},
+	transits: {
+		type: Array,
 		required: true
 	}
 })
