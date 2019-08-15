@@ -15,7 +15,7 @@ router.post('/:userID', (req, res) => {
 });
 
 router.put('/:userID/:mobilitiesID', (req, res) => {
-  mobilitiesController.updateMobilities(req.params.userID, req.params.mobilitiesID, res);
+  mobilitiesController.updateMobilities(req.params.userID, req.params.mobilitiesID, req, res);
 });
 
 module.exports = router;

@@ -16,7 +16,7 @@ router.post('/:userID/:directionSelectionID', (req, res) => {
 });
 
 router.put('/:directionID/:alternativeDirectionID', (req, res) => {
-  directionsController.updateDirections(req.params.directionID, req.params.alternativeDirectionID, res);
+  directionsController.updateDirections(req.params.directionID, req.params.alternativeDirectionID, req, res);
 });
 
 router.delete('/:directionID', (req, res) => {
