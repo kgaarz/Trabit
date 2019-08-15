@@ -20,6 +20,10 @@ const availableMobilityOptionsSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   },
+  driverLicence: {
+    type: Boolean,
+    required: true
+  },
   bike: {
     type: Boolean,
     required: true
@@ -41,6 +45,10 @@ const availableMobilityOptionsSchema = new mongoose.Schema({
     required: true
   },
   trainTicket: {
+    type: Boolean,
+    required: true
+  },
+  sharing: {
     type: Boolean,
     required: true
   }
