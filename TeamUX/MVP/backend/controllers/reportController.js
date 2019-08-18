@@ -115,12 +115,11 @@ class ReportController {
         // making sure the comment only consists of the allowed insert params
         const comment = {}
         Object.keys(this.createCommentModel).forEach(key => comment[key] = body[key])
+        // create new comment and push in comments array
         const newComment = report.comments.create(comment)
         report.comments.push(newComment)
-        const updatedReport = await report.save()
-
-        if (updatedReport)
-            return newComment
+        await report.save()
+        return newComment
     }
 
     async getByCommentId(commentId) {
