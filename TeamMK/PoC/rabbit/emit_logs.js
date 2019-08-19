@@ -1,5 +1,5 @@
 
-/* var amqp = require('amqplib/callback_api');
+ var amqp = require('amqplib/callback_api');
 
 amqp.connect('amqp://localhost', function(error0, connection) {
   if (error0) {
@@ -24,8 +24,8 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     process.exit(0); 
   }, 500);
 });
- */
-
+ 
+/*
 
 var amqp = require('amqplib/callback_api');
 
@@ -40,7 +40,7 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     var exchange = 'direct_logs';
     var args = process.argv.slice(2);
     var msg = args.slice(1).join(' ') || 'Hello World!';
-    var severity = (args.length > 0) ? args[0] : 'info';
+    var severity = (args.length > 0) ? args[0] : 'warning';
 
     channel.assertExchange(exchange, 'direct', {
       durable: false
@@ -54,3 +54,4 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     process.exit(0) 
   }, 500);
 });
+*/

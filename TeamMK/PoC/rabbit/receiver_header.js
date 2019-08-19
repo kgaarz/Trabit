@@ -1,15 +1,18 @@
+
 var amqp = require('amqplib/callback_api');
 
-//var args = process.argv.slice(2);
-var headerMap = new Map();
-headerMap.set("1", "50.941357-6.958307");
-headerMap.set("2", "51.941357-7.958307");
+var headerOptions = new Map();
+var location = {lat:"50.941357", lng: "6.958307"};
+var location2 = {lat:"51.941357", lng: "7.958307"};
+headerOptions.set("1", location);
+headerOptions.set("2", location2);
+headerOptions.set("x-match", "all");
 
-amqp.connect('amqp://localhost', function(error0, connection) {
+amqp.connect('amqp://localhost', (error0, connection) => {
   if (error0) {
     throw error0;
   }
-  connection.createChannel(function(error1, channel) {
+  connection.createChannel((error1, channel) => {
     if (error1) {
       throw error1;
     }
@@ -19,26 +22,29 @@ amqp.connect('amqp://localhost', function(error0, connection) {
       durable: false
     });
 
-    channel.assertQueue('Warning', {
+    channel.assertQueue('', {
       exclusive: true
-    }, function(error2, q) {
+    }, (error2, q) =>{
       if (error2) {
         throw error2;
       }
       console.log(' [*] Waiting for logs. To exit press CTRL+C');
       
-      headerMap.forEach(function(value,key) {
-        channel.bindQueue(q.queue, exchange, "headers", headerMap);
-        console.log(key + "/" + value);
-      },headerMap);
+      headerOptions.forEach((value,key)=> {
+        let opts = {'key': key, 'value': value};
+        channel.bindQueue(q.queue, exchange, '', opts);
 
-      channel.consume(q.queue, function(msg) {
-        console.log("%s: %s bei Koordinaten?", msg.fields.routingKey, msg.content.toString() );
+        console.log("Key: "+key + " ValueLat: " + value.lat+" ValueLng: "+value.lng );
+      },headerOptions);
+
+      channel.consume(q.queue, (msg) => {
+        console.log("%s: %s bei: %s/%s", msg.fields.routingKey, msg.content.toString(), msg.properties.headers.value.lat,msg.properties.headers.value.lng );
       }, {
         noAck: true
+        //exclusive: false
+  
       });
     });
   });
 });
 
-//Properties einfügen, um header Infos lesen zu können

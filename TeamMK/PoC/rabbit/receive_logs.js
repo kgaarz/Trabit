@@ -1,5 +1,5 @@
 
-/*
+
 //jede Nachricht von emit_logs.js get an den exchanger, der schickt es an alle Queues und diese an alle Receiver
 var amqp = require('amqplib/callback_api');
 
@@ -36,7 +36,7 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     });
   });
 });
-*/
+ /*
 
 var amqp = require('amqplib/callback_api');
 
@@ -82,3 +82,5 @@ amqp.connect('amqp://localhost', function(error0, connection) {
     });
   });
 });
+
+*/
