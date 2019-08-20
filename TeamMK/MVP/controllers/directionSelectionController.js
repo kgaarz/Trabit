@@ -1,50 +1,73 @@
 const axios = require('axios');
 const DirectionsSelections = require('../models/DirectionsSelections');
 const User = require('../models/User');
+const mobilitiesController = require('./mobilitiesController');
+const Mobilities = require('../models/Mobilities');
 
 module.exports = {
-  postNewDirectionSelection: function(userID, req, res) {
+  postNewDirectionSelection: function (userID, mobilitiesID, req, res) {
     User.findById(
-        userID
-      )
+      userID
+    )
       .exec()
       .then(doc => {
         if (doc) {
-          //check if all required query parameters are available
-          !req.body.origin && res.status(400).send({
-            message: 'origin is required!'
-          });
-          !req.body.destination && res.status(400).send({
-            message: 'destination is required!'
-          });
-          !req.body.depatureTime && res.status(400).send({
-            message: 'depatureTime is required!'
-          });
-
-          var fastestRoute = generateFastestRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
-          var sustainableRoute = generateSustainableRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
-          var mobilityChainRoute = generateMobilityChainRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
-
-          Promise.all([fastestRoute, sustainableRoute, mobilityChainRoute]).then(values => {
-            const directionsSelections = new DirectionsSelections({
-              selections: values
-            });
-
-            directionsSelections.save(function(error, result) {
-              if (result) {
-                res.status(200).send(result.id);
-              }
-              if (error) {
-                res.status(502).json({
-                  message: "Database-Connection failed",
-                  error: error
+          Mobilities.findById(
+            mobilitiesID
+          )
+            .exec()
+            .then(data => {
+              if (data) {
+                //check if all required query parameters are available
+                !req.body.origin && res.status(400).send({
+                  message: 'origin is required!'
                 });
+                !req.body.destination && res.status(400).send({
+                  message: 'destination is required!'
+                });
+                !req.body.depatureTime && res.status(400).send({
+                  message: 'depatureTime is required!'
+                });
+
+                var fastestRoute = generateFastestRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
+                var sustainableRoute = generateSustainableRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
+                var mobilityChainRoute = generateMobilityChainRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
+
+                Promise.all([fastestRoute, sustainableRoute, mobilityChainRoute]).then(values => {
+                  const directionsSelections = new DirectionsSelections({
+                    selections: values
+                  });
+
+                  directionsSelections.save(function (error, result) {
+                    if (result) {
+                      res.status(200).send(result.id);
+                    }
+                    if (error) {
+                      res.status(502).json({
+                        message: "Database-Connection failed",
+                        error: error
+                      });
+                    }
+                  });
+                }).catch(error => {
+                  res.status(404).send(error);
+                });
+              } else {
+                res
+                  .status(404)
+                  .json({
+                    message: "No valid entry found for provided ID"
+                  });
               }
+            })
+            .catch(err => {
+              res.status(502).json({
+                message: "Database-Connection failed",
+                error: err
+              });
             });
-          }).catch(error => {
-            res.status(404).send(error);
-          });
-        } else {
+        }
+        else {
           res
             .status(404)
             .json({
@@ -61,45 +84,34 @@ module.exports = {
   }
 }
 
-function generateFastestRoute(availableMobilityOptions, origin, destination, depatureTime) {
-  return new Promise(function(resolve, reject) {
 
-    const mode = "driving";
-    axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + origin.lat + "," + origin.lng + '&destination=' + destination.lat + "," + destination.lng + '&mode=' + mode + '&departure_time=' + depatureTime + '&key=' + process.env.DIRECTIONS_KEY)
-      .then(response => {
-        jsonData = response.data.routes[0].legs[0];
-        var comprimisedSteps = comprimiseSteps(jsonData.steps);
+function generateFastestRoute(availableMobilityOptions, origin, destination, departureTime) {
+  new Promise((resolve, reject) => {
+    mobilitiesController.identifyNewMobilities(availableMobilityOptions);
 
-        const newRoute = {
-          distance: jsonData.distance.value,
-          duration: jsonData.duration.value,
-          startLocation: {
-            lat: jsonData.start_location.lat,
-            lng: jsonData.start_location.lng
-          },
-          endLocation: {
-            lat: jsonData.end_location.lat,
-            lng: jsonData.end_location.lng
-          },
-          steps: comprimisedSteps
-        };
-        const selectionOption = {
-          modes: [mode],
-          duration: jsonData.duration.value,
-          distance: jsonData.distance.value,
-          switches: 0,
-          sustainability: 100000000000,
-          route: newRoute
-        }
-        resolve(selectionOption);
-      }).catch(error => {
-        reject(error);
-      });
+
+
+
+
+    var drivingRoute = getGoogleDirectionsAPIData(origin, destination, departureTime, "driving");
+    var transitRoute = getGoogleDirectionsAPIData(origin, destination, departureTime, "transit");
+    Promise.all([drivingRoute, transitRoute]).then(values => {
+      var fastestRoute = values[0].duration > values[1].duration ? values[0] : values[1];
+      var fastestRouteMode = values[0].duration > values[1].duration ? "driving" : "transit";
+      const selectionOption = {
+        modes: [fastestRouteMode],
+        duration: fastestRoute.duration.value,
+        distance: fastestRoute.distance.value,
+        switches: 0,
+        sustainability: 0,
+        route: newRoute
+      }
+    })
   });
 }
 
 function generateSustainableRoute(availableMobilityOptions, origin, destination, depatureTime) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
 
     const mode = "bicycling";
     axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + origin.lat + "," + origin.lng + '&destination=' + destination.lat + "," + destination.lng + '&mode=' + mode + '&departure_time=' + depatureTime + '&key=' + process.env.DIRECTIONS_KEY)
@@ -136,7 +148,7 @@ function generateSustainableRoute(availableMobilityOptions, origin, destination,
 }
 
 function generateMobilityChainRoute(availableMobilityOptions, origin, destination, depatureTime) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
 
     const mode = "transit";
     axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + origin.lat + "," + origin.lng + '&destination=' + destination.lat + "," + destination.lng + '&mode=' + mode + '&departure_time=' + depatureTime + '&key=' + process.env.DIRECTIONS_KEY)
@@ -182,4 +194,31 @@ function comprimiseSteps(data) {
     steps[i] = object;
   }
   return steps;
+}
+
+function getGoogleDirectionsAPIData(origin, destination, departureTime, mode) {
+  return new Promise((resolve, reject) => {
+    axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + origin.lat + "," + origin.lng + '&destination=' + destination.lat + "," + destination.lng + '&mode=' + mode + '&departure_time=' + departureTime + '&key=' + process.env.DIRECTIONS_KEY)
+      .then(response => {
+        jsonData = response.data.routes[0].legs[0];
+        var comprimisedSteps = comprimiseSteps(jsonData.steps);
+
+        const newRoute = {
+          distance: jsonData.distance.value,
+          duration: jsonData.duration.value,
+          startLocation: {
+            lat: jsonData.start_location.lat,
+            lng: jsonData.start_location.lng
+          },
+          endLocation: {
+            lat: jsonData.end_location.lat,
+            lng: jsonData.end_location.lng
+          },
+          steps: comprimisedSteps
+        }
+        resolve(newRoute);
+      }).catch(error => {
+        reject(error);
+      });
+  });
 }

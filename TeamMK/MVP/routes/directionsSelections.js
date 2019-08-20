@@ -9,8 +9,8 @@ router.get('/:directionSelectionID', (req, res) => {
   routesController.getById(req.params.directionSelectionID, DirectionsSelections, res);
 });
 
-router.post('/:userID', (req, res) => {
-  directionSelectionController.postNewDirectionSelection(req.params.userID, req, res);
+router.post('/:userID/:mobilitiesID', (req, res) => {
+  directionSelectionController.postNewDirectionSelection(req.params.userID, req.params.mobilitiesID, req, res);
 });
 
 router.delete('/:directionSelectionID', (req, res) => {

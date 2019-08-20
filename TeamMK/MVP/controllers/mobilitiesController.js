@@ -78,6 +78,45 @@ module.exports = {
       });
   },
 
+  identifyNewMobilities: function(availableMobility){
+    new Promise((resolve,reject)=>{
+      var flinksterData, cabData, hereData;
+  
+      if (availableMobility.sharing) {
+        if (availableMobility.trainTicket) {
+          if (availableMobility.driverLicence) {
+            flinksterData = getFlinksterData(req);
+            cabData = getCabData(req);
+            hereData = getHereData(req);
+          } else {
+            cabData = getCabData(req);
+            hereData = getHereData(req);
+          }
+        } else {
+          flinksterData = getFlinksterData(req);
+          cabData = getCabData(req);
+        }
+        if (!availableMobility.driverLicence) {
+          cabData = getCabData(req);
+          hereData = getHereData(req);
+        }
+      } else if (availableMobility.trainTicket) {
+        hereData = getHereData(req);
+      }
+
+      Promise.all([flinksterData, cabData, hereData]).then(values => {
+        var mobilities = new Mobilities({
+          cars: values[0],
+          bikes: values[1],
+          transits: values[2]
+        });
+        resolve(mobilities);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  },
+
   updateMobilities: function(userID, mobilitiesID, req, res) {
     User.findById(
         userID
