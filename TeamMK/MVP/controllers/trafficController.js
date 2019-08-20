@@ -59,7 +59,65 @@ module.exports = {
   },
 
   updateTraffic: function(directionID, trafficID, res) {
-    //TODO: Funktion muss noch eingebaut werden
+    Directions.findById(
+        directionID
+      )
+      .exec()
+      .then(doc => {
+        if (doc) {
+
+          var comprimisedTraffic = {
+            "incidents": []
+          };
+
+          // Jeden Step einzeln nach Traffic abfragen
+          for (i = 0; i < doc.steps.length; i++) {
+            var temp = comprimiseTraffic(doc, i, comprimisedTraffic);
+            temp.then(function(result) {
+              comprimisedTraffic = result;
+            }, function(error) {
+              res.status(400);
+            });
+
+          }
+          setTimeout(function() {
+            //res.json(comprimisedTraffic);
+            const traffic = {
+              traffic: comprimisedTraffic
+            };
+            Traffics.findOneAndUpdate({
+                _id: trafficID
+              }, traffic, {
+                new: true
+              },
+              function(error, result) {
+                if (result) {
+                  res.status(200).send({
+                    message: "Successfully updated data",
+                    data: doc
+                  });
+                }
+                if (error) {
+                  res.status(502).json({
+                    message: "Database-Connection failed",
+                    error: error
+                  });
+                }
+              });
+          }, 500);
+        } else {
+          res
+            .status(404)
+            .json({
+              message: "No valid entry found for provided ID"
+            });
+        }
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: err
+        });
+      });
   }
 }
 

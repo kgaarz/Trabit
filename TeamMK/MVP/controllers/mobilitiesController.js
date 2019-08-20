@@ -14,55 +14,53 @@ module.exports = {
           var flinksterData, cabData, hereData;
           var availableMobility = doc.availableMobilityOptions;
 
-          
-          if(availableMobility.sharing){
 
-            if(availableMobility.trainTicket){
+          if (availableMobility.sharing) {
+
+            if (availableMobility.trainTicket) {
               if (availableMobility.driverLicence) {
                 flinksterData = getFlinksterData(req);
                 cabData = getCabData(req);
                 hereData = getHereData(req);
-              }
-              else{
+              } else {
                 cabData = getCabData(req);
                 hereData = getHereData(req);
               }
-            }
-            else{
+            } else {
               flinksterData = getFlinksterData(req);
-              cabData = getCabData(req);  
-            }
-            if(!availableMobility.driverLicence){
               cabData = getCabData(req);
-              hereData = getHereData(req);        
             }
-          }else if (availableMobility.trainTicket){
-            hereData= getHereData(req);
+            if (!availableMobility.driverLicence) {
+              cabData = getCabData(req);
+              hereData = getHereData(req);
+            }
+          } else if (availableMobility.trainTicket) {
+            hereData = getHereData(req);
           }
-          
+
 
           Promise.all([flinksterData, cabData, hereData]).then(values => {
-				var mobilities = new Mobilities ({
-					cars: values[0],
-					bikes: values[1],
-					transits: values[2]
-				});
-				
-				mobilities.save(function(error, result) {
-                  if (result) {
-                    res.status(200).send(result.id);
-                  }
-                  if (error) {
-                    res.status(502).json({
-                      message: "Database-Connection failed",
-                      error: error
-                    });
-                  }
+            var mobilities = new Mobilities({
+              cars: values[0],
+              bikes: values[1],
+              transits: values[2]
             });
-            }).catch(error => {
-              res.status(404).send(error);
+
+            mobilities.save(function(error, result) {
+              if (result) {
+                res.status(200).send(result.id);
+              }
+              if (error) {
+                res.status(502).json({
+                  message: "Database-Connection failed",
+                  error: error
+                });
+              }
             });
-          
+          }).catch(error => {
+            res.status(404).send(error);
+          });
+
         } else {
           res
             .status(404)
@@ -71,7 +69,7 @@ module.exports = {
             });
         }
       })
-    
+
       .catch(err => {
         res.status(502).json({
           message: "Database-Connection failed",
@@ -81,7 +79,86 @@ module.exports = {
   },
 
   updateMobilities: function(userID, mobilitiesID, req, res) {
-    //TODO: Funktion muss noch eingebaut werden
+    User.findById(
+        userID
+      )
+      .exec()
+      .then(doc => {
+        if (doc) {
+          var flinksterData = [];
+          var cabData = [];
+          var hereData = [];
+          var availableMobility = doc.availableMobilityOptions;
+
+
+          if (availableMobility.sharing) {
+
+            if (availableMobility.trainTicket) {
+              if (availableMobility.driverLicence) {
+                flinksterData = getFlinksterData(req);
+                cabData = getCabData(req);
+                hereData = getHereData(req);
+              } else {
+                cabData = getCabData(req);
+                hereData = getHereData(req);
+              }
+            } else {
+              flinksterData = getFlinksterData(req);
+              cabData = getCabData(req);
+            }
+            if (!availableMobility.driverLicence) {
+              cabData = getCabData(req);
+              hereData = getHereData(req);
+            }
+          } else if (availableMobility.trainTicket) {
+            hereData = getHereData(req);
+          }
+
+
+          Promise.all([flinksterData, cabData, hereData]).then(values => {
+            var mobilities = {
+              cars: values[0],
+              bikes: values[1],
+              transits: values[2]
+            };
+
+            Mobilities.findOneAndUpdate({
+              _id: mobilitiesID
+            }, mobilities, {
+              new: true
+            }, function(error, result) {
+              if (result) {
+                res.status(200).send({
+                  message: "Successfully updated data",
+                  data: doc
+                });
+              }
+              if (error) {
+                res.status(502).json({
+                  message: "Database-Connection failed",
+                  error: error
+                });
+              }
+            });
+          }).catch(error => {
+            res.status(404).send(error);
+          });
+
+        } else {
+          res
+            .status(404)
+            .json({
+              message: "No valid entry found for provided ID"
+            });
+        }
+      })
+
+      .catch(err => {
+        res.status(502).json({
+          message: "Database-Connection failed",
+          error: err
+        });
+      });
   }
 }
 
@@ -124,7 +201,7 @@ function getCabData(req) {
   return new Promise(function(resolve, reject) {
     var cabItems = [];
     const providernetwork = "2";
-	
+
     const mode = "bike";
 
     axios.get('https://api.deutschebahn.com/flinkster-api-ng/v1/areas?lat=' + req.body.lat + '&lon=' + req.body.lng + '&radius=' + req.body.radius + '&providernetwork=' + providernetwork, {
@@ -160,36 +237,36 @@ function getHereData(req) {
     var transitItems = [];
     const mode = "transit";
 
-	  axios.get('https://transit.api.here.com/v3/stations/by_geocoord.json?center=' + req.body.lat + '%2C' + req.body.lng + '&radius=' + req.body.radius + '&app_id=' + process.env.HERE_APP_ID + '&app_code=' + process.env.HERE_APP_CODE)
+    axios.get('https://transit.api.here.com/v3/stations/by_geocoord.json?center=' + req.body.lat + '%2C' + req.body.lng + '&radius=' + req.body.radius + '&app_id=' + process.env.HERE_APP_ID + '&app_code=' + process.env.HERE_APP_CODE)
       .then(response => {
-        
-		for (i = 0; i < response.data.Res.Stations.Stn.length; i++) {
-			  var transports = [];
-			  for(j=0; j<response.data.Res.Stations.Stn[i].Transports.Transport.length; j++){
-				  var transportItem = {
-					  name: response.data.Res.Stations.Stn[i].Transports.Transport[j].name,
-					  direction: response.data.Res.Stations.Stn[i].Transports.Transport[j].dir
-				  }
-				  transports.push(transportItem);
-			  }
-			  
-			
-              var object = {
-              	itemID: response.data.Res.Stations.Stn[i].id,
-              	geoLocation: {
-                	lat: response.data.Res.Stations.Stn[i].y,
-                	lng: response.data.Res.Stations.Stn[i].x,
-              	},
-			  	name: response.data.Res.Stations.Stn[i].name,
-				distance: response.data.Res.Stations.Stn[i].distance,
-			  	transports: transports,
-              	mode: mode
-			  }
-			  
-              transitItems.push(object);
+
+        for (i = 0; i < response.data.Res.Stations.Stn.length; i++) {
+          var transports = [];
+          for (j = 0; j < response.data.Res.Stations.Stn[i].Transports.Transport.length; j++) {
+            var transportItem = {
+              name: response.data.Res.Stations.Stn[i].Transports.Transport[j].name,
+              direction: response.data.Res.Stations.Stn[i].Transports.Transport[j].dir
+            }
+            transports.push(transportItem);
           }
-          resolve(transitItems);
-		
+
+
+          var object = {
+            itemID: response.data.Res.Stations.Stn[i].id,
+            geoLocation: {
+              lat: response.data.Res.Stations.Stn[i].y,
+              lng: response.data.Res.Stations.Stn[i].x,
+            },
+            name: response.data.Res.Stations.Stn[i].name,
+            distance: response.data.Res.Stations.Stn[i].distance,
+            transports: transports,
+            mode: mode
+          }
+
+          transitItems.push(object);
+        }
+        resolve(transitItems);
+
       })
       .catch(error => {
         reject(error);

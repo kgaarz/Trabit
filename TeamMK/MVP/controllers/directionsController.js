@@ -42,6 +42,6 @@ module.exports = {
   },
 
   updateDirections: function(directionID, alternativeDirectionID, req, res) {
-    
+    // TODO: Muss noch gemacht werden
   }
 }
