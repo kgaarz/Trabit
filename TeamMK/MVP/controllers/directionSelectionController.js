@@ -4,7 +4,7 @@ const User = require('../models/User');
 const mobilitiesController = require('./mobilitiesController');
 const Mobilities = require('../models/Mobilities');
 const dataController = require('./dataController');
-const checkMobilityOptionsController = require('./checkMobilityOptionsController');
+const routeGenerationController = require('./routeGenerationController');
 
 module.exports = {
   postNewDirectionSelection: function(userID, mobilitiesID, req, res) {
@@ -89,9 +89,7 @@ module.exports = {
 
 function generateFastestRoute(availableMobilityOptions, nearMobilities, origin, destination, departureTime) {
   new Promise((resolve, reject) => {
-    if(checkMobilityOptionsController.onlyBikeSharing(availableMobilityOptions)){
-
-    }
+    routeGenerationController.generateRoute(availableMobilityOptions);
   });
 }
 

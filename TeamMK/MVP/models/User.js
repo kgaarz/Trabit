@@ -16,31 +16,11 @@ const availableMobilityOptionsSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   },
-  eCar: {
-    type: Boolean,
-    required: true
-  },
   driverLicence: {
     type: Boolean,
     required: true
   },
   bike: {
-    type: Boolean,
-    required: true
-  },
-  longboard: {
-    type: Boolean,
-    required: true
-  },
-  motorScooter: {
-    type: Boolean,
-    required: true
-  },
-  eMotorScooter: {
-    type: Boolean,
-    required: true
-  },
-  eScooter: {
     type: Boolean,
     required: true
   },
