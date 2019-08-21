@@ -3,18 +3,20 @@ const DirectionsSelections = require('../models/DirectionsSelections');
 const User = require('../models/User');
 const mobilitiesController = require('./mobilitiesController');
 const Mobilities = require('../models/Mobilities');
+const dataController = require('./dataController');
+const checkMobilityOptionsController = require('./checkMobilityOptionsController');
 
 module.exports = {
-  postNewDirectionSelection: function (userID, mobilitiesID, req, res) {
+  postNewDirectionSelection: function(userID, mobilitiesID, req, res) {
     User.findById(
-      userID
-    )
+        userID
+      )
       .exec()
       .then(doc => {
         if (doc) {
           Mobilities.findById(
-            mobilitiesID
-          )
+              mobilitiesID
+            )
             .exec()
             .then(data => {
               if (data) {
@@ -29,7 +31,7 @@ module.exports = {
                   message: 'depatureTime is required!'
                 });
 
-                var fastestRoute = generateFastestRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
+                var fastestRoute = generateFastestRoute(doc.availableMobilityOptions, data, req.body.origin, req.body.destination, req.body.depatureTime);
                 var sustainableRoute = generateSustainableRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
                 var mobilityChainRoute = generateMobilityChainRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
 
@@ -38,17 +40,18 @@ module.exports = {
                     selections: values
                   });
 
-                  directionsSelections.save(function (error, result) {
-                    if (result) {
-                      res.status(200).send(result.id);
-                    }
-                    if (error) {
-                      res.status(502).json({
-                        message: "Database-Connection failed",
-                        error: error
-                      });
-                    }
-                  });
+                  res.status(200).send(directionsSelections);
+                  // directionsSelections.save(function(error, result) {
+                  //   if (result) {
+                  //     res.status(200).send(result.id);
+                  //   }
+                  //   if (error) {
+                  //     res.status(502).json({
+                  //       message: "Database-Connection failed",
+                  //       error: error
+                  //     });
+                  //   }
+                  // });
                 }).catch(error => {
                   res.status(404).send(error);
                 });
@@ -66,8 +69,7 @@ module.exports = {
                 error: err
               });
             });
-        }
-        else {
+        } else {
           res
             .status(404)
             .json({
@@ -85,33 +87,16 @@ module.exports = {
 }
 
 
-function generateFastestRoute(availableMobilityOptions, origin, destination, departureTime) {
+function generateFastestRoute(availableMobilityOptions, nearMobilities, origin, destination, departureTime) {
   new Promise((resolve, reject) => {
-    mobilitiesController.identifyNewMobilities(availableMobilityOptions);
+    if(checkMobilityOptionsController.onlyBikeSharing(availableMobilityOptions)){
 
-
-
-
-
-    var drivingRoute = getGoogleDirectionsAPIData(origin, destination, departureTime, "driving");
-    var transitRoute = getGoogleDirectionsAPIData(origin, destination, departureTime, "transit");
-    Promise.all([drivingRoute, transitRoute]).then(values => {
-      var fastestRoute = values[0].duration > values[1].duration ? values[0] : values[1];
-      var fastestRouteMode = values[0].duration > values[1].duration ? "driving" : "transit";
-      const selectionOption = {
-        modes: [fastestRouteMode],
-        duration: fastestRoute.duration.value,
-        distance: fastestRoute.distance.value,
-        switches: 0,
-        sustainability: 0,
-        route: newRoute
-      }
-    })
+    }
   });
 }
 
 function generateSustainableRoute(availableMobilityOptions, origin, destination, depatureTime) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
 
     const mode = "bicycling";
     axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + origin.lat + "," + origin.lng + '&destination=' + destination.lat + "," + destination.lng + '&mode=' + mode + '&departure_time=' + depatureTime + '&key=' + process.env.DIRECTIONS_KEY)
@@ -148,7 +133,7 @@ function generateSustainableRoute(availableMobilityOptions, origin, destination,
 }
 
 function generateMobilityChainRoute(availableMobilityOptions, origin, destination, depatureTime) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
 
     const mode = "transit";
     axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + origin.lat + "," + origin.lng + '&destination=' + destination.lat + "," + destination.lng + '&mode=' + mode + '&departure_time=' + depatureTime + '&key=' + process.env.DIRECTIONS_KEY)
