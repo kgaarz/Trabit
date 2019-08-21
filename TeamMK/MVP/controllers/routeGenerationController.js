@@ -27,7 +27,7 @@ module.exports = {
           dataController.getGoogleDirectionsAPIData(origin, cabData[i].geoLocation, departureTime, "walking");
           dataController.getGoogleDirectionsAPIData(cabData[i].geoLocation, destination, departureTime, "bicycle"); 
         });
-        
+
         console.log(cabData);
         });
     }

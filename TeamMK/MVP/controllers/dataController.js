@@ -112,6 +112,34 @@ module.exports = {
           reject(error);
         });
     });
+  },
+
+
+  getGoogleDirectionsAPIData: function(origin, destination, departureTime, mode) {
+    return new Promise((resolve, reject) => {
+      axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + origin.lat + "," + origin.lng + '&destination=' + destination.lat + "," + destination.lng + '&mode=' + mode + '&departure_time=' + departureTime + '&key=' + process.env.DIRECTIONS_KEY)
+        .then(response => {
+          jsonData = response.data.routes[0].legs[0];
+          var comprimisedSteps = comprimiseSteps(jsonData.steps);
+  
+          const newRoute = {
+            distance: jsonData.distance.value,
+            duration: jsonData.duration.value,
+            startLocation: {
+              lat: jsonData.start_location.lat,
+              lng: jsonData.start_location.lng
+            },
+            endLocation: {
+              lat: jsonData.end_location.lat,
+              lng: jsonData.end_location.lng
+            },
+            steps: comprimisedSteps
+          }
+          resolve(newRoute);
+        }).catch(error => {
+          reject(error);
+        });
+    });
   }
 
 }
