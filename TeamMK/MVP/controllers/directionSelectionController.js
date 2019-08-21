@@ -89,7 +89,7 @@ module.exports = {
 
 function generateFastestRoute(availableMobilityOptions, nearMobilities, origin, destination, departureTime) {
   new Promise((resolve, reject) => {
-    routeGenerationController.generateRoute(availableMobilityOptions);
+    routeGenerationController.generateRoute(availableMobilityOptions, origin, destination, departureTime);
   });
 }
 
