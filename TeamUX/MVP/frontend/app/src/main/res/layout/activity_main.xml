@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".SearchActivity">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:background="@mipmap/hintergrund"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_marginBottom="20dp">
+
+
+        <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@mipmap/arrow_back_icon"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:id="@+id/arrowBack"
+
+        />
+
+        <TextView
+                android:text ="Standort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/headerCaption"
+                android:textSize="30sp"
+                android:textColor="#F9F9F9"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="100dp"
+
+        />
+
+
+    </LinearLayout>
+
+
+
+    <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:theme="@style/AppTheme.Searchbar"
+            android:background="@drawable/border_bottom"
+
+    />
+
+
+
+<ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+
+
+    />
+
+
+</LinearLayout>
