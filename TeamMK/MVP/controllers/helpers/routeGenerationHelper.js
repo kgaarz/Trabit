@@ -1,6 +1,7 @@
 const checkMobilityOptionsHelper = require('./checkMobilityOptionsHelper');
 const onlyBikeSharingHelper = require('./onlyBikeSharingHelper');
 const onlySharingHelper = require('./onlySharingHelper');
+const onlyCarHelper = require('./onlyCarHelper');
 
 module.exports = function(availableMobilityOptions, origin, destination, departureTime) {
     return new Promise(function(resolve, reject) {
@@ -18,6 +19,14 @@ module.exports = function(availableMobilityOptions, origin, destination, departu
             reject(error);
           });
         }
+        if (checkMobilityOptionsHelper.onlyCar(availableMobilityOptions)) {
+          onlyCarHelper(origin, destination, departureTime).then(function(result) {
+            resolve(result);
+          }, (error) => {
+            reject(error);
+          });
+        }
+
         if(checkMobilityOptionsHelper.noOptions(availableMobilityOptions)){
           reject("error: The route could not be generated because the specified MobilityOptions do not match the cases.");
         }
