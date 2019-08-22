@@ -3,8 +3,7 @@ const DirectionsSelections = require('../models/DirectionsSelections');
 const User = require('../models/User');
 const mobilitiesController = require('./mobilitiesController');
 const Mobilities = require('../models/Mobilities');
-const dataController = require('./dataController');
-const routeGenerationController = require('./routeGenerationController');
+const routeGenerationHelper = require('./helpers/routeGenerationHelper');
 
 module.exports = {
   postNewDirectionSelection: function(userID, mobilitiesID, req, res) {
@@ -89,7 +88,7 @@ module.exports = {
 
 function generateFastestRoute(availableMobilityOptions, nearMobilities, origin, destination, departureTime) {
   return new Promise((resolve, reject) => {
-    routeGenerationController.generateRoute(availableMobilityOptions, origin, destination, departureTime).then((result) => {
+    routeGenerationHelper.generateRoute(availableMobilityOptions, origin, destination, departureTime).then((result) => {
       resolve(result);
     });
   });

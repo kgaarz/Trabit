@@ -1,11 +1,11 @@
-const dataController = require('../dataController');
+const apiRequestHelper = require('./apiRequestHelper');
 
 module.exports = function(origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
     var cabData = [];
-    var smallRadius = dataController.getCabData(origin.lat, origin.lng, 200);
-    var mediumRadius = dataController.getCabData(origin.lat, origin.lng, 400);
-    var bigRadius = dataController.getCabData(origin.lat, origin.lng, 1000);
+    var smallRadius = apiRequestHelper.getCabData(origin.lat, origin.lng, 200);
+    var mediumRadius = apiRequestHelper.getCabData(origin.lat, origin.lng, 400);
+    var bigRadius = apiRequestHelper.getCabData(origin.lat, origin.lng, 1000);
 
     Promise.all([smallRadius, mediumRadius, bigRadius]).then((values) => {
         if (values[0].length == 0) {
@@ -60,8 +60,8 @@ function checkNearBikeRoutes(cabData, origin, destination, departureTime) {
 
 function createBikeRoute(cabData, origin, destination, departureTime, i) {
   return new Promise(function(resolve, reject) {
-    var walkingWay = dataController.getGoogleDirectionsAPIData(origin, cabData[i].geoLocation, departureTime, "walking");
-    var bikeWay = dataController.getGoogleDirectionsAPIData(cabData[i].geoLocation, destination, departureTime, "bicycle");
+    var walkingWay = apiRequestHelper.getGoogleDirectionsAPIData(origin, cabData[i].geoLocation, departureTime, "walking");
+    var bikeWay = apiRequestHelper.getGoogleDirectionsAPIData(cabData[i].geoLocation, destination, departureTime, "bicycle");
 
     Promise.all([walkingWay, bikeWay]).then((values) => {
       totalRoute = {

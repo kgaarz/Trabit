@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const Mobilities = require('../models/Mobilities');
-const dataController = require('./dataController');
+const apiRequestHelper = require('./helpers/apiRequestHelper');
 
 module.exports = {
   postNewMobilities: function(schema, userID, req, res) {
@@ -18,23 +18,23 @@ module.exports = {
 
             if (availableMobility.trainTicket) {
               if (availableMobility.driverLicence) {
-                flinksterData = dataController.getFlinksterData(req.body.lat, req.body.lng, req.body.radius);
-                cabData = dataController.getCabData(req.body.lat, req.body.lng, req.body.radius);
-                hereData = dataController.getHereData(req.body.lat, req.body.lng, req.body.radius);
+                flinksterData = apiRequestHelper.getFlinksterData(req.body.lat, req.body.lng, req.body.radius);
+                cabData = apiRequestHelper.getCabData(req.body.lat, req.body.lng, req.body.radius);
+                hereData = apiRequestHelper.getHereData(req.body.lat, req.body.lng, req.body.radius);
               } else {
-                cabData = dataController.getCabData(req.body.lat, req.body.lng, req.body.radius);
-                hereData = dataController.getHereData(req.body.lat, req.body.lng, req.body.radius);
+                cabData = apiRequestHelper.getCabData(req.body.lat, req.body.lng, req.body.radius);
+                hereData = apiRequestHelper.getHereData(req.body.lat, req.body.lng, req.body.radius);
               }
             } else {
-              flinksterData = dataController.getFlinksterData(req.body.lat, req.body.lng, req.body.radius);
-              cabData = dataController.getCabData(req.body.lat, req.body.lng, req.body.radius);
+              flinksterData = apiRequestHelper.getFlinksterData(req.body.lat, req.body.lng, req.body.radius);
+              cabData = apiRequestHelper.getCabData(req.body.lat, req.body.lng, req.body.radius);
             }
             if (!availableMobility.driverLicence) {
-              cabData = dataController.getCabData(req.body.lat, req.body.lng, req.body.radius);
-              hereData = dataController.getHereData(req.body.lat, req.body.lng, req.body.radius);
+              cabData = apiRequestHelper.getCabData(req.body.lat, req.body.lng, req.body.radius);
+              hereData = apiRequestHelper.getHereData(req.body.lat, req.body.lng, req.body.radius);
             }
           } else if (availableMobility.trainTicket) {
-            hereData = dataController.getHereData(req.body.lat, req.body.lng, req.body.radius);
+            hereData = apiRequestHelper.getHereData(req.body.lat, req.body.lng, req.body.radius);
           }
 
 
