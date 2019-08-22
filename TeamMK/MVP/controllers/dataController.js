@@ -121,7 +121,7 @@ module.exports = {
         .then(response => {
           jsonData = response.data.routes[0].legs[0];
           var comprimisedSteps = comprimiseSteps(jsonData.steps);
-  
+
           const newRoute = {
             distance: jsonData.distance.value,
             duration: jsonData.duration.value,
@@ -142,4 +142,16 @@ module.exports = {
     });
   }
 
+}
+
+function comprimiseSteps(data) {
+  var steps = [];
+  for (var i = 0; i < data.length; i++) {
+    var object = {
+      start_location: data[i].start_location,
+      end_location: data[i].end_location
+    };
+    steps[i] = object;
+  }
+  return steps;
 }
