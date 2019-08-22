@@ -141,13 +141,13 @@ module.exports = {
         });
     });
   }
-
 }
 
 function comprimiseSteps(data) {
   var steps = [];
   for (var i = 0; i < data.length; i++) {
     var object = {
+      mode: data[i].travel_mode,
       start_location: data[i].start_location,
       end_location: data[i].end_location
     };

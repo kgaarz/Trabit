@@ -61,7 +61,7 @@ function checkNearBikeRoutes(cabData, origin, destination, departureTime) {
 function createBikeRoute(cabData, origin, destination, departureTime, i) {
   return new Promise(function(resolve, reject) {
     var walkingWay = apiRequestHelper.getGoogleDirectionsAPIData(origin, cabData[i].geoLocation, departureTime, "walking");
-    var bikeWay = apiRequestHelper.getGoogleDirectionsAPIData(cabData[i].geoLocation, destination, departureTime, "bicycle");
+    var bikeWay = apiRequestHelper.getGoogleDirectionsAPIData(cabData[i].geoLocation, destination, departureTime, "bicycling");
 
     Promise.all([walkingWay, bikeWay]).then((values) => {
       totalRoute = {

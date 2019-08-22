@@ -88,8 +88,10 @@ module.exports = {
 
 function generateFastestRoute(availableMobilityOptions, nearMobilities, origin, destination, departureTime) {
   return new Promise((resolve, reject) => {
-    routeGenerationHelper.generateRoute(availableMobilityOptions, origin, destination, departureTime).then((result) => {
+    routeGenerationHelper(availableMobilityOptions, origin, destination, departureTime).then((result) => {
       resolve(result);
+    },(error) => {
+      reject(error);
     });
   });
 }
