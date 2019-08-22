@@ -18,6 +18,9 @@ module.exports = function(availableMobilityOptions, origin, destination, departu
             reject(error);
           });
         }
-        reject("error: The route could not be generated because the specified MobilityOptions do not match the cases.");
-      }
+        if(checkMobilityOptionsHelper.noOptions(availableMobilityOptions)){
+          reject("error: The route could not be generated because the specified MobilityOptions do not match the cases.");
+        }
+      });
     }
+  

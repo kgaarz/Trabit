@@ -83,5 +83,10 @@ module.exports = {
     return availableMobilityOptions.car && availableMobilityOptions.driverLicence &&
     availableMobilityOptions.bike && availableMobilityOptions.trainTicket &&
     availableMobilityOptions.sharing;
+  },
+  noOptions: function(availableMobilityOptions){
+    return !availableMobilityOptions.car && !availableMobilityOptions.driverLicence &&
+    !availableMobilityOptions.bike && !availableMobilityOptions.trainTicket &&
+    !availableMobilityOptions.sharing;
   }
 }

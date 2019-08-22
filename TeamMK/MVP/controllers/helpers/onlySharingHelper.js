@@ -16,7 +16,7 @@ module.exports = function(origin, destination, departureTime) {
         if (values[0].length == 0) {
           if (values[1].length == 0) {
             if (values[2].length == 0) {
-              console.log("Keine Fahrräder gefunden");
+              reject("error: No Bikesharing found");
             } else {
               cabData = values[2];
             }
@@ -29,7 +29,7 @@ module.exports = function(origin, destination, departureTime) {
         if (values[3].length == 0) {
           if (values[4].length == 0) {
             if (values[5].length == 0) {
-              console.log("Keine Autos gefunden");
+              reject("error: No Carsharing found");
             } else {
               flinksterData = values[5];
             }
@@ -41,10 +41,19 @@ module.exports = function(origin, destination, departureTime) {
         }
 
         return checkNearSharingRoutes(cabData, flinksterData, origin, destination, departureTime);
+      },
+      (error)=>{
+        reject(error);
       })
       .then((result) => {
         resolve(result);
+      },
+      (error)=>{
+        reject(error);
       });
+  },
+  (error)=>{
+    reject(error);
   });
 }
 
@@ -73,7 +82,13 @@ function checkNearSharingRoutes(cabData, flinksterData, origin, destination, dep
         }
       }
       resolve(shortestRoute);
+    },
+    (error)=>{
+      reject(error);
     })
+  },
+  (error)=>{
+    reject(error);
   });
 }
 
@@ -82,7 +97,6 @@ function createWalkingBikeRoute(cabData, origin, destination, departureTime, i) 
     var walkingWay = apiRequestHelper.getGoogleDirectionsAPIData(origin, cabData[i].geoLocation, departureTime, "walking");
     var bikeWay = apiRequestHelper.getGoogleDirectionsAPIData(cabData[i].geoLocation, destination, departureTime, "bicycling");
 
-    // TODO: Reject Sachen noch einfügen
     Promise.all([walkingWay, bikeWay]).then((values) => {
       totalRoute = {
         distance: values[0].distance + values[1].distance,
@@ -107,7 +121,13 @@ function createWalkingBikeRoute(cabData, origin, destination, departureTime, i) 
         route: totalRoute
       }
       resolve(selectionOption);
+    },
+    (error)=>{
+      reject(error);
     });
+  },
+  (error)=>{
+    reject(error);
   });
 }
 
@@ -117,7 +137,6 @@ function createWalkingBikeCarRoute(cabData, flinksterData, origin, destination, 
     var bikeWay = apiRequestHelper.getGoogleDirectionsAPIData(cabData[i].geoLocation, flinksterData[j].geoLocation, departureTime, "bicycling");
     var carWay = apiRequestHelper.getGoogleDirectionsAPIData(flinksterData[j].geoLocation, destination, departureTime, "driving");
 
-    // TODO: Reject Sachen noch einfügen
     Promise.all([walkingWay, bikeWay, carWay]).then((values) => {
       totalRoute = {
         distance: values[0].distance + values[1].distance + values[2].distance,
@@ -142,7 +161,13 @@ function createWalkingBikeCarRoute(cabData, flinksterData, origin, destination, 
         route: totalRoute
       }
       resolve(selectionOption);
+    },
+    (error)=>{
+      reject(error);
     });
+  },
+  (error)=>{
+    reject(error);
   });
 }
 
@@ -151,7 +176,6 @@ function createWalkingCarRoute(flinksterData, origin, destination, departureTime
     var walkingWay = apiRequestHelper.getGoogleDirectionsAPIData(origin, flinksterData[i].geoLocation, departureTime, "walking");
     var carWay = apiRequestHelper.getGoogleDirectionsAPIData(flinksterData[i].geoLocation, destination, departureTime, "driving");
 
-    // TODO: Reject Sachen noch einfügen
     Promise.all([walkingWay, carWay]).then((values) => {
       totalRoute = {
         distance: values[0].distance + values[1].distance,
@@ -176,6 +200,12 @@ function createWalkingCarRoute(flinksterData, origin, destination, departureTime
         route: totalRoute
       }
       resolve(selectionOption);
+    },
+    (error)=>{
+      reject(error);
     });
+  },
+  (error)=>{
+    reject(error);
   });
 }

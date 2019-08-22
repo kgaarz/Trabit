@@ -11,7 +11,7 @@ module.exports = function(origin, destination, departureTime) {
         if (values[0].length == 0) {
           if (values[1].length == 0) {
             if (values[2].length == 0) {
-              console.log("Keine Fahrräder gefunden");
+              rreject("error: No Bikesharing found");
             } else {
               cabData = values[2];
             }
@@ -22,9 +22,14 @@ module.exports = function(origin, destination, departureTime) {
           cabData = values[0];
         }
         return checkNearBikeRoutes(cabData, origin, destination, departureTime);
+      }, (error)=>{
+        reject(error);
       })
       .then((result) => {
         resolve(result);
+      },
+      (error)=>{
+        reject(error);
       });
   });
 }
@@ -54,7 +59,13 @@ function checkNearBikeRoutes(cabData, origin, destination, departureTime) {
         route: shortestRoute
       }
       resolve(selectionOption);
+    },
+    (error)=>{
+      reject(error);
     })
+  },
+  (error)=>{
+    reject(error);
   });
 }
 
@@ -78,6 +89,12 @@ function createBikeRoute(cabData, origin, destination, departureTime, i) {
         steps: values[0].steps.concat(values[1].steps)
       }
       resolve(totalRoute);
+    },
+    (error)=>{
+      reject(error);
     });
+  },
+  (error)=>{
+    reject(error);
   });
 }
