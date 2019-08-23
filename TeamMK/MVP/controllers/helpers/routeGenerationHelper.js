@@ -41,7 +41,7 @@ module.exports = function(availableMobilityOptions, origin, destination, departu
       });
     }
     if (checkMobilityOptionsHelper.onlyBike(availableMobilityOptions)) {
-      onlyBikeHelper(origin, destination, departureTime).then(function(result) {
+      onlyBikeHelper(origin, destination, departureTime).then((result) => {
         resolve(result);
       }, (error) => {
         reject(error);

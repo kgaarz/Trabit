@@ -1,7 +1,7 @@
-const apiRequestHelper = require("../apiRequestHelper");
-const onlySharingHelper = require("./onlySharingHelper");
-const onlyBikeHelper = require("./onlyBikeHelper");
-const getSortedRoutesHelper = require("../getSortedRoutesHelper");
+const apiRequestHelper = require('../apiRequestHelper');
+const onlySharingHelper = require('./onlySharingHelper');
+const onlyBikeHelper = require('./onlyBikeHelper');
+const getSortedRoutesHelper = require('../getSortedRoutesHelper');
 
 
 module.exports = function(origin, destination, departureTime) {
@@ -47,7 +47,7 @@ function checkNearSharingAndBikeRoutes(flinksterData, origin, destination, depar
       totalRoutes.push(onlySharingHelper(origin, destination, departureTime));
       totalRoutes.push(onlyBikeHelper(origin, destination, departureTime));
       for (i = 0; i < flinksterData.length; i++) {
-        totalRoutes.push(ownBikeAndCar(flinksterData, origin, destination, departureTime, i));
+        totalRoutes.push(ownBikeAndCarSharing(flinksterData, origin, destination, departureTime, i));
       };
 
       Promise.all(totalRoutes).then((values) => {
@@ -67,7 +67,7 @@ function checkNearSharingAndBikeRoutes(flinksterData, origin, destination, depar
     });
 }
 
-function ownBikeAndCar(flinksterData, origin, destination, departureTime, i) {
+function ownBikeAndCarSharing(flinksterData, origin, destination, departureTime, i) {
   return new Promise(function(resolve, reject) {
       var bikeWay = apiRequestHelper.getGoogleDirectionsAPIData(origin, flinksterData[i].geoLocation, departureTime, "bicycling");
       var carWay = apiRequestHelper.getGoogleDirectionsAPIData(flinksterData[i].geoLocation, destination, departureTime, "driving");
