@@ -1,4 +1,5 @@
-var apiRequestHelper = require("./apiRequestHelper");
+var apiRequestHelper = require("../apiRequestHelper");
+const getSortedRoutesHelper = require('../getSortedRoutesHelper');
 
 module.exports = function (origin, destination, departureTime) {
   return new Promise(function (resolve, reject) {
@@ -41,24 +42,7 @@ function checkNearTrainRoutes(hereData, origin, destination, departureTime) {
       totalRoutes.push(createTrainRoute(hereData, origin, destination, departureTime, i));
     };
     Promise.all(totalRoutes).then((values) => {
-      var shortestRoute, tmp;
-      var lowest = Number.POSITIVE_INFINITY;
-      for (var i = values.length - 1; i >= 0; i--) {
-        tmp = values[i].duration;
-        if (tmp < lowest) {
-          lowest = tmp;
-          shortestRoute = values[i];
-        }
-      }
-      const selectionOption = {
-        modes: ["walking", "transit"],
-        duration: shortestRoute.duration,
-        distance: shortestRoute.distance,
-        switches: 1,
-        sustainability: 0,
-        route: shortestRoute
-      }
-      resolve(selectionOption);
+      resolve(getSortedRoutesHelper(values));
     },
       (error) => {
         reject(error);
@@ -88,7 +72,16 @@ function createTrainRoute(hereData, origin, destination, departureTime, i) {
         },
         steps: values[0].steps.concat(values[1].steps)
       }
-      resolve(totalRoute);
+
+      const selectionOption = {
+        modes: ["walking", "transit"],
+        duration: totalRoute.duration,
+        distance: totalRoute.distance,
+        switches: 1,
+        sustainability: 0,
+        route: totalRoute
+      }
+      resolve(selectionOption);
     },
       (error) => {
         reject(error);
@@ -98,10 +91,3 @@ function createTrainRoute(hereData, origin, destination, departureTime, i) {
       reject(error);
     });
 }
-
-
-
-
-
-
-

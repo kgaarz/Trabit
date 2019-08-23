@@ -1,21 +1,25 @@
-var apiRequestHelper = require("./apiRequestHelper");
+var apiRequestHelper = require("../apiRequestHelper");
 
-module.exports = function (origin, destination, departureTime) {
-    return new Promise(function (resolve, reject) {
-        apiRequestHelper.getGoogleDirectionsAPIData(origin, destination, departureTime, "bicycling")
-            .then((data) => {
-                const selectionOption = {
-                    modes: ["bicycling"],
-                    duration: data.duration,
-                    distance: data.distance,
-                    switches: 0,
-                    sustainability: 0,
-                    route: data
-                }
-                resolve(selectionOption);
-            },
-                (error) => {
-                    reject(error);
-                });
-    });
+module.exports = function(origin, destination, departureTime) {
+  return new Promise(function(resolve, reject) {
+    apiRequestHelper.getGoogleDirectionsAPIDataWithAlternatives(origin, destination, departureTime, "bicycling")
+      .then((data) => {
+          var routes = [];
+          for (i = 0; i < data.length; i++) {
+            const selectionOption = {
+              modes: ["bicycling"],
+              duration: data[i].duration,
+              distance: data[i].distance,
+              switches: 0,
+              sustainability: 0,
+              route: data[i]
+            }
+            routes.push(selectionOption);
+          }
+          resolve(routes);
+        },
+        (error) => {
+          reject(error);
+        });
+  });
 }

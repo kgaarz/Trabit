@@ -1,4 +1,4 @@
-var apiRequestHelper = require("./apiRequestHelper");
+var apiRequestHelper = require("../apiRequestHelper");
 
 module.exports = function(origin, destination, departureTime) {
     return new Promise(function(resolve, reject) {
@@ -24,7 +24,7 @@ module.exports = function(origin, destination, departureTime) {
                 route: shortestRoute
               }
               resolve(selectionOption);
-      
+
           },
           (error)=>{
             reject(error);

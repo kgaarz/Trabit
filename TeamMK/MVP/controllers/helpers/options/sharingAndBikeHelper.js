@@ -1,4 +1,4 @@
-var apiRequestHelper = require("./apiRequestHelper");
+var apiRequestHelper = require("../apiRequestHelper");
 var onlySharing = require("./onlySharingHelper");
 
 module.exports = function (origin, destination, departureTime) {
@@ -10,12 +10,3 @@ module.exports = function (origin, destination, departureTime) {
     });
 
 }
-
-
-
-
-
-
-
-
-
