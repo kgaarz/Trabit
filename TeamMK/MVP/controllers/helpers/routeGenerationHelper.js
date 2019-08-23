@@ -4,7 +4,8 @@ const onlySharingHelper = require('./onlySharingHelper');
 const onlyCarHelper = require('./onlyCarHelper');
 const onlyBikeHelper = require('./onlyBikeHelper');
 const onlyTrainTicketHelper = require('./onlyTrainTicketHelper');
-const carAndBiketHelper = require('./carAndBikeHelper');
+const carAndBikeHelper = require('./carAndBikeHelper');
+const sharingAndBikeHelper = require('./sharingAndBikeHelper');
 
 module.exports = function(availableMobilityOptions, origin, destination, departureTime) {
     return new Promise(function(resolve, reject) {
@@ -45,6 +46,13 @@ module.exports = function(availableMobilityOptions, origin, destination, departu
         }
         if (checkMobilityOptionsHelper.carAndBike(availableMobilityOptions)) {
           carAndBikeHelper(origin, destination, departureTime).then(function(result) {
+            resolve(result);
+          }, (error) => {
+            reject(error);
+          });
+        }
+        if (checkMobilityOptionsHelper.sharingAndBike(availableMobilityOptions)) {
+          sharingAndBikeHelper(origin, destination, departureTime).then(function(result) {
             resolve(result);
           }, (error) => {
             reject(error);

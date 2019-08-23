@@ -1,3 +1,5 @@
+var apiRequestHelper = require("./apiRequestHelper");
+
 module.exports = function(origin, destination, departureTime) {
     return new Promise(function(resolve, reject) {
         var carWay = apiRequestHelper.getGoogleDirectionsAPIData(origin, destination, departureTime, "driving");
