@@ -147,11 +147,10 @@ module.exports = {
       axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + origin.lat + "," + origin.lng + '&destination=' + destination.lat + "," + destination.lng + '&mode=' + mode + '&departure_time=' + departureTime + '&alternatives=true' + '&key=' + process.env.DIRECTIONS_KEY)
         .then(response => {
           var routes = [];
-          for (i = 0; i < 2; i++) {
-            if(response.data.routes.length==0){
-              resolve(routes);
-            }
-
+          if (response.data.routes.length == 0) {
+            resolve(routes);
+          }
+          for (i = 0; i < response.data.routes.length; i++) {
             jsonData = response.data.routes[i].legs[0];
             var comprimisedSteps = comprimiseSteps(jsonData.steps);
             const newRoute = {
@@ -182,6 +181,8 @@ function comprimiseSteps(data) {
   for (var i = 0; i < data.length; i++) {
     var object = {
       mode: data[i].travel_mode,
+      distance: data[i].distance.value,
+      duration: data[i].duration.value,
       start_location: data[i].start_location,
       end_location: data[i].end_location
     };
