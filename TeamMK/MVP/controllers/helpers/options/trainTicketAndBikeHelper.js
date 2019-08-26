@@ -1,8 +1,9 @@
 const apiRequestHelper = require('../apiRequestHelper');
 const onlyBikeHelper = require('./onlyBikeHelper');
 const onlyTrainTicketHelper = require('./onlyTrainTicketHelper');
+const checkNearRoutesHelper = require('../checkNearRoutesHelper');
 
-module.export = function (origin, destination, departureTime) {
+module.exports = function (origin, destination, departureTime) {
     return new Promise(function (resolve, reject) {
         var hereData = [];
         var smallRadiusCar = apiRequestHelper.getHereData(origin.lat, origin.lng, 500);
@@ -23,7 +24,7 @@ module.export = function (origin, destination, departureTime) {
             } else {
                 hereData = values[0];
             }
-            return checkNearTrainTicketAndBikeRoutes(hereData, onlyBikeHelper, onlyTrainTicketHelper,createBikeAndTrainTicketRoute(hereData, origin, destination, departureTime, i), origin, destination, departureTime);
+            return checkNearRoutesHelper.checkNearRoutesForTwo(hereData, onlyBikeHelper, onlyTrainTicketHelper, origin, destination, departureTime, "bicycling", "transit");
         },
             (error) => {
                 reject(error);
@@ -38,43 +39,3 @@ module.export = function (origin, destination, departureTime) {
 
     });
 }
-
-function createBikeAndTrainTicketRoute(hereData, origin, destination, departureTime, i) {
-    return new Promise(function (resolve, reject) {
-      var bikeWay = apiRequestHelper.getGoogleDirectionsAPIData(origin, hereData[i].geoLocation, departureTime, "bicycling");
-      var trainTicketWay = apiRequestHelper.getGoogleDirectionsAPIData(hereData[i].geoLocation, destination, departureTime, "transit");
-  
-      Promise.all([bikeWay, trainTicketWay]).then((values) => {
-        totalRoute = {
-          distance: values[0].distance + values[1].distance,
-          duration: values[0].duration + values[1].duration,
-          startLocation: {
-            lat: origin.lat,
-            lng: origin.lng
-          },
-          endLocation: {
-            lat: destination.lat,
-            lng: destination.lng
-          },
-          steps: values[0].steps.concat(values[1].steps)
-        }
-  
-        const selectionOption = {
-          modes: ["bicycling", "transit"],
-          duration: totalRoute.duration,
-          distance: totalRoute.distance,
-          switches: 1,
-          sustainability: 0,
-          route: totalRoute
-        }
-        resolve(selectionOption);
-      },
-        (error) => {
-          reject(error);
-        });
-    },
-      (error) => {
-        reject(error);
-      });
-  }
-

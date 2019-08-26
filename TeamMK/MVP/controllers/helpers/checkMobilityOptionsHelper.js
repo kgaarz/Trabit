@@ -41,7 +41,7 @@ module.exports = {
   },
   trainTicketAndBike: function(availableMobilityOptions){
     return !availableMobilityOptions.car && !availableMobilityOptions.driverLicence &&
-    availableMobilityOptions.bike && !availableMobilityOptions.trainTicket &&
+    availableMobilityOptions.bike && availableMobilityOptions.trainTicket &&
     !availableMobilityOptions.sharing;
   },
   sharingAndCar: function(availableMobilityOptions){
