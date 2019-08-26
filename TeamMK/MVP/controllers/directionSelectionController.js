@@ -26,15 +26,15 @@ module.exports = {
                 !req.body.destination && res.status(400).send({
                   message: 'destination is required!'
                 });
-                !req.body.depatureTime && res.status(400).send({
-                  message: 'depatureTime is required!'
+                !req.body.departureTime && res.status(400).send({
+                  message: 'departureTime is required!'
                 });
 
-                var fastestRoute = generateFastestRoute(doc.availableMobilityOptions, data, req.body.origin, req.body.destination, req.body.depatureTime);
-                var sustainableRoute = generateSustainableRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
-                var mobilityChainRoute = generateMobilityChainRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.depatureTime);
+                var fastestRoute = generateFastestRoute(doc.availableMobilityOptions, data, req.body.origin, req.body.destination, req.body.departureTime);
+                var sustainableRoute = generateSustainableRoute(doc.availableMobilityOptions, req.body.origin, req.body.destination, req.body.departureTime);
 
-                Promise.all([fastestRoute, sustainableRoute, mobilityChainRoute]).then(values => {
+
+                Promise.all([fastestRoute, sustainableRoute]).then(values => {
                   const directionsSelections = new DirectionsSelections({
                     selections: values
                   });
@@ -89,121 +89,14 @@ function generateFastestRoute(availableMobilityOptions, nearMobilities, origin, 
   return new Promise((resolve, reject) => {
     routeGenerationHelper(availableMobilityOptions, origin, destination, departureTime).then((result) => {
       resolve(result);
-    },(error) => {
+    }, (error) => {
       reject(error);
     });
   });
 }
 
-function generateSustainableRoute(availableMobilityOptions, origin, destination, depatureTime) {
+function generateSustainableRoute(availableMobilityOptions, origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
-
-    const mode = "bicycling";
-    axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + origin.lat + "," + origin.lng + '&destination=' + destination.lat + "," + destination.lng + '&mode=' + mode + '&departure_time=' + depatureTime + '&key=' + process.env.DIRECTIONS_KEY)
-      .then(response => {
-        jsonData = response.data.routes[0].legs[0];
-        var comprimisedSteps = comprimiseSteps(jsonData.steps);
-
-        const newRoute = {
-          distance: jsonData.distance.value,
-          duration: jsonData.duration.value,
-          startLocation: {
-            lat: jsonData.start_location.lat,
-            lng: jsonData.start_location.lng
-          },
-          endLocation: {
-            lat: jsonData.end_location.lat,
-            lng: jsonData.end_location.lng
-          },
-          steps: comprimisedSteps
-        };
-        const selectionOption = {
-          modes: [mode],
-          duration: jsonData.duration.value,
-          distance: jsonData.distance.value,
-          switches: 0,
-          sustainability: 0,
-          route: newRoute
-        }
-        resolve(selectionOption);
-      }).catch(error => {
-        reject(error);
-      });
-  });
-}
-
-function generateMobilityChainRoute(availableMobilityOptions, origin, destination, depatureTime) {
-  return new Promise(function(resolve, reject) {
-
-    const mode = "transit";
-    axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + origin.lat + "," + origin.lng + '&destination=' + destination.lat + "," + destination.lng + '&mode=' + mode + '&departure_time=' + depatureTime + '&key=' + process.env.DIRECTIONS_KEY)
-      .then(response => {
-        jsonData = response.data.routes[0].legs[0];
-        var comprimisedSteps = comprimiseSteps(jsonData.steps);
-
-        const newRoute = {
-          distance: jsonData.distance.value,
-          duration: jsonData.duration.value,
-          startLocation: {
-            lat: jsonData.start_location.lat,
-            lng: jsonData.start_location.lng
-          },
-          endLocation: {
-            lat: jsonData.end_location.lat,
-            lng: jsonData.end_location.lng
-          },
-          steps: comprimisedSteps
-        };
-        const selectionOption = {
-          modes: [mode],
-          duration: jsonData.duration.value,
-          distance: jsonData.distance.value,
-          switches: newRoute.steps.length,
-          sustainability: 100,
-          route: newRoute
-        }
-        resolve(selectionOption);
-      }).catch(error => {
-        reject(error);
-      });
-  });
-}
-
-function comprimiseSteps(data) {
-  var steps = [];
-  for (var i = 0; i < data.length; i++) {
-    var object = {
-      start_location: data[i].start_location,
-      end_location: data[i].end_location
-    };
-    steps[i] = object;
-  }
-  return steps;
-}
-
-function getGoogleDirectionsAPIData(origin, destination, departureTime, mode) {
-  return new Promise((resolve, reject) => {
-    axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + origin.lat + "," + origin.lng + '&destination=' + destination.lat + "," + destination.lng + '&mode=' + mode + '&departure_time=' + departureTime + '&key=' + process.env.DIRECTIONS_KEY)
-      .then(response => {
-        jsonData = response.data.routes[0].legs[0];
-        var comprimisedSteps = comprimiseSteps(jsonData.steps);
-
-        const newRoute = {
-          distance: jsonData.distance.value,
-          duration: jsonData.duration.value,
-          startLocation: {
-            lat: jsonData.start_location.lat,
-            lng: jsonData.start_location.lng
-          },
-          endLocation: {
-            lat: jsonData.end_location.lat,
-            lng: jsonData.end_location.lng
-          },
-          steps: comprimisedSteps
-        }
-        resolve(newRoute);
-      }).catch(error => {
-        reject(error);
-      });
+    resolve()
   });
 }
