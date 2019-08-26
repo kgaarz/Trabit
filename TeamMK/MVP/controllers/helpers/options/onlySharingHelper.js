@@ -1,5 +1,6 @@
 const apiRequestHelper = require('../apiRequestHelper');
 const getSortedRoutesHelper = require('../getSortedRoutesHelper');
+const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
 
 module.exports = function (origin, destination, departureTime) {
   return new Promise(function (resolve, reject) {
@@ -109,7 +110,7 @@ function createWalkingBikeRoute(cabData, origin, destination, departureTime, i) 
         duration: totalRoute.duration,
         distance: totalRoute.distance,
         switches: 1,
-        sustainability: 0,
+        sustainability: generateSustainabilityScoreHelper(totalRoute.steps),
         route: totalRoute
       }
       resolve(selectionOption);
@@ -149,7 +150,7 @@ function createWalkingBikeCarRoute(cabData, flinksterData, origin, destination, 
         duration: totalRoute.duration,
         distance: totalRoute.distance,
         switches: 2,
-        sustainability: 0,
+        sustainability: generateSustainabilityScoreHelper(totalRoute.steps),
         route: totalRoute
       }
       resolve(selectionOption);
@@ -188,7 +189,7 @@ function createWalkingCarRoute(flinksterData, origin, destination, departureTime
         duration: totalRoute.duration,
         distance: totalRoute.distance,
         switches: 1,
-        sustainability: 0,
+        sustainability: generateSustainabilityScoreHelper(totalRoute.steps),
         route: totalRoute
       }
       resolve(selectionOption);

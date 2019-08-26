@@ -1,4 +1,5 @@
 var apiRequestHelper = require("../apiRequestHelper");
+const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
 
 module.exports = function(origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
@@ -6,14 +7,14 @@ module.exports = function(origin, destination, departureTime) {
       .then((data) => {
           var routes = [];
           if(data.length == 0) resolve(routes);
-          
+
           for (i = 0; i < data.length; i++) {
             const selectionOption = {
               modes: ["driving"],
               duration: data[i].duration,
               distance: data[i].distance,
               switches: 0,
-              sustainability: 0,
+              sustainability: generateSustainabilityScoreHelper(data[i].steps),
               route: data[i]
             }
             routes.push(selectionOption);
