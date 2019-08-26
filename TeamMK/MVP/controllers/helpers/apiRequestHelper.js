@@ -148,6 +148,10 @@ module.exports = {
         .then(response => {
           var routes = [];
           for (i = 0; i < 2; i++) {
+            if(response.data.routes.length==0){
+              resolve(routes);
+            }
+
             jsonData = response.data.routes[i].legs[0];
             var comprimisedSteps = comprimiseSteps(jsonData.steps);
             const newRoute = {

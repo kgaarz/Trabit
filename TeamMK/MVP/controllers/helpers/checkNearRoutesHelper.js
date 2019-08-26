@@ -17,18 +17,20 @@ module.exports={
 
             Promise.all(totalRoutes).then((values) => {
               var result = [];
-              result.push(values[0][0]);
-              result.push(values[0][1]);
-              result.push(values[1][0]);
-              result.push(values[1][1]);
+              for(i=0; i<values.length; i++){
+                for(j=0; j<values[i].length; j++){
+                  result.push(values[i][j]);
+                }
+              }
+              
               for (i = 2; i < values.length; i++) {
                 result.push(values[i]);
               }
               resolve(getSortedRoutesHelper(result));
-            })
-          },
-          (error) => {
-            reject(error);
+            },
+            (error) => {
+              reject(error);
+            });
           });
       }
 }

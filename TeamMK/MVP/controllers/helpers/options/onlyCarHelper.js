@@ -5,6 +5,8 @@ module.exports = function(origin, destination, departureTime) {
     apiRequestHelper.getGoogleDirectionsAPIDataWithAlternatives(origin, destination, departureTime, "driving")
       .then((data) => {
           var routes = [];
+          if(data.length == 0) resolve(routes);
+          
           for (i = 0; i < data.length; i++) {
             const selectionOption = {
               modes: ["driving"],

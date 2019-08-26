@@ -35,6 +35,7 @@ module.exports = function(availableMobilityOptions, origin, destination, departu
     }
     if (checkMobilityOptionsHelper.onlyCar(availableMobilityOptions)) {
       onlyCarHelper(origin, destination, departureTime).then(function(result) {
+        if(result.length == 0) reject("No car-routes found");
         resolve(result);
       }, (error) => {
         reject(error);
@@ -42,6 +43,7 @@ module.exports = function(availableMobilityOptions, origin, destination, departu
     }
     if (checkMobilityOptionsHelper.onlyBike(availableMobilityOptions)) {
       onlyBikeHelper(origin, destination, departureTime).then((result) => {
+        if(result.length == 0) reject("No bike-routes found");
         resolve(result);
       }, (error) => {
         reject(error);
