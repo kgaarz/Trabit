@@ -1,7 +1,7 @@
 module.exports = function(steps) {
   var sustainabilityScore = 0;
-  for(i = 0; i < steps.length; i++) {
-    sustainabilityScore += getScoreByMode(steps[i].mode, steps[i].distance);
+  for(y = 0; y < steps.length; y++) {
+    sustainabilityScore += getScoreByMode(steps[y].mode, steps[y].distance);
   }
   return sustainabilityScore;
 }

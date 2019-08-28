@@ -5,6 +5,7 @@ module.exports = function(origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
     apiRequestHelper.getGoogleDirectionsAPIDataWithAlternatives(origin, destination, departureTime, "driving")
       .then((data) => {
+
           var routes = [];
           if(data.length == 0) resolve(routes);
 

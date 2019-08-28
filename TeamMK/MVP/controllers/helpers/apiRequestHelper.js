@@ -183,8 +183,8 @@ function comprimiseSteps(data) {
       mode: data[i].travel_mode,
       distance: data[i].distance.value,
       duration: data[i].duration.value,
-      start_location: data[i].start_location,
-      end_location: data[i].end_location
+      startLocation: data[i].start_location,
+      endLocation: data[i].end_location
     };
     steps[i] = object;
   }
