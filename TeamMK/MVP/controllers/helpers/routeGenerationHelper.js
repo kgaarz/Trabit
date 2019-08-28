@@ -28,6 +28,7 @@ module.exports = function(availableMobilityOptions, origin, destination, departu
     }
     if (checkMobilityOptionsHelper.onlySharing(availableMobilityOptions)) {
       onlySharingHelper(origin, destination, departureTime).then(function(result) {
+        if(!result) reject("No sharing-routes found");
         resolve(result);
       }, (error) => {
         reject(error);

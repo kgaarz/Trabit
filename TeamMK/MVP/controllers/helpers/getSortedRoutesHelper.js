@@ -1,6 +1,8 @@
 module.exports = function(values) {
   var routes = []
-  var shortestRoute, secondShortestRoute, tmp, tmpShortestRoute;
+  var shortestRoute = {};
+  var secondShortestRoute = {};
+  var tmp, tmpShortestRoute;
   var lowest = Number.POSITIVE_INFINITY;
   var secondLowest = Number.POSITIVE_INFINITY;
   if (values.length >= 2) {

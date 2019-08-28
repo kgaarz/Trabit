@@ -5,11 +5,13 @@ const generateSustainabilityScoreHelper = require('../generateSustainabilityScor
 module.exports = function (origin, destination, departureTime) {
   return new Promise(function (resolve, reject) {
     var cabData = [];
+    var checkCabData = false;
     var smallRadiusBike = apiRequestHelper.getCabData(origin.lat, origin.lng, 200);
     var mediumRadiusBike = apiRequestHelper.getCabData(origin.lat, origin.lng, 400);
     var bigRadiusBike = apiRequestHelper.getCabData(origin.lat, origin.lng, 1000);
 
     var flinksterData = [];
+    var checkFlinksterData = false;
     var smallRadiusCar = apiRequestHelper.getFlinksterData(origin.lat, origin.lng, 500);
     var mediumRadiusCar = apiRequestHelper.getFlinksterData(origin.lat, origin.lng, 1250);
     var bigRadiusCar = apiRequestHelper.getFlinksterData(origin.lat, origin.lng, 2500);
@@ -18,7 +20,7 @@ module.exports = function (origin, destination, departureTime) {
       if (values[0].length == 0) {
         if (values[1].length == 0) {
           if (values[2].length == 0) {
-            reject("error: No Bikesharing found");
+            checkCabData = true;
           } else {
             cabData = values[2];
           }
@@ -31,7 +33,7 @@ module.exports = function (origin, destination, departureTime) {
       if (values[3].length == 0) {
         if (values[4].length == 0) {
           if (values[5].length == 0) {
-            reject("error: No Carsharing found");
+            checkFlinksterData = true;
           } else {
             flinksterData = values[5];
           }
@@ -40,6 +42,9 @@ module.exports = function (origin, destination, departureTime) {
         }
       } else {
         flinksterData = values[3];
+      }
+      if(checkCabData && checkFlinksterData){
+        resolve(false);
       }
 
       return checkNearSharingRoutes(cabData, flinksterData, origin, destination, departureTime);
@@ -61,6 +66,7 @@ module.exports = function (origin, destination, departureTime) {
 
 function checkNearSharingRoutes(cabData, flinksterData, origin, destination, departureTime) {
   return new Promise(function (resolve, reject) {
+
     totalRoutes = [];
     for (i = 0; i < cabData.length; i++) {
       totalRoutes.push(createWalkingBikeRoute(cabData, origin, destination, departureTime, i));
