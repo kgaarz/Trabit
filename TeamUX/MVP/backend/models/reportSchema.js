@@ -19,6 +19,10 @@ const reportSchema = new mongoose.Schema({
     long: {
       type: String,
       required: true
+    },
+    city: {
+      type: String,
+      required: true
     }
   },
   transport: {

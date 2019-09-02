@@ -9,7 +9,8 @@ class ReportController {
             description: undefined,
             location: {
                 lat: undefined,
-                long: undefined
+                long: undefined,
+                city: undefined
             },
             transport: {
                 transportType: undefined,
@@ -29,9 +30,7 @@ class ReportController {
         Object.keys(this.createReportModel).forEach(key => newReport[key] = body[key])
         // check if similar report already exists
         const report = await Report.find({
-            // // TODO: think about a solution for locaiton radius of car incident reports...
-            // 'location.lat': newReport.location.lat,
-            // 'location.long': newReport.location.long,
+            'location.city': newReport.location.city,
             'transport.transportType': newReport.transport.transportType,
             'transport.transportTag': newReport.transport.transportTag,
             'transport.transportDirection': newReport.transport.transportDirection
@@ -43,13 +42,14 @@ class ReportController {
     }
 
     async getFiltered(params) {
-        const possibleParameters = ['author', 'location', 'lat', 'long', 'transportType', 'transportTag', 'transportDirection']
+        const possibleParameters = ['author', 'location', 'lat', 'long', 'city', 'transport', 'transportType', 'transportTag', 'transportDirection']
         let query = {}
         possibleParameters.forEach(param => {
             if (params[param] !== undefined) {
                 switch (param) {
                     case 'lat':
                     case 'long':
+                    case 'city':
                         query['location.' + param] = params[param]
                         break
                     case 'transportType':
