@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true, // constraints hinzufügen, um z.B. Leerzeichen zu vermeiden
+    required: true,
     index: {
       unique: true
     }
@@ -14,11 +14,11 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   password: {
-    //   noch nicht gehashed! TODO!!
+    // TODO: pw hashing!
     type: String,
     required: true
   },
-  profile: { // evtl. ersetzen durch profile? dann könnte man ein eigenes schema für profile machen und darin alle relevanten daten einpflegen
+  profile: {
     firstname: {
       type: String,
       required: true
