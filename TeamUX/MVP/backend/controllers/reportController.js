@@ -1,5 +1,6 @@
 const Report = require('../models/reportSchema')
 const ApiError = require('../exceptions/apiExceptions')
+const GeodataService = require('../services/geodataService')
 
 class ReportController {
     constructor() {
@@ -28,6 +29,14 @@ class ReportController {
         // making sure the report only consists of the allowed insert params
         const newReport = {}
         Object.keys(this.createReportModel).forEach(key => newReport[key] = body[key])
+        // getting city from geodata
+        try {
+            // eslint-disable-next-line require-atomic-updates
+            newReport.location.city = await GeodataService.getCityFromGeodata(newReport.location.lat, newReport.location.long)
+        } catch (error) {
+            console.error(error)
+            throw new ApiError('City could not be retrieved from the location coordinates!', 400)
+        }
         // check if similar report already exists
         const report = await Report.find({
             'location.city': newReport.location.city,
@@ -42,7 +51,7 @@ class ReportController {
     }
 
     async getFiltered(params) {
-        const possibleParameters = ['author', 'location', 'lat', 'long', 'city', 'transport', 'transportType', 'transportTag', 'transportDirection']
+        const possibleParameters = ['author', 'lat', 'long', 'city', 'transportType', 'transportTag', 'transportDirection']
         let query = {}
         possibleParameters.forEach(param => {
             if (params[param] !== undefined) {
