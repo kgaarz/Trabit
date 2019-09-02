@@ -15,12 +15,14 @@ const bikeAndTrainTicketAndCarHelper = require('./options/bikeAndTrainTicketAndC
 const ssharingAndTrainTicketAndCarHelper = require('./options/sharingAndTrainTicketAndCarHelper');
 const sharingAndBikeAndCarHelper = require('./options/sharingAndBikeAndCarHelper');
 const bikeSharingAndBikeAndTrainTicketHelper = require('./options/bikeSharingAndBikeAndTrainTicketHelper');
+const sharingAndTrainTicketHelper = require('./options/sharingAndTrainTicketHelper');
 const allOptionsHelper = require('./options/allOptionsHelper');
 
 module.exports = function(availableMobilityOptions, origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
     if (checkMobilityOptionsHelper.onlyBikeSharing(availableMobilityOptions)) {
       onlyBikeSharingHelper(origin, destination, departureTime).then(function(result) {
+        if(!result) reject("No bike-sharing found");
         resolve(result);
       }, (error) => {
         reject(error);
@@ -102,6 +104,7 @@ module.exports = function(availableMobilityOptions, origin, destination, departu
     }
     if (checkMobilityOptionsHelper.bikeSharingAndTrainTicket(availableMobilityOptions)) {
       bikeSharingAndTrainTicketHelper(origin, destination, departureTime).then(function(result) {
+        if(!result) reject("No bikeSharing-and-tansit-route found");
         resolve(result);
       }, (error) => {
         reject(error);
@@ -130,6 +133,13 @@ module.exports = function(availableMobilityOptions, origin, destination, departu
     }
     if (checkMobilityOptionsHelper.bikeSharingAndBikeAndTrainTicket(availableMobilityOptions)) {
       bikeSharingAndBikeAndTrainTicketHelper(origin, destination, departureTime).then(function(result) {
+        resolve(result);
+      }, (error) => {
+        reject(error);
+      });
+    }
+    if (checkMobilityOptionsHelper.sharingAndTrainTicket(availableMobilityOptions)) {
+      sharingAndTrainTicketHelper(origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);

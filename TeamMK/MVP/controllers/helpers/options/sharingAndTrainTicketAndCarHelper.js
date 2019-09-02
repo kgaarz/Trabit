@@ -1,14 +1,31 @@
-const bikeSharingAndTrainTicketHelper = require('./bikeSharingAndTrainTicketHelper');
-const sharingAndCarHelper = require('./sharingAndCarHelper');
+const getSortedRoutesHelper = require('../getSortedRoutesHelper');
 const trainTicketAndCarHelper = require('./trainTicketAndCarHelper');
 const apiRequestHelper = require('../apiRequestHelper');
 const onlySharingHelper = require('./onlySharingHelper');
+const sharingAndCarHelper = require('./sharingAndCarHelper');
+const bikeSharingAndTrainTicketHelper = require('./bikeSharingAndTrainTicketHelper');
 
 module.exports = function(origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
-    generateSharingAndTrainTicketAndCarRoute(origin, destination, departureTime).then((result) => {
-      resolve(result);
-    })
+    var sharingAndTrainTicketAndCarRoute = generateSharingAndTrainTicketAndCarRoute(origin, destination, departureTime);
+    var bikeSharingAndTrainTicket = bikeSharingAndTrainTicketHelper(origin, destination, departureTime);
+    var sharingAndCar = sharingAndCarHelper(origin, destination, departureTime);
+
+    Promise.all([sharingAndTrainTicketAndCarRoute, bikeSharingAndTrainTicket, sharingAndCar]).then((values) => {
+        var result = [];
+        if(values[0]) result.push(values[0]);
+        if(values[1].duration) result.push(values[1]);
+
+        for(i=2; i<values.length; i++){
+          for(j=0; j<values[i].length; j++){
+            result.push(values[i][j]);
+          }
+        }
+        resolve(getSortedRoutesHelper(result));
+      },
+      (error) => {
+        reject(error);
+      });
   });
 }
 
@@ -85,14 +102,13 @@ function checkStepsWithSharing(result) {
   return new Promise(function(resolve, reject) {
     var routes = [];
     for (o = result.index+1; o < result.transitRoute.steps.length; o++) {
-      console.log(result.transitRoute.steps[o]);
       routes.push(onlySharingHelper(result.transitRoute.steps[o].endLocation, result.transitRoute.endLocation, result.departureTime))
     }
 
     Promise.all(routes).then((values) => {
       var shortestSteps = [];
       var counter = 0;
-      console.log(values);
+
       for (k = result.index+1; k < result.transitRoute.steps.length; k++) {
         var tempDuration = 0;
         for (m = result.index+1; m <= k; m++) {
