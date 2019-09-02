@@ -21,6 +21,7 @@ module.exports = function(availableMobilityOptions, origin, destination, departu
   return new Promise(function(resolve, reject) {
     if (checkMobilityOptionsHelper.onlyBikeSharing(availableMobilityOptions)) {
       onlyBikeSharingHelper(origin, destination, departureTime).then(function(result) {
+        if(!result) reject("No bike-sharing found");
         resolve(result);
       }, (error) => {
         reject(error);
@@ -102,6 +103,7 @@ module.exports = function(availableMobilityOptions, origin, destination, departu
     }
     if (checkMobilityOptionsHelper.bikeSharingAndTrainTicket(availableMobilityOptions)) {
       bikeSharingAndTrainTicketHelper(origin, destination, departureTime).then(function(result) {
+        if(!result) reject("No bikeSharing-and-tansit-route found");
         resolve(result);
       }, (error) => {
         reject(error);
