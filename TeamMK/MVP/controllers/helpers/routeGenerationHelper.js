@@ -15,6 +15,7 @@ const bikeAndTrainTicketAndCarHelper = require('./options/bikeAndTrainTicketAndC
 const ssharingAndTrainTicketAndCarHelper = require('./options/sharingAndTrainTicketAndCarHelper');
 const sharingAndBikeAndCarHelper = require('./options/sharingAndBikeAndCarHelper');
 const bikeSharingAndBikeAndTrainTicketHelper = require('./options/bikeSharingAndBikeAndTrainTicketHelper');
+const sharingAndTrainTicketHelper = require('./options/sharingAndTrainTicketHelper');
 const allOptionsHelper = require('./options/allOptionsHelper');
 
 module.exports = function(availableMobilityOptions, origin, destination, departureTime) {
@@ -132,6 +133,13 @@ module.exports = function(availableMobilityOptions, origin, destination, departu
     }
     if (checkMobilityOptionsHelper.bikeSharingAndBikeAndTrainTicket(availableMobilityOptions)) {
       bikeSharingAndBikeAndTrainTicketHelper(origin, destination, departureTime).then(function(result) {
+        resolve(result);
+      }, (error) => {
+        reject(error);
+      });
+    }
+    if (checkMobilityOptionsHelper.sharingAndTrainTicket(availableMobilityOptions)) {
+      sharingAndTrainTicketHelper(origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
