@@ -1,4 +1,4 @@
-package de.androidnewcomer.searchfunction
+package de.trabit.faultdetector
 
 import org.junit.Test
 

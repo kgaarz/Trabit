@@ -1,17 +1,32 @@
-package de.androidnewcomer.searchfunction
+package de.trabit.faultdetector
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.SearchView
-import android.widget.Toast
 
 class SearchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_search)
+
+        var btn = findViewById(R.id.backButton) as ImageButton
+
+
+
+       btn.setOnClickListener{
+
+        val intent = Intent(this,OverviewActivity::class.java)
+        startActivity(intent)
+
+
+       }
+
+
 
         //Find View By Id For Listview
         val listview = findViewById(R.id.listView) as ListView
@@ -25,12 +40,9 @@ class SearchActivity : AppCompatActivity() {
         val name = arrayOf(
             "Gummersbach", "Gundelfingen", "Stuttgart", "Sindelfingen", "Köln", "Hamburg", "Engelskirchen",
             "Düsseldorf", "Dortmund", "Overath", "Kiel", "Sindelfingen", "Berlin"
-
         )
 
         listview.visibility = View.INVISIBLE
-
-
 
 
         val info = ArrayList<HashMap<String, String>>()
@@ -84,4 +96,8 @@ class SearchActivity : AppCompatActivity() {
 
         }
 
-    }}
+    }
+
+
+
+}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
@@ -14,16 +14,21 @@
             android:layout_marginBottom="20dp">
 
 
-        <ImageView
+
+        <ImageButton
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@mipmap/arrow_back_icon"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp"
-                android:id="@+id/arrowBack"
+                app:srcCompat="@mipmap/arrow_back_icon" android:id="@+id/backButton"
+                android:background="#80FFFFFF"
+                android:onClick="changeActivity"
+
 
         />
+
+
 
         <TextView
                 android:text ="Standort"
