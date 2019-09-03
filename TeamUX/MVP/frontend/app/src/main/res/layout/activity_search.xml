@@ -22,12 +22,9 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp"
                 app:srcCompat="@mipmap/arrow_back_icon" android:id="@+id/backButton"
-                android:background="#80FFFFFF"
-                android:onClick="changeActivity"
-
-
+                android:background="@null"
+                android:scaleType="fitXY"
         />
-
 
 
         <TextView

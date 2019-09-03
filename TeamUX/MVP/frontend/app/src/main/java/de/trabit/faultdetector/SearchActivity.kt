@@ -14,9 +14,11 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        //Find View By Id for ClickListener
+
         var btn = findViewById(R.id.backButton) as ImageButton
 
-
+        //Add Clicklistener to Imagebutton (ArrowBack) and link back to OverviewActivity
 
        btn.setOnClickListener{
 
@@ -25,7 +27,6 @@ class SearchActivity : AppCompatActivity() {
 
 
        }
-
 
 
         //Find View By Id For Listview

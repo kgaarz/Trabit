@@ -17,13 +17,14 @@
     >
 
         <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginBottom="30dp"
                 app:srcCompat="@mipmap/geo_location" android:id="@+id/locationChange"
-                android:background="#FFFFFF"
+                android:background="@null"
+                android:scaleType="fitXY"
 
         />
 
@@ -64,6 +65,53 @@
 
     <LinearLayout android:layout_width="match_parent" android:orientation="horizontal" android:layout_height="100dp">
 
+        <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="30dp"
+                app:srcCompat="@mipmap/train_icon"
+                android:id="@+id/trainIcon"
+                android:background="@null"
+                android:scaleType="fitXY"
+        />
+
+        <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="30dp"
+                app:srcCompat="@mipmap/tram_icon"
+                android:id="@+id/tramIcon"
+                android:background="@null"
+                android:scaleType="fitXY"
+        />
+
+        <ImageButton
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="30dp"
+                app:srcCompat="@mipmap/bus_icon"
+                android:id="@+id/busIcon"
+                android:background="@null"
+                android:scaleType="fitXY"
+        />
+        <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="30dp"
+                app:srcCompat="@mipmap/car_icon"
+                android:id="@+id/carIcon"
+                android:background="@null"
+                android:scaleType="fitXY"
+        />
     </LinearLayout>
 
     <View
