@@ -34,8 +34,6 @@ module.exports = function(origin, destination, departureTime) {
 
 function generateSharingAndTrainTicketAndCarRoute(origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
-
-
     apiRequestHelper.getGoogleDirectionsAPIData(origin, destination, departureTime, "transit").then((result) => {
           var value = result.steps[0].duration;
           var index = 0;
