@@ -32,7 +32,7 @@ const reportSchema = new mongoose.Schema({
     },
     transportTag: {
       type: String,
-      required: true // evtl. nicht required, z.B. bei Autostörungen?
+      required: true // also required for car reports?
     },
     transportDirection: {
       type: String,

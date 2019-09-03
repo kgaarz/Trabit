@@ -4,29 +4,32 @@ const apiRequestHelper = require('../apiRequestHelper');
 const onlySharingHelper = require('./onlySharingHelper');
 const sharingAndCarHelper = require('./sharingAndCarHelper');
 const bikeSharingAndTrainTicketHelper = require('./bikeSharingAndTrainTicketHelper');
+const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
 
 module.exports = function(origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
-    var sharingAndTrainTicketAndCarRoute = generateSharingAndTrainTicketAndCarRoute(origin, destination, departureTime);
-    var bikeSharingAndTrainTicket = bikeSharingAndTrainTicketHelper(origin, destination, departureTime);
-    var sharingAndCar = sharingAndCarHelper(origin, destination, departureTime);
+      var sharingAndTrainTicketAndCarRoute = generateSharingAndTrainTicketAndCarRoute(origin, destination, departureTime);
+      var bikeSharingAndTrainTicket = bikeSharingAndTrainTicketHelper(origin, destination, departureTime);
+      var sharingAndCar = sharingAndCarHelper(origin, destination, departureTime);
 
-    Promise.all([sharingAndTrainTicketAndCarRoute, bikeSharingAndTrainTicket, sharingAndCar]).then((values) => {
-        var result = [];
-        if(values[0]) result.push(values[0]);
-        if(values[1].duration) result.push(values[1]);
+      Promise.all([sharingAndTrainTicketAndCarRoute, bikeSharingAndTrainTicket, sharingAndCar]).then((values) => {
+          var result = [];
+          if (values[0]) result.push(values[0]);
 
-        for(i=2; i<values.length; i++){
-          for(j=0; j<values[i].length; j++){
-            result.push(values[i][j]);
+          for (i = 1; i < values.length; i++) {
+            for (j = 0; j < values[i].length; j++) {
+              result.push(values[i][j]);
+            }
           }
-        }
-        resolve(getSortedRoutesHelper(result));
-      },
-      (error) => {
-        reject(error);
-      });
-  });
+          resolve(getSortedRoutesHelper(result));
+        },
+        (error) => {
+          reject(error);
+        });
+    },
+    (error) => {
+      reject(error);
+    });
 }
 
 function generateSharingAndTrainTicketAndCarRoute(origin, destination, departureTime) {
@@ -54,12 +57,12 @@ function generateSharingAndTrainTicketAndCarRoute(origin, destination, departure
         (error) => {
           reject(error);
         })
-        .then((result) => {
-            resolve(result);
-          },
-          (error) => {
-            reject(error);
-          });
+      .then((result) => {
+          resolve(result);
+        },
+        (error) => {
+          reject(error);
+        });
   });
 }
 
@@ -78,7 +81,7 @@ function checkStepsWithCar(origin, departureTime, result, index) {
         }
         if (values[k].duration < tempDuration) {
           shortestSteps = [];
-          for(n = 0; n < values[k].steps.length; n++){
+          for (n = 0; n < values[k].steps.length; n++) {
             shortestSteps.push(values[k].steps[n]);
           }
         } else {
@@ -101,7 +104,7 @@ function checkStepsWithCar(origin, departureTime, result, index) {
 function checkStepsWithSharing(result) {
   return new Promise(function(resolve, reject) {
     var routes = [];
-    for (o = result.index+1; o < result.transitRoute.steps.length; o++) {
+    for (o = result.index + 1; o < result.transitRoute.steps.length; o++) {
       routes.push(onlySharingHelper(result.transitRoute.steps[o].endLocation, result.transitRoute.endLocation, result.departureTime))
     }
 
@@ -109,21 +112,21 @@ function checkStepsWithSharing(result) {
       var shortestSteps = [];
       var counter = 0;
 
-      for (k = result.index+1; k < result.transitRoute.steps.length; k++) {
+      for (k = result.index + 1; k < result.transitRoute.steps.length; k++) {
         var tempDuration = 0;
-        for (m = result.index+1; m <= k; m++) {
+        for (m = result.index + 1; m <= k; m++) {
           tempDuration += result.transitRoute.steps[m].duration;
         }
-        if(!(Object.keys(values[counter][0]).length === 0 && values[counter][0].constructor === Object)){
+        if (!(Object.keys(values[counter][0]).length === 0 && values[counter][0].constructor === Object)) {
 
-        if (values[counter][0].duration < tempDuration) {
-          shortestSteps = [];
-          for(n = 0; n < values[counter][0].steps.length; n++){
-            shortestSteps.push(values[counter][0].steps[n]);
+          if (values[counter][0].duration < tempDuration) {
+            shortestSteps = [];
+            for (n = 0; n < values[counter][0].steps.length; n++) {
+              shortestSteps.push(values[counter][0].steps[n]);
+            }
+          } else {
+            shortestSteps.push(result.transitRoute.steps[k]);
           }
-        } else {
-          shortestSteps.push(result.transitRoute.steps[k]);
-        }
         }
 
         counter++;
@@ -131,11 +134,12 @@ function checkStepsWithSharing(result) {
       var allSteps = result.shortestSteps.concat(shortestSteps);
       var totalDuration = 0;
       var totalDistance = 0;
-      for(p=0; p<allSteps.length; p++){
+      for (p = 0; p < allSteps.length; p++) {
         totalDuration += allSteps[p].duration;
         totalDistance += allSteps[p].distance;
       }
       var perfectRoute = {
+        modes: ["walking", "bicycling", "driving", "transit"],
         distance: totalDistance,
         duration: totalDuration,
         startLocation: {
@@ -143,9 +147,10 @@ function checkStepsWithSharing(result) {
           lng: allSteps[0].startLocation.lng
         },
         endLocation: {
-          lat: allSteps[allSteps.length-1].endLocation.lat,
-          lng: allSteps[allSteps.length-1].endLocation.lng
+          lat: allSteps[allSteps.length - 1].endLocation.lat,
+          lng: allSteps[allSteps.length - 1].endLocation.lng
         },
+        sustainability: generateSustainabilityScoreHelper(allSteps),
         steps: allSteps
       }
       resolve(perfectRoute);
