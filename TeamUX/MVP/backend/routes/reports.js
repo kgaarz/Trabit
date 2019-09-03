@@ -20,6 +20,9 @@ router.get('/reports', async (req, res) => {
     try {
         // check for required query parameter combinations
         const params = req.query
+        if ((params.lat && !params.long) || (params.long && !params.lat)) {
+            throw new ApiError(`Missing URL parameter: ${params.lat === undefined ? 'lat' : 'long'}`, 400)
+        }
         if (params.transportTag && !params.transportType) {
             throw new ApiError('Missing URL parameter: transportType', 400)
         }

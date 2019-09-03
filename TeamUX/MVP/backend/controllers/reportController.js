@@ -51,13 +51,15 @@ class ReportController {
     }
 
     async getFiltered(params) {
-        const possibleParameters = ['author', 'lat', 'long', 'city', 'transportType', 'transportTag', 'transportDirection']
+        // getting city from geodata if only lat & long were provided
+        if (params.lat && params.long && !params.city)
+            // eslint-disable-next-line require-atomic-updates
+            params.city = await GeodataService.getCityFromGeodata(params.lat, params.long)
+        const possibleParameters = ['author', 'city', 'transportType', 'transportTag', 'transportDirection']
         let query = {}
         possibleParameters.forEach(param => {
             if (params[param] !== undefined) {
                 switch (param) {
-                    case 'lat':
-                    case 'long':
                     case 'city':
                         query['location.' + param] = params[param]
                         break
