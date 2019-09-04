@@ -13,8 +13,8 @@ module.exports = function(origin, destination, departureTime) {
     Promise.all([onlySharing, onlyCar, onlyBike]).then((values) => {
         var result = [];
 
-        for(i=0; i<values.length; i++){
-          for(j=0; j<values[i].length; j++){
+        for (i = 0; i < values.length; i++) {
+          for (j = 0; j < values[i].length; j++) {
             result.push(values[i][j]);
           }
         }

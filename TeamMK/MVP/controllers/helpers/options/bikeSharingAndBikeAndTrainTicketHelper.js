@@ -16,7 +16,7 @@ module.exports = function(origin, destination, departureTime) {
             if (values[0].length == 0) {
               if (values[1].length == 0) {
                 if (values[2].length == 0) {
-                  reject("error: No Transit-Stations found");
+                  hereData = [];
                 } else {
                   hereData = values[2];
                 }
