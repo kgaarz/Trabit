@@ -1,5 +1,4 @@
 const getSortedRoutesHelper = require('../getSortedRoutesHelper');
-const trainTicketAndCarHelper = require('./trainTicketAndCarHelper');
 const apiRequestHelper = require('../apiRequestHelper');
 const onlySharingHelper = require('./onlySharingHelper');
 const sharingAndCarHelper = require('./sharingAndCarHelper');
@@ -140,16 +139,9 @@ function checkStepsWithSharing(result) {
         modes: ["walking", "bicycling", "driving", "transit"],
         distance: totalDistance,
         duration: totalDuration,
-        startLocation: {
-          lat: allSteps[0].startLocation.lat,
-          lng: allSteps[0].startLocation.lng
-        },
-        endLocation: {
-          lat: allSteps[allSteps.length - 1].endLocation.lat,
-          lng: allSteps[allSteps.length - 1].endLocation.lng
-        },
+        switches: 3,
         sustainability: generateSustainabilityScoreHelper(allSteps),
-        steps: allSteps
+        route: allSteps
       }
       resolve(perfectRoute);
 
