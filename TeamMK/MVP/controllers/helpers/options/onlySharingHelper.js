@@ -1,6 +1,7 @@
 const apiRequestHelper = require('../apiRequestHelper');
 const getSortedRoutesHelper = require('../getSortedRoutesHelper');
 const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
+const getSwitchesHelper = require('../getSwitchesHelper');
 
 module.exports = function(origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
@@ -194,7 +195,7 @@ function createWalkingCarRoute(flinksterData, origin, destination, departureTime
             modes: ["walking", "driving"],
             duration: totalRoute.duration,
             distance: totalRoute.distance,
-            switches: 1,
+            switches: getSwitchesHelper(totalRote.steps),
             sustainability: generateSustainabilityScoreHelper(totalRoute.steps),
             route: totalRoute
           }

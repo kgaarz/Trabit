@@ -3,6 +3,7 @@ const onlyTrainTicketHelper = require('./onlyTrainTicketHelper');
 const apiRequestHelper = require('../apiRequestHelper');
 const getSortedRoutesHelper = require('../getSortedRoutesHelper');
 const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
+const getSwitchesHelper = require('../getSwitchesHelper');
 
 module.exports = function(origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
@@ -119,7 +120,7 @@ function createNearBikeSharingAndTrainTicketRoutes(cabData, hereData, origin, de
             modes: ["walking", "bicycling", "transit"],
             duration: totalRoute.duration,
             distance: totalRoute.distance,
-            switches: 2,
+            switches: getSwitchesHelper(totalRoute.steps),
             sustainability: generateSustainabilityScoreHelper(totalRoute.steps),
             route: totalRoute
           }

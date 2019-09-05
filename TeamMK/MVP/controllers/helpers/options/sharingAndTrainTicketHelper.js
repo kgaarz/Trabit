@@ -3,6 +3,7 @@ const onlyTrainTicketHelper = require('./onlyTrainTicketHelper');
 const apiRequestHelper = require('../apiRequestHelper');
 const getSortedRoutesHelper = require('../getSortedRoutesHelper');
 const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
+const getSwitchesHelper = require('../getSwitchesHelper');
 
 module.exports = function(origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
@@ -117,12 +118,11 @@ function createNearSharingAndTrainTicketRoutes(cabData, hereData, origin, destin
             steps: values[0].steps.concat(values[1].steps)
           }
 
-          // TODO: Generell bei allen selectionOptions: switches flexibel auswerten
           const selectionOption = {
             modes: ["walking", "bicycling", "driving", "transit"],
             duration: totalRoute.duration,
             distance: totalRoute.distance,
-            switches: 2,
+            switches: getSwitchesHelper(totalRoute.steps),
             sustainability: generateSustainabilityScoreHelper(totalRoute.steps),
             route: totalRoute
           }

@@ -1,6 +1,7 @@
 const apiRequestHelper = require('../apiRequestHelper');
 const getSortedRoutesHelper = require('../getSortedRoutesHelper');
 const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
+const getSwitchesHelper = require('../getSwitchesHelper');
 
 module.exports = function(origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
@@ -78,7 +79,7 @@ function createBikeRoute(cabData, origin, destination, departureTime, i) {
         modes: ["walking", "bicycling"],
         duration: totalRoute.duration,
         distance: totalRoute.distance,
-        switches: 1,
+        switches: getSwitchesHelper(totalRoute.steps),
         sustainability: generateSustainabilityScoreHelper(totalRoute.steps),
         route: totalRoute
       }

@@ -4,6 +4,7 @@ const onlySharingHelper = require('./onlySharingHelper');
 const sharingAndCarHelper = require('./sharingAndCarHelper');
 const bikeSharingAndTrainTicketHelper = require('./bikeSharingAndTrainTicketHelper');
 const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
+const getSwitchesHelper = require('../getSwitchesHelper');
 
 module.exports = function(origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
@@ -139,7 +140,7 @@ function checkStepsWithSharing(result) {
         modes: ["walking", "bicycling", "driving", "transit"],
         distance: totalDistance,
         duration: totalDuration,
-        switches: 3,
+        switches: getSwitchesHelper(allSteps),
         sustainability: generateSustainabilityScoreHelper(allSteps),
         route: allSteps
       }

@@ -1,6 +1,7 @@
 const getSortedRoutesHelper = require('./getSortedRoutesHelper');
 const apiRequestHelper = require('./apiRequestHelper');
 const generateSustainabilityScoreHelper = require('./generateSustainabilityScoreHelper');
+const getSwitchesHelper = require('./getSwitchesHelper');
 //TODO: in alle Helper-Klassen integrieren
 
 module.exports = {
@@ -59,7 +60,7 @@ function createRouteforTwo(data, origin, destination, departureTime, i, mode1, m
             modes: [mode1, mode2],
             duration: totalRoute.duration,
             distance: totalRoute.distance,
-            switches: 1,
+            switches: getSwitchesHelper(totalRoute.steps),
             sustainability: generateSustainabilityScoreHelper(totalRoute.steps),
             route: totalRoute
           }

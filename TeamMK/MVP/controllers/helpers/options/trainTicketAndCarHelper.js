@@ -3,6 +3,7 @@ const onlyCarHelper = require('./onlyCarHelper');
 const getSortedRoutesHelper = require('../getSortedRoutesHelper');
 const apiRequestHelper = require('../apiRequestHelper');
 const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
+const getSwitchesHelper = require('../getSwitchesHelper');
 
 module.exports = function(origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
@@ -93,7 +94,7 @@ function checkStepsWithCar(origin, departureTime, result, index) {
         modes: ["driving", "transit"],
         distance: totalDistance,
         duration: totalDuration,
-        switches: 3,
+        switches: getSwitchesHelper(shortestSteps),
         sustainability: generateSustainabilityScoreHelper(shortestSteps),
         route: shortestSteps
       }
