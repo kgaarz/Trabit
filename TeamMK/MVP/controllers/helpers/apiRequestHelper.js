@@ -173,7 +173,36 @@ module.exports = {
           reject(error);
         });
     });
+  },
+
+  getHereDirectionsAPIData: function(origin, destination, departureTime, mode) {
+    return new Promise((resolve, reject) => {
+      axios.get('https://route.api.here.com/routing/7.2/calculateroute.json?waypoint0=' + origin.lat + "%2C" + origin.lng + '&waypoint1=' + destination.lat + "%2C" + destination.lng + '&mode=' + 'fastest;car;traffic:enabled' + '&app_id=VOwz6OyqEEOmgtQCxa9v&app_code=beljow0LuuKwp9NrXsHOWQ&departure=' + departureTime)
+        .then(response => {
+          jsonData = response.response.route[0].leg[0];
+         // var comprimisedSteps = comprimiseSteps(jsonData.maneuver);
+
+          const newRoute = {
+            //noch value hinzufügen?
+            distance: jsonData.length,
+            duration: jsonData.travelTime,
+            startLocation: {
+              lat: jsonData.start.originalPosition.latitude,
+              lng: jsonData.start.originalPosition.londitude
+            },
+            endLocation: {
+              lat: jsonData.end.originalPosition.latitude,
+              lng: jsonData.end.originalPosition.londitude
+            }
+            //steps: comprimisedSteps
+          }
+          resolve(newRoute);
+        }).catch(error => {
+          reject(error);
+        });
+    });
   }
+
 }
 
 function comprimiseSteps(data) {
@@ -190,3 +219,5 @@ function comprimiseSteps(data) {
   }
   return steps;
 }
+
+
