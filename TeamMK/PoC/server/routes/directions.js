@@ -5,14 +5,14 @@ require('dotenv/config');
 
 
 router.get('/', (req, res) => {
-  if (req.query.origin && req.query.destination) {
-
-    var mode = req.query.mode ? req.query.mode : 'driving';
+  
+  if (req.body.origin && req.body.destination) {
+    console.log(req.body);
+    var mode = req.body.mode ? req.body.mode : 'driving';
     
-    var depature_time = checkDepartureTime(req.query.departure_time, res);
+    //var departure_time = checkDepartureTime(req.body.departure_time, res);
 	  
-    axios.get('https://maps.googleapis.com/maps/api/directions/json?origin=' + req.query.origin + '&destination=' + req.query.destination +
-        '&mode=' + mode + '&departure_time=' + depature_time + '&key=' + process.env.DIRECTIONS_KEY)
+    axios.get('https://route.api.here.com/routing/7.2/calculateroute.json?waypoint0=' + req.body.origin.lat + "%2C" + req.body.origin.lng + '&waypoint1=' + req.body.destination.lat + "%2C" + req.body.destination.lng + '&mode=' + 'fastest;car;traffic:enabled' + '&app_id=VOwz6OyqEEOmgtQCxa9v&app_code=beljow0LuuKwp9NrXsHOWQ&departure=' + req.body.departure_time)
       .then(response => {
 		res.send(response.data);
       })
