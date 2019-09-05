@@ -6,12 +6,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="#E6E6E6"
         tools:context=".OverviewActivity">
-
 
     <LinearLayout
             android:orientation="horizontal"
-            android:background="@mipmap/hintergrund"
+            android:background="@mipmap/header_test"
             android:layout_width="match_parent"
             android:layout_height="150dp"
     >
@@ -22,32 +22,33 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="30dp"
-                app:srcCompat="@mipmap/geo_location" android:id="@+id/locationChange"
+                app:srcCompat="@mipmap/location_icon"
+                android:id="@+id/locationChange"
                 android:background="@null"
-                android:scaleType="fitXY"
+                android:scaleType="fitCenter"
 
         />
 
         <TextView
-                android:text ="Aktuelle Störungen"
+                android:text="Aktuelle Störungen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/headerStartScreen"
                 android:textSize="30sp"
                 android:textColor="#F9F9F9"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="30dp"
-        />
+                android:layout_marginLeft="40dp"
+                app:fontFamily="@font/oxygen"/>
 
         <TextView
-                android:text="Gummersbach"
+                android:text="Standort"
                 android:layout_width="135dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/locationHeader"
                 android:textSize="20sp"
                 android:textColor="#F9F9F9"
-                android:layout_marginTop="50dp"
-                android:layout_marginLeft="-200dp"
+                android:layout_marginTop="55dp"
+                android:layout_marginLeft="-180dp"
         />
 
         <SearchView
@@ -55,7 +56,7 @@
                 android:layout_width="250dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="98dp"
-                android:layout_marginLeft="-185dp"
+                android:layout_marginLeft="-230dp"
                 android:theme="@style/AppTheme.SearchReports"
 
         />
@@ -63,63 +64,75 @@
 
     </LinearLayout>
 
-    <LinearLayout android:layout_width="match_parent" android:orientation="horizontal" android:layout_height="100dp">
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="horizontal"
+                  android:layout_height="90dp"
+                  android:background="@color/colorPrimaryDark"
+    >
 
         <ImageButton
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="30dp"
-                app:srcCompat="@mipmap/train_icon"
+                app:srcCompat="@mipmap/train_icon_grey"
                 android:id="@+id/trainIcon"
                 android:background="@null"
-                android:scaleType="fitXY"
+                android:scaleType="fitCenter"
         />
 
         <ImageButton
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="30dp"
-                app:srcCompat="@mipmap/tram_icon"
+                app:srcCompat="@mipmap/tram_icon_grey"
                 android:id="@+id/tramIcon"
                 android:background="@null"
-                android:scaleType="fitXY"
+                android:scaleType="fitCenter"
         />
 
         <ImageButton
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="30dp"
-                app:srcCompat="@mipmap/bus_icon"
+                app:srcCompat="@mipmap/bus_icon_grey"
                 android:id="@+id/busIcon"
                 android:background="@null"
-                android:scaleType="fitXY"
+                android:scaleType="fitCenter"
         />
         <ImageButton
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="30dp"
-                app:srcCompat="@mipmap/car_icon"
+                app:srcCompat="@mipmap/car_icon_grey"
                 android:id="@+id/carIcon"
                 android:background="@null"
-                android:scaleType="fitXY"
+                android:scaleType="fitCenter"
         />
-    </LinearLayout>
 
+    </LinearLayout>
     <View
             android:layout_width="fill_parent"
             android:layout_height="7dip"
             android:background="@drawable/drop_shadow_start" >
     </View>
 
-
-
+    <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:srcCompat="@mipmap/plus_icon"
+            android:id="@+id/addButton"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:layout_gravity="center"
+            android:layout_marginTop="330dp"
+    />
 </LinearLayout>

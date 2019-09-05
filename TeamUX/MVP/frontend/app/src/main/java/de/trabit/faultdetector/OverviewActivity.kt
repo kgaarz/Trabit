@@ -40,31 +40,31 @@ class OverviewActivity : AppCompatActivity() {
         carBtn.setOnClickListener {
 
             carBtn.setImageResource(R.mipmap.car_icon_clicked)
-            trainBtn.setImageResource(R.mipmap.train_icon)
-            tramBtn.setImageResource(R.mipmap.tram_icon)
-            busBtn.setImageResource(R.mipmap.bus_icon)
+            trainBtn.setImageResource(R.mipmap.train_icon_grey)
+            tramBtn.setImageResource(R.mipmap.tram_icon_grey)
+            busBtn.setImageResource(R.mipmap.bus_icon_grey)
 
         }
 
         trainBtn.setOnClickListener {
             trainBtn.setImageResource(R.mipmap.train_icon_clicked)
-            carBtn.setImageResource(R.mipmap.car_icon)
-            tramBtn.setImageResource(R.mipmap.tram_icon)
-            busBtn.setImageResource(R.mipmap.bus_icon)
+            carBtn.setImageResource(R.mipmap.car_icon_grey)
+            tramBtn.setImageResource(R.mipmap.tram_icon_grey)
+            busBtn.setImageResource(R.mipmap.bus_icon_grey)
         }
 
         tramBtn.setOnClickListener {
             tramBtn.setImageResource(R.mipmap.tram_icon_clicked)
-            carBtn.setImageResource(R.mipmap.car_icon)
-            trainBtn.setImageResource(R.mipmap.train_icon)
-            busBtn.setImageResource(R.mipmap.bus_icon)
+            carBtn.setImageResource(R.mipmap.car_icon_grey)
+            trainBtn.setImageResource(R.mipmap.train_icon_grey)
+            busBtn.setImageResource(R.mipmap.bus_icon_grey)
         }
 
         busBtn.setOnClickListener {
             busBtn.setImageResource(R.mipmap.bus_icon_clicked)
-            carBtn.setImageResource(R.mipmap.car_icon)
-            trainBtn.setImageResource(R.mipmap.train_icon)
-            tramBtn.setImageResource(R.mipmap.tram_icon)
+            carBtn.setImageResource(R.mipmap.car_icon_grey)
+            trainBtn.setImageResource(R.mipmap.train_icon_grey)
+            tramBtn.setImageResource(R.mipmap.tram_icon_grey)
 
 
         }
