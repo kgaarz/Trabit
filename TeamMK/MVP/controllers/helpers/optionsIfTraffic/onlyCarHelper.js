@@ -2,29 +2,27 @@ var apiRequestHelper = require("../apiRequestHelper");
 const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
 const getSwitchesHelper = require('../getSwitchesHelper');
 
-module.exports = function(origin, destination, departureTime) {
-  return new Promise(function(resolve, reject) {
-    apiRequestHelper.getGoogleDirectionsAPIDataWithAlternatives(origin, destination, departureTime, "driving")
+module.exports = function (incidents, origin, destination, departureTime) {
+  return new Promise(function (resolve, reject) {
+    apiRequestHelper.getHereDirectionsAPIData(origin, destination, departureTime, "car", incidents)
       .then((data) => {
-
-          var routes = [];
-          if(data.length == 0) resolve(routes);
-
-          for (i = 0; i < data.length; i++) {
-            const selectionOption = {
-              modes: ["driving"],
-              duration: data[i].duration,
-              distance: data[i].distance,
-              switches: getSwitchesHelper(data[i].steps),
-              sustainability: generateSustainabilityScoreHelper(data[i].steps),
-              route: data[i]
-            }
-            routes.push(selectionOption);
+        if (!data) {
+          resolve(false);
+        } else {
+          const metaRoute = {
+            modes: ["driving"],
+            duration: data.duration,
+            distance: data.distance,
+            switches: getSwitchesHelper(data.steps),
+            sustainability: generateSustainabilityScoreHelper(data.steps),
+            route: data
           }
-          resolve(routes);
-        },
+          resolve(metaRoute);
+        }
+      },
         (error) => {
           reject(error);
         });
   });
 }
+

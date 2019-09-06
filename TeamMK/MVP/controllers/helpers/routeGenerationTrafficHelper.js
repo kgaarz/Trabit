@@ -37,8 +37,8 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
       });
     }
     if (checkMobilityOptionsHelper.onlyCar(availableMobilityOptions)) {
-      onlyCarHelper(origin, destination, departureTime).then(function(result) {
-        if(result.length == 0) reject("No car-routes found");
+      onlyCarHelper(incidents, origin, destination, departureTime).then(function(result) {
+        if(!result) reject("No car-routes found");
         resolve(result);
       }, (error) => {
         reject(error);
@@ -60,7 +60,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
       });
     }
     if (checkMobilityOptionsHelper.carAndBike(availableMobilityOptions)) {
-      carAndBikeHelper(origin, destination, departureTime).then(function(result) {
+      carAndBikeHelper(incidents, origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);

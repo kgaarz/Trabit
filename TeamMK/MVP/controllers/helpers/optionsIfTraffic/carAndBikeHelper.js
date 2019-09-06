@@ -3,44 +3,42 @@ const getSortedRoutesHelper = require('../getSortedRoutesHelper');
 const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
 const getSwitchesHelper = require('../getSwitchesHelper');
 
-module.exports = function(origin, destination, departureTime) {
-  return new Promise(function(resolve, reject) {
-      var carWay = apiRequestHelper.getGoogleDirectionsAPIDataWithAlternatives(origin, destination, departureTime, "driving");
-      var bikeWay = apiRequestHelper.getGoogleDirectionsAPIDataWithAlternatives(origin, destination, departureTime, "bicycling");
+module.exports = function (incidents, origin, destination, departureTime) {
+  return new Promise(function (resolve, reject) {
+    var carWay = apiRequestHelper.getHereDirectionsAPIData(origin, destination, departureTime, "car", incidents);
+    var bikeWay = apiRequestHelper.getHereDirectionsAPIData(origin, destination, departureTime, "bicycle", incidents);
 
-      Promise.all([carWay, bikeWay]).then((values) => {
-          var routes = [];
+    Promise.all([carWay, bikeWay]).then((values) => {
+      var routes = [];
+      const metaRouteCar = {
+        modes: ["driving"],
+        duration: values[0].duration,
+        distance: values[0].distance,
+        switches: getSwitchesHelper(values[0].steps),
+        sustainability: generateSustainabilityScoreHelper(values[0].steps),
+        route: values[0]
+      }
+      routes.push(metaRouteCar);
 
-          for (i = 0; i < values[0].length; i++) {
-            const selectionOption = {
-              modes: "driving",
-              duration: values[0][i].duration,
-              distance: values[0][i].distance,
-              switches: getSwitchesHelper(values[0][i].steps),
-              sustainability: generateSustainabilityScoreHelper(values[0][i].steps),
-              route: values[0][i]
-            }
-            routes.push(selectionOption);
-          }
-          for (i = 0; i < values[1].length; i++) {
-            const selectionOption = {
-              modes: "bicycling",
-              duration: values[1][i].duration,
-              distance: values[1][i].distance,
-              switches: getSwitchesHelper(values[1][i].steps),
-              sustainability: generateSustainabilityScoreHelper(values[1][i].steps),
-              route: values[1][i]
-            }
-            routes.push(selectionOption);
-          }
+      const metaRouteBike = {
+        modes: ["bicycling"],
+        duration: values[1].duration,
+        distance: values[1].distance,
+        switches: getSwitchesHelper(values[1].steps),
+        sustainability: generateSustainabilityScoreHelper(values[1].steps),
+        route: values[1]
+      }
+      routes.push(metaRouteBike);
 
-          resolve(getSortedRoutesHelper(routes));
+      //WARUM GEBEN WIR 2 ROUTEN ZURÜCK?
+      var fastestRoute = getSortedRoutesHelper(routes);
+      resolve(fastestRoute[0]);
 
-        },
-        (error) => {
-          reject(error);
-        });
     },
+      (error) => {
+        reject(error);
+      });
+  },
     (error) => {
       reject(error);
     });
