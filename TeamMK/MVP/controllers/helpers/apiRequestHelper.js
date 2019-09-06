@@ -175,30 +175,33 @@ module.exports = {
     });
   },
 
-  getHereDirectionsAPIData: function(origin, destination, departureTime, mode) {
+  getHereDirectionsAPIData: function(origin, destination, departureTime, mode, avoidArea) {
     return new Promise((resolve, reject) => {
-      axios.get('https://route.api.here.com/routing/7.2/calculateroute.json?waypoint0=' + origin.lat + "%2C" + origin.lng + '&waypoint1=' + destination.lat + "%2C" + destination.lng + '&mode=' + 'fastest;car;traffic:enabled' + '&app_id=VOwz6OyqEEOmgtQCxa9v&app_code=beljow0LuuKwp9NrXsHOWQ&departure=' + departureTime)
+
+      var avoid = "&avoidareas=";
+      avoid += avoidArea[0].geolocation.origin.lat + '%2C' + avoidArea[0].geolocation.origin.lng + '%3B' + avoidArea[0].geolocation.destination.lat + '%2C' + avoidArea[0].geolocation.destination.lng;
+
+      axios.get('https://route.api.here.com/routing/7.2/calculateroute.json?waypoint0=' + origin.lat + "%2C" + origin.lng + '&waypoint1=' + destination.lat + "%2C" + destination.lng + '&mode=' + 'fastest%3B' + mode + '&app_id=VOwz6OyqEEOmgtQCxa9v&app_code=beljow0LuuKwp9NrXsHOWQ&departure=' + "now")
         .then(response => {
-          jsonData = response.response.route[0].leg[0];
-         // var comprimisedSteps = comprimiseSteps(jsonData.maneuver);
+          var comprimisedSteps = comprimiseStepsAlternative(response);
+          jsonData = response.data.response.route[0].leg[0];
 
           const newRoute = {
-            //noch value hinzufügen?
             distance: jsonData.length,
             duration: jsonData.travelTime,
             startLocation: {
               lat: jsonData.start.originalPosition.latitude,
-              lng: jsonData.start.originalPosition.londitude
+              lng: jsonData.start.originalPosition.longitude
             },
             endLocation: {
               lat: jsonData.end.originalPosition.latitude,
-              lng: jsonData.end.originalPosition.londitude
-            }
-            //steps: comprimisedSteps
+              lng: jsonData.end.originalPosition.longitude
+            },
+            steps: comprimisedSteps
           }
           resolve(newRoute);
         }).catch(error => {
-          reject(error);
+          resolve(false);
         });
     });
   }
@@ -220,4 +223,25 @@ function comprimiseSteps(data) {
   return steps;
 }
 
+function comprimiseStepsAlternative(data) {
+  jsonData = data.data.response.route[0].leg[0].maneuver;
+  var steps = [];
 
+  for (i = 0; i < jsonData.length - 1; i++) {
+    var object = {
+      mode: data.data.response.route[0].mode.transportModes[0],
+      distance: jsonData[i].length,
+      duration: jsonData[i].travelTime,
+      startLocation: {
+        lat: jsonData[i].position.latitude,
+        lng: jsonData[i].position.longitude
+      },
+      endLocation: {
+        lat: jsonData[i + 1].position.latitude,
+        lng: jsonData[i + 1].position.longitude
+      }
+    };
+    steps[i] = object;
+  }
+  return steps;
+}
