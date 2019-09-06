@@ -13,7 +13,7 @@ module.exports = function (incidents, origin, destination, departureTime) {
             modes: ["driving"],
             duration: data.duration,
             distance: data.distance,
-            switches: getSwitchesHelper(data.steps),
+            switches: (data.steps),
             sustainability: generateSustainabilityScoreHelper(data.steps),
             route: data
           }
