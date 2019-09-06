@@ -9,7 +9,6 @@ module.exports = function(values) {
   var tempMode = stepModes[0];
   for(s = 0; s < stepModes.length; s++){
     if(stepModes[s] != tempMode || stepModes[s] == "TRANSIT" && stepModes[s] == "WALKING"){
-      console.log(stepModes[s]);
       switches++;
     }
     tempMode = stepModes[s];
