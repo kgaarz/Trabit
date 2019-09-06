@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_overview.*
 
 class OverviewActivity : AppCompatActivity() {
@@ -12,6 +13,16 @@ class OverviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_overview)
 
+        //store the value (choosen city) via Intent from the SearchActivity in a variable
+        val manuallyLocationTitle = intent.getStringExtra("newLocation")
+
+        //if a value has been submitted via intent than change the Location Textview accordingly to the passed value from the intent
+        if (manuallyLocationTitle !== null){
+
+            var LocationTitle = findViewById(R.id.locationHeader)  as TextView
+            LocationTitle.setText(manuallyLocationTitle)
+
+        }
 
         //Find View By Id for ClickListener Add Clicklistener to Imagebutton (Location) and link to SearchActivity
 

@@ -6,7 +6,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#E6E6E6"
         tools:context=".OverviewActivity">
 
     <LinearLayout
@@ -128,7 +127,7 @@
     <ImageButton
             android:layout_width="70dp"
             android:layout_height="70dp"
-            app:srcCompat="@mipmap/plus_icon"
+            app:srcCompat="@mipmap/plus"
             android:id="@+id/addButton"
             android:scaleType="fitCenter"
             android:background="@null"

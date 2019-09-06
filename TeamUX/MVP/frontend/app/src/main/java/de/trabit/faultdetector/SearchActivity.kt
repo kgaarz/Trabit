@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.SearchView
+import android.widget.Toast
 
 class SearchActivity : AppCompatActivity() {
 
@@ -20,10 +21,10 @@ class SearchActivity : AppCompatActivity() {
 
         //Add Clicklistener to Imagebutton (ArrowBack) and link back to OverviewActivity
 
-       btn.setOnClickListener{
+        btn.setOnClickListener{
 
-        val intent = Intent(this,OverviewActivity::class.java)
-        startActivity(intent)
+            val changeActivityIntent = Intent(this,OverviewActivity::class.java)
+            startActivity(changeActivityIntent)
 
 
        }
@@ -70,10 +71,16 @@ class SearchActivity : AppCompatActivity() {
             //On Click for ListView Item
             listview.setOnItemClickListener { adapterView, view, position, l ->
 
-                //save the data from the choosen ListView Item in hashMap
+                //save the data from the choosen ListView Item in hashMap (name and maybe PlZ to unique identification?)
+
                 val hashMap: HashMap<String, String> = customAdapter.getItem(position) as HashMap<String, String>
+                val newLocation = hashMap.get("name")
 
+                Toast.makeText(this@SearchActivity, "Standort : " + hashMap.get("name"), Toast.LENGTH_LONG).show()
+                var changeLocationIntent = Intent (this,OverviewActivity::class.java)
+                changeLocationIntent.putExtra("newLocation", newLocation)
 
+                startActivity(changeLocationIntent)
             }
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
