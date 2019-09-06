@@ -1,24 +1,24 @@
 const checkMobilityOptionsHelper = require('./checkMobilityOptionsHelper');
-const onlyBikeSharingHelper = require('./options/onlyBikeSharingHelper');
-const onlySharingHelper = require('./options/onlySharingHelper');
-const onlyCarHelper = require('./options/onlyCarHelper');
-const onlyBikeHelper = require('./options/onlyBikeHelper');
-const onlyTrainTicketHelper = require('./options/onlyTrainTicketHelper');
-const carAndBikeHelper = require('./options/carAndBikeHelper');
-const sharingAndBikeHelper = require('./options/sharingAndBikeHelper');
-const bikeSharingAndBikeHelper = require('./options/bikeSharingAndBikeHelper');
-const trainTicketAndBikeHelper = require('./options/trainTicketAndBikeHelper');
-const sharingAndCarHelper = require('./options/sharingAndCarHelper');
-const trainTicketAndCarHelper = require('./options/trainTicketAndCarHelper');
-const bikeSharingAndTrainTicketHelper = require('./options/bikeSharingAndTrainTicketHelper');
-const bikeAndTrainTicketAndCarHelper = require('./options/bikeAndTrainTicketAndCarHelper');
-const sharingAndTrainTicketAndCarHelper = require('./options/sharingAndTrainTicketAndCarHelper');
-const sharingAndBikeAndCarHelper = require('./options/sharingAndBikeAndCarHelper');
-const bikeSharingAndBikeAndTrainTicketHelper = require('./options/bikeSharingAndBikeAndTrainTicketHelper');
-const sharingAndTrainTicketHelper = require('./options/sharingAndTrainTicketHelper');
-const allOptionsHelper = require('./options/allOptionsHelper');
+const onlyBikeSharingHelper = require('./optionsIfTraffic/onlyBikeSharingHelper');
+const onlySharingHelper = require('./optionsIfTraffic/onlySharingHelper');
+const onlyCarHelper = require('./optionsIfTraffic/onlyCarHelper');
+const onlyBikeHelper = require('./optionsIfTraffic/onlyBikeHelper');
+const onlyTrainTicketHelper = require('./optionsIfTraffic/onlyTrainTicketHelper');
+const carAndBikeHelper = require('./optionsIfTraffic/carAndBikeHelper');
+const sharingAndBikeHelper = require('./optionsIfTraffic/sharingAndBikeHelper');
+const bikeSharingAndBikeHelper = require('./optionsIfTraffic/bikeSharingAndBikeHelper');
+const trainTicketAndBikeHelper = require('./optionsIfTraffic/trainTicketAndBikeHelper');
+const sharingAndCarHelper = require('./optionsIfTraffic/sharingAndCarHelper');
+const trainTicketAndCarHelper = require('./optionsIfTraffic/trainTicketAndCarHelper');
+const bikeSharingAndTrainTicketHelper = require('./optionsIfTraffic/bikeSharingAndTrainTicketHelper');
+const bikeAndTrainTicketAndCarHelper = require('./optionsIfTraffic/bikeAndTrainTicketAndCarHelper');
+const sharingAndTrainTicketAndCarHelper = require('./optionsIfTraffic/sharingAndTrainTicketAndCarHelper');
+const sharingAndBikeAndCarHelper = require('./optionsIfTraffic/sharingAndBikeAndCarHelper');
+const bikeSharingAndBikeAndTrainTicketHelper = require('./optionsIfTraffic/bikeSharingAndBikeAndTrainTicketHelper');
+const sharingAndTrainTicketHelper = require('./optionsIfTraffic/sharingAndTrainTicketHelper');
+const allOptionsHelper = require('./optionsIfTraffic/allOptionsHelper');
 
-module.exports = function(availableMobilityOptions, origin, destination, departureTime) {
+module.exports = function(availableMobilityOptions, incidents, origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
     if (checkMobilityOptionsHelper.onlyBikeSharing(availableMobilityOptions)) {
       onlyBikeSharingHelper(origin, destination, departureTime).then(function(result) {
@@ -45,8 +45,8 @@ module.exports = function(availableMobilityOptions, origin, destination, departu
       });
     }
     if (checkMobilityOptionsHelper.onlyBike(availableMobilityOptions)) {
-      onlyBikeHelper(origin, destination, departureTime).then((result) => {
-        if(result.length == 0) reject("No bike-routes found");
+      onlyBikeHelper(incidents, origin, destination, departureTime).then((result) => {
+        if(!result) reject("No bike-routes found");
         resolve(result);
       }, (error) => {
         reject(error);
