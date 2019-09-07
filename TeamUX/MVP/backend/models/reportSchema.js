@@ -51,6 +51,10 @@ const reportSchema = new mongoose.Schema({
     downvotes: {
       type: Number,
       default: 0
+    },
+    verified: {
+      type: Boolean,
+      default: false
     }
   },
   comments: [commentSchema]
