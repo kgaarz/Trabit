@@ -1,4 +1,5 @@
 const Report = require('../models/reportSchema')
+const User = require('../models/userSchema')
 const ApiError = require('../exceptions/apiExceptions')
 const GeodataService = require('../services/geodataService')
 
@@ -26,6 +27,13 @@ class ReportController {
     }
 
     async create(body) {
+        // check if author exists
+        const user = await User.findOne({
+            username: body.author
+        })
+        if (!user) {
+            throw new ApiError('Author not found!', 404)
+        }
         // making sure the report only consists of the allowed insert params
         const newReport = {}
         Object.keys(this.createReportModel).forEach(key => newReport[key] = body[key])
@@ -131,6 +139,13 @@ class ReportController {
     }
 
     async createComment(reportId, body) {
+        // check if author exists
+        const user = await User.findOne({
+            username: body.author
+        })
+        if (!user) {
+            throw new ApiError('Author not found!', 404)
+        }
         const report = await this.getSpecific(reportId)
         // check if body contains all required parameters
         const possibleParameters = ['author', 'content']
