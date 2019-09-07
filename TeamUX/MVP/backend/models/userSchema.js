@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
+    match: /^[A-Za-z0-9]+[-_]*[A-Za-z0-9]+$/,
     required: true,
     index: {
       unique: true
@@ -16,6 +17,7 @@ const userSchema = new mongoose.Schema({
   password: {
     // TODO: pw hashing!
     type: String,
+    match: /^[^\s]*$/,
     required: true
   },
   profile: {

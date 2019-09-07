@@ -28,6 +28,7 @@ const reportSchema = new mongoose.Schema({
   transport: {
     transportType: {
       type: String,
+      enum: ['train', 'subway', 'bus', 'car'],
       required: true
     },
     transportTag: {
