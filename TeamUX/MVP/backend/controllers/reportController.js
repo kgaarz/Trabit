@@ -37,6 +37,16 @@ class ReportController {
             console.error(error)
             throw new ApiError('City could not be retrieved from the location coordinates!', 400)
         }
+        // getting car transportTag from geodata
+        if (newReport.transport.transportType == 'car') {
+            try {
+                // eslint-disable-next-line require-atomic-updates
+                newReport.transport.transportTag = await GeodataService.getStreetFromGeodata(newReport.location.lat, newReport.location.long)
+            } catch (error) {
+                console.error(error)
+                throw new ApiError('TransportTag could not be retrieved from the location coordinates!', 400)
+            }
+        }
         // check if similar report already exists
         const report = await Report.find({
             'location.city': newReport.location.city,
@@ -52,9 +62,15 @@ class ReportController {
 
     async getFiltered(params) {
         // getting city from geodata if only lat & long were provided
-        if (params.lat && params.long && !params.city)
-            // eslint-disable-next-line require-atomic-updates
-            params.city = await GeodataService.getCityFromGeodata(params.lat, params.long)
+        if (params.lat && params.long && !params.city) {
+            try {
+                // eslint-disable-next-line require-atomic-updates
+                params.city = await GeodataService.getCityFromGeodata(params.lat, params.long)
+            } catch (error) {
+                console.error(error)
+                throw new ApiError('City could not be retrieved from the location coordinates!', 400)
+            }
+        }
         const possibleParameters = ['author', 'city', 'transportType', 'transportTag', 'transportDirection']
         let query = {}
         possibleParameters.forEach(param => {
