@@ -8,37 +8,43 @@
 
     <LinearLayout
             android:orientation="horizontal"
-            android:background="@mipmap/header_test"
+            android:background="@mipmap/header_new"
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:layout_marginBottom="20dp">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-
-        <ImageButton
+            <ImageButton
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
                 app:srcCompat="@mipmap/arrow_back"
                 android:id="@+id/backButton"
                 android:background="@null"
                 android:scaleType="fitCenter"
-        />
+            />
 
 
-        <TextView
+            <TextView
                 android:text="Standort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:id="@+id/headerCaption"
                 android:textSize="30sp"
                 android:textColor="#F9F9F9"
                 android:layout_marginTop="25dp"
                 android:layout_marginLeft="100dp"
 
-                app:fontFamily="@font/oxygen"/>
+                app:fontFamily="@font/oxygen"
+            />
+
+        </RelativeLayout>
     </LinearLayout>
 
     <SearchView

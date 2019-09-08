@@ -49,7 +49,6 @@ class OverviewActivity : AppCompatActivity() {
         //Add Clicklistener to Imagebuttons (Car, bus, train, tram icon) to Change Color of Image (Clicked)
 
         carBtn.setOnClickListener {
-
             carBtn.setImageResource(R.mipmap.car_icon_clicked)
             trainBtn.setImageResource(R.mipmap.train_icon_grey)
             tramBtn.setImageResource(R.mipmap.tram_icon_grey)
