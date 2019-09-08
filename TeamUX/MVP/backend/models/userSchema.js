@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema({
   password: {
     // TODO: pw hashing!
     type: String,
-    match: /^[^\s]*$/,
     required: true
   },
   profile: {
