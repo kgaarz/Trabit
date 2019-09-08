@@ -19,8 +19,9 @@
                 android:layout_margin="15dp"
                 android:orientation="horizontal"
                 android:layout_centerInParent="true"
+                android:background="@mipmap/header_new"
                 android:layout_width="match_parent"
-                android:layout_height="125dp">
+                android:layout_height="150dp">
 
             <ImageButton
                 android:layout_width="35dp"
