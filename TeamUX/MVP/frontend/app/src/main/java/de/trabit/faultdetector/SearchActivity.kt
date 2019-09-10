@@ -25,8 +25,6 @@ class SearchActivity : AppCompatActivity() {
 
             val changeActivityIntent = Intent(this,OverviewActivity::class.java)
             startActivity(changeActivityIntent)
-
-
        }
 
 
@@ -76,7 +74,6 @@ class SearchActivity : AppCompatActivity() {
                 val hashMap: HashMap<String, String> = customAdapter.getItem(position) as HashMap<String, String>
                 val newLocation = hashMap.get("name")
 
-                Toast.makeText(this@SearchActivity, "Standort : " + hashMap.get("name"), Toast.LENGTH_LONG).show()
                 var changeLocationIntent = Intent (this,OverviewActivity::class.java)
                 changeLocationIntent.putExtra("newLocation", newLocation)
 
