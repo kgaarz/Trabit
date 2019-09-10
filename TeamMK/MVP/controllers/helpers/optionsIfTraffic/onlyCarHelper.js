@@ -13,7 +13,7 @@ module.exports = function (incidents, origin, destination, departureTime) {
             modes: ["driving"],
             duration: data.duration,
             distance: data.distance,
-            switches: (data.steps),
+            switches: getSwitchesHelper(data.steps),
             sustainability: generateSustainabilityScoreHelper(data.steps),
             route: data
           }
@@ -25,4 +25,3 @@ module.exports = function (incidents, origin, destination, departureTime) {
         });
   });
 }
-

@@ -22,7 +22,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
   return new Promise(function(resolve, reject) {
     if (checkMobilityOptionsHelper.onlyBikeSharing(availableMobilityOptions)) {
       onlyBikeSharingHelper(origin, destination, departureTime).then(function(result) {
-        if(!result) reject("No bike-sharing found");
+        if(!result) reject("No alternative bike-sharing found");
         resolve(result);
       }, (error) => {
         reject(error);
@@ -30,7 +30,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
     }
     if (checkMobilityOptionsHelper.onlySharing(availableMobilityOptions)) {
       onlySharingHelper(origin, destination, departureTime).then(function(result) {
-        if(!result) reject("No sharing-routes found");
+        if(!result) reject("No alternative sharing-routes found");
         resolve(result);
       }, (error) => {
         reject(error);
@@ -38,7 +38,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
     }
     if (checkMobilityOptionsHelper.onlyCar(availableMobilityOptions)) {
       onlyCarHelper(incidents, origin, destination, departureTime).then(function(result) {
-        if(!result) reject("No car-routes found");
+        if(!result) reject("No alternative car-routes found");
         resolve(result);
       }, (error) => {
         reject(error);
@@ -46,14 +46,15 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
     }
     if (checkMobilityOptionsHelper.onlyBike(availableMobilityOptions)) {
       onlyBikeHelper(incidents, origin, destination, departureTime).then((result) => {
-        if(!result) reject("No bike-routes found");
+        if(!result) reject("No alternative bike-routes found");
         resolve(result);
       }, (error) => {
         reject(error);
       });
     }
     if (checkMobilityOptionsHelper.onlyTrainTicket(availableMobilityOptions)) {
-      onlyTrainTicketHelper(origin, destination, departureTime).then(function(result) {
+      onlyTrainTicketHelper(incidents, origin, destination, departureTime).then(function(result) {
+        if(!result) reject("No alternative transit-route found");
         resolve(result);
       }, (error) => {
         reject(error);
