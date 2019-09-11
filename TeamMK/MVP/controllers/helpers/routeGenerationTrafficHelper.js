@@ -21,7 +21,7 @@ const allOptionsHelper = require('./optionsIfTraffic/allOptionsHelper');
 module.exports = function(availableMobilityOptions, incidents, origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
     if (checkMobilityOptionsHelper.onlyBikeSharing(availableMobilityOptions)) {
-      onlyBikeSharingHelper(origin, destination, departureTime).then(function(result) {
+      onlyBikeSharingHelper(incidents, origin, destination, departureTime).then(function(result) {
         if(!result) reject("No alternative bike-sharing found");
         resolve(result);
       }, (error) => {
@@ -29,7 +29,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
       });
     }
     if (checkMobilityOptionsHelper.onlySharing(availableMobilityOptions)) {
-      onlySharingHelper(origin, destination, departureTime).then(function(result) {
+      onlySharingHelper(incidents, origin, destination, departureTime).then(function(result) {
         if(!result) reject("No alternative sharing-routes found");
         resolve(result);
       }, (error) => {
@@ -68,7 +68,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
       });
     }
     if (checkMobilityOptionsHelper.sharingAndBike(availableMobilityOptions)) {
-      sharingAndBikeHelper(origin, destination, departureTime).then(function(result) {
+      sharingAndBikeHelper(incidents, origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
@@ -76,35 +76,35 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
     }
 
     if (checkMobilityOptionsHelper.bikeSharingAndBike(availableMobilityOptions)) {
-      bikeSharingAndBikeHelper(origin, destination, departureTime).then(function(result) {
+      bikeSharingAndBikeHelper(incidents, origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
       });
     }
     if (checkMobilityOptionsHelper.trainTicketAndBike(availableMobilityOptions)) {
-      trainTicketAndBikeHelper(origin, destination, departureTime).then(function(result) {
+      trainTicketAndBikeHelper(incidents, origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
       });
     }
     if (checkMobilityOptionsHelper.sharingAndCar(availableMobilityOptions)) {
-      sharingAndCarHelper(origin, destination, departureTime).then(function(result) {
+      sharingAndCarHelper(incidents, origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
       });
     }
     if (checkMobilityOptionsHelper.trainTicketAndCar(availableMobilityOptions)) {
-      trainTicketAndCarHelper(origin, destination, departureTime).then(function(result) {
+      trainTicketAndCarHelper(incidents, origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
       });
     }
     if (checkMobilityOptionsHelper.bikeSharingAndTrainTicket(availableMobilityOptions)) {
-      bikeSharingAndTrainTicketHelper(origin, destination, departureTime).then(function(result) {
+      bikeSharingAndTrainTicketHelper(incidents, origin, destination, departureTime).then(function(result) {
         if(!result) reject("No bikeSharing-and-tansit-route found");
         resolve(result);
       }, (error) => {
@@ -112,42 +112,42 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
       });
     }
     if (checkMobilityOptionsHelper.bikeAndTrainTicketAndCar(availableMobilityOptions)) {
-      bikeAndTrainTicketAndCarHelper(origin, destination, departureTime).then(function(result) {
+      bikeAndTrainTicketAndCarHelper(incidents, origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
       });
     }
     if (checkMobilityOptionsHelper.sharingAndTrainTicketAndCar(availableMobilityOptions)) {
-      sharingAndTrainTicketAndCarHelper(origin, destination, departureTime).then(function(result) {
+      sharingAndTrainTicketAndCarHelper(incidents, origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
       });
     }
     if (checkMobilityOptionsHelper.sharingAndBikeAndCar(availableMobilityOptions)) {
-      sharingAndBikeAndCarHelper(origin, destination, departureTime).then(function(result) {
+      sharingAndBikeAndCarHelper(incidents, origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
       });
     }
     if (checkMobilityOptionsHelper.bikeSharingAndBikeAndTrainTicket(availableMobilityOptions)) {
-      bikeSharingAndBikeAndTrainTicketHelper(origin, destination, departureTime).then(function(result) {
+      bikeSharingAndBikeAndTrainTicketHelper(incidents, origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
       });
     }
     if (checkMobilityOptionsHelper.sharingAndTrainTicket(availableMobilityOptions)) {
-      sharingAndTrainTicketHelper(origin, destination, departureTime).then(function(result) {
+      sharingAndTrainTicketHelper(incidents, origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
       });
     }
     if (checkMobilityOptionsHelper.allOptions(availableMobilityOptions)) {
-      allOptionsHelper(origin, destination, departureTime).then(function(result) {
+      allOptionsHelper(incidents, origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
