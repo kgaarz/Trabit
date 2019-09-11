@@ -175,7 +175,7 @@ module.exports = {
     });
   },
 
-  getHereDirectionsAPIData: function(origin, destination, departureTime, mode, avoidArea) {
+  getHereDirectionsAPIData: function(origin, destination, mode, avoidArea) {
     return new Promise((resolve, reject) => {
 
       var avoid = "&avoidareas=";
@@ -201,6 +201,7 @@ module.exports = {
           }
           resolve(newRoute);
         }).catch(error => {
+          console.log(error);
           resolve(false);
         });
     });
