@@ -3,7 +3,7 @@ const getSortedRoutesHelper = require('../getSortedRoutesHelper');
 const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
 const getSwitchesHelper = require('../getSwitchesHelper');
 
-module.exports = function(origin, destination, departureTime) {
+module.exports = function(incidents, origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
       var cabData = [];
       var checkCabData = false;
@@ -48,13 +48,14 @@ module.exports = function(origin, destination, departureTime) {
               resolve(false);
             }
 
-            return checkNearSharingRoutes(cabData, flinksterData, origin, destination, departureTime);
+            return checkNearSharingRoutes(incidents, cabData, flinksterData, origin, destination, departureTime);
           },
           (error) => {
             reject(error);
           })
         .then((result) => {
-            resolve(result);
+          console.log("FINALES RESULT: " + result);
+            resolve(result[0]);
           },
           (error) => {
             reject(error);
@@ -65,19 +66,19 @@ module.exports = function(origin, destination, departureTime) {
     });
 }
 
-function checkNearSharingRoutes(cabData, flinksterData, origin, destination, departureTime) {
+function checkNearSharingRoutes(incidents, cabData, flinksterData, origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
 
       totalRoutes = [];
       for (i = 0; i < cabData.length; i++) {
-        totalRoutes.push(createWalkingBikeRoute(cabData, origin, destination, departureTime, i));
+        totalRoutes.push(createWalkingBikeRoute(incidents, cabData, origin, destination, departureTime, i));
         for (j = 0; j < flinksterData.length; j++) {
-          totalRoutes.push(createWalkingBikeCarRoute(cabData, flinksterData, origin, destination, departureTime, i, j));
+          totalRoutes.push(createWalkingBikeCarRoute(incidents, cabData, flinksterData, origin, destination, departureTime, i, j));
         }
       };
 
       for (i = 0; i < flinksterData.length; i++) {
-        totalRoutes.push(createWalkingCarRoute(flinksterData, origin, destination, departureTime, i));
+        totalRoutes.push(createWalkingCarRoute(incidents, flinksterData, origin, destination, departureTime, i));
       };
 
       Promise.all(totalRoutes).then((values) => {
@@ -92,10 +93,10 @@ function checkNearSharingRoutes(cabData, flinksterData, origin, destination, dep
     });
 }
 
-function createWalkingBikeRoute(cabData, origin, destination, departureTime, i) {
+function createWalkingBikeRoute(incidents, cabData, origin, destination, departureTime, i) {
   return new Promise(function(resolve, reject) {
       var walkingWay = apiRequestHelper.getGoogleDirectionsAPIData(origin, cabData[i].geoLocation, departureTime, "walking");
-      var bikeWay = apiRequestHelper.getGoogleDirectionsAPIData(cabData[i].geoLocation, destination, departureTime, "bicycling");
+      var bikeWay = apiRequestHelper.getHereDirectionsAPIData(cabData[i].geoLocation, destination, "bicycle", incidents);
 
       Promise.all([walkingWay, bikeWay]).then((values) => {
           totalRoute = {
@@ -131,11 +132,11 @@ function createWalkingBikeRoute(cabData, origin, destination, departureTime, i) 
     });
 }
 
-function createWalkingBikeCarRoute(cabData, flinksterData, origin, destination, departureTime, i, j) {
+function createWalkingBikeCarRoute(incidents, cabData, flinksterData, origin, destination, departureTime, i, j) {
   return new Promise(function(resolve, reject) {
       var walkingWay = apiRequestHelper.getGoogleDirectionsAPIData(origin, cabData[i].geoLocation, departureTime, "walking");
-      var bikeWay = apiRequestHelper.getGoogleDirectionsAPIData(cabData[i].geoLocation, flinksterData[j].geoLocation, departureTime, "bicycling");
-      var carWay = apiRequestHelper.getGoogleDirectionsAPIData(flinksterData[j].geoLocation, destination, departureTime, "driving");
+      var bikeWay = apiRequestHelper.getHereDirectionsAPIData(cabData[i].geoLocation, flinksterData[j].geoLocation, "bicycle", incidents);
+      var carWay = apiRequestHelper.getHereDirectionsAPIData(flinksterData[j].geoLocation, destination, "car", incidents);
 
       Promise.all([walkingWay, bikeWay, carWay]).then((values) => {
           totalRoute = {
@@ -171,10 +172,10 @@ function createWalkingBikeCarRoute(cabData, flinksterData, origin, destination, 
     });
 }
 
-function createWalkingCarRoute(flinksterData, origin, destination, departureTime, i) {
+function createWalkingCarRoute(incidents, flinksterData, origin, destination, departureTime, i) {
   return new Promise(function(resolve, reject) {
       var walkingWay = apiRequestHelper.getGoogleDirectionsAPIData(origin, flinksterData[i].geoLocation, departureTime, "walking");
-      var carWay = apiRequestHelper.getGoogleDirectionsAPIData(flinksterData[i].geoLocation, destination, departureTime, "driving");
+      var carWay = apiRequestHelper.getHereDirectionsAPIData(flinksterData[i].geoLocation, destination, "car", incidents);
 
       Promise.all([walkingWay, carWay]).then((values) => {
           totalRoute = {
@@ -195,7 +196,7 @@ function createWalkingCarRoute(flinksterData, origin, destination, departureTime
             modes: ["walking", "driving"],
             duration: totalRoute.duration,
             distance: totalRoute.distance,
-            switches: getSwitchesHelper(totalRote.steps),
+            switches: getSwitchesHelper(totalRoute.steps),
             sustainability: generateSustainabilityScoreHelper(totalRoute.steps),
             route: totalRoute
           }
