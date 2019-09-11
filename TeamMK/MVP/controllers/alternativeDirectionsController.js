@@ -91,7 +91,6 @@ module.exports = {
 function generateFastestRoute(availableMobilityOptions, incidents, origin, destination, departureTime) {
   return new Promise((resolve, reject) => {
     routeGenerationTrafficHelper(availableMobilityOptions, incidents, origin, destination, departureTime).then((result) => {
-
       resolve(result);
     }, (error) => {
       reject(error);
