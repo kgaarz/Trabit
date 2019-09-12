@@ -6,7 +6,7 @@ const getSwitchesHelper = require('../getSwitchesHelper');
 module.exports = function(incidents, origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
 
-    apiRequestHelper.getHereDirectionsAPIData(origin, destination, departureTime, "publicTransportTimeTable", incidents)
+    apiRequestHelper.getHereDirectionsAPIData(origin, destination, "publicTransportTimeTable", incidents)
       .then((data) => {
           if (!data) {
             resolve(false);
@@ -19,7 +19,6 @@ module.exports = function(incidents, origin, destination, departureTime) {
               sustainability: generateSustainabilityScoreHelper(data.steps),
               route: data
             }
-
             resolve(metaRoute);
           }
         },
