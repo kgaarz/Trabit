@@ -5,7 +5,7 @@ const getSortedRoutesHelper = require('../getSortedRoutesHelper');
 const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
 const getSwitchesHelper = require('../getSwitchesHelper');
 
-module.exports = function(origin, destination, departureTime) {
+module.exports = function(incidents, origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
       var cabData = [];
       var smallRadiusBike = apiRequestHelper.getCabData(origin.lat, origin.lng, 200);
@@ -21,7 +21,7 @@ module.exports = function(origin, destination, departureTime) {
             if (values[0].length == 0) {
               if (values[1].length == 0) {
                 if (values[2].length == 0) {
-                  console.log("Keine CabData gefunden: es wird nur eine Transit-Route erstellt")
+                  console.log("Keine CabData gefunden: es wird nur eine Transit-Route erstellt");
                 } else {
                   cabData = values[2];
                 }
@@ -44,13 +44,17 @@ module.exports = function(origin, destination, departureTime) {
             } else {
               hereData = values[3];
             }
-            return checkNearSharingAndTrainTicketRoutes(cabData, hereData, origin, destination, departureTime);
+            return checkNearSharingAndTrainTicketRoutes(incidents, cabData, hereData, origin, destination, departureTime);
           },
           (error) => {
             reject(error);
           })
         .then((result) => {
-            resolve(result);
+            if (result[0].duration) {
+              resolve(result[0]);
+            } else {
+              resolve(false);
+            }
           },
           (error) => {
             reject(error);
@@ -61,30 +65,25 @@ module.exports = function(origin, destination, departureTime) {
     });
 }
 
-function checkNearSharingAndTrainTicketRoutes(cabData, hereData, origin, destination, departureTime) {
+function checkNearSharingAndTrainTicketRoutes(incidents, cabData, hereData, origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
       totalRoutes = [];
 
-      totalRoutes.push(onlySharingHelper(origin, destination, departureTime));
-      totalRoutes.push(onlyTrainTicketHelper(origin, destination, departureTime));
+      totalRoutes.push(onlySharingHelper(incidents, origin, destination, departureTime));
+      totalRoutes.push(onlyTrainTicketHelper(incidents, origin, destination, departureTime));
 
-      for (i = 0; i < cabData.length; i++) {
-        for (j = 0; j < hereData.length; j++) {
-          totalRoutes.push(createNearSharingAndTrainTicketRoutes(cabData, hereData, origin, destination, departureTime, i, j));
+      for (i = 0;
+        (i < cabData.length) && (i < 2); i++) {
+        for (j = 0; (j < hereData.length) && (j < 2); j++) {
+          totalRoutes.push(createNearSharingAndTrainTicketRoutes(incidents, cabData, hereData, origin, destination, departureTime, i, j));
         }
       };
 
       Promise.all(totalRoutes).then((values) => {
-
           var result = [];
-          for (i = 0; i < values.length; i++) {
-            for (j = 0; j < values[i].length; j++) {
-              result.push(values[i][j]);
+            for (i = 0; i < values.length; i++) {
+              if (values[i]) result.push(values[i]);
             }
-          }
-          for (i = 2; i < values.length; i++) {
-            result.push(values[i]);
-          }
 
           resolve(getSortedRoutesHelper(result));
         },
@@ -97,36 +96,39 @@ function checkNearSharingAndTrainTicketRoutes(cabData, hereData, origin, destina
     });
 }
 
-function createNearSharingAndTrainTicketRoutes(cabData, hereData, origin, destination, departureTime, i, j) {
+function createNearSharingAndTrainTicketRoutes(incidents, cabData, hereData, origin, destination, departureTime, i, j) {
   return new Promise(function(resolve, reject) {
-      var sharingWay = onlySharingHelper(origin, hereData[i].geoLocation, departureTime)
-      var transitWay = apiRequestHelper.getGoogleDirectionsAPIData(hereData[j].geoLocation, destination, departureTime, "transit");
-      console.log("jo");
-      Promise.all([sharingWay, transitWay]).then((values) => {
-          console.log(values);
-          totalRoute = {
-            distance: values[0].distance + values[1].distance,
-            duration: values[0].duration + values[1].duration,
-            startLocation: {
-              lat: origin.lat,
-              lng: origin.lng
-            },
-            endLocation: {
-              lat: destination.lat,
-              lng: destination.lng
-            },
-            steps: values[0].steps.concat(values[1].steps)
-          }
+      var sharingWay = onlySharingHelper(incidents, origin, hereData[i].geoLocation, departureTime)
+      var transitWay = apiRequestHelper.getHereDirectionsAPIData(hereData[j].geoLocation, destination, "publicTransportTimeTable", incidents);
 
-          const selectionOption = {
-            modes: ["walking", "bicycling", "driving", "transit"],
-            duration: totalRoute.duration,
-            distance: totalRoute.distance,
-            switches: getSwitchesHelper(totalRoute.steps),
-            sustainability: generateSustainabilityScoreHelper(totalRoute.steps),
-            route: totalRoute
+      Promise.all([sharingWay, transitWay]).then((values) => {
+          if (values[0] && values[1]) {
+            totalRoute = {
+              distance: values[0].distance + values[1].distance,
+              duration: values[0].duration + values[1].duration,
+              startLocation: {
+                lat: origin.lat,
+                lng: origin.lng
+              },
+              endLocation: {
+                lat: destination.lat,
+                lng: destination.lng
+              },
+              steps: values[0].route.steps.concat(values[1].steps)
+            }
+
+            const selectionOption = {
+              modes: ["walking", "bicycling", "driving", "transit"],
+              duration: totalRoute.duration,
+              distance: totalRoute.distance,
+              switches: getSwitchesHelper(totalRoute.steps),
+              sustainability: generateSustainabilityScoreHelper(totalRoute.steps),
+              route: totalRoute
+            }
+            resolve(selectionOption);
+          } else {
+            resolve(false);
           }
-          resolve(selectionOption);
         },
         (error) => {
           reject(error);
