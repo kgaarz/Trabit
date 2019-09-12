@@ -141,6 +141,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
     }
     if (checkMobilityOptionsHelper.sharingAndTrainTicket(availableMobilityOptions)) {
       sharingAndTrainTicketHelper(incidents, origin, destination, departureTime).then(function(result) {
+        if(!result) reject("No alternative sharing+transit-routes found");
         resolve(result);
       }, (error) => {
         reject(error);

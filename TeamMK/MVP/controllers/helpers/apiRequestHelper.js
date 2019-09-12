@@ -201,7 +201,7 @@ module.exports = {
           }
           resolve(newRoute);
         }).catch(error => {
-          console.log(error);
+          console.log("Error bei der Routenabfrage für: " + mode);
           resolve(false);
         });
     });
