@@ -28,7 +28,7 @@ module.exports = {
                   message: 'departureTime is required!'
                 });
 
-                generateFastestRoute(doc.availableMobilityOptions, data.traffic[0].incidents, req.body.origin, req.body.destination, req.body.departureTime)
+                generateFastestRoute(doc.availableMobilityOptions, data.traffic[0].incidents, req.body.origin, req.body.destination, req.body.departureTime, req.body.currentMode)
                   .then(value => {
                     const alternativeDirections = new AlternativeDirections({
                       modes: value.modes,
@@ -86,9 +86,9 @@ module.exports = {
 }
 
 
-function generateFastestRoute(availableMobilityOptions, incidents, origin, destination, departureTime) {
+function generateFastestRoute(availableMobilityOptions, incidents, origin, destination, departureTime, currentMode) {
   return new Promise((resolve, reject) => {
-    routeGenerationTrafficHelper(availableMobilityOptions, incidents, origin, destination, departureTime).then((result) => {
+    routeGenerationTrafficHelper(availableMobilityOptions, incidents, origin, destination, departureTime, currentMode).then((result) => {
       resolve(result);
     }, (error) => {
       reject(error);

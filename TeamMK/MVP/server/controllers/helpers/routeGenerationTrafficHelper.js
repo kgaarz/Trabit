@@ -14,12 +14,19 @@ const sharingAndTrainTicketAndCarHelper = require('./optionsIfTraffic/sharingAnd
 const bikeSharingAndBikeAndTrainTicketHelper = require('./optionsIfTraffic/bikeSharingAndBikeAndTrainTicketHelper');
 const sharingAndTrainTicketHelper = require('./optionsIfTraffic/sharingAndTrainTicketHelper');
 
-//Alle alternativen Helper mit mehreren eigener MM entfernt
-module.exports = function(availableMobilityOptions, incidents, origin, destination, departureTime) {
+module.exports = function(availableMobilityOptions, incidents, origin, destination, departureTime, currentMode) {
   return new Promise(function(resolve, reject) {
+
+    if (currentMode === "car") availableMobilityOptions.bike = false;
+    if (currentMode === "bicycle") availableMobilityOptions.car = false;
+    if (currentMode !== ("car" || "bicycle")) {
+      availableMobilityOptions.car = false;
+      availableMobilityOptions.bike = false;
+    }
+
     if (checkMobilityOptionsHelper.onlyBikeSharing(availableMobilityOptions)) {
       onlyBikeSharingHelper(incidents, origin, destination, departureTime).then(function(result) {
-        if(!result) reject("No alternative bike-sharing found");
+        if (!result) reject("No alternative bike-sharing found");
         resolve(result);
       }, (error) => {
         reject(error);
@@ -27,7 +34,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
     }
     if (checkMobilityOptionsHelper.onlySharing(availableMobilityOptions)) {
       onlySharingHelper(incidents, origin, destination, departureTime).then(function(result) {
-        if(!result) reject("No alternative sharing-routes found");
+        if (!result) reject("No alternative sharing-routes found");
         resolve(result);
       }, (error) => {
         reject(error);
@@ -35,7 +42,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
     }
     if (checkMobilityOptionsHelper.onlyCar(availableMobilityOptions)) {
       onlyCarHelper(incidents, origin, destination).then(function(result) {
-        if(!result) reject("No alternative car-routes found");
+        if (!result) reject("No alternative car-routes found");
         resolve(result);
       }, (error) => {
         reject(error);
@@ -43,7 +50,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
     }
     if (checkMobilityOptionsHelper.onlyBike(availableMobilityOptions)) {
       onlyBikeHelper(incidents, origin, destination).then((result) => {
-        if(!result) reject("No alternative bike-routes found");
+        if (!result) reject("No alternative bike-routes found");
         resolve(result);
       }, (error) => {
         reject(error);
@@ -51,7 +58,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
     }
     if (checkMobilityOptionsHelper.onlyTrainTicket(availableMobilityOptions)) {
       onlyTrainTicketHelper(incidents, origin, destination).then(function(result) {
-        if(!result) reject("No alternative transit-route found");
+        if (!result) reject("No alternative transit-route found");
         resolve(result);
       }, (error) => {
         reject(error);
@@ -95,7 +102,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
     }
     if (checkMobilityOptionsHelper.bikeSharingAndTrainTicket(availableMobilityOptions)) {
       bikeSharingAndTrainTicketHelper(incidents, origin, destination, departureTime).then(function(result) {
-        if(!result) reject("No bikeSharing-and-tansit-route found");
+        if (!result) reject("No bikeSharing-and-tansit-route found");
         resolve(result);
       }, (error) => {
         reject(error);
@@ -117,7 +124,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
     }
     if (checkMobilityOptionsHelper.sharingAndTrainTicket(availableMobilityOptions)) {
       sharingAndTrainTicketHelper(incidents, origin, destination, departureTime).then(function(result) {
-        if(!result) reject("No alternative sharing+transit-routes found");
+        if (!result) reject("No alternative sharing+transit-routes found");
         resolve(result);
       }, (error) => {
         reject(error);
