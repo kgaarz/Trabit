@@ -20,7 +20,7 @@ module.exports = {
     !availableMobilityOptions.sharing;
   },
   onlyTrainTicket: function(availableMobilityOptions){
-    return !availableMobilityOptions.car && !availableMobilityOptions.driverLicence &&
+    return !availableMobilityOptions.car &&
     !availableMobilityOptions.bike && availableMobilityOptions.trainTicket &&
     !availableMobilityOptions.sharing;
   },
@@ -40,7 +40,7 @@ module.exports = {
     availableMobilityOptions.sharing;
   },
   trainTicketAndBike: function(availableMobilityOptions){
-    return !availableMobilityOptions.car && !availableMobilityOptions.driverLicence &&
+    return !availableMobilityOptions.car &&
     availableMobilityOptions.bike && availableMobilityOptions.trainTicket &&
     !availableMobilityOptions.sharing;
   },
