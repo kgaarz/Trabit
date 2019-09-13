@@ -2,10 +2,10 @@ var apiRequestHelper = require("../apiRequestHelper");
 const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
 const getSwitchesHelper = require('../getSwitchesHelper');
 
-module.exports = function(incidents, origin, destination, departureTime) {
+module.exports = function(incidents, origin, destination) {
   return new Promise(function(resolve, reject) {
 
-    apiRequestHelper.getHereDirectionsAPIData(origin, destination, departureTime, "bicycle", incidents)
+    apiRequestHelper.getHereDirectionsAPIData(origin, destination, "bicycle", incidents)
       .then((data) => {
           if (!data) {
             resolve(false);

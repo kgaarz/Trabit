@@ -37,7 +37,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
       });
     }
     if (checkMobilityOptionsHelper.onlyCar(availableMobilityOptions)) {
-      onlyCarHelper(incidents, origin, destination, departureTime).then(function(result) {
+      onlyCarHelper(incidents, origin, destination).then(function(result) {
         if(!result) reject("No alternative car-routes found");
         resolve(result);
       }, (error) => {
@@ -45,7 +45,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
       });
     }
     if (checkMobilityOptionsHelper.onlyBike(availableMobilityOptions)) {
-      onlyBikeHelper(incidents, origin, destination, departureTime).then((result) => {
+      onlyBikeHelper(incidents, origin, destination).then((result) => {
         if(!result) reject("No alternative bike-routes found");
         resolve(result);
       }, (error) => {
@@ -53,7 +53,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
       });
     }
     if (checkMobilityOptionsHelper.onlyTrainTicket(availableMobilityOptions)) {
-      onlyTrainTicketHelper(incidents, origin, destination, departureTime).then(function(result) {
+      onlyTrainTicketHelper(incidents, origin, destination).then(function(result) {
         if(!result) reject("No alternative transit-route found");
         resolve(result);
       }, (error) => {

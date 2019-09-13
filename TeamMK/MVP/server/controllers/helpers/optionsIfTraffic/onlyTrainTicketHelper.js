@@ -3,7 +3,7 @@ const getSortedRoutesHelper = require('../getSortedRoutesHelper');
 const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
 const getSwitchesHelper = require('../getSwitchesHelper');
 
-module.exports = function(incidents, origin, destination, departureTime) {
+module.exports = function(incidents, origin, destination) {
   return new Promise(function(resolve, reject) {
 
     apiRequestHelper.getHereDirectionsAPIData(origin, destination, "publicTransportTimeTable", incidents)
