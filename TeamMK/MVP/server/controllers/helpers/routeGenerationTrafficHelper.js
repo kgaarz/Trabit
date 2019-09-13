@@ -4,20 +4,17 @@ const onlySharingHelper = require('./optionsIfTraffic/onlySharingHelper');
 const onlyCarHelper = require('./optionsIfTraffic/onlyCarHelper');
 const onlyBikeHelper = require('./optionsIfTraffic/onlyBikeHelper');
 const onlyTrainTicketHelper = require('./optionsIfTraffic/onlyTrainTicketHelper');
-const carAndBikeHelper = require('./optionsIfTraffic/carAndBikeHelper');
 const sharingAndBikeHelper = require('./optionsIfTraffic/sharingAndBikeHelper');
 const bikeSharingAndBikeHelper = require('./optionsIfTraffic/bikeSharingAndBikeHelper');
 const trainTicketAndBikeHelper = require('./optionsIfTraffic/trainTicketAndBikeHelper');
 const sharingAndCarHelper = require('./optionsIfTraffic/sharingAndCarHelper');
 const trainTicketAndCarHelper = require('./optionsIfTraffic/trainTicketAndCarHelper');
 const bikeSharingAndTrainTicketHelper = require('./optionsIfTraffic/bikeSharingAndTrainTicketHelper');
-const bikeAndTrainTicketAndCarHelper = require('./optionsIfTraffic/bikeAndTrainTicketAndCarHelper');
 const sharingAndTrainTicketAndCarHelper = require('./optionsIfTraffic/sharingAndTrainTicketAndCarHelper');
-const sharingAndBikeAndCarHelper = require('./optionsIfTraffic/sharingAndBikeAndCarHelper');
 const bikeSharingAndBikeAndTrainTicketHelper = require('./optionsIfTraffic/bikeSharingAndBikeAndTrainTicketHelper');
 const sharingAndTrainTicketHelper = require('./optionsIfTraffic/sharingAndTrainTicketHelper');
-const allOptionsHelper = require('./optionsIfTraffic/allOptionsHelper');
 
+//Alle alternativen Helper mit mehreren eigener MM entfernt
 module.exports = function(availableMobilityOptions, incidents, origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
     if (checkMobilityOptionsHelper.onlyBikeSharing(availableMobilityOptions)) {
@@ -55,13 +52,6 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
     if (checkMobilityOptionsHelper.onlyTrainTicket(availableMobilityOptions)) {
       onlyTrainTicketHelper(incidents, origin, destination).then(function(result) {
         if(!result) reject("No alternative transit-route found");
-        resolve(result);
-      }, (error) => {
-        reject(error);
-      });
-    }
-    if (checkMobilityOptionsHelper.carAndBike(availableMobilityOptions)) {
-      carAndBikeHelper(incidents, origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
@@ -111,22 +101,8 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
         reject(error);
       });
     }
-    if (checkMobilityOptionsHelper.bikeAndTrainTicketAndCar(availableMobilityOptions)) {
-      bikeAndTrainTicketAndCarHelper(incidents, origin, destination, departureTime).then(function(result) {
-        resolve(result);
-      }, (error) => {
-        reject(error);
-      });
-    }
     if (checkMobilityOptionsHelper.sharingAndTrainTicketAndCar(availableMobilityOptions)) {
       sharingAndTrainTicketAndCarHelper(incidents, origin, destination, departureTime).then(function(result) {
-        resolve(result);
-      }, (error) => {
-        reject(error);
-      });
-    }
-    if (checkMobilityOptionsHelper.sharingAndBikeAndCar(availableMobilityOptions)) {
-      sharingAndBikeAndCarHelper(incidents, origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
@@ -142,13 +118,6 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
     if (checkMobilityOptionsHelper.sharingAndTrainTicket(availableMobilityOptions)) {
       sharingAndTrainTicketHelper(incidents, origin, destination, departureTime).then(function(result) {
         if(!result) reject("No alternative sharing+transit-routes found");
-        resolve(result);
-      }, (error) => {
-        reject(error);
-      });
-    }
-    if (checkMobilityOptionsHelper.allOptions(availableMobilityOptions)) {
-      allOptionsHelper(incidents, origin, destination, departureTime).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
