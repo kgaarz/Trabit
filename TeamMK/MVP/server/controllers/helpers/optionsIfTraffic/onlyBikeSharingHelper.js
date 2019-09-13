@@ -3,7 +3,7 @@ const getSortedRoutesHelper = require('../getSortedRoutesHelper');
 const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
 const getSwitchesHelper = require('../getSwitchesHelper');
 
-module.exports = function(origin, destination, departureTime) {
+module.exports = function(incidents, origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
     var cabData = [];
     var smallRadius = apiRequestHelper.getCabData(origin.lat, origin.lng, 200);
@@ -24,12 +24,13 @@ module.exports = function(origin, destination, departureTime) {
         } else {
           cabData = values[0];
         }
-        return checkNearBikeRoutes(cabData, origin, destination, departureTime);
+
+        return checkNearBikeRoutes(cabData, origin, destination, incidents, departureTime);
       }, (error)=>{
         reject(error);
       })
       .then((result) => {
-        resolve(result);
+        resolve(result[0]);
       },
       (error)=>{
         reject(error);
@@ -37,11 +38,11 @@ module.exports = function(origin, destination, departureTime) {
   });
 }
 
-function checkNearBikeRoutes(cabData, origin, destination, departureTime) {
+function checkNearBikeRoutes(cabData, origin, destination, incidents, departureTime) {
   return new Promise(function(resolve, reject) {
     totalRoutes = [];
     for (i = 0; i < cabData.length; i++) {
-      totalRoutes.push(createBikeRoute(cabData, origin, destination, departureTime, i));
+      totalRoutes.push(createBikeRoute(cabData, origin, destination, incidents, departureTime, i));
     };
     Promise.all(totalRoutes).then((values) => {
       resolve(getSortedRoutesHelper(values));
@@ -55,10 +56,10 @@ function checkNearBikeRoutes(cabData, origin, destination, departureTime) {
   });
 }
 
-function createBikeRoute(cabData, origin, destination, departureTime, i) {
+function createBikeRoute(cabData, origin, destination, incidents, departureTime, i) {
   return new Promise(function(resolve, reject) {
     var walkingWay = apiRequestHelper.getGoogleDirectionsAPIData(origin, cabData[i].geoLocation, departureTime, "walking");
-    var bikeWay = apiRequestHelper.getGoogleDirectionsAPIData(cabData[i].geoLocation, destination, departureTime, "bicycling");
+    var bikeWay = apiRequestHelper.getHereDirectionsAPIData(cabData[i].geoLocation, destination, "bicycle", incidents);
 
     Promise.all([walkingWay, bikeWay]).then((values) => {
       totalRoute = {
