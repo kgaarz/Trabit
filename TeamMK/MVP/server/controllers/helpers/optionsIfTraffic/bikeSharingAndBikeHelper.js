@@ -1,8 +1,8 @@
 const onlyBikeHelper = require('./onlyBikeHelper');
 
-module.exports = function(origin, destination, departureTime) {
+module.exports = function(incidents, origin, destination) {
   return new Promise(function(resolve, reject) {
-    onlyBikeHelper(origin, destination, departureTime).then(
+    onlyBikeHelper(incidents, origin, destination).then(
       (result) => {
         resolve(result);
       },
