@@ -5,7 +5,7 @@ const getSortedRoutesHelper = require('../getSortedRoutesHelper');
 const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
 const getSwitchesHelper = require('../getSwitchesHelper');
 
-module.exports = function(origin, destination, departureTime) {
+module.exports = function(incidents, origin, destination) {
   return new Promise(function(resolve, reject) {
 
       var hereData = [];
@@ -27,13 +27,13 @@ module.exports = function(origin, destination, departureTime) {
             } else {
               hereData = values[0];
             }
-            return checkNearBikeAndTrainTicketRoutes(hereData, origin, destination, departureTime);
+            return checkNearBikeAndTrainTicketRoutes(hereData, origin, destination, incidents);
           },
           (error) => {
             reject(error);
           })
         .then((result) => {
-            resolve(result);
+            resolve(result[0]);
           },
           (error) => {
             reject(error);
@@ -44,28 +44,23 @@ module.exports = function(origin, destination, departureTime) {
     });
 }
 
-function checkNearBikeAndTrainTicketRoutes(hereData, origin, destination, departureTime) {
+function checkNearBikeAndTrainTicketRoutes(hereData, origin, destination, incidents) {
   return new Promise(function(resolve, reject) {
       totalRoutes = [];
 
-      totalRoutes.push(onlyBikeHelper(origin, destination, departureTime));
-      totalRoutes.push(onlyTrainTicketHelper(origin, destination, departureTime));
+      totalRoutes.push(onlyBikeHelper(incidents, origin, destination));
+      totalRoutes.push(onlyTrainTicketHelper(incidents, origin, destination));
 
       for (i = 0; i < hereData.length; i++) {
-        totalRoutes.push(createNearBikeAndTrainTicketRoutes(hereData, origin, destination, departureTime, i));
+        totalRoutes.push(createNearBikeAndTrainTicketRoutes(hereData, origin, destination, incidents, i));
       }
 
       Promise.all(totalRoutes).then((values) => {
-          //console.log(values);
           var result = [];
           for (i = 0; i < values.length; i++) {
-            for (j = 0; j < values[i].length; j++) {
-              result.push(values[i][j]);
-            }
+              result.push(values[i]);
           }
-          for (i = 2; i < values.length; i++) {
-            result.push(values[i]);
-          }
+
           resolve(getSortedRoutesHelper(result));
         },
         (error) => {
@@ -77,10 +72,10 @@ function checkNearBikeAndTrainTicketRoutes(hereData, origin, destination, depart
     });
 }
 
-function createNearBikeAndTrainTicketRoutes(hereData, origin, destination, departureTime, i) {
+function createNearBikeAndTrainTicketRoutes(hereData, origin, destination, incidents, i) {
   return new Promise(function(resolve, reject) {
-      var bikeWay = apiRequestHelper.getGoogleDirectionsAPIData(origin, hereData[i].geoLocation, departureTime, "bicycling");
-      var transitWay = apiRequestHelper.getGoogleDirectionsAPIData(hereData[i].geoLocation, destination, departureTime, "transit");
+      var bikeWay = apiRequestHelper.getHereDirectionsAPIData(origin, hereData[i].geoLocation, "bicycle", incidents);
+      var transitWay = apiRequestHelper.getHereDirectionsAPIData(hereData[i].geoLocation, destination, "publicTransportTimeTable", incidents);
 
       Promise.all([bikeWay, transitWay]).then((values) => {
           totalRoute = {
