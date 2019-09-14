@@ -1,41 +1,103 @@
-const apiRequestHelper = require('../apiRequestHelper');
-const onlyBikeHelper = require('./onlyBikeHelper');
 const onlyTrainTicketHelper = require('./onlyTrainTicketHelper');
-const checkNearRoutesHelper = require('../checkNearRoutesHelper');
+const onlyBikeHelper = require('./onlyBikeHelper');
+const getSortedRoutesHelper = require('../getSortedRoutesHelper');
+const apiRequestHelper = require('../apiRequestHelper');
+const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
+const getSwitchesHelper = require('../getSwitchesHelper');
 
-module.exports = function (origin, destination, departureTime) {
-    return new Promise(function (resolve, reject) {
-        var hereData = [];
-        var smallRadiusCar = apiRequestHelper.getHereData(origin.lat, origin.lng, 500);
-        var mediumRadiusCar = apiRequestHelper.getHereData(origin.lat, origin.lng, 1250);
-        var bigRadiusCar = apiRequestHelper.getHereData(origin.lat, origin.lng, 2500);
+module.exports = function(incidents, origin, destination) {
+  return new Promise(function(resolve, reject) {
+    var trainTicketAndCarRoute = generateTrainTicketAndCarRoute(incidents, origin, destination);
+    var onlyTrainTicket = onlyTrainTicketHelper(incidents, origin, destination);
+    var onlyBike = onlyBikeHelper(incidents, origin, destination);
 
-        Promise.all([smallRadiusCar, mediumRadiusCar, bigRadiusCar]).then((values) => {
-            if (values[0].length == 0) {
-                if (values[1].length == 0) {
-                    if (values[2].length == 0) {
-                        reject("error: No train found");
-                    } else {
-                        hereData = values[2];
-                    }
-                } else {
-                    hereData = values[1];
-                }
-            } else {
-                hereData = values[0];
+    Promise.all([trainTicketAndCarRoute, onlyTrainTicket, onlyBike]).then((values) => {
+        var result = [];
+
+        for (i = 0; i < values.length; i++) {
+          result.push(values[i]);
+        }
+        
+        var sorted = getSortedRoutesHelper(result);
+        resolve(sorted[0]);
+      },
+      (error) => {
+        reject(error);
+      });
+
+  });
+}
+
+function generateTrainTicketAndCarRoute(incidents, origin, destination) {
+  return new Promise(function(resolve, reject) {
+    apiRequestHelper.getHereDirectionsAPIData(origin, destination, "publicTransportTimeTable", incidents).then((result) => {
+          var value = result.steps[0].duration;
+          var index = 0;
+          for (i = 0; i < result.steps.length; i++) {
+            if (value < result.steps[i].duration) {
+              value = result.steps[i].duration;
+              index = i;
             }
-            return checkNearRoutesHelper.checkNearRoutesForTwo(hereData, onlyBikeHelper, onlyTrainTicketHelper, origin, destination, departureTime, "bicycling", "transit");
+          }
+
+          return checkStepsWithBike(origin, incidents, result, index);
         },
-            (error) => {
-                reject(error);
-            })
-            .then((result) => {
-                resolve(result);
-            },
-                (error) => {
-                    reject(error);
+        (error) => {
+          reject(error);
+        })
+      .then((result) => {
+          resolve(result);
+        },
+        (error) => {
+          reject(error);
+        });
+  });
+}
 
-                });
+function checkStepsWithBike(origin, incidents, result, index) {
+  return new Promise(function(resolve, reject) {
+    var routes = [];
+    for (j = 1; j <= index; j++) {
+      routes.push(apiRequestHelper.getHereDirectionsAPIData(origin, result.steps[j].startLocation, "bicycle", incidents));
+    }
+    Promise.all(routes).then((values) => {
+      var shortestSteps = [];
+      for (k = 0; k < values.length; k++) {
+        var tempDuration = 0;
+        for (m = 0; m <= k; m++) {
+          tempDuration += result.steps[m].duration;
+        }
+        if (values[k].duration < tempDuration) {
+          shortestSteps = [];
+          for (n = 0; n < values[k].steps.length; n++) {
+            shortestSteps.push(values[k].steps[n]);
+          }
+        } else {
+          shortestSteps.push(result.steps[k]);
+        }
+      }
 
+      for (q = index; q < result.steps.length; q++) {
+        shortestSteps.push(result.steps[q]);
+      }
+
+      var totalDuration = 0;
+      var totalDistance = 0;
+
+      for (p = 0; p < shortestSteps.length; p++) {
+        totalDuration += shortestSteps[p].duration;
+        totalDistance += shortestSteps[p].distance;
+      }
+      var perfectRoute = {
+        modes: ["bicycling", "transit"],
+        distance: totalDistance,
+        duration: totalDuration,
+        switches: getSwitchesHelper(shortestSteps),
+        sustainability: generateSustainabilityScoreHelper(shortestSteps),
+        route: shortestSteps
+      }
+
+      resolve(perfectRoute);
     });
+  });
 }

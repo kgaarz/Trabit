@@ -5,23 +5,22 @@ const apiRequestHelper = require('../apiRequestHelper');
 const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
 const getSwitchesHelper = require('../getSwitchesHelper');
 
-module.exports = function(origin, destination, departureTime) {
+module.exports = function(incidents, origin, destination) {
   return new Promise(function(resolve, reject) {
 
-    var trainTicketAndCarRoute = generateTrainTicketAndCarRoute(origin, destination, departureTime);
-    var onlyTrainTicket = onlyTrainTicketHelper(origin, destination, departureTime);
-    var onlyCar = onlyCarHelper(origin, destination, departureTime);
+    var trainTicketAndCarRoute = generateTrainTicketAndCarRoute(incidents, origin, destination);
+    var onlyTrainTicket = onlyTrainTicketHelper(incidents, origin, destination);
+    var onlyCar = onlyCarHelper(incidents, origin, destination);
 
     Promise.all([trainTicketAndCarRoute, onlyTrainTicket, onlyCar]).then((values) => {
         var result = [];
 
-        result.push(values[0]);
-        for (i = 1; i < values.length; i++) {
-          for (j = 0; j < values[i].length; j++) {
-            result.push(values[i][j]);
-          }
+        for (i = 0; i < values.length; i++) {
+          result.push(values[i]);
         }
-        resolve(getSortedRoutesHelper(result));
+        console.log(result);
+        var sorted = getSortedRoutesHelper(result);
+        resolve(sorted[0]);
       },
       (error) => {
         reject(error);
@@ -30,9 +29,9 @@ module.exports = function(origin, destination, departureTime) {
   });
 }
 
-function generateTrainTicketAndCarRoute(origin, destination, departureTime) {
+function generateTrainTicketAndCarRoute(incidents, origin, destination) {
   return new Promise(function(resolve, reject) {
-    apiRequestHelper.getGoogleDirectionsAPIData(origin, destination, departureTime, "transit").then((result) => {
+    apiRequestHelper.getHereDirectionsAPIData(origin, destination, "publicTransportTimeTable", incidents).then((result) => {
           var value = result.steps[0].duration;
           var index = 0;
           for (i = 0; i < result.steps.length; i++) {
@@ -42,7 +41,7 @@ function generateTrainTicketAndCarRoute(origin, destination, departureTime) {
             }
           }
 
-          return checkStepsWithCar(origin, departureTime, result, index);
+          return checkStepsWithCar(origin, incidents, result, index);
         },
         (error) => {
           reject(error);
@@ -56,11 +55,11 @@ function generateTrainTicketAndCarRoute(origin, destination, departureTime) {
   });
 }
 
-function checkStepsWithCar(origin, departureTime, result, index) {
+function checkStepsWithCar(origin, incidents, result, index) {
   return new Promise(function(resolve, reject) {
     var routes = [];
     for (j = 1; j <= index; j++) {
-      routes.push(apiRequestHelper.getGoogleDirectionsAPIData(origin, result.steps[j].startLocation, departureTime, "driving"));
+      routes.push(apiRequestHelper.getHereDirectionsAPIData(origin, result.steps[j].startLocation, "car", incidents));
     }
     Promise.all(routes).then((values) => {
       var shortestSteps = [];
@@ -79,7 +78,7 @@ function checkStepsWithCar(origin, departureTime, result, index) {
         }
       }
 
-      for(q = index; q < result.steps.length; q++){
+      for (q = index; q < result.steps.length; q++) {
         shortestSteps.push(result.steps[q]);
       }
 
