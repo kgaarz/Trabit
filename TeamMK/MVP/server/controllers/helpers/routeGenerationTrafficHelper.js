@@ -19,7 +19,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
 
     if (currentMode === "car") availableMobilityOptions.bike = false;
     if (currentMode === "bicycle") availableMobilityOptions.car = false;
-    if (currentMode !== ("car" || "bicycle")) {
+    if (currentMode !== "car" && currentMode !== "bicycle") {
       availableMobilityOptions.car = false;
       availableMobilityOptions.bike = false;
     }
@@ -73,14 +73,14 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
     }
 
     if (checkMobilityOptionsHelper.bikeSharingAndBike(availableMobilityOptions)) {
-      bikeSharingAndBikeHelper(incidents, origin, destination, departureTime).then(function(result) {
+      bikeSharingAndBikeHelper(incidents, origin, destination).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
       });
     }
     if (checkMobilityOptionsHelper.trainTicketAndBike(availableMobilityOptions)) {
-      trainTicketAndBikeHelper(incidents, origin, destination, departureTime).then(function(result) {
+      trainTicketAndBikeHelper(incidents, origin, destination).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
@@ -94,7 +94,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
       });
     }
     if (checkMobilityOptionsHelper.trainTicketAndCar(availableMobilityOptions)) {
-      trainTicketAndCarHelper(incidents, origin, destination, departureTime).then(function(result) {
+      trainTicketAndCarHelper(incidents, origin, destination).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
@@ -116,7 +116,7 @@ module.exports = function(availableMobilityOptions, incidents, origin, destinati
       });
     }
     if (checkMobilityOptionsHelper.bikeSharingAndBikeAndTrainTicket(availableMobilityOptions)) {
-      bikeSharingAndBikeAndTrainTicketHelper(incidents, origin, destination, departureTime).then(function(result) {
+      bikeSharingAndBikeAndTrainTicketHelper(incidents, origin, destination).then(function(result) {
         resolve(result);
       }, (error) => {
         reject(error);
