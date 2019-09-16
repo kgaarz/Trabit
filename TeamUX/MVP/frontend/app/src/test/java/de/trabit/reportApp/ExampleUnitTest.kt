@@ -1,4 +1,4 @@
-package de.Trabit.trafficReport
+package de.trabit.reportApp
 
 import org.junit.Test
 

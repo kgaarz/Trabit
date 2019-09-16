@@ -1,4 +1,4 @@
-package de.Trabit.trafficReport
+package de.trabit.reportApp
 
 import android.content.Intent
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package de.Trabit.trafficReport
+package de.trabit.reportApp
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
