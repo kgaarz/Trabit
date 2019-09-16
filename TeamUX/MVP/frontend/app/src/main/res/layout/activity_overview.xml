@@ -6,29 +6,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/whiteBlue"
         tools:context=".OverviewActivity">
 
     <RelativeLayout
             android:orientation="horizontal"
-            android:background="@mipmap/header_new"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="210dp"
+            android:background="@color/colorWhite"
     >
 
         <RelativeLayout
-                android:layout_margin="15dp"
+
                 android:orientation="horizontal"
-                android:layout_centerInParent="true"
-                android:background="@mipmap/header_new"
+                android:padding="10dp"
+                android:background="@drawable/custom_header"
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
+                android:layout_height="130dp">
 
             <ImageButton
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
                 app:srcCompat="@mipmap/location_icon"
                 android:id="@+id/locationChange"
                 android:background="@null"
@@ -37,54 +39,56 @@
             />
 
             <TextView
-                    android:text="Aktuelle Störungen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentTop="true"
-                    android:id="@+id/headerStartScreen"
-                    android:textSize="30sp"
-                    android:textColor="#F9F9F9"
-                    app:fontFamily="@font/oxygen"
-            />
+                android:id="@+id/headerStartScreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:text="Aktuelle Störungen"
+                android:textColor="#F9F9F9"
+                android:textSize="20sp"
+                app:fontFamily="@font/oxygen" />
 
             <TextView
                     android:text="Standort"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="35dp"
                     android:id="@+id/locationHeader"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:textColor="#F9F9F9"
 
             />
             <SearchView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_width="190dp"
+                    android:layout_height="40dp"
                     android:layout_alignParentBottom="true"
                     android:theme="@style/AppTheme.SearchReports"
-                    android:layout_marginLeft="20dp"
-
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/border_bottom_search_overview"
+                    android:paddingLeft="-15dp"
             />
 
 
         </RelativeLayout>
 
 
-    </RelativeLayout>
 
     <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
-                android:layout_height="90dp"
-                android:paddingTop= "15dp"
+                android:layout_height="70dp"
+                android:paddingTop= "10dp"
                 android:paddingBottom= "15dp"
-                android:background="@color/colorPrimaryDark"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorWhite"
     >
                 <ImageButton
                     android:layout_width="wrap_content"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
                     android:layout_weight="5"
                     app:srcCompat="@mipmap/train_icon_grey"
                     android:id="@+id/trainIcon"
@@ -94,7 +98,7 @@
 
                 <ImageButton
                      android:layout_width="wrap_content"
-                     android:layout_height="60dp"
+                     android:layout_height="40dp"
                      android:layout_weight="5"
                      app:srcCompat="@mipmap/tram_icon_grey"
                      android:id="@+id/tramIcon"
@@ -104,7 +108,7 @@
 
                 <ImageButton
                     android:layout_width="wrap_content"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
                     android:layout_weight="5"
                     app:srcCompat="@mipmap/bus_icon_grey"
                     android:id="@+id/busIcon"
@@ -114,7 +118,7 @@
 
                 <ImageButton
                     android:layout_width="wrap_content"
-                    android:layout_height="60dp"
+                    android:layout_height="40dp"
                     android:layout_weight="5"
                     app:srcCompat="@mipmap/car_icon_grey"
                     android:id="@+id/carIcon"
@@ -124,21 +128,81 @@
 
     </LinearLayout>
 
+    </RelativeLayout>
+
         <View
                 android:layout_width="fill_parent"
-                android:layout_height="7dip"
+                android:layout_height="5dp"
                 android:background="@drawable/drop_shadow_start" >
          </View>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            >
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="5dp"
+                android:background="@drawable/drop_shadow_footer"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="30dp"
+
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/custom_footer">
+
+
+                <ImageButton
+                    android:layout_height="30dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:src="@mipmap/overview_active"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center"
+                    android:id="@+id/overviewNavigation"
+                />
+
+
+
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/profile"
+                    android:layout_marginLeft="100dp"
+                    android:id="@+id/profileNavigation"
+
+                    />
+
+            </LinearLayout>
+
         <ImageButton
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                app:srcCompat="@mipmap/plus"
-                android:id="@+id/addButton"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:srcCompat="@mipmap/add"
                 android:scaleType="fitCenter"
                 android:background="@null"
-                android:layout_gravity="center"
-                android:layout_marginTop="330dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:id="@+id/addButton"
         />
+
+    </RelativeLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>
