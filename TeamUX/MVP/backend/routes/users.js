@@ -45,4 +45,13 @@ router.put('/users/:userId/profile', async (req, res) => {
     }
 });
 
+// get routes
+router.get('/users/:userId/routes', async (req, res) => {
+    try {
+        res.status(200).send(await UserController.getRoutes(req.params.userId));
+    } catch (error) {
+        res.status(error.statusCode ? error.statusCode : 500).json(error.message);
+    }
+});
+
 module.exports = router;

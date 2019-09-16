@@ -6,6 +6,7 @@ const Agenda = require('agenda');
 const usersRoute = require('./routes/users');
 const reportsRoute = require('./routes/reports');
 const commentsRoute = require('./routes/comments');
+const routesRoute = require('./routes/routes');
 const ReportController = require('./controllers/reportController');
 const ApiError = require('./exceptions/apiExceptions');
 require('dotenv').config();
@@ -23,6 +24,7 @@ require('dotenv').config();
     app.use(usersRoute);
     app.use(reportsRoute);
     app.use(commentsRoute);
+    app.use(routesRoute);
 
     // handler for 405 - Method not allowed
     app.use((req, res) => {
