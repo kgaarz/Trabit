@@ -1,5 +1,5 @@
 const Report = require('../models/reportSchema')
-const User = require('../models/userSchema')
+const UserController = require('./userController')
 const ApiError = require('../exceptions/apiExceptions')
 const GeodataService = require('../services/geodataService')
 
@@ -28,12 +28,7 @@ class ReportController {
 
     async create(body) {
         // check if author exists
-        const user = await User.findOne({
-            username: body.author
-        })
-        if (!user) {
-            throw new ApiError('Author not found!', 404)
-        }
+        await UserController.getByUsername(body.author)
         // making sure the report only consists of the allowed insert params
         const newReport = {}
         Object.keys(this.createReportModel).forEach(key => newReport[key] = body[key])
@@ -42,7 +37,6 @@ class ReportController {
             // eslint-disable-next-line require-atomic-updates
             newReport.location.city = await GeodataService.getCityFromGeodata(newReport.location.lat, newReport.location.long)
         } catch (error) {
-            console.error(error)
             throw new ApiError('City could not be retrieved from the location coordinates!', 400)
         }
         // getting car transportTag from geodata
@@ -51,7 +45,6 @@ class ReportController {
                 // eslint-disable-next-line require-atomic-updates
                 newReport.transport.transportTag = await GeodataService.getStreetFromGeodata(newReport.location.lat, newReport.location.long)
             } catch (error) {
-                console.error(error)
                 throw new ApiError('TransportTag could not be retrieved from the location coordinates!', 400)
             }
         }
@@ -75,11 +68,10 @@ class ReportController {
                 // eslint-disable-next-line require-atomic-updates
                 params.city = await GeodataService.getCityFromGeodata(params.lat, params.long)
             } catch (error) {
-                console.error(error)
                 throw new ApiError('City could not be retrieved from the location coordinates!', 400)
             }
         }
-        const possibleParameters = ['author', 'city', 'transportType', 'transportTag', 'transportDirection']
+        const possibleParameters = ['author', 'city', 'transportType', 'transportTag', 'transportDirection', 'active', 'verified']
         let query = {}
         possibleParameters.forEach(param => {
             if (params[param] !== undefined) {
@@ -91,6 +83,10 @@ class ReportController {
                     case 'transportTag':
                     case 'transportDirection':
                         query['transport.' + param] = params[param]
+                        break
+                    case 'active':
+                    case 'verified':
+                        query['metadata.' + param] = params[param]
                         break
                     default:
                         query[param] = params[param]
@@ -138,14 +134,42 @@ class ReportController {
         })
     }
 
+    async updateVerificationState(reportId) {
+        const report = await this.getSpecific(reportId)
+        const downvotes = report.metadata.downvotes
+        const upvotes = report.metadata.upvotes
+        const threshold = process.env.VERIFICATION_THRESHOLD
+        // check new verification state
+        const newVerified = ((upvotes > (downvotes * threshold)) || (upvotes > (2 * threshold) && downvotes < 2))
+        // update if state has changed
+        if (newVerified !== report.metadata.verified) {
+            console.debug(`updating ${reportId}`)
+            return await Report.updateOne({
+                _id: reportId
+            }, {
+                'metadata.verified': newVerified
+            })
+        }
+    }
+
+    async updateActiveState(reportId) {
+        const report = await this.getSpecific(reportId)
+        const activityCheckTime = new Date()
+        activityCheckTime.setMinutes(activityCheckTime.getMinutes() - process.env.REPORT_ACTIVITY_CHECK_EVERY)
+        // set report to inactive if older than defined activity duration
+        if (report.modified < activityCheckTime) {
+            console.debug(`deactivating ${reportId}`)
+            return await Report.updateOne({
+                _id: reportId
+            }, {
+                'metadata.active': false
+            })
+        }
+    }
+
     async createComment(reportId, body) {
         // check if author exists
-        const user = await User.findOne({
-            username: body.author
-        })
-        if (!user) {
-            throw new ApiError('Author not found!', 404)
-        }
+        await UserController.getByUsername(body.author)
         const report = await this.getSpecific(reportId)
         // check if body contains all required parameters
         const possibleParameters = ['author', 'content']

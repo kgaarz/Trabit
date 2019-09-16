@@ -22,6 +22,16 @@ class UserController {
         return user
     }
 
+    async getByUsername(username) {
+        const user = await User.findOne({
+            "username": username
+        })
+        if (!user) {
+            throw new ApiError('Username not found!', 404)
+        }
+        return user
+    }
+
     async delete(userId) {
         const user = await this.getSpecific(userId)
         return await User.findByIdAndRemove(user._id)
