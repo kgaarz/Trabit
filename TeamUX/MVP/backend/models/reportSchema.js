@@ -11,6 +11,11 @@ const reportSchema = new mongoose.Schema({
     default: Date.now,
     required: true
   },
+  modified: {
+    type: Date,
+    default: Date.now,
+    required: true
+  },
   location: {
     lat: {
       type: String,
@@ -33,7 +38,7 @@ const reportSchema = new mongoose.Schema({
     },
     transportTag: {
       type: String,
-      required: true // also required for car reports?
+      required: true
     },
     transportDirection: {
       type: String,
@@ -56,9 +61,29 @@ const reportSchema = new mongoose.Schema({
     verified: {
       type: Boolean,
       default: false
+    },
+    active: {
+      type: Boolean,
+      default: true
     }
   },
   comments: [commentSchema]
+})
+
+reportSchema.post('update', function () {
+  this.update({}, {
+    $set: {
+      modified: new Date()
+    }
+  })
+})
+
+reportSchema.post('save', function () {
+  this.update({}, {
+    $set: {
+      modified: new Date()
+    }
+  })
 })
 
 module.exports = mongoose.model('report', reportSchema)

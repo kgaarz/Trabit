@@ -14,6 +14,11 @@ const userSchema = new mongoose.Schema({
     default: Date.now,
     required: true
   },
+  modified: {
+    type: Date,
+    default: Date.now,
+    required: true
+  },
   password: {
     // TODO: pw hashing!
     type: String,
@@ -29,6 +34,22 @@ const userSchema = new mongoose.Schema({
       required: true
     },
   }
+})
+
+userSchema.post('update', function () {
+  this.update({}, {
+    $set: {
+      modified: new Date()
+    }
+  })
+})
+
+userSchema.post('save', function () {
+  this.update({}, {
+    $set: {
+      modified: new Date()
+    }
+  })
 })
 
 module.exports = mongoose.model('user', userSchema)
