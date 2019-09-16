@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const commentSchema = require('./commentSchema.js')
+const mongoose = require('mongoose');
+const commentSchema = require('./commentSchema.js');
 
 const reportSchema = new mongoose.Schema({
   author: {
@@ -68,22 +68,22 @@ const reportSchema = new mongoose.Schema({
     }
   },
   comments: [commentSchema]
-})
+});
 
 reportSchema.post('update', function () {
   this.update({}, {
     $set: {
       modified: new Date()
     }
-  })
-})
+  });
+});
 
 reportSchema.post('save', function () {
   this.update({}, {
     $set: {
       modified: new Date()
     }
-  })
-})
+  });
+});
 
-module.exports = mongoose.model('report', reportSchema)
+module.exports = mongoose.model('report', reportSchema);
