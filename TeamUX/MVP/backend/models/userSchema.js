@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -10,6 +10,11 @@ const userSchema = new mongoose.Schema({
     }
   },
   created: {
+    type: Date,
+    default: Date.now,
+    required: true
+  },
+  modified: {
     type: Date,
     default: Date.now,
     required: true
@@ -29,6 +34,22 @@ const userSchema = new mongoose.Schema({
       required: true
     },
   }
-})
+});
 
-module.exports = mongoose.model('user', userSchema)
+userSchema.post('update', function () {
+  this.update({}, {
+    $set: {
+      modified: new Date()
+    }
+  });
+});
+
+userSchema.post('save', function () {
+  this.update({}, {
+    $set: {
+      modified: new Date()
+    }
+  });
+});
+
+module.exports = mongoose.model('user', userSchema);

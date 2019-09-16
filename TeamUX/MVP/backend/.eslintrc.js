@@ -12,5 +12,10 @@ module.exports = {
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "rules": {}
+    "rules": {
+        semi: ["error", "always"],
+        "no-console": ["error", {
+            allow: ["debug"]
+        }]
+    }
 };
