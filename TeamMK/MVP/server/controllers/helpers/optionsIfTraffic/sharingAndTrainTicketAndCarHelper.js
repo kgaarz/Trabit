@@ -6,22 +6,22 @@ const bikeSharingAndTrainTicketHelper = require('./bikeSharingAndTrainTicketHelp
 const generateSustainabilityScoreHelper = require('../generateSustainabilityScoreHelper');
 const getSwitchesHelper = require('../getSwitchesHelper');
 
-module.exports = function(origin, destination, departureTime) {
+module.exports = function(incidents, origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
-      var sharingAndTrainTicketAndCarRoute = generateSharingAndTrainTicketAndCarRoute(origin, destination, departureTime);
-      var bikeSharingAndTrainTicket = bikeSharingAndTrainTicketHelper(origin, destination, departureTime);
-      var sharingAndCar = sharingAndCarHelper(origin, destination, departureTime);
+      var sharingAndTrainTicketAndCarRoute = generateSharingAndTrainTicketAndCarRoute(incidents, origin, destination, departureTime);
+      var bikeSharingAndTrainTicket = bikeSharingAndTrainTicketHelper(incidents, origin, destination, departureTime);
+      var sharingAndCar = sharingAndCarHelper(incidents, origin, destination, departureTime);
 
       Promise.all([sharingAndTrainTicketAndCarRoute, bikeSharingAndTrainTicket, sharingAndCar]).then((values) => {
           var result = [];
-          if (values[0]) result.push(values[0]);
 
-          for (i = 1; i < values.length; i++) {
-            for (j = 0; j < values[i].length; j++) {
-              result.push(values[i][j]);
-            }
+
+          for (i = 0; i < values.length; i++) {
+              if (values[i]) result.push(values[i]);
           }
-          resolve(getSortedRoutesHelper(result));
+
+          var sorted = getSortedRoutesHelper(result);
+          resolve(sorted[0]);
         },
         (error) => {
           reject(error);
@@ -32,9 +32,9 @@ module.exports = function(origin, destination, departureTime) {
     });
 }
 
-function generateSharingAndTrainTicketAndCarRoute(origin, destination, departureTime) {
+function generateSharingAndTrainTicketAndCarRoute(incidents, origin, destination, departureTime) {
   return new Promise(function(resolve, reject) {
-    apiRequestHelper.getGoogleDirectionsAPIData(origin, destination, departureTime, "transit").then((result) => {
+    apiRequestHelper.getHereDirectionsAPIData(origin, destination, "publicTransportTimeTable", incidents).then((result) => {
           var value = result.steps[0].duration;
           var index = 0;
           for (i = 0; i < result.steps.length; i++) {
@@ -44,7 +44,7 @@ function generateSharingAndTrainTicketAndCarRoute(origin, destination, departure
             }
           }
 
-          return checkStepsWithCar(origin, departureTime, result, index);
+          return checkStepsWithCar(incidents, origin, departureTime, result, index);
         },
         (error) => {
           reject(error);
@@ -64,11 +64,11 @@ function generateSharingAndTrainTicketAndCarRoute(origin, destination, departure
   });
 }
 
-function checkStepsWithCar(origin, departureTime, result, index) {
+function checkStepsWithCar(incidents, origin, departureTime, result, index) {
   return new Promise(function(resolve, reject) {
     var routes = [];
     for (j = 1; j <= index; j++) {
-      routes.push(apiRequestHelper.getGoogleDirectionsAPIData(origin, result.steps[j].startLocation, departureTime, "driving"));
+      routes.push(apiRequestHelper.getHereDirectionsAPIData(origin, result.steps[j].startLocation, "car", incidents));
     }
     Promise.all(routes).then((values) => {
       var shortestSteps = [];
@@ -91,7 +91,8 @@ function checkStepsWithCar(origin, departureTime, result, index) {
         departureTime: departureTime,
         shortestSteps: shortestSteps,
         transitRoute: result,
-        index: index
+        index: index,
+        incidents: incidents
       }
       resolve(object);
 
@@ -103,7 +104,7 @@ function checkStepsWithSharing(result) {
   return new Promise(function(resolve, reject) {
     var routes = [];
     for (o = result.index + 1; o < result.transitRoute.steps.length; o++) {
-      routes.push(onlySharingHelper(result.transitRoute.steps[o].endLocation, result.transitRoute.endLocation, result.departureTime))
+      routes.push(onlySharingHelper(result.incidents, result.transitRoute.steps[o].endLocation, result.transitRoute.endLocation, result.departureTime))
     }
 
     Promise.all(routes).then((values) => {
@@ -115,12 +116,12 @@ function checkStepsWithSharing(result) {
         for (m = result.index + 1; m <= k; m++) {
           tempDuration += result.transitRoute.steps[m].duration;
         }
-        if (!(Object.keys(values[counter][0]).length === 0 && values[counter][0].constructor === Object)) {
+        if (!(Object.keys(values[counter]).length === 0 && values[counter].constructor === Object)) {
 
-          if (values[counter][0].duration < tempDuration) {
+          if (values[counter].duration < tempDuration) {
             shortestSteps = [];
-            for (n = 0; n < values[counter][0].steps.length; n++) {
-              shortestSteps.push(values[counter][0].steps[n]);
+            for (n = 0; n < values[counter].steps.length; n++) {
+              shortestSteps.push(values[counter].steps[n]);
             }
           } else {
             shortestSteps.push(result.transitRoute.steps[k]);
@@ -140,7 +141,7 @@ function checkStepsWithSharing(result) {
         modes: ["walking", "bicycling", "driving", "transit"],
         distance: totalDistance,
         duration: totalDuration,
-        switches: getSwitchesHelper(allSteps),
+        switches: 4,
         sustainability: generateSustainabilityScoreHelper(allSteps),
         route: allSteps
       }
