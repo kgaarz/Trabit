@@ -18,7 +18,7 @@ module.exports = function(incidents, origin, destination) {
         for (i = 0; i < values.length; i++) {
           result.push(values[i]);
         }
-        console.log(result);
+        
         var sorted = getSortedRoutesHelper(result);
         resolve(sorted[0]);
       },
@@ -93,7 +93,7 @@ function checkStepsWithCar(origin, incidents, result, index) {
         modes: ["driving", "transit"],
         distance: totalDistance,
         duration: totalDuration,
-        switches: getSwitchesHelper(shortestSteps),
+        switches: 3,
         sustainability: generateSustainabilityScoreHelper(shortestSteps),
         route: shortestSteps
       }

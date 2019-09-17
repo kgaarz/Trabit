@@ -116,7 +116,7 @@ function createNearBikeSharingAndTrainTicketRoutes(cabData, hereData, origin, de
             modes: ["walking", "bicycling", "transit"],
             duration: totalRoute.duration,
             distance: totalRoute.distance,
-            switches: getSwitchesHelper(totalRoute.steps),
+            switches: 3,
             sustainability: generateSustainabilityScoreHelper(totalRoute.steps),
             route: totalRoute
           }

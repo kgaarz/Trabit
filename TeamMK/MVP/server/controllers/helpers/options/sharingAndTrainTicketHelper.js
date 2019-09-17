@@ -101,9 +101,8 @@ function createNearSharingAndTrainTicketRoutes(cabData, hereData, origin, destin
   return new Promise(function(resolve, reject) {
       var sharingWay = onlySharingHelper(origin, hereData[i].geoLocation, departureTime)
       var transitWay = apiRequestHelper.getGoogleDirectionsAPIData(hereData[j].geoLocation, destination, departureTime, "transit");
-      console.log("jo");
+
       Promise.all([sharingWay, transitWay]).then((values) => {
-          console.log(values);
           totalRoute = {
             distance: values[0].distance + values[1].distance,
             duration: values[0].duration + values[1].duration,

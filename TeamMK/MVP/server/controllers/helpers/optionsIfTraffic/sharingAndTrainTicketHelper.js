@@ -17,7 +17,7 @@ module.exports = function(incidents, origin, destination, departureTime) {
         for (i = 0; i < values.length; i++) {
           result.push(values[i]);
         }
-        console.log(result);
+
         var sorted = getSortedRoutesHelper(result);
         resolve(sorted[0]);
       },
