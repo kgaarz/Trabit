@@ -39,7 +39,7 @@ require('dotenv').config();
     });
 
     const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => console.debug(`ReportAPI server running on port ${PORT}.`));
+    app.listen(PORT, () => console.info(`ReportAPI server running on port ${PORT}.`));
 
     // agenda jobs
     const jobs = new Agenda().mongo(db.connection, 'jobs');
