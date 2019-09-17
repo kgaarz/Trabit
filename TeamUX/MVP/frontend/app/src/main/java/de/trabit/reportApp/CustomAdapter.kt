@@ -45,15 +45,8 @@ class CustomAdapter(context: Context, arrayList: ArrayList<HashMap<String, Strin
             //Inflating our list_row.
             myview = mInflater!!.inflate(R.layout.list_row, parent, false)
 
-            //Create Object of ViewHolder Class and set our View to it
+            //Create Object of ViewHolder Class and set the View to it
             holder = ViewHolder()
-
-            //Find view By Id For all our Widget taken in list_row.
-
-            /*Here !! are use for non-null asserted two prevent From null.
-             you can also use Only Safe (?.)
-
-            */
 
             holder.mHeader = myview!!.findViewById<TextView>(R.id.header) as TextView
 
@@ -72,7 +65,6 @@ class CustomAdapter(context: Context, arrayList: ArrayList<HashMap<String, Strin
 
         //Setting name to TextView it's Key from HashMap At Position
         holder.mHeader!!.setText(map.get("name"))
-
 
 
         return myview

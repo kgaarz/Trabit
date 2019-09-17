@@ -3,17 +3,27 @@ package de.trabit.reportApp
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
+
 
 class OverviewActivity : AppCompatActivity() {
 
+    //private lateinit var reportAdapter: ReportRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_overview)
 
-        //Add report Icon Intent to firstAddActivity
+        //start initRecyclerView and addDataSet Function
+
+       /* initRecyclerView()
+          addDataSet()*/
+
+        //Add Intent to firstAddActivity to add a report
 
         val addButton = findViewById(R.id.addButton) as ImageButton
 
@@ -23,7 +33,6 @@ class OverviewActivity : AppCompatActivity() {
             startActivity(addReortIntent)
 
         }
-
 
         //Navigation Icons (active mode)
 
@@ -100,14 +109,25 @@ class OverviewActivity : AppCompatActivity() {
             carBtn.setImageResource(R.mipmap.car_icon_grey)
             trainBtn.setImageResource(R.mipmap.train_icon_grey)
             tramBtn.setImageResource(R.mipmap.tram_icon_grey)
-
-
         }
 
+    }
+
+    //set the data into the RecyclerView
+
+   /* private fun addDataSet(){
+        val data = DataSource.createDataSet()
+        reportAdapter.submitList(data)*/
 
 
-        }
+    //Init RecyclerView
+
+     /*private fun initRecyclerView(){
+        val recyclerView = findViewById(R.id.recycler_view) as RecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(this@OverviewActivity)
+        recyclerView.adapter = reportAdapter
+     }*/
+
+ }
 
 
-
-}
