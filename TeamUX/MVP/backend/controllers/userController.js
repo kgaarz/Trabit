@@ -1,4 +1,13 @@
-const User = require('../models/userSchema');
+const {
+    User
+} = require('../models/userSchema');
+const {
+    Profile
+} = require('../models/userSchema');
+const {
+    Mobility
+} = require('../models/userSchema');
+
 const ApiError = require('../exceptions/apiExceptions');
 
 class UserController {
@@ -39,17 +48,30 @@ class UserController {
 
     async updateProfile(userId, body) {
         const user = await this.getSpecific(userId);
-        // check if body contains all profile parameters
-        const possibleParameters = ['firstname', 'lastname'];
-        possibleParameters.forEach(param => {
-            if (body[param] === undefined) {
-                throw new ApiError(`${param} is missing!`, 400);
-            }
-        });
+        const newProfile = new Profile(body);
+        const validation = newProfile.validateSync();
+        if (validation) {
+            throw new ApiError(validation.message, 400);
+        }
         return await User.updateOne({
             _id: user._id
         }, {
-            profile: body
+            profile: newProfile
+        });
+    }
+
+    async updateMobility(userId, body) {
+        const user = await this.getSpecific(userId);
+        // check if body contains all mobility parameters
+        const newMobility = new Mobility(body);
+        const validation = newMobility.validateSync();
+        if (validation) {
+            throw new ApiError(validation.message, 400);
+        }
+        return await User.updateOne({
+            _id: user._id
+        }, {
+            mobility: newMobility
         });
     }
 }

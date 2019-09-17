@@ -1,6 +1,40 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const profile = new mongoose.Schema({
+  firstname: {
+    type: String,
+    required: true
+  },
+  lastname: {
+    type: String,
+    required: true
+  }
+});
+
+const mobility = new mongoose.Schema({
+  car: {
+    type: Boolean,
+    required: true
+  },
+  driversLicense: {
+    type: Boolean,
+    required: true
+  },
+  bike: {
+    type: Boolean,
+    required: true
+  },
+  trainTicket: {
+    type: Boolean,
+    required: true
+  },
+  sharing: {
+    type: Boolean,
+    required: true
+  }
+});
+
+const user = new mongoose.Schema({
   username: {
     type: String,
     match: /^[A-Za-z0-9]+[-_]*[A-Za-z0-9]+$/,
@@ -25,18 +59,18 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   profile: {
-    firstname: {
-      type: String,
-      required: true
-    },
-    lastname: {
-      type: String,
-      required: true
-    },
+    type: Object,
+    of: profile,
+    required: true
+  },
+  mobility: {
+    type: Object,
+    of: mobility,
+    required: true
   }
 });
 
-userSchema.post('update', function () {
+user.post('update', function () {
   this.update({}, {
     $set: {
       modified: new Date()
@@ -44,7 +78,7 @@ userSchema.post('update', function () {
   });
 });
 
-userSchema.post('save', function () {
+user.post('save', function () {
   this.update({}, {
     $set: {
       modified: new Date()
@@ -52,4 +86,12 @@ userSchema.post('save', function () {
   });
 });
 
-module.exports = mongoose.model('user', userSchema);
+const userSchema = mongoose.model('users', user);
+const mobilitySchema = mongoose.model('mobilities', mobility);
+const profileSchema = mongoose.model('profiles', profile);
+
+module.exports = {
+  User: userSchema,
+  Mobility: mobilitySchema,
+  Profile: profileSchema
+};

@@ -33,13 +33,25 @@ router.delete('/users/:userId', async (req, res) => {
     }
 });
 
-// update user profile
+// update profile
 router.put('/users/:userId/profile', async (req, res) => {
     try {
         if (!req.body) {
             throw new ApiError('Request body is missing!', 400);
         }
         res.status(204).send(await UserController.updateProfile(req.params.userId, req.body));
+    } catch (error) {
+        res.status(error.statusCode ? error.statusCode : 500).json(error.message);
+    }
+});
+
+// update mobility
+router.put('/users/:userId/mobility', async (req, res) => {
+    try {
+        if (!req.body) {
+            throw new ApiError('Request body is missing!', 400);
+        }
+        res.status(204).send(await UserController.updateMobility(req.params.userId, req.body));
     } catch (error) {
         res.status(error.statusCode ? error.statusCode : 500).json(error.message);
     }
