@@ -69,7 +69,7 @@ class ReportRecyclerAdapter(val reportList: ArrayList<ReportItem>) : RecyclerVie
                 itemView.voteDownButton.setImageResource(R.mipmap.check_negative_blue)
                 itemView.voteUpButton.setImageResource(R.mipmap.check_positive_grey)
             }
-            
+
         }
 
     }

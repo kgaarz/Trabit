@@ -4,10 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import kotlinx.android.synthetic.main.activity_third_add.*
 
 class ThirdAddActivity : AppCompatActivity() {
@@ -20,6 +17,7 @@ class ThirdAddActivity : AppCompatActivity() {
 
         val meansOfTransportName = intent.getStringExtra("meansOfTransport")
         val meansOfTransportId = intent.getStringExtra("meansOfTransportId")
+        var reportComment : String
 
         //Adapt the activity layout to the appropriate means of transport
 
@@ -120,5 +118,68 @@ class ThirdAddActivity : AppCompatActivity() {
             finish()
         }
 
+        // set onClickListener to all tiles and save the value of the choosen tile
+
+        tile1.setOnClickListener{
+            val addReportIntent = Intent(this,OverviewActivity::class.java)
+            startActivity(addReportIntent)
+            reportComment = textTile1.getText().toString()
+        }
+
+        tile2.setOnClickListener{
+            val addReportIntent = Intent(this,OverviewActivity::class.java)
+            startActivity(addReportIntent)
+            reportComment = textTile1.getText().toString()
+        }
+
+        tile3.setOnClickListener{
+            val addReportIntent = Intent(this,OverviewActivity::class.java)
+            startActivity(addReportIntent)
+            reportComment = textTile1.getText().toString()
+        }
+
+        tile4.setOnClickListener{
+            val addReportIntent = Intent(this,OverviewActivity::class.java)
+            startActivity(addReportIntent)
+            reportComment = textTile1.getText().toString()
+        }
+
+        tile5.setOnClickListener{
+            val addReportIntent = Intent(this,OverviewActivity::class.java)
+            startActivity(addReportIntent)
+            reportComment = textTile1.getText().toString()
+        }
+
+        tile6.setOnClickListener{
+            val addReportIntent = Intent(this,OverviewActivity::class.java)
+            startActivity(addReportIntent)
+            reportComment = textTile1.getText().toString()
+        }
+
+        //set onClickListener to the confirm button when the user add a manual comment
+
+        val confirmButton = findViewById(R.id.btn_send) as Button
+        val commentText = findViewById(R.id.comment_text) as EditText
+
+        confirmButton.setOnClickListener{
+
+            //check if something is typed in the textfield
+
+            if(commentText.getText().toString().isEmpty() || commentText.getText().toString().length== 0 || commentText.getText().toString().equals("") || commentText.getText().toString() == null) {
+                val errorToast = Toast.makeText(
+                    this@ThirdAddActivity,
+                    "Bitte gib zunächst einen Kommentar ein oder wähle einen Standardtext aus.",
+                    Toast.LENGTH_SHORT
+                )
+                errorToast.show()
+
+            }else {
+                val addReportIntent = Intent(this, OverviewActivity::class.java)
+                startActivity(addReportIntent)
+                reportComment = commentText.getText().toString()
+            }
+        }
+
     }
 }
+

@@ -358,7 +358,7 @@
             android:orientation="horizontal">
 
         <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/comment_text"
                 android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
