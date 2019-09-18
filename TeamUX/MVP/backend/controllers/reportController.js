@@ -1,4 +1,6 @@
-const Report = require('../models/reportSchema');
+const {
+    Report
+} = require('../models/reportSchema');
 const UserController = require('./userController');
 const ApiError = require('../exceptions/apiExceptions');
 const GeodataService = require('../services/geodataService');
@@ -10,14 +12,20 @@ class ReportController {
             author: undefined,
             description: undefined,
             location: {
-                lat: undefined,
-                long: undefined,
-                city: undefined
+                origin: {
+                    lat: undefined,
+                    lng: undefined,
+                    city: undefined
+                },
+                destination: {
+                    lat: undefined,
+                    lng: undefined,
+                    city: undefined
+                }
             },
             transport: {
-                transportType: undefined,
-                transportTag: undefined,
-                transportDirection: undefined,
+                type: undefined,
+                tag: undefined
             }
         };
         this.createCommentModel = {
@@ -35,25 +43,31 @@ class ReportController {
         // getting city from geodata
         try {
             // eslint-disable-next-line require-atomic-updates
-            newReport.location.city = await GeodataService.getCityFromGeodata(newReport.location.lat, newReport.location.long);
+            newReport.location.origin.city = await GeodataService.getCityFromGeodata(newReport.location.origin.lat, newReport.location.origin.lng);
         } catch (error) {
-            throw new ApiError('City could not be retrieved from the location coordinates!', 400);
+            throw new ApiError('City could not be retrieved from the origin location coordinates!', 400);
+        }
+        try {
+            // eslint-disable-next-line require-atomic-updates
+            newReport.location.destination.city = await GeodataService.getCityFromGeodata(newReport.location.destination.lat, newReport.location.destination.lng);
+        } catch (error) {
+            throw new ApiError('City could not be retrieved from the destination location coordinates!', 400);
         }
         // getting car transportTag from geodata
-        if (newReport.transport.transportType == 'car') {
+        if (newReport.transport.type == 'car') {
             try {
                 // eslint-disable-next-line require-atomic-updates
-                newReport.transport.transportTag = await GeodataService.getStreetFromGeodata(newReport.location.lat, newReport.location.long);
+                newReport.transport.tag = await GeodataService.getStreetFromGeodata(newReport.location.origin.lat, newReport.location.origin.lng);
             } catch (error) {
                 throw new ApiError('TransportTag could not be retrieved from the location coordinates!', 400);
             }
         }
         // check if similar report already exists
         const report = await Report.find({
-            'location.city': newReport.location.city,
-            'transport.transportType': newReport.transport.transportType,
-            'transport.transportTag': newReport.transport.transportTag,
-            'transport.transportDirection': newReport.transport.transportDirection
+            'location.origin.city': newReport.location.origin.city,
+            'location.destination.city': newReport.location.destination.city,
+            'transport.transport.type': newReport.transport.type,
+            'transport.transport.tag': newReport.transport.tag
         });
         if (Object.keys(report).length > 0) {
             throw new ApiError('This incident has already been reported!', 409);
@@ -62,27 +76,35 @@ class ReportController {
     }
 
     async getFiltered(params) {
-        // getting city from geodata if only lat & long were provided
-        if (params.lat && params.long && !params.city) {
+        // getting city from geodata if only lat & lng were provided (origin & destination)
+        if (params.originLat && params.originLng && !params.originCity) {
             try {
                 // eslint-disable-next-line require-atomic-updates
-                params.city = await GeodataService.getCityFromGeodata(params.lat, params.long);
+                params.originCity = await GeodataService.getCityFromGeodata(params.originLat, params.originLng);
             } catch (error) {
-                throw new ApiError('City could not be retrieved from the location coordinates!', 400);
+                throw new ApiError('City could not be retrieved from the origin location coordinates!', 400);
             }
         }
-        const possibleParameters = ['author', 'city', 'transportType', 'transportTag', 'transportDirection', 'active', 'verified'];
+        if (params.destinationLat && params.destinationLat && !params.destinationCity) {
+            try {
+                // eslint-disable-next-line require-atomic-updates
+                params.destinationCity = await GeodataService.getCityFromGeodata(params.destinationLat, params.destinationLat);
+            } catch (error) {
+                throw new ApiError('City could not be retrieved from the destination location coordinates!', 400);
+            }
+        }
+        const possibleParameters = ['author', 'originCity', 'destinationCity', 'transportType', 'transportTag', 'active', 'verified'];
         let query = {};
         possibleParameters.forEach(param => {
             if (params[param] !== undefined) {
                 switch (param) {
-                    case 'city':
-                        query['location.' + param] = params[param];
+                    case 'originCity':
+                    case 'destinationCity':
+                        query['location.' + param.replace('City', '.city')] = params[param];
                         break;
                     case 'transportType':
                     case 'transportTag':
-                    case 'transportDirection':
-                        query['transport.' + param] = params[param];
+                        query[param.replace('transport', 'transport.').toLowerCase()] = params[param];
                         break;
                     case 'active':
                     case 'verified':

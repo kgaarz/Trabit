@@ -1,4 +1,6 @@
-const Report = require('../models/reportSchema');
+const {
+    Report
+} = require('../models/reportSchema');
 const ReportController = require('../controllers/reportController');
 
 class CommentController {
