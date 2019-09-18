@@ -16,7 +16,7 @@ import kotlin.collections.ArrayList
 
 //Here We extend over Adapter With BaseAdapter()
 
-class CustomAdapter(context: Context, arrayList: ArrayList<HashMap<String, String>>) : BaseAdapter() {
+class SearchCustomAdapter(context: Context, arrayList: ArrayList<HashMap<String, String>>) : BaseAdapter() {
 
     //Passing Values to Local Variables
 
@@ -42,8 +42,8 @@ class CustomAdapter(context: Context, arrayList: ArrayList<HashMap<String, Strin
             //If Over View is Null than we Inflater view using Layout Inflater
             val mInflater = (context as Activity).layoutInflater
 
-            //Inflating our list_row.
-            myview = mInflater!!.inflate(R.layout.list_row, parent, false)
+            //Inflating our search_list_row.
+            myview = mInflater!!.inflate(R.layout.search_list_row, parent, false)
 
             //Create Object of ViewHolder Class and set the View to it
             holder = ViewHolder()
@@ -95,7 +95,7 @@ class CustomAdapter(context: Context, arrayList: ArrayList<HashMap<String, Strin
 
 
 
-    //Create A class To hold over View like we taken in list_row.xml
+    //Create A class To hold over View like we taken in search_list_row.xmlrow.xml
     class ViewHolder {
 
         var mHeader: TextView? = null

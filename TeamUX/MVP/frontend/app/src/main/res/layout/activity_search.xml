@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:id="@+id/headerCaption"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textColor="#F9F9F9"
                 android:layout_marginTop="25dp"
                 android:layout_marginLeft="100dp"
