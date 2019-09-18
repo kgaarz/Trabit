@@ -118,7 +118,7 @@
             android:layout_marginRight="3dp"
             android:text="0"
             android:fontFamily="@font/oxygen"
-            android:id="@+id/VoteNumber"
+            android:id="@+id/voteNumber"
             />
 
 

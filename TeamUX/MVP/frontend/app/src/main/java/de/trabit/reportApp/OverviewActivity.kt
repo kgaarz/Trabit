@@ -26,11 +26,11 @@ class OverviewActivity : AppCompatActivity() {
         //dummydata for the recyclerview
 
         val reports = ArrayList<ReportItem>()
-        reports.add(ReportItem("heute","10.00 Uhr","maxmuster","RB25","Verspätung"))
-        reports.add(ReportItem("heute","09.30 Uhr","milenamuster","RB25","Gleiswechsel"))
-        reports.add(ReportItem("heute","07.30 Uhr","maximmuster","RB25","Die Bahn fährt von Gleis 2, 14 Minuten später ab."))
-        reports.add(ReportItem("gestern","20.30 Uhr","marlaonmuster","RB25","Verspätung"))
-        reports.add(ReportItem("gestern","15.20 Uhr","miriammuster","RB25","Verspätung"))
+        reports.add(ReportItem("heute","10.00 Uhr","maxmuster","RB25","Verspätung","2","0"))
+        reports.add(ReportItem("heute","09.30 Uhr","milenamuster","RB25","Gleiswechsel","0","2"))
+        reports.add(ReportItem("heute","07.30 Uhr","maximmuster","RB25","Die Bahn fährt von Gleis 2, 14 Minuten später ab.","2","0"))
+        reports.add(ReportItem("gestern","20.30 Uhr","marlaonmuster","RB25","Verspätung","1","4"))
+        reports.add(ReportItem("gestern","15.20 Uhr","miriammuster","RB25","Verspätung","0","2"))
 
         //add the adapter to the recyclerView
 

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -31,7 +32,8 @@ class ReportRecyclerAdapter(val reportList: ArrayList<ReportItem>) : RecyclerVie
         p0?.username_text?.text = report.usernameText
         p0?.id_text?.text =report.idText
         p0?.report_text?.text = report.reportText
-
+        p0?.comment_amount?.text = report.commentAmount
+        p0?.confirm_index?.text = report.confirmIndex
     }
 
 
@@ -47,15 +49,27 @@ class ReportRecyclerAdapter(val reportList: ArrayList<ReportItem>) : RecyclerVie
         val username_text = itemView.findViewById(R.id.username_text) as TextView
         val id_text = itemView.findViewById(R.id.id_text) as TextView
         val report_text = itemView.findViewById(R.id.report_text) as TextView
-        val commentIcon = itemView.findViewById(R.id.commentIcon) as ImageView
+        val comment_amount = itemView.findViewById(R.id.commentNumber) as TextView
+        val confirm_index = itemView.findViewById(R.id.voteNumber) as TextView
+
 
         init {
-            itemView.commentIcon.setOnClickListener {
 
+            itemView.commentIcon.setOnClickListener {
                 val commentsIntent = Intent(itemView.context, CommentsActivity::class.java)
                 itemView.context.startActivity(commentsIntent)
             }
 
+            itemView.voteUpButton.setOnClickListener {
+                itemView.voteUpButton.setImageResource(R.mipmap.check_positive_blue)
+                itemView.voteDownButton.setImageResource(R.mipmap.check_negative_grey)
+            }
+
+            itemView.voteDownButton.setOnClickListener {
+                itemView.voteDownButton.setImageResource(R.mipmap.check_negative_blue)
+                itemView.voteUpButton.setImageResource(R.mipmap.check_positive_grey)
+            }
+            
         }
 
     }

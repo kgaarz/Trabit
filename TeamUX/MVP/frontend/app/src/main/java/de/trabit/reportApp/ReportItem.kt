@@ -8,7 +8,9 @@ data class ReportItem (
     var timeText :String,
     var usernameText :String,
     var idText :String,
-    var reportText :String
+    var reportText :String,
+    var commentAmount : String,
+    var confirmIndex : String
 ){
 
 }
