@@ -8,23 +8,7 @@ class RouteAlertController {
     async create(body) {
         // check if user exists
         await UserController.getSpecific(body.user);
-        const newRouteAlert = new RouteAlert(body);
-        // check if route alert already exists
-        const routeAlert = await RouteAlert.find({
-            user: newRouteAlert.user,
-            'location.origin.lat': newRouteAlert.location.origin.lat,
-            'location.origin.lng': newRouteAlert.location.origin.lng,
-            'location.destination.lat': newRouteAlert.location.destination.lat,
-            'location.destination.lng': newRouteAlert.location.destination.lng,
-            'transport.type': newRouteAlert.transport.type,
-            'transport.tag': newRouteAlert.transport.tag,
-            'duration.from': newRouteAlert.duration.from,
-            'duration.to': newRouteAlert.duration.to
-        });
-        if (Object.keys(routeAlert).length > 0) {
-            throw new ApiError('This route alert has already been saved (duplicate entry)!', 409);
-        }
-        return await new RouteAlert(newRouteAlert).save();
+        return await new RouteAlert(body).save();
     }
 
     async getSpecific(routeAlertId) {
