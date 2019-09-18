@@ -6,53 +6,40 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.report_item.view.*
+import kotlin.collections.ArrayList
 
 //Adapter Class to adapt the Recyclerview with the Layout
 
-class ReportRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-
-    private var items: List<ReportItem> = ArrayList()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-       return ReportViewHolder(
-           LayoutInflater.from(parent.context).inflate(R.layout.report_item, parent, false)
-       )
+class ReportRecyclerAdapter(val reportList: ArrayList<ReportItem>) : RecyclerView.Adapter<ReportRecyclerAdapter.ViewHolder>()
+{
+    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
+        val v = LayoutInflater.from(p0?.context).inflate(R.layout.report_item, p0, false)
+        return ViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder){
-            is ReportViewHolder ->{
-                holder.bind(items.get(position))
-            }
-
-        }
+    override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
+        val report : ReportItem = reportList[p1]
+        p0?.day_text?.text = report.dayText
+        p0?.time_text?.text = report.timeText
+        p0?.username_text?.text = report.usernameText
+        p0?.id_text?.text =report.idText
+        p0?.report_text?.text = report.reportText
     }
+
 
     override fun getItemCount(): Int {
-       return items.size
+       return reportList.size
     }
 
-    fun submitList(reportList: List<ReportItem>){
-        items = reportList
-    }
 
-    class ReportViewHolder
-    constructor(
-        itemView: View
-    ): RecyclerView.ViewHolder(itemView){
+    class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        val day_text : TextView = itemView.day_text
-        val time_text : TextView = itemView.time_text
-        val username_text : TextView = itemView.username_text
-        val id_text : TextView = itemView.id_text
-        val report_text : TextView = itemView.report_text
+        val day_text = itemView.findViewById(R.id.day_text) as TextView
+        val time_text = itemView.findViewById(R.id.time_text) as TextView
+        val username_text = itemView.findViewById(R.id.username_text) as TextView
+        val id_text = itemView.findViewById(R.id.id_text) as TextView
+        val report_text = itemView.findViewById(R.id.report_text) as TextView
 
-        fun bind(reportitem: ReportItem){
-            day_text.setText(reportitem.dayText)
-            time_text.setText(reportitem.timeText)
-            username_text.setText(reportitem.usernameText)
-            id_text.setText(reportitem.idText)
-            report_text.setText(reportitem.reportText)
-        }
+
     }
 }

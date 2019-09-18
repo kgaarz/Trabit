@@ -12,16 +12,33 @@ import android.widget.TextView
 
 class OverviewActivity : AppCompatActivity() {
 
-    //private lateinit var reportAdapter: ReportRecyclerAdapter
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_overview)
 
-        //start initRecyclerView and addDataSet Function
+        //init recyclerView
 
-       /* initRecyclerView()
-          addDataSet()*/
+        val recyclerView = findViewById(R.id.recycler_view) as RecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
+
+        //dummydata for the recyclerview
+
+        val reports = ArrayList<ReportItem>()
+        reports.add(ReportItem("heute","10.00 Uhr","maxmuster","RB25","Verspätung"))
+        reports.add(ReportItem("heute","09.30 Uhr","milenamuster","RB25","Gleiswechsel"))
+        reports.add(ReportItem("heute","07.30 Uhr","maximmuster","RB25","Die Bahn fährt von Gleis 2, 14 Minuten später ab."))
+        reports.add(ReportItem("gestern","20.30 Uhr","marlaonmuster","RB25","Verspätung"))
+        reports.add(ReportItem("gestern","15.20 Uhr","miriammuster","RB25","Verspätung"))
+
+        //add the adapter to the recyclerView
+
+        val adapter = ReportRecyclerAdapter(reports)
+        recyclerView.adapter = adapter
+
 
         //Add Intent to firstAddActivity to add a report
 
@@ -113,20 +130,6 @@ class OverviewActivity : AppCompatActivity() {
 
     }
 
-    //set the data into the RecyclerView
-
-   /* private fun addDataSet(){
-        val data = DataSource.createDataSet()
-        reportAdapter.submitList(data)*/
-
-
-    //Init RecyclerView
-
-     /*private fun initRecyclerView(){
-        val recyclerView = findViewById(R.id.recycler_view) as RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this@OverviewActivity)
-        recyclerView.adapter = reportAdapter
-     }*/
 
  }
 

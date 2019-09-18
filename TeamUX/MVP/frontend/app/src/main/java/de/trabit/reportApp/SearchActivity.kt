@@ -59,7 +59,7 @@ class SearchActivity : AppCompatActivity() {
 
 
             //Custom Adapter Class in that we pass Context and ArrayList<Hashmap<String,String>>
-            val customAdapter = CustomAdapter(this, info)
+            val customAdapter = SearchCustomAdapter(this, info)
 
 
             //Set Adapter to ArrayList

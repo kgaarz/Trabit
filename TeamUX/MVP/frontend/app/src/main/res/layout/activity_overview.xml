@@ -12,7 +12,7 @@
     <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="210dp"
+            android:layout_height="200dp"
             android:background="@color/colorWhite"
     >
 
@@ -34,7 +34,6 @@
                 android:id="@+id/locationChange"
                 android:background="@null"
                 android:scaleType="fitCenter"
-
             />
 
             <TextView
@@ -77,7 +76,7 @@
     <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
-                android:layout_height="70dp"
+                android:layout_height="60dp"
                 android:paddingTop= "10dp"
                 android:paddingBottom= "15dp"
                 android:layout_alignParentBottom="true"
@@ -85,7 +84,7 @@
     >
                 <ImageButton
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:layout_weight="5"
                     app:srcCompat="@mipmap/train_icon_grey"
                     android:id="@+id/trainIcon"
@@ -95,7 +94,7 @@
 
                 <ImageButton
                      android:layout_width="wrap_content"
-                     android:layout_height="40dp"
+                     android:layout_height="35dp"
                      android:layout_weight="5"
                      app:srcCompat="@mipmap/tram_icon_grey"
                      android:id="@+id/tramIcon"
@@ -105,7 +104,7 @@
 
                 <ImageButton
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:layout_weight="5"
                     app:srcCompat="@mipmap/bus_icon_grey"
                     android:id="@+id/busIcon"
@@ -115,7 +114,7 @@
 
                 <ImageButton
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:layout_weight="5"
                     app:srcCompat="@mipmap/car_icon_grey"
                     android:id="@+id/carIcon"
@@ -137,40 +136,71 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="580dp"
+            android:padding="15dp">
 
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
-                androi.scrollbars="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp" />
+                android:layout_height="500dp"
+                android:layout_alignParentTop="true"
+            />
 
+        </RelativeLayout>
 
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            >
+            android:layout_marginBottom="60dp"
+            app:backgroundTint="@color/colorLightBlue"
+            android:src="@mipmap/plus_icon"
+            app:fabCustomSize="60dp"
+            />
 
             <View
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:background="@drawable/drop_shadow_footer"
-                android:layout_alignParentTop="true"
-
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="45dp"
                 />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="45dp"
+                android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/custom_footer">
 
+                <ImageButton
+                    android:layout_height="25dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center"
+                    />
 
                 <ImageButton
-                    android:layout_height="30dp"
+                    android:layout_height="25dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center"
+                    />
+
+
+                <ImageButton
+                    android:layout_height="25dp"
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:background="@null"
@@ -182,7 +212,7 @@
 
                 <ImageButton
                     android:layout_width="0dp"
-                    android:layout_height="30dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:layout_weight="2"
                     android:background="@null"
@@ -192,20 +222,6 @@
                     />
 
             </LinearLayout>
-
-    </RelativeLayout>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/addButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="90dp"
-            app:srcCompat="@mipmap/plus"
-            app:backgroundTint="@color/colorWhite"
-            />
 
     </RelativeLayout>
 
