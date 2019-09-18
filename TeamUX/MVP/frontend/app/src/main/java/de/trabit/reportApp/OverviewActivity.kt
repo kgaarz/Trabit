@@ -6,14 +6,12 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 
 
 class OverviewActivity : AppCompatActivity() {
-
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +48,7 @@ class OverviewActivity : AppCompatActivity() {
             startActivity(addReortIntent)
 
         }
+
 
         //Navigation Icons (active mode)
 

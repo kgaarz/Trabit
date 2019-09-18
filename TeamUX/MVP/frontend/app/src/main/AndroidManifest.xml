@@ -1,34 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="de.trabit.reportApp">
+    package="de.trabit.reportApp">
 
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="Trabit"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
-        <activity android:name="de.trabit.reportApp.ThirdAddActivity">
-
-
-        </activity>
-
-        <activity android:name="de.trabit.reportApp.SecondAddActivity" />
-        <activity android:name="de.trabit.reportApp.FirstAddActivity" />
-        <activity android:name="de.trabit.reportApp.SearchActivity" />
-        <activity android:name="de.trabit.reportApp.OverviewActivity">
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Trabit"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".CommentsActivity"></activity>
+        <activity android:name=".ThirdAddActivity"></activity>
+        <activity android:name=".SecondAddActivity" />
+        <activity android:name=".FirstAddActivity" />
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".OverviewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <meta-data
-                android:name="preloaded_fonts"
-                android:resource="@array/preloaded_fonts" />
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

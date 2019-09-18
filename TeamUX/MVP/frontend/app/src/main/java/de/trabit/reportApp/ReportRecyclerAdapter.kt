@@ -1,10 +1,14 @@
 package de.trabit.reportApp
 
+import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.report_item.view.*
 import kotlin.collections.ArrayList
 
@@ -12,9 +16,12 @@ import kotlin.collections.ArrayList
 
 class ReportRecyclerAdapter(val reportList: ArrayList<ReportItem>) : RecyclerView.Adapter<ReportRecyclerAdapter.ViewHolder>()
 {
+
+
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         val v = LayoutInflater.from(p0?.context).inflate(R.layout.report_item, p0, false)
         return ViewHolder(v)
+
     }
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
@@ -24,6 +31,7 @@ class ReportRecyclerAdapter(val reportList: ArrayList<ReportItem>) : RecyclerVie
         p0?.username_text?.text = report.usernameText
         p0?.id_text?.text =report.idText
         p0?.report_text?.text = report.reportText
+
     }
 
 
@@ -39,7 +47,19 @@ class ReportRecyclerAdapter(val reportList: ArrayList<ReportItem>) : RecyclerVie
         val username_text = itemView.findViewById(R.id.username_text) as TextView
         val id_text = itemView.findViewById(R.id.id_text) as TextView
         val report_text = itemView.findViewById(R.id.report_text) as TextView
+        val commentIcon = itemView.findViewById(R.id.commentIcon) as ImageView
 
+        init {
+            itemView.commentIcon.setOnClickListener {
+
+                val commentsIntent = Intent(itemView.context, CommentsActivity::class.java)
+                itemView.context.startActivity(commentsIntent)
+            }
+
+        }
 
     }
+
+
+
 }
