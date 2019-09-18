@@ -15,7 +15,7 @@ module.exports = {
     "rules": {
         semi: ["error", "always"],
         "no-console": ["error", {
-            allow: ["debug"]
+            allow: ["debug", "info"]
         }]
     }
 };

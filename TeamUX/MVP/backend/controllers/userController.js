@@ -7,6 +7,9 @@ const {
 const {
     Mobility
 } = require('../models/userSchema');
+const {
+    RouteAlert
+} = require('../models/routeAlertSchema');
 
 const ApiError = require('../exceptions/apiExceptions');
 
@@ -73,6 +76,14 @@ class UserController {
         }, {
             mobility: newMobility
         });
+    }
+
+    async getRouteAlerts(userId) {
+        const user = await this.getSpecific(userId);
+        const routes = await RouteAlert.find({
+            user: user._id
+        });
+        return routes;
     }
 }
 

@@ -6,8 +6,9 @@ const Agenda = require('agenda');
 const usersRoute = require('./routes/users');
 const reportsRoute = require('./routes/reports');
 const commentsRoute = require('./routes/comments');
-const routesRoute = require('./routes/routes');
+const routeAlertsRoute = require('./routes/routeAlerts');
 const ReportController = require('./controllers/reportController');
+const RouteAlertController = require('./controllers/routeAlertController');
 const ApiError = require('./exceptions/apiExceptions');
 require('dotenv').config();
 
@@ -24,7 +25,7 @@ require('dotenv').config();
     app.use(usersRoute);
     app.use(reportsRoute);
     app.use(commentsRoute);
-    app.use(routesRoute);
+    app.use(routeAlertsRoute);
 
     // handler for 405 - Method not allowed
     app.use((req, res) => {
@@ -44,13 +45,14 @@ require('dotenv').config();
     // agenda jobs
     const jobs = new Agenda().mongo(db.connection, 'jobs');
 
-    // defining jobs for regular report checks
+    // defining jobs for regular checks
     jobs.define('checkReportVerificationState', async () => {
         const reports = await ReportController.getFiltered({
             active: true
         });
         reports.forEach(async (report) => {
             return await ReportController.updateVerificationState(report._id);
+            // TODO: push routeAlerts if a report gets verified!
         });
     });
 
@@ -63,8 +65,19 @@ require('dotenv').config();
         });
     });
 
+    jobs.define('checkRouteAlertDuration', async () => {
+        const routeAlerts = await RouteAlertController.getAll();
+        routeAlerts.forEach(async (routeAlert) => {
+            if (routeAlert.duration.to >= new Date().toISOString()) {
+                console.debug(`deleting ${routeAlert._id}`);
+                return await RouteAlertController.delete(routeAlert._id);
+            }
+        });
+    });
+
     // run jobs
     await jobs.start();
     await jobs.every(`*/${process.env.JOB_REPEAT_EVERY} * * * *`, 'checkReportVerificationState');
     await jobs.every(`*/${process.env.JOB_REPEAT_EVERY} * * * *`, 'checkReportActiveState');
+    await jobs.every(`*/${process.env.JOB_REPEAT_EVERY} * * * *`, 'checkRouteAlertDuration');
 })();

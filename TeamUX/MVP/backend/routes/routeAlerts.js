@@ -1,24 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const ApiError = require('../exceptions/apiExceptions');
-const RouteController = require('../controllers/routeController');
+const RouteAlertController = require('../controllers/routeAlertController');
 
-// create route
-router.post('/routes', async (req, res) => {
+// create route alert
+router.post('/routeAlerts', async (req, res) => {
     try {
         if (!req.body) {
             throw new ApiError('Request body is missing!', 400);
         }
-        res.status(201).send(await RouteController.create(req.body));
+        res.status(201).send(await RouteAlertController.create(req.body));
     } catch (error) {
         res.status(error.statusCode ? error.statusCode : 500).json(error.message);
     }
 });
 
-// delete route
-router.delete('/routes/:routeId', async (req, res) => {
+// delete route alert
+router.delete('/routeAlerts/:routeAlertId', async (req, res) => {
     try {
-        res.status(204).send(await RouteController.delete(req.params.routeId));
+        res.status(204).send(await RouteAlertController.delete(req.params.routeAlertId));
     } catch (error) {
         res.status(error.statusCode ? error.statusCode : 500).json(error.message);
     }

@@ -57,10 +57,10 @@ router.put('/users/:userId/mobility', async (req, res) => {
     }
 });
 
-// get routes
-router.get('/users/:userId/routes', async (req, res) => {
+// get route alerts
+router.get('/users/:userId/routeAlerts', async (req, res) => {
     try {
-        res.status(200).send(await UserController.getRoutes(req.params.userId));
+        res.status(200).send(await UserController.getRouteAlerts(req.params.userId));
     } catch (error) {
         res.status(error.statusCode ? error.statusCode : 500).json(error.message);
     }
