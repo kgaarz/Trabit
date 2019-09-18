@@ -2,32 +2,11 @@ const {
     Report
 } = require('../models/reportSchema');
 const UserController = require('./userController');
-const ApiError = require('../exceptions/apiExceptions');
 const GeodataService = require('../services/geodataService');
+const ApiError = require('../exceptions/apiExceptions');
 
 class ReportController {
     constructor() {
-        // report model with allowed insert params
-        this.createReportModel = {
-            author: undefined,
-            description: undefined,
-            location: {
-                origin: {
-                    lat: undefined,
-                    lng: undefined,
-                    city: undefined
-                },
-                destination: {
-                    lat: undefined,
-                    lng: undefined,
-                    city: undefined
-                }
-            },
-            transport: {
-                type: undefined,
-                tag: undefined
-            }
-        };
         this.createCommentModel = {
             author: undefined,
             content: undefined
@@ -37,42 +16,7 @@ class ReportController {
     async create(body) {
         // check if author exists
         await UserController.getByUsername(body.author);
-        // making sure the report only consists of the allowed insert params
-        const newReport = {};
-        Object.keys(this.createReportModel).forEach(key => newReport[key] = body[key]);
-        // getting city from geodata
-        try {
-            // eslint-disable-next-line require-atomic-updates
-            newReport.location.origin.city = await GeodataService.getCityFromGeodata(newReport.location.origin.lat, newReport.location.origin.lng);
-        } catch (error) {
-            throw new ApiError('City could not be retrieved from the origin location coordinates!', 400);
-        }
-        try {
-            // eslint-disable-next-line require-atomic-updates
-            newReport.location.destination.city = await GeodataService.getCityFromGeodata(newReport.location.destination.lat, newReport.location.destination.lng);
-        } catch (error) {
-            throw new ApiError('City could not be retrieved from the destination location coordinates!', 400);
-        }
-        // getting car transportTag from geodata
-        if (newReport.transport.type == 'car') {
-            try {
-                // eslint-disable-next-line require-atomic-updates
-                newReport.transport.tag = await GeodataService.getStreetFromGeodata(newReport.location.origin.lat, newReport.location.origin.lng);
-            } catch (error) {
-                throw new ApiError('TransportTag could not be retrieved from the location coordinates!', 400);
-            }
-        }
-        // check if similar report already exists
-        const report = await Report.find({
-            'location.origin.city': newReport.location.origin.city,
-            'location.destination.city': newReport.location.destination.city,
-            'transport.transport.type': newReport.transport.type,
-            'transport.transport.tag': newReport.transport.tag
-        });
-        if (Object.keys(report).length > 0) {
-            throw new ApiError('This incident has already been reported!', 409);
-        }
-        return await new Report(newReport).save();
+        return await new Report(body).save();
     }
 
     async getFiltered(params) {
@@ -206,7 +150,11 @@ class ReportController {
         // create new comment and push in comments array
         const newComment = report.comments.create(comment);
         report.comments.push(newComment);
-        await report.save();
+        await Report.updateOne({
+            _id: reportId
+        }, {
+            comments: report.comments
+        });
         return newComment;
     }
 

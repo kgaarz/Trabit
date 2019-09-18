@@ -29,12 +29,6 @@ router.get('/reports', async (req, res) => {
         if (params.transportTag && !params.transportType) {
             throw new ApiError('Missing URL parameter: transportType', 400);
         }
-        if (params.transportDirection && ((params.transportType && !params.transportTag) || (!params.transportType && params.transportTag))) {
-            throw new ApiError(`Missing URL parameter: ${params.transportType === undefined ? 'transportType' : 'transportTag'}`, 400);
-        }
-        if (params.transportDirection && !params.transportType && !params.transportTag) {
-            throw new ApiError('Missing URL parameters: transportType, transportTag', 400);
-        }
         res.status(200).send(await ReportController.getFiltered(params));
     } catch (error) {
         res.status(error.statusCode ? error.statusCode : 500).json(error.message);

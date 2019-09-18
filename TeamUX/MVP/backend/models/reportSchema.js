@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const GeodataService = require('../services/geodataService');
+const ApiError = require('../exceptions/apiExceptions');
 
 const location = new mongoose.Schema({
   lat: {
@@ -84,6 +86,10 @@ const report = new mongoose.Schema({
     type: String,
     required: true
   },
+  description: {
+    type: String,
+    required: true
+  },
   location: {
     origin: {
       type: Object,
@@ -101,13 +107,10 @@ const report = new mongoose.Schema({
     of: transport,
     required: true
   },
-  description: {
-    type: String,
-    required: true
-  },
   metadata: {
     type: Object,
-    of: metadata
+    of: metadata,
+    required: true
   },
   comments: [comment]
 }, {
@@ -115,6 +118,32 @@ const report = new mongoose.Schema({
     createdAt: 'created',
     updatedAt: 'modified'
   }
+});
+
+report.pre('save', async function (next) {
+  // overwrite metadata with default values on create
+  this.metadata = new metadataSchema();
+  // overwrite comment array with empty array on create
+  this.comments = [];
+  // get origin city from geodata
+  this.location.origin.city = await GeodataService.getCityFromGeodata(this.location.origin.lat, this.location.origin.lng);
+  // get destination city from geodata
+  this.location.destination.city = await GeodataService.getCityFromGeodata(this.location.destination.lat, this.location.destination.lng);
+  // get car transport tag from origin geodata
+  if (this.transport.type == 'car') {
+    this.transport.tag = await GeodataService.getStreetFromGeodata(this.location.origin.lat, this.location.origin.lng);
+  }
+  // check for duplicate entries
+  const reports = await reportSchema.find({
+    'location.origin.city': this.location.origin.city,
+    'location.destination.city': this.location.destination.city,
+    'transport.type': this.transport.type,
+    'transport.tag': this.transport.tag
+  });
+  if (reports.length > 0) {
+    throw new ApiError('This incident has already been reported!', 409);
+  }
+  next();
 });
 
 const reportSchema = mongoose.model('report', report);
