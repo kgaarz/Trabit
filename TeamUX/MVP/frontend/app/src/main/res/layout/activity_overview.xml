@@ -138,16 +138,6 @@
         android:layout_height="match_parent">
 
 
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                androi.scrollbars="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp" />
-
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
@@ -206,6 +196,11 @@
             app:srcCompat="@mipmap/plus"
             app:backgroundTint="@color/colorWhite"
             />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="400dp" />
 
     </RelativeLayout>
 
