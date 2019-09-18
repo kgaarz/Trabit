@@ -9,6 +9,8 @@ const profile = new mongoose.Schema({
     type: String,
     required: true
   }
+}, {
+  _id: false
 });
 
 const mobility = new mongoose.Schema({
@@ -32,6 +34,8 @@ const mobility = new mongoose.Schema({
     type: Boolean,
     required: true
   }
+}, {
+  _id: false
 });
 
 const user = new mongoose.Schema({
@@ -42,16 +46,6 @@ const user = new mongoose.Schema({
     index: {
       unique: true
     }
-  },
-  created: {
-    type: Date,
-    default: Date.now,
-    required: true
-  },
-  modified: {
-    type: Date,
-    default: Date.now,
-    required: true
   },
   password: {
     // TODO: pw hashing!
@@ -68,22 +62,11 @@ const user = new mongoose.Schema({
     of: mobility,
     required: true
   }
-});
-
-user.post('update', function () {
-  this.update({}, {
-    $set: {
-      modified: new Date()
-    }
-  });
-});
-
-user.post('save', function () {
-  this.update({}, {
-    $set: {
-      modified: new Date()
-    }
-  });
+}, {
+  timestamps: {
+    createdAt: 'created',
+    updatedAt: 'modified'
+  }
 });
 
 const userSchema = mongoose.model('users', user);
