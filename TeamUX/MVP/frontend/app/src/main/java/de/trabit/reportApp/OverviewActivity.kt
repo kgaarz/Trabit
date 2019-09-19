@@ -54,6 +54,7 @@ class OverviewActivity : AppCompatActivity() {
 
         val overviewIcon = findViewById(R.id.overviewNavigation) as ImageButton
         val profileIcon = findViewById(R.id.profileNavigation) as ImageButton
+        val directionsIcon = findViewById(R.id.directonsNavigation) as ImageButton
 
 
         overviewIcon.setOnClickListener{
@@ -64,6 +65,12 @@ class OverviewActivity : AppCompatActivity() {
         profileIcon.setOnClickListener{
             profileIcon.setImageResource(R.mipmap.profile_active)
             overviewIcon.setImageResource(R.mipmap.overview)
+        }
+
+        directionsIcon.setOnClickListener {
+            // Handler code here.
+            val intent = Intent(this, DirectionsActivity::class.java)
+            startActivity(intent);
         }
 
 

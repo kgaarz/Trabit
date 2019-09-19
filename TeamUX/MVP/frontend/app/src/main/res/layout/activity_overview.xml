@@ -190,13 +190,14 @@
                     />
 
                 <ImageButton
-                    android:layout_height="25dp"
+                    android:id="@+id/directonsNavigation"
                     android:layout_width="0dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
                     android:layout_weight="2"
                     android:background="@null"
                     android:scaleType="fitCenter"
-                    android:layout_gravity="center"
-                    />
+                    android:src="@mipmap/directions_icon" />
 
 
                 <ImageButton
