@@ -43,7 +43,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true"
                 android:text="Aktuelle Störungen"
-                android:textColor="#F9F9F9"
+                android:textColor="@color/colorWhite"
                 android:textSize="20sp"
                 app:fontFamily="@font/oxygen" />
 

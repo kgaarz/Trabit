@@ -38,7 +38,7 @@ class OverviewActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
 
-        //Add Intent to firstAddActivity to add a report
+        //Add Intent to firstAddActivity to add a report (plus button)
 
         val addButton = findViewById(R.id.addButton) as ImageButton
 
@@ -138,5 +138,3 @@ class OverviewActivity : AppCompatActivity() {
 
 
  }
-
-

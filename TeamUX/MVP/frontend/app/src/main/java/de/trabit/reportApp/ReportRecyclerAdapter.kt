@@ -13,7 +13,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.report_item.view.*
 import kotlin.collections.ArrayList
 
-//Adapter Class to adapt the Recyclerview with the Layout
+//Adapter Class to adapt the ReportsRecyclerview with the Layout
 
 class ReportRecyclerAdapter(val reportList: ArrayList<ReportItem>) : RecyclerView.Adapter<ReportRecyclerAdapter.ViewHolder>()
 {
@@ -69,6 +69,7 @@ class ReportRecyclerAdapter(val reportList: ArrayList<ReportItem>) : RecyclerVie
                 itemView.voteDownButton.setImageResource(R.mipmap.check_negative_blue)
                 itemView.voteUpButton.setImageResource(R.mipmap.check_positive_grey)
             }
+
 
         }
 
