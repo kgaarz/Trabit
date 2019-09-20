@@ -5,10 +5,9 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.*
 
 
 class OverviewActivity : AppCompatActivity() {
@@ -26,17 +25,31 @@ class OverviewActivity : AppCompatActivity() {
         //dummydata for the recyclerview
 
         val reports = ArrayList<ReportItem>()
-        reports.add(ReportItem("heute","10.00 Uhr","maxmuster","RB25","Verspätung","2","0"))
+        reports.add(ReportItem("heute","10.00 Uhr","maxmuster","RB30","Verspätung","2","0"))
         reports.add(ReportItem("heute","09.30 Uhr","milenamuster","RB25","Gleiswechsel","0","2"))
         reports.add(ReportItem("heute","07.30 Uhr","maximmuster","RB25","Die Bahn fährt von Gleis 2, 14 Minuten später ab.","2","0"))
         reports.add(ReportItem("gestern","20.30 Uhr","marlaonmuster","RB25","Verspätung","1","4"))
-        reports.add(ReportItem("gestern","15.20 Uhr","miriammuster","RB25","Verspätung","0","2"))
+        reports.add(ReportItem("gestern","15.20 Uhr","miriammuster","RB50","Verspätung","0","2"))
 
         //add the adapter to the recyclerView
 
         val adapter = ReportRecyclerAdapter(reports)
         recyclerView.adapter = adapter
 
+        //init searchview to filter reportslist
+
+        val searchView = findViewById(R.id.search_view) as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                adapter?.filter?.filter(p0)
+                return false
+            }
+        })
 
         //Add Intent to firstAddActivity to add a report (plus button)
 
