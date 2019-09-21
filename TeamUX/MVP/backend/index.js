@@ -65,7 +65,7 @@ require('dotenv').config();
         });
     });
 
-    jobs.define('checkRouteAlertDuration', async () => {
+    jobs.define('checkRouteAlertExpiration', async () => {
         const routeAlerts = await RouteAlertController.getAll();
         routeAlerts.forEach(async (routeAlert) => {
             if (routeAlert.duration.to >= new Date().toISOString()) {
@@ -79,5 +79,5 @@ require('dotenv').config();
     await jobs.start();
     await jobs.every(`*/${process.env.JOB_REPEAT_EVERY} * * * *`, 'checkReportVerificationState');
     await jobs.every(`*/${process.env.JOB_REPEAT_EVERY} * * * *`, 'checkReportActiveState');
-    await jobs.every(`*/${process.env.JOB_REPEAT_EVERY} * * * *`, 'checkRouteAlertDuration');
+    await jobs.every(`*/${process.env.JOB_REPEAT_EVERY} * * * *`, 'checkRouteAlertExpiration');
 })();
