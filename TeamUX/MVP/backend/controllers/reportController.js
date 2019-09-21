@@ -42,13 +42,22 @@ class ReportController {
         possibleParameters.forEach(param => {
             if (params[param] !== undefined) {
                 switch (param) {
+                    case 'author':
+                        query[param] = {
+                            $regex: new RegExp("^" + params[param] + "$", "i")
+                        };
+                        break;
                     case 'originCity':
                     case 'destinationCity':
-                        query['location.' + param.replace('City', '.city')] = params[param];
+                        query['location.' + param.replace('City', '.city')] = {
+                            $regex: new RegExp("^" + params[param] + "$", "i")
+                        };
                         break;
                     case 'transportType':
                     case 'transportTag':
-                        query[param.replace('transport', 'transport.').toLowerCase()] = params[param];
+                        query[param.replace('transport', 'transport.').toLowerCase()] = {
+                            $regex: new RegExp("^" + params[param] + "$", "i")
+                        };
                         break;
                     case 'active':
                     case 'verified':
