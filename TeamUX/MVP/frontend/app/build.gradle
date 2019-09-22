@@ -18,6 +18,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "REPORTAPI_BASE_URL", '"http://18.184.239.236:3000/"'
+        }
+        debug {
+            buildConfigField "String", "REPORTAPI_BASE_URL", '"http://18.184.239.236:3000/"'
+        }
+        staging {
+            buildConfigField "String", "REPORTAPI_BASE_URL", '"http://18.184.239.236:3000/"'
         }
     }
 }
