@@ -8,6 +8,16 @@ import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.Volley
+import com.example.api_test.dataClasses.Report
+import com.example.api_test.dataClasses.ReportRequestParameters
+import com.google.gson.GsonBuilder
+import kotlinx.android.synthetic.main.activity_overview.*
+import org.json.JSONException
 
 
 class OverviewActivity : AppCompatActivity() {
@@ -17,58 +27,34 @@ class OverviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_overview)
 
-        //init recyclerView
-
-        val recyclerView = findViewById(R.id.recycler_view) as RecyclerView
+        // init layout objects
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
-        //dummydata for the recyclerview
-
-        val reports = ArrayList<ReportItem>()
-        reports.add(ReportItem("heute","10.00 Uhr","maxmuster","RB30","Verspätung","2","0"))
-        reports.add(ReportItem("heute","09.30 Uhr","milenamuster","RB25","Gleiswechsel","0","2"))
-        reports.add(ReportItem("heute","07.30 Uhr","maximmuster","RB25","Die Bahn fährt von Gleis 2, 14 Minuten später ab.","2","0"))
-        reports.add(ReportItem("gestern","20.30 Uhr","marlaonmuster","RB25","Verspätung","1","4"))
-        reports.add(ReportItem("gestern","15.20 Uhr","miriammuster","RB50","Verspätung","0","2"))
-
-        //add the adapter to the recyclerView
-
-        val adapter = ReportRecyclerAdapter(reports)
-        recyclerView.adapter = adapter
-
-        //init searchview to filter reportslist
-
-        val searchView = findViewById(R.id.search_view) as SearchView
-
+        // filter reports via searchView
+        val searchView = findViewById<SearchView>(R.id.search_view)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(p0: String?): Boolean {
-                adapter?.filter?.filter(p0)
+                //ReportRecyclerAdapter(reports)?.filter?.filter(p0)
                 return false
             }
         })
 
         //Add Intent to firstAddActivity to add a report (plus button)
-
         val addButton = findViewById(R.id.addButton) as ImageButton
-
         addButton.setOnClickListener{
-
             val addReortIntent = Intent(this,FirstAddActivity::class.java)
             startActivity(addReortIntent)
-
         }
 
-
         //Navigation Icons (active mode)
-
         val overviewIcon = findViewById(R.id.overviewNavigation) as ImageButton
         val profileIcon = findViewById(R.id.profileNavigation) as ImageButton
         val directionsIcon = findViewById(R.id.directonsNavigation) as ImageButton
-
 
         overviewIcon.setOnClickListener{
             overviewIcon.setImageResource(R.mipmap.overview_active)
@@ -86,18 +72,16 @@ class OverviewActivity : AppCompatActivity() {
             startActivity(intent);
         }
 
-
-        //store the value (choosen city) via Intent from the SearchActivity in a variable
+        //store the value (chosen city) via Intent from the SearchActivity in a variable
+        var locationTitle = findViewById(R.id.locationHeader) as TextView
         val manuallyLocationTitle = intent.getStringExtra("newLocation")
 
         //if a value has been submitted via intent than change the Location Textview accordingly to the passed value from the intent
         if (manuallyLocationTitle !== null){
-            var LocationTitle = findViewById(R.id.locationHeader)  as TextView
-            LocationTitle.setText(manuallyLocationTitle)
+            locationTitle.setText(manuallyLocationTitle)
         }
 
         //Find View By Id for ClickListener Add Clicklistener to Imagebutton (Location) and link to SearchActivity
-
         var locationBtn = findViewById(R.id.locationChange) as ImageButton
 
         locationBtn.setOnClickListener{
@@ -105,24 +89,29 @@ class OverviewActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //Find Views By Id for ClickListener
+        // set location string
+        val location = locationTitle.text.toString()
 
+        //Find Views By Id for ClickListener
         var carBtn = findViewById(R.id.carIcon) as ImageButton
         var trainBtn = findViewById(R.id.trainIcon) as ImageButton
         var tramBtn = findViewById(R.id.tramIcon) as ImageButton
         var busBtn = findViewById(R.id.busIcon) as ImageButton
 
         //Set the train Button default on clicked
-
         trainBtn.setImageResource(R.mipmap.train_icon_clicked)
+        var transportType = "train"
+        getReports(ReportRequestParameters(location, transportType, searchView.query.toString(), null))
+
 
         //Add Clicklistener to Imagebuttons (Car, bus, train, tram icon) to Change Color of Image (Clicked)
-
         carBtn.setOnClickListener {
             carBtn.setImageResource(R.mipmap.car_icon_clicked)
             trainBtn.setImageResource(R.mipmap.train_icon_grey)
             tramBtn.setImageResource(R.mipmap.tram_icon_grey)
             busBtn.setImageResource(R.mipmap.bus_icon_grey)
+            transportType = "car"
+            getReports(ReportRequestParameters(location, transportType, searchView.query.toString(), null))
 
         }
 
@@ -131,6 +120,9 @@ class OverviewActivity : AppCompatActivity() {
             carBtn.setImageResource(R.mipmap.car_icon_grey)
             tramBtn.setImageResource(R.mipmap.tram_icon_grey)
             busBtn.setImageResource(R.mipmap.bus_icon_grey)
+            transportType = "train"
+            getReports(ReportRequestParameters(location, transportType, searchView.query.toString(), null))
+
         }
 
         tramBtn.setOnClickListener {
@@ -138,6 +130,9 @@ class OverviewActivity : AppCompatActivity() {
             carBtn.setImageResource(R.mipmap.car_icon_grey)
             trainBtn.setImageResource(R.mipmap.train_icon_grey)
             busBtn.setImageResource(R.mipmap.bus_icon_grey)
+            transportType = "subway"
+            getReports(ReportRequestParameters(location, transportType, searchView.query.toString(), null))
+
         }
 
         busBtn.setOnClickListener {
@@ -145,8 +140,43 @@ class OverviewActivity : AppCompatActivity() {
             carBtn.setImageResource(R.mipmap.car_icon_grey)
             trainBtn.setImageResource(R.mipmap.train_icon_grey)
             tramBtn.setImageResource(R.mipmap.tram_icon_grey)
-        }
+            transportType = "bus"
+            getReports(ReportRequestParameters(location, transportType, searchView.query.toString(), null))
 
+        }
+    }
+
+    private fun getReports(params : ReportRequestParameters) {
+        val rootUrl = "http://18.184.239.236:3000/"
+        val requestUrl = rootUrl + "reports" + getQueryString(params)
+
+        val mQueue: RequestQueue = Volley.newRequestQueue(this)
+
+        val request = JsonArrayRequest(Request.Method.GET, requestUrl, null,
+            Response.Listener {
+                try {
+                    val gson = GsonBuilder().create()
+                    val reports = gson.fromJson(it.toString(), Array<Report>::class.java)
+
+                    recycler_view.adapter = ReportRecyclerAdapter(reports)
+
+                } catch (e: JSONException) {
+                    e.printStackTrace();
+                }
+
+            }, Response.ErrorListener {
+                it.printStackTrace();
+            });
+
+        mQueue.add(request);
+    }
+
+    private fun getQueryString (params : ReportRequestParameters) : String {
+        var queryString = "?originCity=${params.orignCity}&transportType=${params.transportType}"
+        val addParam = { query: String, param: String? -> if(!param.isNullOrBlank()) "$query&$param" else query}
+        queryString = addParam(queryString, params.transportTag);
+        queryString = addParam(queryString, params.destinationCity);
+        return queryString
     }
 
 

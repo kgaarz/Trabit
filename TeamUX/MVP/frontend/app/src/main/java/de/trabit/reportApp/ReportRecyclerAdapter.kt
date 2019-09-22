@@ -8,21 +8,22 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.example.api_test.dataClasses.Report
 import kotlinx.android.synthetic.main.report_item.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.collections.ArrayList
+
 
 //Adapter Class to adapt the ReportsRecyclerview with the Layout
 
-class ReportRecyclerAdapter(var reportList: ArrayList<ReportItem>) : RecyclerView.Adapter<ReportRecyclerAdapter.ViewHolder>(), Filterable
+class ReportRecyclerAdapter(var reportList: Array<Report>) : RecyclerView.Adapter<ReportRecyclerAdapter.ViewHolder>(), Filterable
 {
-
     //Clone of the reportList to filter the data
-    val reportListFull :ArrayList <ReportItem> = reportList
+    val reportListFull : Array<Report> = reportList
     private var recycleFilter : RecyclerFilter? = null
 
-
     class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
-
         val day_text = itemView.findViewById(R.id.day_text) as TextView
         val time_text = itemView.findViewById(R.id.time_text) as TextView
         val username_text = itemView.findViewById(R.id.username_text) as TextView
@@ -33,7 +34,6 @@ class ReportRecyclerAdapter(var reportList: ArrayList<ReportItem>) : RecyclerVie
 
 
         init {
-
             itemView.commentIcon.setOnClickListener{
                 val commentsIntent = Intent(itemView.context, CommentsActivity::class.java)
                 itemView.context.startActivity(commentsIntent)
@@ -48,36 +48,51 @@ class ReportRecyclerAdapter(var reportList: ArrayList<ReportItem>) : RecyclerVie
                 itemView.voteDownButton.setImageResource(R.mipmap.check_negative_blue)
                 itemView.voteUpButton.setImageResource(R.mipmap.check_positive_grey)
             }
-
-
         }
-
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
-        val v = LayoutInflater.from(p0?.context).inflate(R.layout.report_item, p0, false)
+        val v = LayoutInflater.from(p0.context).inflate(R.layout.report_item, p0, false)
         return ViewHolder(v)
-
     }
 
-    override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
-        val report: ReportItem = reportList[p1]
-        p0?.day_text?.text = report.dayText
-        p0?.time_text?.text = report.timeText
-        p0?.username_text?.text = report.usernameText
-        p0?.id_text?.text =report.idText
-        p0?.report_text?.text = report.reportText
-        p0?.comment_amount?.text = report.commentAmount
-        p0?.confirm_index?.text = report.confirmIndex
-    }
+    override fun onBindViewHolder(p0: ViewHolder, position: Int) {
+        val report = reportList[position]
 
+        // format date for report view
+        val dateFormatter = SimpleDateFormat("dd.MM.YYYY")
+        val today = Calendar.getInstance()
+        val yesterday = Calendar.getInstance()
+        yesterday.add(Calendar.DAY_OF_YEAR, -1)
+        var reportDate = when (dateFormatter.format(report.created))
+                                {
+                                    dateFormatter.format(today.time) -> "Heute"
+                                    dateFormatter.format(today.time) -> "Gestern"
+                                    else -> dateFormatter.format(report.created)
+                                }
+
+        // format time for report view
+        val timeFormatter = SimpleDateFormat("HH:MM")
+        var reportTime = timeFormatter.format(report.created)
+
+        // calculate votes
+        val votes = report.metadata.upvotes - report.metadata.downvotes
+
+        // fill report params in layout elements
+        p0.day_text.text = reportDate
+        p0.time_text.text = reportTime
+        p0.username_text.text = report.author
+        p0.id_text.text = report.transport.tag
+        p0.report_text.text = report.description
+        p0.comment_amount.text = report.comments.size.toString()
+        p0.confirm_index.text = votes.toString()
+    }
 
     override fun getItemCount(): Int {
        return reportList.size
     }
 
     //Filter function to filter the reportitems concerning to the searchtext from the searchfield (filter idText)
-
     override fun getFilter(): Filter {
         if(recycleFilter == null){
             recycleFilter = RecyclerFilter()
@@ -87,30 +102,27 @@ class ReportRecyclerAdapter(var reportList: ArrayList<ReportItem>) : RecyclerVie
 
     inner class RecyclerFilter : Filter(){
         override fun performFiltering(p0: CharSequence?): FilterResults {
-            var results: FilterResults = FilterResults()
-            if (p0 != null && p0.length > 0) {
-                var localList: ArrayList<ReportItem> = ArrayList<ReportItem>()
-                for (i: Int in 0..reportListFull.size?.minus(1) as Int) {
-                    if (reportListFull?.get(i)?.idText?.toLowerCase()?.contains(p0.toString().toLowerCase().trim()) as Boolean){
-                        localList.add(reportListFull?.get(i) as ReportItem)
+            val results = FilterResults()
+            if (p0 != null && p0.isNotEmpty()) {
+                val localList: ArrayList<Report> = ArrayList<Report>()
+                for (i: Int in 0..reportListFull.size.minus(1)) {
+                    if (reportListFull.get(i).transport.tag.toLowerCase().contains(p0.toString().toLowerCase().trim())){
+                        localList.add(reportListFull.get(i))
                     }
                 }
                 results.values = localList
-                results.count = localList.size as Int
+                results.count = localList.size
              }else {
                 results.values = reportListFull
-                results.count = reportListFull?.size as Int
+                results.count = reportListFull.size
             }
             return results
         }
 
-
         override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
-            reportList = p1?.values as ArrayList<ReportItem>
+            reportList = p1?.values as Array<Report>
             notifyDataSetChanged()
         }
     }
-
-
 }
 
