@@ -10,23 +10,22 @@
 
 
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:padding="10dp"
         android:orientation="vertical"
-        >
+        android:padding="10dp">
+
         <LinearLayout
             android:layout_width="290dp"
             android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
-            >
+            android:layout_alignParentLeft="true">
 
-            <TextView android:layout_width="0dp"
+            <TextView
+                android:id="@+id/day_text"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_weight="4"
-                android:id="@+id/day_text"
                 android:fontFamily="@font/oxygen"
                 android:text="Tag"
                 android:textSize="13sp"
@@ -36,138 +35,134 @@
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="3dp"
-                android:layout_weight="1"
-                android:src="@mipmap/seperate_dot"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="5dp"
-                />
+                android:layout_weight="1"
+                android:src="@mipmap/seperate_dot" />
 
-            <TextView android:layout_width="0dp"
+            <TextView
+                android:id="@+id/time_text"
+                android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_weight="5"
                 android:fontFamily="@font/oxygen"
                 android:text="Uhrzeit"
-                android:textSize="13sp"
-                android:id="@+id/time_text"
                 android:textAlignment="center"
+                android:textSize="13sp"
 
                 />
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="3dp"
-                android:layout_weight="1"
-                android:src="@mipmap/seperate_dot"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="3dp"
-                />
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:src="@mipmap/seperate_dot" />
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="10dp"
-                android:layout_weight="1"
-                android:src="@mipmap/profile_icon"
                 android:layout_marginLeft="4dp"
                 android:layout_marginTop="5dp"
-                />
+                android:layout_weight="1"
+                android:src="@mipmap/profile_icon" />
 
             <TextView
+                android:id="@+id/username_text"
                 android:layout_width="0dp"
-                android:layout_weight="7"
                 android:layout_height="30dp"
+                android:layout_marginLeft="7dp"
+                android:layout_weight="7"
                 android:fontFamily="@font/oxygen"
                 android:text="Benutzername"
-                android:textSize="13sp"
-                android:id="@+id/username_text"
-                android:layout_marginLeft="7dp"
-                />
+                android:textSize="13sp" />
 
         </LinearLayout>
 
         <TextView
 
+            android:id="@+id/id_text"
             android:layout_width="290dp"
             android:layout_height="35dp"
-            android:background="@drawable/custom_report_item_id_container"
+            android:layout_alignParentLeft="true"
             android:layout_marginTop="30dp"
-            android:text="Kennung"
-            android:textSize="15sp"
+            android:background="@drawable/custom_report_item_id_container"
+            android:fontFamily="@font/oxygen"
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
-            android:layout_alignParentLeft="true"
+            android:text="Kennung"
             android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/id_text"
-            android:fontFamily="@font/oxygen"
-            />
+            android:textSize="15sp" />
 
         <ImageButton
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentRight="true"
-            android:src="@mipmap/check_positive_grey"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:layout_marginTop="30dp"
             android:id="@+id/voteUpButton"
-            />
-        <TextView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="90dp"
-            android:layout_marginRight="3dp"
-            android:text="0"
-            android:fontFamily="@font/oxygen"
-            android:id="@+id/voteNumber"
-            />
-
-
-        <ImageButton
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignParentRight="true"
-
-            android:layout_marginTop="135dp"
-            android:src="@mipmap/check_negative_grey"
+            android:layout_marginTop="30dp"
             android:background="@null"
             android:scaleType="fitCenter"
-            android:id="@+id/voteDownButton"
-            />
+            android:src="@mipmap/check_positive_grey" />
 
         <TextView
-            android:layout_width="290dp"
-            android:layout_height="65dp"
-            android:layout_marginTop="80dp"
-            android:text="Kommentar, Kommentar, Kommentar"
-            android:textSize="16sp"
-            android:layout_alignParentLeft="true"
-
-            android:paddingTop="5dp"
+            android:id="@+id/voteNumber"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/voteUpButton"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="3dp"
             android:fontFamily="@font/oxygen"
-            android:id="@+id/report_text"
-            />
+            android:text="0" />
+
 
         <ImageButton
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@mipmap/comment_icon_black"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="160dp"
-            android:scaleType="fitCenter"
+            android:id="@+id/voteDownButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+
+            android:layout_below="@+id/voteNumber"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
             android:background="@null"
-            android:layout_marginLeft="5dp"
-            android:id="@+id/commentIcon"
-            />
+            android:scaleType="fitCenter"
+            android:src="@mipmap/check_negative_grey" />
 
         <TextView
+            android:id="@+id/report_text"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/id_text"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+
+            android:fontFamily="@font/oxygen"
+            android:paddingTop="5dp"
+            android:text="Kommentar, Kommentar, Kommentar"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/commentIcon"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_below="@+id/report_text"
             android:layout_alignParentLeft="true"
-            android:text="0"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="160dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/comment_icon_black" />
+
+        <TextView
             android:id="@+id/commentNumber"
-            />
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/report_text"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:text="0" />
 
     </RelativeLayout>
 

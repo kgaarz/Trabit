@@ -48,17 +48,17 @@
                 app:fontFamily="@font/oxygen" />
 
             <TextView
-                    android:text="Standort"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="35dp"
-                    android:id="@+id/locationHeader"
-                    android:textSize="15sp"
-                    android:textColor="#F9F9F9"
+                android:id="@+id/locationHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="35dp"
+                android:text="Gummersbach"
+                android:textColor="#F9F9F9"
+                android:textSize="15sp"
 
-            />
+                />
             <SearchView
                     android:id="@+id/search_view"
                     android:layout_width="190dp"
