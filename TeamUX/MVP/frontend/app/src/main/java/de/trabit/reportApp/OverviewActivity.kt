@@ -18,10 +18,9 @@ import com.example.api_test.dataClasses.ReportRequestParameters
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_overview.*
 import org.json.JSONException
-
+import android.widget.TextView
 
 class OverviewActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +68,7 @@ class OverviewActivity : AppCompatActivity() {
         directionsIcon.setOnClickListener {
             // Handler code here.
             val intent = Intent(this, DirectionsActivity::class.java)
-            startActivity(intent);
+            startActivity(intent)
         }
 
         //store the value (chosen city) via Intent from the SearchActivity in a variable
@@ -103,7 +102,6 @@ class OverviewActivity : AppCompatActivity() {
         var transportType = "train"
         getReports(ReportRequestParameters(location, transportType, searchView.query.toString(), null))
 
-
         //Add Clicklistener to Imagebuttons (Car, bus, train, tram icon) to Change Color of Image (Clicked)
         carBtn.setOnClickListener {
             carBtn.setImageResource(R.mipmap.car_icon_clicked)
@@ -112,7 +110,6 @@ class OverviewActivity : AppCompatActivity() {
             busBtn.setImageResource(R.mipmap.bus_icon_grey)
             transportType = "car"
             getReports(ReportRequestParameters(location, transportType, searchView.query.toString(), null))
-
         }
 
         trainBtn.setOnClickListener {
@@ -122,7 +119,6 @@ class OverviewActivity : AppCompatActivity() {
             busBtn.setImageResource(R.mipmap.bus_icon_grey)
             transportType = "train"
             getReports(ReportRequestParameters(location, transportType, searchView.query.toString(), null))
-
         }
 
         tramBtn.setOnClickListener {
@@ -132,7 +128,6 @@ class OverviewActivity : AppCompatActivity() {
             busBtn.setImageResource(R.mipmap.bus_icon_grey)
             transportType = "subway"
             getReports(ReportRequestParameters(location, transportType, searchView.query.toString(), null))
-
         }
 
         busBtn.setOnClickListener {
@@ -142,42 +137,35 @@ class OverviewActivity : AppCompatActivity() {
             tramBtn.setImageResource(R.mipmap.tram_icon_grey)
             transportType = "bus"
             getReports(ReportRequestParameters(location, transportType, searchView.query.toString(), null))
-
         }
     }
 
     private fun getReports(params : ReportRequestParameters) {
-        val rootUrl = "http://18.184.239.236:3000/"
+        val rootUrl = BuildConfig.REPORTAPI_BASE_URL
         val requestUrl = rootUrl + "reports" + getQueryString(params)
-
         val mQueue: RequestQueue = Volley.newRequestQueue(this)
-
         val request = JsonArrayRequest(Request.Method.GET, requestUrl, null,
             Response.Listener {
                 try {
                     val gson = GsonBuilder().create()
                     val reports = gson.fromJson(it.toString(), Array<Report>::class.java)
-
                     recycler_view.adapter = ReportRecyclerAdapter(reports)
-
                 } catch (e: JSONException) {
-                    e.printStackTrace();
+                    e.printStackTrace()
+                    ErrorSnackbar(linearLayout_main).show("Daten konnten nicht geladen werden!")
                 }
-
             }, Response.ErrorListener {
-                it.printStackTrace();
-            });
-
-        mQueue.add(request);
+                it.printStackTrace()
+                ErrorSnackbar(linearLayout_main).show("Daten konnten nicht geladen werden!")
+            })
+        mQueue.add(request)
     }
 
     private fun getQueryString (params : ReportRequestParameters) : String {
         var queryString = "?originCity=${params.orignCity}&transportType=${params.transportType}"
         val addParam = { query: String, param: String? -> if(!param.isNullOrBlank()) "$query&$param" else query}
-        queryString = addParam(queryString, params.transportTag);
-        queryString = addParam(queryString, params.destinationCity);
+        queryString = addParam(queryString, params.transportTag)
+        queryString = addParam(queryString, params.destinationCity)
         return queryString
     }
-
-
  }

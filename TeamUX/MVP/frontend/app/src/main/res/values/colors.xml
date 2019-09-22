@@ -11,4 +11,5 @@
     <color name="colorDarkBlue">#1C6A9C</color>
     <color name="colorLightBlue">#3294D1</color>
     <color name="whiteBlue">#fafbfc</color>
+    <color name="errorRed">#eb4949</color>
 </resources>
