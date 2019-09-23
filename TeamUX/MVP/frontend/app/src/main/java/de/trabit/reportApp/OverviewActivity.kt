@@ -5,8 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.*
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -26,6 +24,12 @@ class OverviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_overview)
 
+        // get intent extra from report creation
+        val reportCreated = intent.getBooleanExtra("reportCreated", false)
+        if(reportCreated) {
+            SuccessSnackbar(linearLayout_main).show("Störungsmledung wurde erfolgreich erstellt!")
+        }
+
         // init layout objects
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
@@ -44,16 +48,16 @@ class OverviewActivity : AppCompatActivity() {
         })
 
         //Add Intent to firstAddActivity to add a report (plus button)
-        val addButton = findViewById(R.id.addButton) as ImageButton
+        val addButton = findViewById<ImageButton>(R.id.addButton)
         addButton.setOnClickListener{
             val addReortIntent = Intent(this,FirstAddActivity::class.java)
             startActivity(addReortIntent)
         }
 
         //Navigation Icons (active mode)
-        val overviewIcon = findViewById(R.id.overviewNavigation) as ImageButton
-        val profileIcon = findViewById(R.id.profileNavigation) as ImageButton
-        val directionsIcon = findViewById(R.id.directonsNavigation) as ImageButton
+        val overviewIcon = findViewById<ImageButton>(R.id.overviewNavigation)
+        val profileIcon = findViewById<ImageButton>(R.id.profileNavigation)
+        val directionsIcon = findViewById<ImageButton>(R.id.directonsNavigation)
 
         overviewIcon.setOnClickListener{
             overviewIcon.setImageResource(R.mipmap.overview_active)
@@ -72,16 +76,16 @@ class OverviewActivity : AppCompatActivity() {
         }
 
         //store the value (chosen city) via Intent from the SearchActivity in a variable
-        var locationTitle = findViewById(R.id.locationHeader) as TextView
+        val locationTitle = findViewById<TextView>(R.id.locationHeader)
         val manuallyLocationTitle = intent.getStringExtra("newLocation")
 
         //if a value has been submitted via intent than change the Location Textview accordingly to the passed value from the intent
         if (manuallyLocationTitle !== null){
-            locationTitle.setText(manuallyLocationTitle)
+            locationTitle.text = manuallyLocationTitle
         }
 
         //Find View By Id for ClickListener Add Clicklistener to Imagebutton (Location) and link to SearchActivity
-        var locationBtn = findViewById(R.id.locationChange) as ImageButton
+        val locationBtn = findViewById<ImageButton>(R.id.locationChange)
 
         locationBtn.setOnClickListener{
             val intent = Intent(this,SearchActivity::class.java)
@@ -92,10 +96,10 @@ class OverviewActivity : AppCompatActivity() {
         val location = locationTitle.text.toString()
 
         //Find Views By Id for ClickListener
-        var carBtn = findViewById(R.id.carIcon) as ImageButton
-        var trainBtn = findViewById(R.id.trainIcon) as ImageButton
-        var tramBtn = findViewById(R.id.tramIcon) as ImageButton
-        var busBtn = findViewById(R.id.busIcon) as ImageButton
+        val carBtn = findViewById<ImageButton>(R.id.carIcon)
+        val trainBtn = findViewById<ImageButton>(R.id.trainIcon)
+        val tramBtn = findViewById<ImageButton>(R.id.tramIcon)
+        val busBtn = findViewById<ImageButton>(R.id.busIcon)
 
         //Set the train Button default on clicked
         trainBtn.setImageResource(R.mipmap.train_icon_clicked)
