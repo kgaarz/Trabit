@@ -20,33 +20,6 @@ class ReportRecyclerAdapter(var reportList: Array<Report>) : RecyclerView.Adapte
     val reportListFull : Array<Report> = reportList
     private var recycleFilter : RecyclerFilter? = null
 
-    class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
-        val day_text = itemView.findViewById(R.id.day_text) as TextView
-        val time_text = itemView.findViewById(R.id.time_text) as TextView
-        val username_text = itemView.findViewById(R.id.username_text) as TextView
-        val id_text = itemView.findViewById(R.id.id_text) as TextView
-        val report_text = itemView.findViewById(R.id.report_text) as TextView
-        val comment_amount = itemView.findViewById(R.id.commentNumber) as TextView
-        val confirm_index = itemView.findViewById(R.id.voteNumber) as TextView
-
-
-        init {
-            itemView.commentIcon.setOnClickListener{
-                val commentsIntent = Intent(itemView.context, CommentsActivity::class.java)
-                itemView.context.startActivity(commentsIntent)
-            }
-
-            itemView.voteUpButton.setOnClickListener{
-                itemView.voteUpButton.setImageResource(R.mipmap.check_positive_blue)
-                itemView.voteDownButton.setImageResource(R.mipmap.check_negative_grey)
-            }
-
-            itemView.voteDownButton.setOnClickListener{
-                itemView.voteDownButton.setImageResource(R.mipmap.check_negative_blue)
-                itemView.voteUpButton.setImageResource(R.mipmap.check_positive_grey)
-            }
-        }
-    }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         val v = LayoutInflater.from(p0.context).inflate(R.layout.report_item, p0, false)
@@ -83,10 +56,42 @@ class ReportRecyclerAdapter(var reportList: Array<Report>) : RecyclerView.Adapte
         p0.report_text.text = report.description
         p0.comment_amount.text = report.comments.size.toString()
         p0.confirm_index.text = votes.toString()
+        p0.report_id = report.id
     }
 
     override fun getItemCount(): Int {
        return reportList.size
+    }
+
+
+    class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
+        val day_text = itemView.findViewById(R.id.day_text) as TextView
+        val time_text = itemView.findViewById(R.id.time_text) as TextView
+        val username_text = itemView.findViewById(R.id.username_text) as TextView
+        val id_text = itemView.findViewById(R.id.id_text) as TextView
+        val report_text = itemView.findViewById(R.id.report_text) as TextView
+        val comment_amount = itemView.findViewById(R.id.commentNumber) as TextView
+        val confirm_index = itemView.findViewById(R.id.voteNumber) as TextView
+        var report_id : String? = null
+
+
+        init {
+            itemView.commentIcon.setOnClickListener{
+                val commentsIntent = Intent(itemView.context, CommentsActivity::class.java)
+                commentsIntent.putExtra("reportId", report_id )
+                itemView.context.startActivity(commentsIntent)
+            }
+
+            itemView.voteUpButton.setOnClickListener{
+                itemView.voteUpButton.setImageResource(R.mipmap.check_positive_blue)
+                itemView.voteDownButton.setImageResource(R.mipmap.check_negative_grey)
+            }
+
+            itemView.voteDownButton.setOnClickListener{
+                itemView.voteDownButton.setImageResource(R.mipmap.check_negative_blue)
+                itemView.voteUpButton.setImageResource(R.mipmap.check_positive_grey)
+            }
+        }
     }
 
     //Filter function to filter the reportitems concerning to the searchtext from the searchfield (filter idText)
