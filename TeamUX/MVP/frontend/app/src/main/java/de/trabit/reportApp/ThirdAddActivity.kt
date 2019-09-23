@@ -161,19 +161,19 @@ class ThirdAddActivity : AppCompatActivity() {
 
         tile4.setOnClickListener{
             reportComment = textTile4.text.toString()
-            val report = CreateReport(username, reportComment, LocationObject(Location(originLat.toString(), originLng.toString(), null), Location("", "", destinationLocation)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
+            val report = CreateReport(username, reportComment, LocationObject(Location(originLat, originLng, null), Location("", "", destinationLocation)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
             postReport(report)
         }
 
         tile5.setOnClickListener{
             reportComment = textTile5.text.toString()
-            val report = CreateReport(username, reportComment, LocationObject(Location(originLat.toString(), originLng.toString(), null), Location("", "", destinationLocation)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
+            val report = CreateReport(username, reportComment, LocationObject(Location(originLat, originLng, null), Location("", "", destinationLocation)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
             postReport(report)
         }
 
         tile6.setOnClickListener{
             reportComment = textTile6.text.toString()
-            val report = CreateReport(username, reportComment, LocationObject(Location(originLat.toString(), originLng.toString(), null), Location("", "", destinationLocation)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
+            val report = CreateReport(username, reportComment, LocationObject(Location(originLat, originLng, null), Location("", "", destinationLocation)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
             postReport(report)
         }
 
@@ -187,8 +187,7 @@ class ThirdAddActivity : AppCompatActivity() {
             } else {
                 // create report
                 reportComment = commentText.text.toString()
-                // SAMPLE DATA!!
-                val report = CreateReport(username, reportComment, LocationObject(Location(originLat.toString(), originLng.toString(), null), Location("", "", destinationLocation)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
+                val report = CreateReport(username, reportComment, LocationObject(Location(originLat, originLng, null), Location("", "", destinationLocation)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
                 postReport(report)
             }
         }
