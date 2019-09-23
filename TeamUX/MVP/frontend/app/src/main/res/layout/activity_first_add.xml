@@ -63,81 +63,81 @@
     </LinearLayout>
 
 
-<RelativeLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
-    <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        android:layout_centerInParent="true">
-
-
         <RelativeLayout
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:clickable="true"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/tile_layout"
-            android:padding="10dp"
-            android:id="@+id/tramTile"
-            >
-
-             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:srcCompat="@mipmap/tram_icon_grey"
-                android:scaleType="fitCenter"
-             />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:text="Bahn"
-                android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true"
-                android:textAlignment="center"
-                android:textSize="20sp"
-            />
-
-         </RelativeLayout>
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
 
-        <RelativeLayout
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:clickable="true"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/tile_layout"
-            android:padding="10dp"
-            android:id="@+id/trainTile"
-            >
+            <RelativeLayout
+                android:id="@+id/trainTile"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/tile_layout"
+                android:clickable="true"
+                android:padding="10dp">
 
-             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:srcCompat="@mipmap/train_icon_grey"
-                android:scaleType="fitCenter"
-            />
+                <ImageView
+                    android:id="@+id/trainTileImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@mipmap/train_icon_grey" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:text="Zug"
-                android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true"
-                android:textSize="20sp"
-                android:textAlignment="center"
-            />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/trainTileImage"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="Zug"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/tramTile"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/tile_layout"
+                android:clickable="true"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/tramTileImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@mipmap/tram_icon_grey" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tramTileImage"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="U-Bahn/Tram"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
 
         </RelativeLayout>
-
     </RelativeLayout>
-</RelativeLayout>
 
 <RelativeLayout
         android:layout_width="match_parent"
