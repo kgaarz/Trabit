@@ -25,6 +25,7 @@ class ThirdAddActivity : AppCompatActivity() {
         //store the value (chosen means of transport and Id) in a variable
         val meansOfTransportName = intent.getStringExtra("meansOfTransport")
         val meansOfTransportId = intent.getStringExtra("meansOfTransportId")
+        val destinationLocation = intent.getStringExtra("destinationLocation")
         var reportComment : String
 
         //Adapt the activity layout to the appropriate means of transport
@@ -121,39 +122,32 @@ class ThirdAddActivity : AppCompatActivity() {
 
         // set onClickListener to all tiles and save the value of the chosen tile
         tile1.setOnClickListener{
-            val addReportIntent = Intent(this,OverviewActivity::class.java)
-            startActivity(addReportIntent)
-            reportComment = textTile1.text.toString()
+
         }
 
         tile2.setOnClickListener{
-            val addReportIntent = Intent(this,OverviewActivity::class.java)
-            startActivity(addReportIntent)
             reportComment = textTile1.text.toString()
+
         }
 
         tile3.setOnClickListener{
-            val addReportIntent = Intent(this,OverviewActivity::class.java)
-            startActivity(addReportIntent)
             reportComment = textTile1.text.toString()
+
         }
 
         tile4.setOnClickListener{
-            val addReportIntent = Intent(this,OverviewActivity::class.java)
-            startActivity(addReportIntent)
             reportComment = textTile1.text.toString()
+
         }
 
         tile5.setOnClickListener{
-            val addReportIntent = Intent(this,OverviewActivity::class.java)
-            startActivity(addReportIntent)
             reportComment = textTile1.text.toString()
+
         }
 
         tile6.setOnClickListener{
-            val addReportIntent = Intent(this,OverviewActivity::class.java)
-            startActivity(addReportIntent)
             reportComment = textTile1.text.toString()
+
         }
 
         //set onClickListener to the confirm button when the user add a manual comment
@@ -169,7 +163,7 @@ class ThirdAddActivity : AppCompatActivity() {
                 // TODO: get current location
                 // TODO: get transport direction (--> additional field in activity_second_add)
                 // SAMPLE DATA!!
-                val report = ReportPOST("maxiboi", reportComment, LocationObject(Location("50.826386", "6.254096", null), Location("51.029491", "7.843550", null)), Transport(meansOfTransportName, meansOfTransportId), Metadata())
+                val report = ReportPOST("maxiboi", reportComment, LocationObject(Location("50.826386", "6.254096", null), Location("51.029491", "7.843550", null)), TransportPOST(meansOfTransportName, meansOfTransportId), Metadata())
                 postReport(report)
             }
         }

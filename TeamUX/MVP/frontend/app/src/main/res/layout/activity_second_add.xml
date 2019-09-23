@@ -43,7 +43,7 @@
 
             <TextView
                 android:id="@+id/textMeansOfTransport"
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
@@ -82,7 +82,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:layout_marginBottom="20dp"
         android:orientation="horizontal">
 
@@ -100,7 +100,29 @@
             android:inputType="textPersonName"
             android:textColor="@color/colorMiddleGrey"
             android:typeface="normal" />
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/inputTextDestination"
+            android:layout_width="318dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="46dp"
+            android:layout_marginRight="46dp"
+            android:ems="10"
+            android:fontFamily="@font/oxygen"
+            android:hint="Zielort hier eingeben"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorMiddleGrey"
+            android:typeface="normal" />
     </RelativeLayout>
 
     <RelativeLayout

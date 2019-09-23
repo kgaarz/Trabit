@@ -38,7 +38,7 @@ class SearchActivity : AppCompatActivity() {
 
         val name = arrayOf(
             "Gummersbach", "Gundelfingen", "Stuttgart", "Sindelfingen", "Köln", "Hamburg", "Engelskirchen",
-            "Düsseldorf", "Dortmund", "Overath", "Kiel", "Sindelfingen", "Berlin"
+            "Düsseldorf", "Dortmund", "Overath", "Kiel", "Sindelfingen", "Berlin","Eschweiler"
         )
 
         listview.visibility = View.INVISIBLE

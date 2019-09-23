@@ -48,19 +48,22 @@ class SecondAddActivity : AppCompatActivity() {
             startActivity(backIntent)
         }
 
-        //read out user input from edittext (Id of Means of Transport)
+        //read out user input from edittext (Id Means of Transport and destination Location)
         val meansOfTransportIdButton = findViewById<EditText>(R.id.inputTextNr)
         val meansOfTransportId = meansOfTransportIdButton.text
+        val destinationLocationButton = findViewById<EditText>(R.id.inputTextDestination)
+        val destinationLocation = destinationLocationButton.text
         val confirmBtn = findViewById<Button>(R.id.btn_next)
 
         //add intent to further button to hand off to SecondAddActivity, checking if something is written in the edittext field
         confirmBtn.setOnClickListener {
-            if(meansOfTransportId.isNullOrBlank()){
-                ErrorSnackbar(linearLayout_secondAdd).show("Bitte gebe eine Kennung ein!")
+            if(meansOfTransportId.isNullOrBlank()||destinationLocation.isNullOrBlank()){
+                ErrorSnackbar(linearLayout_secondAdd).show("Bitte fülle zunächst beide Textfelder aus!")
             } else {
                 val lastAddActivityIntent = Intent(this, ThirdAddActivity::class.java)
                 lastAddActivityIntent.putExtra("meansOfTransport", chosenMeansOfTransport)
                 lastAddActivityIntent.putExtra("meansOfTransportId", meansOfTransportId.toString())
+                lastAddActivityIntent.putExtra("destinationLocation",destinationLocation.toString())
                 startActivity(lastAddActivityIntent)
             }
         }
