@@ -1,76 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="de.trabit.reportApp.DirectionsActivity">
+    android:background="@color/whiteBlue"
+    android:orientation="vertical"
+    tools:context=".DirectionsActivity">
 
-    <View
-        android:id="@+id/view"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/drop_shadow_footer"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/custom_footer"
+        android:layout_height="225dp"
+        android:background="@drawable/custom_header"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:padding="10dp">
 
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:layout_weight="2"
-            android:background="@null"
-            android:scaleType="fitCenter" />
+        <fragment
+            android:id="@+id/autocomplete_fragment_origin"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:textColor="@color/colorWhite" />
 
-        <ImageButton
-            android:id="@+id/directonsNavigation"
-            android:layout_width="0dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:layout_weight="2"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/directions_icon" />
+        <fragment
+            android:id="@+id/autocomplete_fragment_destination"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/headerStartScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:text="Route erstellen"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            app:fontFamily="@font/oxygen" />
+
+        <TextView
+            android:id="@+id/startText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="31dp"
+            android:text="Start"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            app:fontFamily="@font/oxygen" />
+
+        <TextView
+            android:id="@+id/destinationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="113dp"
+            android:text="Ziel"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            app:fontFamily="@font/oxygen" />
 
 
-        <ImageButton
-            android:id="@+id/overviewNavigation"
-            android:layout_width="0dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:layout_weight="2"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/overview_active" />
+    </RelativeLayout>
 
-        <ImageButton
-            android:id="@+id/profileNavigation"
-            android:layout_width="0dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:layout_weight="2"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/profile" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="45dp"
+            android:background="@drawable/drop_shadow_footer" />
 
-    <TextView
-        android:id="@+id/response"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/custom_footer"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@null"
+                android:scaleType="fitCenter" />
+
+            <ImageButton
+                android:id="@+id/directonsNavigation"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/directions_icon" />
+
+
+            <ImageButton
+                android:id="@+id/overviewNavigation"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/overview_active" />
+
+            <ImageButton
+                android:id="@+id/profileNavigation"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/profile" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
