@@ -110,7 +110,8 @@ const report = new mongoose.Schema({
   metadata: {
     type: Object,
     of: metadata,
-    required: true
+    required: true,
+    default: {}
   },
   comments: [comment]
 }, {
