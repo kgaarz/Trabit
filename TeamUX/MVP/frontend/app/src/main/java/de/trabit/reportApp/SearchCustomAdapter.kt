@@ -94,7 +94,6 @@ class SearchCustomAdapter(context: Context, arrayList: ArrayList<HashMap<String,
     }
 
 
-
     //Create A class To hold over View like we taken in search_list_row.xmlrow.xml
     class ViewHolder {
 

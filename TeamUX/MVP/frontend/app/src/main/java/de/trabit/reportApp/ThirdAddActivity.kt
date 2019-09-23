@@ -150,8 +150,11 @@ class ThirdAddActivity : AppCompatActivity() {
 
         tile4.setOnClickListener{
             reportComment = textTile4.text.toString()
-
-
+            // TODO: get current location
+            // TODO: get transport direction (--> additional field in activity_second_add)
+            // SAMPLE DATA!!
+            val report = ReportPOST("maxiboi", reportComment, LocationObject(Location("50.826386", "6.254096", null), Location("51.029491", "7.843550", null)), TransportPOST(meansOfTransportName, meansOfTransportId), Metadata())
+            postReport(report)
         }
 
         tile5.setOnClickListener{
