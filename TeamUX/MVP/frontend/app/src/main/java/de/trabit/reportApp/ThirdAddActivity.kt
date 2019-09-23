@@ -5,7 +5,16 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.example.api_test.dataClasses.*
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_third_add.*
+import org.json.JSONException
+import org.json.JSONObject
 
 class ThirdAddActivity : AppCompatActivity() {
 
@@ -13,45 +22,42 @@ class ThirdAddActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_third_add)
 
-        //store the value (choosen means of transport and Id) in a variable
-
+        //store the value (chosen means of transport and Id) in a variable
         val meansOfTransportName = intent.getStringExtra("meansOfTransport")
         val meansOfTransportId = intent.getStringExtra("meansOfTransportId")
         var reportComment : String
 
         //Adapt the activity layout to the appropriate means of transport
+        val imageMeansOfTransport = findViewById<ImageView>(R.id.imageMeansOfTransport)
+        val textMeansOfTransport = findViewById<TextView>(R.id.textMeansOfTransport)
 
-        val imageMeansOfTransport = findViewById(R.id.imageMeansOfTransport) as ImageView
-        val textMeansOfTransport = findViewById(R.id.textMeansOfTransport) as TextView
+        val textTile1 = findViewById<TextView>(R.id.textTile1)
+        val textTile2 = findViewById<TextView>(R.id.textTile2)
+        val textTile3 = findViewById<TextView>(R.id.textTile3)
+        val textTile4 = findViewById<TextView>(R.id.textTile4)
+        // val textTile5 = findViewById<TextView>(R.id.textTile5)
+        // val textTile6 = findViewById<TextView>(R.id.textTile6)
 
-        val textTile1 = findViewById(R.id.textTile1) as TextView
-        val textTile2 = findViewById(R.id.textTile2) as TextView
-        val textTile3 = findViewById(R.id.textTile3) as TextView
-        val textTile4 = findViewById(R.id.textTile4) as TextView
-        val textTile5 = findViewById(R.id.textTile5) as TextView
-        val textTile6 = findViewById(R.id.textTile6) as TextView
+        val imageTile1 = findViewById<ImageView>(R.id.imageTile1)
+        val imageTile2 = findViewById<ImageView>(R.id.imageTile2)
+        val imageTile3 = findViewById<ImageView>(R.id.imageTile3)
+        // val imageTile5 = findViewById<ImageView>(R.id.imageTile5)
+        // val imageTile6 = findViewById<ImageView>(R.id.imageTile6)
 
-        val imageTile1 = findViewById(R.id.imageTile1) as ImageView
-        val imageTile2 = findViewById(R.id.imageTile2) as ImageView
-        val imageTile3 = findViewById(R.id.imageTile3) as ImageView
-        val imageTile5 = findViewById(R.id.imageTile5) as ImageView
-        val imageTile6 = findViewById(R.id.imageTile6) as ImageView
-
-        val tile1 = findViewById(R.id.tile1) as RelativeLayout
-        val tile2 = findViewById(R.id.tile2) as RelativeLayout
-        val tile3 = findViewById(R.id.tile3) as RelativeLayout
-        val tile4 = findViewById(R.id.tile4) as RelativeLayout
-        val tile5 = findViewById(R.id.tile5) as RelativeLayout
-        val tile6 = findViewById(R.id.tile6) as RelativeLayout
+        val tile1 = findViewById<RelativeLayout>(R.id.tile1)
+        val tile2 = findViewById<RelativeLayout>(R.id.tile2)
+        val tile3 = findViewById<RelativeLayout>(R.id.tile3)
+        val tile4 = findViewById<RelativeLayout>(R.id.tile4)
+        val tile5 = findViewById<RelativeLayout>(R.id.tile5)
+        val tile6 = findViewById<RelativeLayout>(R.id.tile6)
 
         when (meansOfTransportName) {
-
             "bus"   -> {
                 imageMeansOfTransport.setImageResource(R.mipmap.bus_icon_clicked)
-                textMeansOfTransport.setText("Bus")
-                textTile1.setText("Verspätung")
+                textMeansOfTransport.text = "Bus"
+                textTile1.text = "Verspätung"
                 imageTile1.setImageResource(R.mipmap.time_icon)
-                textTile2.setText("Entfällt")
+                textTile2.text = "Entfällt"
                 imageTile2.setImageResource(R.mipmap.stop_icon)
                 tile3.visibility = View.INVISIBLE
                 tile4.visibility = View.INVISIBLE
@@ -60,25 +66,25 @@ class ThirdAddActivity : AppCompatActivity() {
             }
             "train" -> {
                 imageMeansOfTransport.setImageResource(R.mipmap.train_icon_clicked)
-                textMeansOfTransport.setText("Zug")
-                textTile1.setText("Verspätung")
+                textMeansOfTransport.text = "Zug"
+                textTile1.text = "Verspätung"
                 imageTile1.setImageResource(R.mipmap.time_icon)
-                textTile2.setText("Entfällt")
+                textTile2.text = "Entfällt"
                 imageTile2.setImageResource(R.mipmap.stop_icon)
-                textTile3.setText("Gleiswechsel")
+                textTile3.text = "Gleiswechsel"
                 imageTile3.setImageResource(R.mipmap.detour_icon)
                 tile4.visibility = View.INVISIBLE
                 tile5.visibility = View.INVISIBLE
                 tile6.visibility = View.INVISIBLE
             }
-            "tram"  -> {
+            "subway"  -> {
                 imageMeansOfTransport.setImageResource(R.mipmap.tram_icon_clicked)
-                textMeansOfTransport.setText("Bahn")
-                textTile1.setText("Verspätung")
+                textMeansOfTransport.text = "Bahn"
+                textTile1.text = "Verspätung"
                 imageTile1.setImageResource(R.mipmap.time_icon)
-                textTile2.setText("Entfällt")
+                textTile2.text = "Entfällt"
                 imageTile2.setImageResource(R.mipmap.stop_icon)
-                textTile3.setText("Gleiswechsel")
+                textTile3.text = "Gleiswechsel"
                 imageTile3.setImageResource(R.mipmap.detour_icon)
                 tile4.visibility = View.INVISIBLE
                 tile5.visibility = View.INVISIBLE
@@ -86,14 +92,14 @@ class ThirdAddActivity : AppCompatActivity() {
             }
             "car" -> {
                 imageMeansOfTransport.setImageResource(R.mipmap.car_icon_clicked)
-                textMeansOfTransport.setText("Auto")
-                textTile1.setText("Stau")
+                textMeansOfTransport.text = "Auto"
+                textTile1.text = "Stau"
                 imageTile1.setImageResource(R.mipmap.trafficjam_icon)
-                textTile2.setText("Umleitung")
+                textTile2.text = "Umleitung"
                 imageTile2.setImageResource(R.mipmap.detour_icon)
-                textTile3.setText("Unfall")
+                textTile3.text = "Unfall"
                 imageTile3.setImageResource(R.mipmap.cone_icon)
-                textTile4.setText("Gesperrt")
+                textTile4.text = "Gesperrt"
                 imageTile4.setImageResource(R.mipmap.stop_icon)
                 tile5.visibility = View.INVISIBLE
                 tile6.visibility = View.INVISIBLE
@@ -101,85 +107,93 @@ class ThirdAddActivity : AppCompatActivity() {
         }
 
         //close Activity by clicking the x and go back to OverviewActivity
-
-        val closeButton = findViewById(R.id.closeThirdAddBtn) as ImageButton
-
+        val closeButton = findViewById<ImageButton>(R.id.closeThirdAddBtn)
         closeButton.setOnClickListener{
-
             val closeIntent = Intent(this,OverviewActivity::class.java)
             startActivity(closeIntent)
         }
 
         //back Button Intent to SecondAddActivtiy
-
-        val backBtnToSecondAddActivity = findViewById(R.id.btn_back3) as ImageButton
-
+        val backBtnToSecondAddActivity = findViewById<ImageButton>(R.id.btn_back3)
         backBtnToSecondAddActivity.setOnClickListener{
             finish()
         }
 
-        // set onClickListener to all tiles and save the value of the choosen tile
-
+        // set onClickListener to all tiles and save the value of the chosen tile
         tile1.setOnClickListener{
             val addReportIntent = Intent(this,OverviewActivity::class.java)
             startActivity(addReportIntent)
-            reportComment = textTile1.getText().toString()
+            reportComment = textTile1.text.toString()
         }
 
         tile2.setOnClickListener{
             val addReportIntent = Intent(this,OverviewActivity::class.java)
             startActivity(addReportIntent)
-            reportComment = textTile1.getText().toString()
+            reportComment = textTile1.text.toString()
         }
 
         tile3.setOnClickListener{
             val addReportIntent = Intent(this,OverviewActivity::class.java)
             startActivity(addReportIntent)
-            reportComment = textTile1.getText().toString()
+            reportComment = textTile1.text.toString()
         }
 
         tile4.setOnClickListener{
             val addReportIntent = Intent(this,OverviewActivity::class.java)
             startActivity(addReportIntent)
-            reportComment = textTile1.getText().toString()
+            reportComment = textTile1.text.toString()
         }
 
         tile5.setOnClickListener{
             val addReportIntent = Intent(this,OverviewActivity::class.java)
             startActivity(addReportIntent)
-            reportComment = textTile1.getText().toString()
+            reportComment = textTile1.text.toString()
         }
 
         tile6.setOnClickListener{
             val addReportIntent = Intent(this,OverviewActivity::class.java)
             startActivity(addReportIntent)
-            reportComment = textTile1.getText().toString()
+            reportComment = textTile1.text.toString()
         }
 
         //set onClickListener to the confirm button when the user add a manual comment
-
-        val confirmButton = findViewById(R.id.btn_send) as Button
-        val commentText = findViewById(R.id.comment_text) as EditText
-
+        val confirmButton = findViewById<Button>(R.id.btn_send)
+        val commentText = findViewById<EditText>(R.id.comment_text)
         confirmButton.setOnClickListener{
-
             //check if something is typed in the textfield
-
-            if(commentText.getText().toString().isEmpty() || commentText.getText().toString().length== 0 || commentText.getText().toString().equals("") || commentText.getText().toString() == null) {
-                val errorToast = Toast.makeText(
-                    this@ThirdAddActivity,
-                    "Bitte gib zunächst einen Kommentar ein oder wähle einen Standardtext aus.",
-                    Toast.LENGTH_SHORT
-                )
-                errorToast.show()
-
-            }else {
-                val addReportIntent = Intent(this, OverviewActivity::class.java)
-                startActivity(addReportIntent)
-                reportComment = commentText.getText().toString()
+            if(commentText.text.toString().isBlank()){
+                ErrorSnackbar(linearLayout_thirdAdd).show("Bitte gebe einen Beschreibungstext ein oder wähle einen Standardtext aus!")
+            } else {
+                // create report
+                reportComment = commentText.text.toString()
+                // TODO: get current location
+                // TODO: get transport direction (--> additional field in activity_second_add)
+                // SAMPLE DATA!!
+                val report = ReportPOST("maxiboi", reportComment, LocationObject(Location("50.826386", "6.254096", null), Location("51.029491", "7.843550", null)), Transport(meansOfTransportName, meansOfTransportId), Metadata())
+                postReport(report)
             }
         }
+    }
 
+    private fun postReport(report : ReportPOST) {
+        val requestUrl = BuildConfig.REPORTAPI_BASE_URL + "reports"
+        val reportObject = JSONObject(Gson().toJson(report))
+        val mQueue: RequestQueue = Volley.newRequestQueue(this)
+        val request = JsonObjectRequest(Request.Method.POST, requestUrl, reportObject,
+            Response.Listener {
+                try {
+                    val addReportIntent = Intent(this, OverviewActivity::class.java)
+                    startActivity(addReportIntent.putExtra("reportCreated", true))
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    ErrorSnackbar(linearLayout_thirdAdd).show("Störungsmeldung konnte nicht erstellt werden!")
+                }
+            }, Response.ErrorListener {
+                it.printStackTrace()
+                val errorMsg = String(it.networkResponse.data, Charsets.UTF_8)
+                ErrorSnackbar(linearLayout_thirdAdd).show(errorMsg)
+            })
+        mQueue.add(request)
     }
 }
 
