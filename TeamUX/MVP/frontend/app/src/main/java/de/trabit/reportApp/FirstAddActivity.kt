@@ -1,10 +1,10 @@
 package de.trabit.reportApp
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.RelativeLayout
+import androidx.appcompat.app.AppCompatActivity
 
 class FirstAddActivity : AppCompatActivity() {
 

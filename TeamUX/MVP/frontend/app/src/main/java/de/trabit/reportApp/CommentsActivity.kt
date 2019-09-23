@@ -1,11 +1,11 @@
 package de.trabit.reportApp
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class CommentsActivity : AppCompatActivity() {
 
@@ -13,14 +13,14 @@ class CommentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comments)
 
-        val sendNewComment = findViewById(R.id.comment_send_button) as Button
-        val addComment = findViewById(R.id.addComment) as EditText
+        val sendNewComment = findViewById<Button>(R.id.comment_send_button)
+        val addComment = findViewById<EditText>(R.id.addComment)
         val commentText = addComment.getText()
 
 
         //Intent on back arrow to finish activity
 
-        val backButton = findViewById(R.id.back_button) as ImageButton
+        val backButton = findViewById<ImageButton>(R.id.back_button)
 
         backButton.setOnClickListener {
                 val backIntent = Intent(this,OverviewActivity::class.java)
@@ -31,7 +31,7 @@ class CommentsActivity : AppCompatActivity() {
 
         addComment.setOnClickListener {
 
-            if (commentText.isEmpty() || commentText.length == 0 || commentText.equals("") || commentText == null) {
+            if (commentText.isBlank()) {
                 val errorToast = Toast.makeText(
                     this@CommentsActivity,
                     "Bitte gib zunächst einen Kommentar ein.",
@@ -45,8 +45,8 @@ class CommentsActivity : AppCompatActivity() {
 
         //init recyclerView
 
-        val commentRecyclerView = findViewById(R.id.comments_recycler_view) as RecyclerView
-        commentRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
+        val commentRecyclerView = findViewById<RecyclerView>(R.id.comments_recycler_view)
+        commentRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         //dummydata for the recyclerview
 
@@ -55,7 +55,6 @@ class CommentsActivity : AppCompatActivity() {
         comments.add(CommentsItem("heute","09.30 Uhr","milenamuster","Fällt jetzt komplett aus","0"))
 
         //add the adapter to the recyclerView
-
         val adapter = CommentsRecyclerAdapter(comments)
         commentRecyclerView.adapter = adapter
     }

@@ -1,11 +1,10 @@
 package de.trabit.reportApp
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import org.w3c.dom.Comment
+import androidx.recyclerview.widget.RecyclerView
 
 
 //Adapter Class to adapt the CommentsRecyclerview with the Layout
@@ -13,17 +12,17 @@ import org.w3c.dom.Comment
 class CommentsRecyclerAdapter(val commentsList: ArrayList<CommentsItem>) : RecyclerView.Adapter<CommentsRecyclerAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): CommentsRecyclerAdapter.ViewHolder {
-        val v = LayoutInflater.from(p0?.context).inflate(R.layout.comments_item, p0, false)
+        val v = LayoutInflater.from(p0.context).inflate(R.layout.comments_item, p0, false)
         return CommentsRecyclerAdapter.ViewHolder(v)
     }
 
     override fun onBindViewHolder(p0: CommentsRecyclerAdapter.ViewHolder, p1: Int) {
         val comment : CommentsItem = commentsList[p1]
-        p0?.comment_day_text?.text = comment.dayText
-        p0?.comment_time_text?.text = comment.timeText
-        p0?.comment_username_text?.text = comment.usernameText
-        p0?.comment_text?.text = comment.commentText
-        p0?.comment_confirm_index?.text = comment.confirmIndex
+        p0.comment_day_text.text = comment.dayText
+        p0.comment_time_text.text = comment.timeText
+        p0.comment_username_text.text = comment.usernameText
+        p0.comment_text.text = comment.commentText
+        p0.comment_confirm_index.text = comment.confirmIndex
 
     }
 

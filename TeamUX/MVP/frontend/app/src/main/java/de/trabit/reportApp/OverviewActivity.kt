@@ -1,10 +1,7 @@
 package de.trabit.reportApp
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.widget.*
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -17,6 +14,9 @@ import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_overview.*
 import org.json.JSONException
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class OverviewActivity : AppCompatActivity() {
 
@@ -32,7 +32,7 @@ class OverviewActivity : AppCompatActivity() {
 
         // init layout objects
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
+        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         // filter reports via searchView
         val searchView = findViewById<SearchView>(R.id.search_view)

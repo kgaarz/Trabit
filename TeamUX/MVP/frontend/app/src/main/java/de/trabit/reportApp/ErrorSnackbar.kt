@@ -1,8 +1,8 @@
 package de.trabit.reportApp
 
-import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
 import android.view.View
+import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 
 class ErrorSnackbar (val view : View) {
     fun show(message : String) {

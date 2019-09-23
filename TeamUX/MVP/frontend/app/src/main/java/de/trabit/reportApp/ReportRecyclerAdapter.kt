@@ -1,13 +1,11 @@
 package de.trabit.reportApp
 
-import android.content.Context
 import android.content.Intent
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.recyclerview.widget.RecyclerView
 import com.example.api_test.dataClasses.Report
 import kotlinx.android.synthetic.main.report_item.view.*
 import java.text.SimpleDateFormat
@@ -16,7 +14,6 @@ import kotlin.collections.ArrayList
 
 
 //Adapter Class to adapt the ReportsRecyclerview with the Layout
-
 class ReportRecyclerAdapter(var reportList: Array<Report>) : RecyclerView.Adapter<ReportRecyclerAdapter.ViewHolder>(), Filterable
 {
     //Clone of the reportList to filter the data
@@ -64,7 +61,7 @@ class ReportRecyclerAdapter(var reportList: Array<Report>) : RecyclerView.Adapte
         val today = Calendar.getInstance()
         val yesterday = Calendar.getInstance()
         yesterday.add(Calendar.DAY_OF_YEAR, -1)
-        var reportDate = when (dateFormatter.format(report.created))
+        val reportDate = when (dateFormatter.format(report.created))
                                 {
                                     dateFormatter.format(today.time) -> "Heute"
                                     dateFormatter.format(today.time) -> "Gestern"
@@ -73,7 +70,7 @@ class ReportRecyclerAdapter(var reportList: Array<Report>) : RecyclerView.Adapte
 
         // format time for report view
         val timeFormatter = SimpleDateFormat("HH:MM")
-        var reportTime = timeFormatter.format(report.created)
+        val reportTime = timeFormatter.format(report.created)
 
         // calculate votes
         val votes = report.metadata.upvotes - report.metadata.downvotes
