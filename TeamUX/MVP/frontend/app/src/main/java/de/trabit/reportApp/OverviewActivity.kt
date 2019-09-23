@@ -1,5 +1,7 @@
 package de.trabit.reportApp
 
+import ErrorSnackbar
+import SuccessSnackbar
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
