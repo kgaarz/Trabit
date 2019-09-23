@@ -122,32 +122,54 @@ class ThirdAddActivity : AppCompatActivity() {
 
         // set onClickListener to all tiles and save the value of the chosen tile
         tile1.setOnClickListener{
-
+            reportComment = textTile1.text.toString()
+            // TODO: get current location
+            // TODO: get transport direction (--> additional field in activity_second_add)
+            // SAMPLE DATA!!
+            val report = ReportPOST("maxiboi", reportComment, LocationObject(Location("50.826386", "6.254096", null), Location("51.029491", "7.843550", null)), TransportPOST(meansOfTransportName, meansOfTransportId), Metadata())
+            postReport(report)
         }
 
         tile2.setOnClickListener{
-            reportComment = textTile1.text.toString()
-
+            reportComment = textTile2.text.toString()
+            // TODO: get current location
+            // TODO: get transport direction (--> additional field in activity_second_add)
+            // SAMPLE DATA!!
+            val report = ReportPOST("maxiboi", reportComment, LocationObject(Location("50.826386", "6.254096", null), Location("51.029491", "7.843550", null)), TransportPOST(meansOfTransportName, meansOfTransportId), Metadata())
+            postReport(report)
         }
 
         tile3.setOnClickListener{
-            reportComment = textTile1.text.toString()
-
+            reportComment = textTile3.text.toString()
+            // TODO: get current location
+            // TODO: get transport direction (--> additional field in activity_second_add)
+            // SAMPLE DATA!!
+            val report = ReportPOST("maxiboi", reportComment, LocationObject(Location("50.826386", "6.254096", null), Location("51.029491", "7.843550", null)), TransportPOST(meansOfTransportName, meansOfTransportId), Metadata())
+            postReport(report)
         }
 
         tile4.setOnClickListener{
-            reportComment = textTile1.text.toString()
+            reportComment = textTile4.text.toString()
+
 
         }
 
         tile5.setOnClickListener{
-            reportComment = textTile1.text.toString()
-
+            reportComment = textTile5.text.toString()
+            // TODO: get current location
+            // TODO: get transport direction (--> additional field in activity_second_add)
+            // SAMPLE DATA!!
+            val report = ReportPOST("maxiboi", reportComment, LocationObject(Location("50.826386", "6.254096", null), Location("51.029491", "7.843550", null)), TransportPOST(meansOfTransportName, meansOfTransportId), Metadata())
+            postReport(report)
         }
 
         tile6.setOnClickListener{
-            reportComment = textTile1.text.toString()
-
+            reportComment = textTile6.text.toString()
+            // TODO: get current location
+            // TODO: get transport direction (--> additional field in activity_second_add)
+            // SAMPLE DATA!!
+            val report = ReportPOST("maxiboi", reportComment, LocationObject(Location("50.826386", "6.254096", null), Location("51.029491", "7.843550", null)), TransportPOST(meansOfTransportName, meansOfTransportId), Metadata())
+            postReport(report)
         }
 
         //set onClickListener to the confirm button when the user add a manual comment
