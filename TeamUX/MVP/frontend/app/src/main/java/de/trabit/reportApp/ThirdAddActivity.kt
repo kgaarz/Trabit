@@ -15,6 +15,7 @@ import com.example.api_test.dataClasses.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_overview.*
 import kotlinx.android.synthetic.main.activity_third_add.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -22,7 +23,7 @@ import org.json.JSONObject
 class ThirdAddActivity : AppCompatActivity() {
 
     // create client for location
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var fusedLocationClient : FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,13 +33,13 @@ class ThirdAddActivity : AppCompatActivity() {
         val username = "maxiboi"
 
         // get users location data
-        var lat : Double? = 51.028351
-        var lng : Double? = 7.565430
+        var originLat = "51.028351"
+        var originLng = "7.565430"
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location : android.location.Location? ->
-                lat = location?.latitude
-                lng = location?.longitude
+                originLat = location?.latitude.toString()
+                originLng = location?.longitude.toString()
             }
 
         //store the value (chosen means of transport and Id) in a variable
@@ -142,47 +143,37 @@ class ThirdAddActivity : AppCompatActivity() {
         // set onClickListener to all tiles and save the value of the chosen tile
         tile1.setOnClickListener{
             reportComment = textTile1.text.toString()
-            // TODO: get transport direction (--> additional field in activity_second_add)
-            // SAMPLE DATA!!
-            val report = CreateReport(username, reportComment, LocationObject(Location(lat.toString(), lng.toString(), null), Location("51.029491", "7.843550", null)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
+            val report = CreateReport(username, reportComment, LocationObject(Location(originLat, originLng, null), Location("", "", destinationLocation)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
             postReport(report)
         }
 
         tile2.setOnClickListener{
             reportComment = textTile2.text.toString()
-            // TODO: get transport direction (--> additional field in activity_second_add)
-            // SAMPLE DATA!!
-            val report = CreateReport(username, reportComment, LocationObject(Location(lat.toString(), lng.toString(), null), Location("51.029491", "7.843550", null)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
+            val report = CreateReport(username, reportComment, LocationObject(Location(originLat, originLng, null), Location("", "", destinationLocation)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
             postReport(report)
         }
 
         tile3.setOnClickListener{
             reportComment = textTile3.text.toString()
-            // TODO: get transport direction (--> additional field in activity_second_add)
-            // SAMPLE DATA!!
-            val report = CreateReport(username, reportComment, LocationObject(Location(lat.toString(), lng.toString(), null), Location("51.029491", "7.843550", null)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
+            val report = CreateReport(username, reportComment, LocationObject(Location(originLat, originLng, null), Location("", "", destinationLocation)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
             postReport(report)
         }
 
         tile4.setOnClickListener{
             reportComment = textTile4.text.toString()
-
-
+            val report = CreateReport(username, reportComment, LocationObject(Location(originLat.toString(), originLng.toString(), null), Location("", "", destinationLocation)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
+            postReport(report)
         }
 
         tile5.setOnClickListener{
             reportComment = textTile5.text.toString()
-            // TODO: get transport direction (--> additional field in activity_second_add)
-            // SAMPLE DATA!!
-            val report = CreateReport(username, reportComment, LocationObject(Location(lat.toString(), lng.toString(), null), Location("51.029491", "7.843550", null)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
+            val report = CreateReport(username, reportComment, LocationObject(Location(originLat.toString(), originLng.toString(), null), Location("", "", destinationLocation)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
             postReport(report)
         }
 
         tile6.setOnClickListener{
             reportComment = textTile6.text.toString()
-            // TODO: get transport direction (--> additional field in activity_second_add)
-            // SAMPLE DATA!!
-            val report = CreateReport(username, reportComment, LocationObject(Location(lat.toString(), lng.toString(), null), Location("51.029491", "7.843550", null)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
+            val report = CreateReport(username, reportComment, LocationObject(Location(originLat.toString(), originLng.toString(), null), Location("", "", destinationLocation)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
             postReport(report)
         }
 
@@ -196,15 +187,53 @@ class ThirdAddActivity : AppCompatActivity() {
             } else {
                 // create report
                 reportComment = commentText.text.toString()
-                // TODO: get transport direction (--> additional field in activity_second_add)
                 // SAMPLE DATA!!
-                val report = CreateReport(username, reportComment, LocationObject(Location(lat.toString(), lng.toString(), null), Location("51.029491", "7.843550", null)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
+                val report = CreateReport(username, reportComment, LocationObject(Location(originLat.toString(), originLng.toString(), null), Location("", "", destinationLocation)), CreateTransport(meansOfTransportName, meansOfTransportId), Metadata())
                 postReport(report)
             }
         }
     }
 
-    private fun postReport(report : CreateReport) {
+    // TODO: extremely spaghetti-ish... clean solution needed!
+    private fun postReport (report : CreateReport) {
+        val errorMessage = "Geodaten der Ziel-Stadt konnten nicht ermittelt werden!"
+        val requestUrl = "https://geocoder.api.here.com/6.2/geocode.json?app_id=${BuildConfig.REPORTAPI_HERE_APPID}&app_code=${BuildConfig.REPORTAPI_HERE_APPCODE}&searchtext=${report.location.destination.city}"
+        val mQueue: RequestQueue = Volley.newRequestQueue(this)
+        val request = JsonObjectRequest(Request.Method.GET, requestUrl, null,
+            Response.Listener {
+                try {
+                    val displayPosition = it.getJSONObject("Response").getJSONArray("View").getJSONObject(0).getJSONArray("Result").getJSONObject(0).getJSONObject("Location").getJSONObject("DisplayPosition")
+                    val lat = displayPosition.getString("Latitude")
+                    val lng = displayPosition.getString("Longitude")
+
+                    var newReport = CreateReport(
+                        report.author,
+                        report.description,
+                        LocationObject(
+                            Location(
+                                report.location.origin.lat,
+                                report.location.origin.lng,
+                                null),
+                            Location(
+                                lat,
+                                lng,
+                                null)),
+                            report.transport,
+                        report.metadata)
+                    postReportRequest(newReport)
+
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    ErrorSnackbar(linearLayout_main).show(errorMessage)
+                }
+            }, Response.ErrorListener {
+                it.printStackTrace()
+                ErrorSnackbar(linearLayout_main).show(errorMessage)
+            })
+        mQueue.add(request)
+    }
+
+    private fun postReportRequest(report : CreateReport) {
         val requestUrl = BuildConfig.REPORTAPI_BASE_URL + "reports"
         val reportObject = JSONObject(Gson().toJson(report))
         val mQueue: RequestQueue = Volley.newRequestQueue(this)
@@ -225,4 +254,3 @@ class ThirdAddActivity : AppCompatActivity() {
         mQueue.add(request)
     }
 }
-
