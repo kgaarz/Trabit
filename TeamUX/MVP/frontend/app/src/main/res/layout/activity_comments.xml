@@ -14,6 +14,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/header_relative_layout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/custom_header">
@@ -32,13 +33,24 @@
 
         </RelativeLayout>
 
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_below="@id/header_relative_layout"
+            android:layout_height="600dp"
+            android:padding="15dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="10dp"
+            >
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="660dp"
+            android:layout_height="match_parent"
             android:id="@+id/comments_recycler_view"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="80dp"
         />
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
