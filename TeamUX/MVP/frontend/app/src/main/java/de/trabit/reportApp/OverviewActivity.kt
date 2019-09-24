@@ -20,7 +20,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class OverviewActivity : AppCompatActivity() {
+class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentListener {
+    lateinit var reportList : Array<Report>
+
+    override fun onCommentClick(position: Int) {
+        //reportList[position]
+        val commentIntent = Intent(this, CommentsActivity::class.java)
+        commentIntent.putExtra("report_id", reportList[position]._id)
+        startActivity(commentIntent)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,8 +60,8 @@ class OverviewActivity : AppCompatActivity() {
         //Add Intent to firstAddActivity to add a report (plus button)
         val addButton = findViewById<ImageButton>(R.id.addButton)
         addButton.setOnClickListener{
-            val addReortIntent = Intent(this,FirstAddActivity::class.java)
-            startActivity(addReortIntent)
+            val addReportIntent = Intent(this,FirstAddActivity::class.java)
+            startActivity(addReportIntent)
         }
 
         //Navigation Icons (active mode)
@@ -155,7 +163,8 @@ class OverviewActivity : AppCompatActivity() {
                 try {
                     val gson = GsonBuilder().create()
                     val reports = gson.fromJson(it.toString(), Array<Report>::class.java)
-                    recycler_view.adapter = ReportRecyclerAdapter(reports)
+                    reportList = reports
+                    recycler_view.adapter = ReportRecyclerAdapter(reportList, this)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                     ErrorSnackbar(linearLayout_main).show("Daten konnten nicht geladen werden!")

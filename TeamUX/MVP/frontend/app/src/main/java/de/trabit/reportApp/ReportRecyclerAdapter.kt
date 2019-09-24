@@ -1,6 +1,5 @@
 package de.trabit.reportApp
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,51 +11,25 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 //Adapter Class to adapt the ReportsRecyclerview with the Layout
-class ReportRecyclerAdapter(var reportList: Array<Report>) : RecyclerView.Adapter<ReportRecyclerAdapter.ViewHolder>(), Filterable
+class ReportRecyclerAdapter(var reportList: Array<Report>, val onCommentLister: OnCommentListener) : RecyclerView.Adapter<ReportRecyclerAdapter.ViewHolder>(), Filterable
 {
     //Clone of the reportList to filter the data
     val reportListFull : Array<Report> = reportList
     private var recycleFilter : RecyclerFilter? = null
 
-
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
-        val v = LayoutInflater.from(p0.context).inflate(R.layout.report_item, p0, false)
-        return ViewHolder(v)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        when (holder) {
+            is ReportViewHolder -> {
+                holder.bind(reportList[position])
+            }
+        }
     }
 
-    override fun onBindViewHolder(p0: ViewHolder, position: Int) {
-        val report = reportList[position]
-
-        // format date for report view
-        val dateFormatter = SimpleDateFormat("dd.MM.YYYY")
-        val today = Calendar.getInstance()
-        val yesterday = Calendar.getInstance()
-        yesterday.add(Calendar.DAY_OF_YEAR, -1)
-        val reportDate = when (dateFormatter.format(report.created))
-                                {
-                                    dateFormatter.format(today.time) -> "Heute"
-                                    dateFormatter.format(today.time) -> "Gestern"
-                                    else -> dateFormatter.format(report.created)
-                                }
-
-        // format time for report view
-        val timeFormatter = SimpleDateFormat("HH:MM")
-        val reportTime = timeFormatter.format(report.created)
-
-        // calculate votes
-        val votes = report.metadata.upvotes - report.metadata.downvotes
-
-        // fill report params in layout elements
-        p0.day_text.text = reportDate
-        p0.time_text.text = reportTime
-        p0.username_text.text = report.author
-        p0.id_text.text = report.transport.tag
-        p0.report_text.text = report.description
-        p0.comment_amount.text = report.comments.size.toString()
-        p0.confirm_index.text = votes.toString()
-        p0.report_id = report.id
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ReportViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.report_item, parent, false), this.onCommentLister
+        )
     }
 
     override fun getItemCount(): Int {
@@ -64,23 +37,12 @@ class ReportRecyclerAdapter(var reportList: Array<Report>) : RecyclerView.Adapte
     }
 
 
-    class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
-        val day_text = itemView.findViewById(R.id.day_text) as TextView
-        val time_text = itemView.findViewById(R.id.time_text) as TextView
-        val username_text = itemView.findViewById(R.id.username_text) as TextView
-        val id_text = itemView.findViewById(R.id.id_text) as TextView
-        val report_text = itemView.findViewById(R.id.report_text) as TextView
-        val comment_amount = itemView.findViewById(R.id.commentNumber) as TextView
-        val confirm_index = itemView.findViewById(R.id.voteNumber) as TextView
-        var report_id : String? = null
-
+    open class ViewHolder (itemView: View, onCommentListener : OnCommentListener) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        val onCommentListener = onCommentListener
 
         init {
-            itemView.commentIcon.setOnClickListener{
-                val commentsIntent = Intent(itemView.context, CommentsActivity::class.java)
-                commentsIntent.putExtra("reportId", report_id )
-                itemView.context.startActivity(commentsIntent)
-            }
+            //itemView.setOnClickListener(this)
+            itemView.commentIcon.setOnClickListener(this)
 
             itemView.voteUpButton.setOnClickListener{
                 itemView.voteUpButton.setImageResource(R.mipmap.check_positive_blue)
@@ -91,6 +53,63 @@ class ReportRecyclerAdapter(var reportList: Array<Report>) : RecyclerView.Adapte
                 itemView.voteDownButton.setImageResource(R.mipmap.check_negative_blue)
                 itemView.voteUpButton.setImageResource(R.mipmap.check_positive_grey)
             }
+
+            val onCommentListener : OnCommentListener
+        }
+
+        fun ViewHolder(itemView: View, onCommentListener : OnCommentListener) {
+        }
+
+        override fun onClick(v: View?) {
+            onCommentListener.onCommentClick(adapterPosition)
+        }
+    }
+
+    interface OnCommentListener {
+        fun onCommentClick(position : Int)
+    }
+
+    class ReportViewHolder (itemView: View, onCommentListener : OnCommentListener) : ViewHolder(itemView, onCommentListener){
+        val day_text = itemView.findViewById(R.id.day_text) as TextView
+        val time_text = itemView.findViewById(R.id.time_text) as TextView
+        val username_text = itemView.findViewById(R.id.username_text) as TextView
+        val id_text = itemView.findViewById(R.id.id_text) as TextView
+        val report_text = itemView.findViewById(R.id.report_text) as TextView
+        val comment_amount = itemView.findViewById(R.id.commentNumber) as TextView
+        val confirm_index = itemView.findViewById(R.id.voteNumber) as TextView
+        var report_id : String? = null
+
+        fun bind(report : Report) {
+
+            // format date for report view
+            val dateFormatter = SimpleDateFormat("dd.MM.YYYY")
+            val today = Calendar.getInstance()
+            val yesterday = Calendar.getInstance()
+            yesterday.add(Calendar.DAY_OF_YEAR, -1)
+            val reportDate = when (dateFormatter.format(report.created))
+            {
+                dateFormatter.format(today.time) -> "Heute"
+                dateFormatter.format(today.time) -> "Gestern"
+                else -> dateFormatter.format(report.created)
+            }
+
+            // format time for report view
+            val timeFormatter = SimpleDateFormat("HH:MM")
+            val reportTime = timeFormatter.format(report.created)
+
+            // calculate votes
+            val votes = report.metadata.upvotes - report.metadata.downvotes
+
+            // fill report params in layout elements
+            day_text.text = reportDate
+            time_text.text = reportTime
+            username_text.text = report.author
+            id_text.text = report.transport.tag
+            report_text.text = report.description
+            comment_amount.text = report.comments.size.toString()
+            confirm_index.text = votes.toString()
+            report_id = report._id
+
         }
     }
 

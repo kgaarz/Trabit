@@ -1,5 +1,7 @@
 package de.trabit.reportApp
 
+import ErrorSnackbar
+import SuccessSnackbar
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
@@ -11,21 +13,22 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.example.api_test.dataClasses.*
+import com.example.api_test.dataClasses.Comment
+import com.example.api_test.dataClasses.Report
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_comments.*
-import kotlinx.android.synthetic.main.activity_overview.*
-import kotlinx.android.synthetic.main.activity_third_add.*
 import org.json.JSONException
 import org.json.JSONObject
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import de.trabit.reportApp.dataClasses.CommentPOST
-import kotlinx.android.synthetic.main.activity_second_add.*
-import java.text.SimpleDateFormat
+import de.trabit.reportApp.dataClasses.CreateComment
+
+
 
 
 class CommentsActivity : AppCompatActivity() {
 
+    //dummy username for MVP
+    val username = "maxiboi"
     var commentCreated = false
 
 
@@ -33,54 +36,44 @@ class CommentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comments)
 
+        //get reportId
+        println(intent.getStringExtra("report_id"))
+        val reportId = intent.getStringExtra("report_id")
 
-        val sendNewComment = findViewById(R.id.comment_send_button) as Button
-        val addComment = findViewById(R.id.addComment) as EditText
-        val commentText : String = addComment.getText().toString()
+        val sendNewComment = findViewById<Button>(R.id.comment_send_button)
+        var commentText = findViewById<EditText>(R.id.addComment).text
 
+        // get comments
+        getComments(reportId)
 
-        //success message by adding a comment
-
+        // show success message after a comment has been added
         if(commentCreated) {
             SuccessSnackbar(linearLayout_comments).show("Kommentar wurde erfolgreich erstellt!")
         }
 
         //Intent on back arrow to finish activity
-
         val backButton = findViewById<ImageButton>(R.id.back_button)
-
         backButton.setOnClickListener {
                 val backIntent = Intent(this,OverviewActivity::class.java)
                 startActivity(backIntent)
         }
 
         //by click on 'sendNewComment' Button, check if something is typed in EditText
-
         sendNewComment.setOnClickListener {
-                // SAMPLE DATA!!
-                val comment = CommentPOST("maxmuster",commentText)
-                postComment(comment)
+            if(commentText.isNullOrBlank()) {
+                ErrorSnackbar(linearLayout_comments).show("Bitte gebe einen Kommentartext ein!")
+            } else {
+                val comment = CreateComment(username, commentText.toString())
+                postComment(reportId, comment)
+            }
         }
 
         //init recyclerView
-
         val commentRecyclerView = findViewById<RecyclerView>(R.id.comments_recycler_view)
         commentRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-
-        //dummydata for the recyclerview
-
-        val comments = ArrayList<CommentsItem>()
-        comments.add(CommentsItem("heute","10.00 Uhr","maramuster","Verspätet sich noch weiterhin","2"))
-        comments.add(CommentsItem("heute","09.30 Uhr","milenamuster","Fällt jetzt komplett aus","0"))
-
-        //add the adapter to the recyclerView
-        val adapter = CommentsRecyclerAdapter(comments)
-        commentRecyclerView.adapter = adapter
     }
 
-    private fun postComment(comment : CommentPOST) {
-        //get reportId
-        val reportId = intent.getStringExtra("report_id").toString()
+    private fun postComment(reportId : String, comment : CreateComment) {
         val requestUrl = BuildConfig.REPORTAPI_BASE_URL + "reports/" + reportId + "/comments"
         val reportObject = JSONObject(Gson().toJson(comment))
         val mQueue: RequestQueue = Volley.newRequestQueue(this)
@@ -98,6 +91,28 @@ class CommentsActivity : AppCompatActivity() {
                 it.printStackTrace()
                 val errorMsg = String(it.networkResponse.data, Charsets.UTF_8)
                 ErrorSnackbar(linearLayout_comments).show(errorMsg)
+            })
+        mQueue.add(request)
+    }
+
+    private fun getComments(reportId : String) {
+        val errorMessage = "Kommentare konnten nicht geladen werden!"
+        val requestUrl = BuildConfig.REPORTAPI_BASE_URL + "reports/" + reportId
+        val mQueue: RequestQueue = Volley.newRequestQueue(this)
+        val request = JsonObjectRequest(Request.Method.GET, requestUrl, null,
+            Response.Listener {
+                try {
+                    val gson = GsonBuilder().create()
+                    val report = gson.fromJson(it.toString(), Report::class.java)
+                    val comments = report.comments
+                    comments_recycler_view.adapter = CommentsRecyclerAdapter(comments)
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    ErrorSnackbar(linearLayout_comments).show(errorMessage)
+                }
+            }, Response.ErrorListener {
+                it.printStackTrace()
+                ErrorSnackbar(linearLayout_comments).show(errorMessage)
             })
         mQueue.add(request)
     }
