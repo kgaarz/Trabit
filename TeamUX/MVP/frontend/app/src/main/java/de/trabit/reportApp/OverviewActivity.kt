@@ -27,7 +27,6 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
     lateinit var reportList : Array<Report>
 
     override fun onCommentClick(position: Int) {
-        //reportList[position]
         val commentIntent = Intent(this, CommentsActivity::class.java)
         commentIntent.putExtra("report_id", reportList[position]._id)
         startActivity(commentIntent)

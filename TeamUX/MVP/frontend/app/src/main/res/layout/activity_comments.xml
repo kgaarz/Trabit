@@ -14,6 +14,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/header_relative_layout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/custom_header">
@@ -31,14 +32,169 @@
                 />
 
         </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/specific_report_relative_layout"
+        android:layout_below="@id/header_relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="10dp"
+        android:padding="1dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/tile_layout">
+
+            <LinearLayout
+                android:layout_width="290dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true">
+
+                <TextView
+                    android:id="@+id/day_text_comments_overview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_weight="4"
+                    android:fontFamily="@font/oxygen"
+                    android:text="Tag"
+                    android:textSize="13sp"
+
+                    />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:src="@mipmap/seperate_dot" />
+
+                <TextView
+                    android:id="@+id/time_text_comments_overview"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="5"
+                    android:fontFamily="@font/oxygen"
+                    android:text="Uhrzeit"
+                    android:textAlignment="center"
+                    android:textSize="13sp"
+
+                    />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="3dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:src="@mipmap/seperate_dot" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:src="@mipmap/profile_icon" />
+
+                <TextView
+                    android:id="@+id/username_text_comments_overview"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_weight="7"
+                    android:fontFamily="@font/oxygen"
+                    android:text="Benutzername"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <TextView
+
+                android:id="@+id/id_text_comments_overview"
+                android:layout_width="290dp"
+                android:layout_height="35dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/custom_report_item_id_container"
+                android:fontFamily="@font/oxygen"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:text="Kennung"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
+
+            <ImageButton
+                android:id="@+id/voteUpButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/check_positive_grey" />
+
+            <TextView
+                android:id="@+id/voteNumber"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/voteUpButton"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="7dp"
+                android:fontFamily="@font/oxygen"
+                android:text="0" />
+
+
+            <ImageButton
+                android:id="@+id/voteDownButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/voteNumber"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/check_negative_grey" />
+
+            <TextView
+                android:id="@+id/report_text_comments_overview"
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/id_text_comments_overview"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/oxygen"
+                android:paddingTop="5dp"
+                android:text="Kommentar, Kommentar, Kommentar"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_below="@id/specific_report_relative_layout"
+            android:layout_height="600dp"
+            android:padding="15dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="5dp"
+            >
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="660dp"
+            android:layout_height="match_parent"
             android:id="@+id/comments_recycler_view"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="80dp"
         />
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

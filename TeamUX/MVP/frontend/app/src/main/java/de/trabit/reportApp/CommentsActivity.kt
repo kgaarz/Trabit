@@ -13,7 +13,6 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.example.api_test.dataClasses.Comment
 import com.example.api_test.dataClasses.Report
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -21,16 +20,14 @@ import kotlinx.android.synthetic.main.activity_comments.*
 import org.json.JSONException
 import org.json.JSONObject
 import de.trabit.reportApp.dataClasses.CreateComment
-
-
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class CommentsActivity : AppCompatActivity() {
-
     //dummy username for MVP
     val username = "maxiboi"
     var commentCreated = false
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,8 +101,34 @@ class CommentsActivity : AppCompatActivity() {
                 try {
                     val gson = GsonBuilder().create()
                     val report = gson.fromJson(it.toString(), Report::class.java)
-                    val comments = report.comments
-                    comments_recycler_view.adapter = CommentsRecyclerAdapter(comments)
+
+                    // TODO: refactor date formatting
+                    // format date for report view
+                    val dateFormatter = SimpleDateFormat("dd.MM.YYYY")
+                    val today = Calendar.getInstance()
+                    val yesterday = Calendar.getInstance()
+                    yesterday.add(Calendar.DAY_OF_YEAR, -1)
+                    val reportDate = when (dateFormatter.format(report.created))
+                    {
+                        dateFormatter.format(today.time) -> "Heute"
+                        dateFormatter.format(today.time) -> "Gestern"
+                        else -> dateFormatter.format(report.created)
+                    }
+
+                    // format time for report view
+                    val timeFormatter = SimpleDateFormat("HH:MM")
+                    val reportTime = timeFormatter.format(report.created)
+
+                    // fill report overview with the corresponding values
+                    username_text_comments_overview.text = report.author
+                    report_text_comments_overview.text = report.description
+                    id_text_comments_overview.text = report.transport.tag
+                    day_text_comments_overview.text = reportDate
+                    time_text_comments_overview.text = reportTime
+                    voteNumber.text = (report.metadata.upvotes - report.metadata.downvotes).toString()
+
+                    // send comments to adapter
+                    comments_recycler_view.adapter = CommentsRecyclerAdapter(report.comments)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                     ErrorSnackbar(linearLayout_comments).show(errorMessage)
