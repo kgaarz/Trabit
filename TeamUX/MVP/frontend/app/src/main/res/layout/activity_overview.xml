@@ -213,12 +213,14 @@
             android:orientation="horizontal">
 
             <ImageButton
+                android:id="@+id/mapNavigation"
                 android:layout_width="0dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:layout_weight="2"
                 android:background="@null"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_map_black_24dp" />
 
             <ImageButton
                 android:id="@+id/directonsNavigation"

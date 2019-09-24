@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/whiteBlue"
     android:orientation="vertical"
-    tools:context=".DirectionsActivity">
+    tools:context="de.trabit.directionsApp.DirectionsActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

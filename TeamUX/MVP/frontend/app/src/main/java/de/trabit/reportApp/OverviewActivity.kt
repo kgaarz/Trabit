@@ -20,6 +20,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import de.trabit.directionsApp.DirectionsActivity
+import de.trabit.directionsApp.MapActivity
 
 class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentListener {
     lateinit var reportList : Array<Report>
@@ -69,6 +71,7 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         val overviewIcon = findViewById<ImageButton>(R.id.overviewNavigation)
         val profileIcon = findViewById<ImageButton>(R.id.profileNavigation)
         val directionsIcon = findViewById<ImageButton>(R.id.directonsNavigation)
+        val mapIcon = findViewById<ImageButton>(R.id.mapNavigation)
 
         overviewIcon.setOnClickListener{
             overviewIcon.setImageResource(R.mipmap.overview_active)
@@ -83,6 +86,11 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         directionsIcon.setOnClickListener {
             // Handler code here.
             val intent = Intent(this, DirectionsActivity::class.java)
+            startActivity(intent)
+        }
+
+        mapIcon.setOnClickListener {
+            val intent = Intent(this, MapActivity::class.java)
             startActivity(intent)
         }
 
