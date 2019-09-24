@@ -4,6 +4,7 @@ import ErrorSnackbar
 import SuccessSnackbar
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -155,7 +156,18 @@ class OverviewActivity : AppCompatActivity() {
                 try {
                     val gson = GsonBuilder().create()
                     val reports = gson.fromJson(it.toString(), Array<Report>::class.java)
-                    recycler_view.adapter = ReportRecyclerAdapter(reports)
+                    if (reports.isEmpty()) {
+                        recycler_view.setVisibility(View.GONE)
+                        noReportsText1.setVisibility(View.VISIBLE)
+                        noReportsText2.setVisibility(View.VISIBLE)
+                        noReportsImage.setVisibility(View.VISIBLE);
+                    }else{
+                        recycler_view.adapter = ReportRecyclerAdapter(reports)
+                        noReportsText1.setVisibility(View.GONE)
+                        noReportsText2.setVisibility(View.GONE)
+                        noReportsImage.setVisibility(View.GONE)
+                        recycler_view.setVisibility(View.VISIBLE)
+                    }
                 } catch (e: JSONException) {
                     e.printStackTrace()
                     ErrorSnackbar(linearLayout_main).show("Daten konnten nicht geladen werden!")
