@@ -163,16 +163,17 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
             Response.Listener {
                 try {
                     val gson = GsonBuilder().create()
-                    val reports = gson.fromJson(it.toString(), Array<Report>::class.java)
-                    reportList = reports
+                    reportList = gson.fromJson(it.toString(), Array<Report>::class.java)
                     recycler_view.adapter = ReportRecyclerAdapter(reportList, this)
-                    if (reports.isEmpty()) {
+
+                    // hide or show bg picture
+                    if (reportList.isEmpty()) {
                         recycler_view.setVisibility(View.GONE)
                         noReportsText1.setVisibility(View.VISIBLE)
                         noReportsText2.setVisibility(View.VISIBLE)
                         noReportsImage.setVisibility(View.VISIBLE);
                     }else{
-                        recycler_view.adapter = ReportRecyclerAdapter(reports)
+                        recycler_view.adapter = ReportRecyclerAdapter(reportList, this)
                         noReportsText1.setVisibility(View.GONE)
                         noReportsText2.setVisibility(View.GONE)
                         noReportsImage.setVisibility(View.GONE)
