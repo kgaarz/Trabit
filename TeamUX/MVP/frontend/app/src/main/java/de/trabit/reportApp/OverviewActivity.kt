@@ -28,6 +28,9 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         //reportList[position]
         val commentIntent = Intent(this, CommentsActivity::class.java)
         commentIntent.putExtra("report_id", reportList[position]._id)
+        commentIntent.putExtra("author", reportList[position].author)
+        commentIntent.putExtra("description", reportList[position].description)
+        commentIntent.putExtra("transport_id", reportList[position].transport.tag)
         startActivity(commentIntent)
     }
 

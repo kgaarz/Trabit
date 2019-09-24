@@ -21,8 +21,7 @@ import kotlinx.android.synthetic.main.activity_comments.*
 import org.json.JSONException
 import org.json.JSONObject
 import de.trabit.reportApp.dataClasses.CreateComment
-
-
+import org.w3c.dom.Text
 
 
 class CommentsActivity : AppCompatActivity() {
@@ -35,6 +34,20 @@ class CommentsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comments)
+
+        // fill report overview with the corresponding values
+
+        var ReportAuthorField = findViewById<TextView>(R.id.username_text_comments_overview)
+        val ReportAuthor = intent.getStringExtra("author")
+        ReportAuthorField.setText(ReportAuthor)
+
+        var ReportDescriptionField = findViewById<TextView>(R.id.report_text_comments_overview)
+        val ReportDescription = intent.getStringExtra("description")
+        ReportDescriptionField.setText(ReportDescription)
+
+        var ReportDescriptionIdField = findViewById<TextView>(R.id.id_text_comments_overview)
+        val ReportDescriptionId = intent.getStringExtra("transport_id")
+        ReportDescriptionIdField.setText(ReportDescriptionId)
 
         //get reportId
         println(intent.getStringExtra("report_id"))

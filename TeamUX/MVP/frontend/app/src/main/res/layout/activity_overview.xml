@@ -135,7 +135,6 @@
             android:layout_height="580dp"
             android:padding="15dp">
 
-
             <TextView
                 android:id="@+id/noReportsText1"
                 android:layout_width="match_parent"
