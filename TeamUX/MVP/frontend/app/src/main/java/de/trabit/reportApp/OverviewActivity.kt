@@ -24,7 +24,7 @@ import de.trabit.directionsApp.DirectionsActivity
 import de.trabit.directionsApp.MapActivity
 
 class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentListener {
-    lateinit var reportList : Array<Report>
+    private lateinit var reportList : Array<Report>
 
     override fun onCommentClick(position: Int) {
         val commentIntent = Intent(this, CommentsActivity::class.java)
@@ -122,7 +122,7 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         //Set the train Button default on clicked
         trainBtn.setImageResource(R.mipmap.train_icon_clicked)
         var transportType = "train"
-        getReports(ReportRequestParameters(location, transportType, searchView.query.toString(), null))
+        getReports(ReportRequestParameters(location, transportType, null, null))
 
         //Add Clicklistener to Imagebuttons (Car, bus, train, tram icon) to Change Color of Image (Clicked)
         carBtn.setOnClickListener {
@@ -131,7 +131,7 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
             tramBtn.setImageResource(R.mipmap.tram_icon_grey)
             busBtn.setImageResource(R.mipmap.bus_icon_grey)
             transportType = "car"
-            getReports(ReportRequestParameters(location, transportType, searchView.query.toString(), null))
+            getReports(ReportRequestParameters(location, transportType, null, null))
         }
 
         trainBtn.setOnClickListener {
@@ -140,7 +140,7 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
             tramBtn.setImageResource(R.mipmap.tram_icon_grey)
             busBtn.setImageResource(R.mipmap.bus_icon_grey)
             transportType = "train"
-            getReports(ReportRequestParameters(location, transportType, searchView.query.toString(), null))
+            getReports(ReportRequestParameters(location, transportType, null, null))
         }
 
         tramBtn.setOnClickListener {
@@ -149,7 +149,7 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
             trainBtn.setImageResource(R.mipmap.train_icon_grey)
             busBtn.setImageResource(R.mipmap.bus_icon_grey)
             transportType = "subway"
-            getReports(ReportRequestParameters(location, transportType, searchView.query.toString(), null))
+            getReports(ReportRequestParameters(location, transportType, null, null))
         }
 
         busBtn.setOnClickListener {
@@ -158,7 +158,7 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
             trainBtn.setImageResource(R.mipmap.train_icon_grey)
             tramBtn.setImageResource(R.mipmap.tram_icon_grey)
             transportType = "bus"
-            getReports(ReportRequestParameters(location, transportType, searchView.query.toString(), null))
+            getReports(ReportRequestParameters(location, transportType, null, null))
         }
     }
 
@@ -171,20 +171,19 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
                 try {
                     val gson = GsonBuilder().create()
                     reportList = gson.fromJson(it.toString(), Array<Report>::class.java)
-                    recycler_view.adapter = ReportRecyclerAdapter(reportList, this)
+                    recycler_view.adapter = ReportRecyclerAdapter(reportList, this)//?.filter?.filter("test")
 
                     // hide or show bg picture
                     if (reportList.isEmpty()) {
-                        recycler_view.setVisibility(View.GONE)
-                        noReportsText1.setVisibility(View.VISIBLE)
-                        noReportsText2.setVisibility(View.VISIBLE)
-                        noReportsImage.setVisibility(View.VISIBLE);
-                    }else{
-                        recycler_view.adapter = ReportRecyclerAdapter(reportList, this)
-                        noReportsText1.setVisibility(View.GONE)
-                        noReportsText2.setVisibility(View.GONE)
-                        noReportsImage.setVisibility(View.GONE)
-                        recycler_view.setVisibility(View.VISIBLE)
+                        recycler_view.visibility = View.GONE
+                        noReportsText1.visibility = View.VISIBLE
+                        noReportsText2.visibility = View.VISIBLE
+                        noReportsImage.visibility = View.VISIBLE
+                    } else {
+                        recycler_view.visibility = View.VISIBLE
+                        noReportsText1.visibility = View.GONE
+                        noReportsText2.visibility = View.GONE
+                        noReportsImage.visibility = View.GONE
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
