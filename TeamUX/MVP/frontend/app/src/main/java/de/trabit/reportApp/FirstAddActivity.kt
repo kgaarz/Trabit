@@ -50,7 +50,7 @@ class FirstAddActivity : AppCompatActivity() {
         }
 
         carTile.setOnClickListener{
-            val nextAddActivtityIntent = Intent(this,ThirdAddActivity::class.java)
+            val nextAddActivtityIntent = Intent(this,SecondAddActivity::class.java)
             chosenMeansOfTransport ="car"
             nextAddActivtityIntent.putExtra("meansOfTransport", chosenMeansOfTransport)
             startActivity(nextAddActivtityIntent)
