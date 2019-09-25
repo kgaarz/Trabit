@@ -12,7 +12,7 @@ import kotlin.collections.ArrayList
 
 
 //Adapter Class to adapt the CommentsRecyclerview with the Layout
-class CommentsRecyclerAdapter(val commentsList: ArrayList<Comment>) : RecyclerView.Adapter<CommentsRecyclerAdapter.ViewHolder>() {
+class CommentsRecyclerAdapter(private val commentsList: ArrayList<Comment>) : RecyclerView.Adapter<CommentsRecyclerAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         val v = LayoutInflater.from(p0.context).inflate(R.layout.comments_item, p0, false)
@@ -23,7 +23,7 @@ class CommentsRecyclerAdapter(val commentsList: ArrayList<Comment>) : RecyclerVi
         val comment = commentsList[position]
 
         // format date for comment view
-        val dateFormatter = SimpleDateFormat("dd.MM.YYYY")
+        val dateFormatter = SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN)
         val today = Calendar.getInstance()
         val yesterday = Calendar.getInstance()
         yesterday.add(Calendar.DAY_OF_YEAR, -1)
@@ -35,17 +35,17 @@ class CommentsRecyclerAdapter(val commentsList: ArrayList<Comment>) : RecyclerVi
         }
 
         // format time for comment view
-        val timeFormatter = SimpleDateFormat("HH:MM")
+        val timeFormatter = SimpleDateFormat("HH:mm", Locale.GERMAN)
         val commentTime = timeFormatter.format(comment.created)
 
         // calculate votes
-        val votes = comment.metadata.upvotes - comment.metadata.downvotes
+        val votes = comment.metadata.upvotes.amount - comment.metadata.downvotes.amount
 
-        p0.comment_day_text.text = commentDate
-        p0.comment_time_text.text = commentTime
-        p0.comment_username_text.text = comment.author
-        p0.comment_text.text = comment.content
-        p0.comment_confirm_index.text = votes.toString()
+        p0.commentDayText.text = commentDate
+        p0.commentTimeText.text = commentTime
+        p0.commentUsernameText.text = comment.author
+        p0.commentText.text = comment.content
+        p0.commentConfirmIndex.text = votes.toString()
     }
 
     override fun getItemCount(): Int {
@@ -53,10 +53,10 @@ class CommentsRecyclerAdapter(val commentsList: ArrayList<Comment>) : RecyclerVi
     }
 
     class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val comment_day_text = itemView.findViewById(R.id.dayText) as TextView
-        val comment_time_text = itemView.findViewById(R.id.timeText) as TextView
-        val comment_username_text = itemView.findViewById(R.id.usernameText) as TextView
-        val comment_confirm_index = itemView.findViewById(R.id.vote_number) as TextView
-        val comment_text = itemView.findViewById(R.id.commentText) as TextView
+        val commentDayText = itemView.findViewById(R.id.dayText) as TextView
+        val commentTimeText = itemView.findViewById(R.id.timeText) as TextView
+        val commentUsernameText = itemView.findViewById(R.id.usernameText) as TextView
+        val commentConfirmIndex = itemView.findViewById(R.id.vote_number) as TextView
+        val commentText = itemView.findViewById(R.id.commentText) as TextView
     }
 }

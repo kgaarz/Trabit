@@ -12,7 +12,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 //Adapter Class to adapt the ReportsRecyclerview with the Layout
-class ReportRecyclerAdapter(var reportList: Array<Report>, val onCommentLister: OnCommentListener) : RecyclerView.Adapter<ReportRecyclerAdapter.ViewHolder>(), Filterable
+class ReportRecyclerAdapter(var reportList: Array<Report>, private val onCommentLister: OnCommentListener) : RecyclerView.Adapter<ReportRecyclerAdapter.ViewHolder>(), Filterable
 {
     //Clone of the reportList to filter the data
     val reportListFull : Array<Report> = reportList
@@ -37,11 +37,9 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, val onCommentLister: 
     }
 
 
-    open class ViewHolder (itemView: View, onCommentListener : OnCommentListener) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        val onCommentListener = onCommentListener
+    open class ViewHolder (itemView: View, private val onCommentListener: OnCommentListener) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         init {
-            //itemView.setOnClickListener(this)
             itemView.commentIcon.setOnClickListener(this)
 
             itemView.voteUpButton.setOnClickListener{
@@ -54,10 +52,6 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, val onCommentLister: 
                 itemView.voteUpButton.setImageResource(R.mipmap.check_positive_grey)
             }
 
-            val onCommentListener : OnCommentListener
-        }
-
-        fun ViewHolder(itemView: View, onCommentListener : OnCommentListener) {
         }
 
         override fun onClick(v: View?) {
@@ -70,19 +64,19 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, val onCommentLister: 
     }
 
     class ReportViewHolder (itemView: View, onCommentListener : OnCommentListener) : ViewHolder(itemView, onCommentListener){
-        val day_text = itemView.findViewById(R.id.day_text) as TextView
-        val time_text = itemView.findViewById(R.id.time_text) as TextView
-        val username_text = itemView.findViewById(R.id.username_text) as TextView
-        val id_text = itemView.findViewById(R.id.id_text) as TextView
-        val report_text = itemView.findViewById(R.id.report_text) as TextView
-        val comment_amount = itemView.findViewById(R.id.commentNumber) as TextView
-        val confirm_index = itemView.findViewById(R.id.voteNumber) as TextView
-        var report_id : String? = null
+        private val dayText = itemView.findViewById(R.id.day_text) as TextView
+        private val timeText = itemView.findViewById(R.id.time_text) as TextView
+        private val usernameText = itemView.findViewById(R.id.username_text) as TextView
+        private val idText = itemView.findViewById(R.id.id_text) as TextView
+        private val reportText = itemView.findViewById(R.id.report_text) as TextView
+        private val commentAmount = itemView.findViewById(R.id.commentNumber) as TextView
+        private val confirmIndex = itemView.findViewById(R.id.voteNumber) as TextView
+        private var reportId : String? = null
 
         fun bind(report : Report) {
 
             // format date for report view
-            val dateFormatter = SimpleDateFormat("dd.MM.YYYY")
+            val dateFormatter = SimpleDateFormat("dd.MM.YYYY", Locale.GERMAN)
             val today = Calendar.getInstance()
             val yesterday = Calendar.getInstance()
             yesterday.add(Calendar.DAY_OF_YEAR, -1)
@@ -94,22 +88,21 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, val onCommentLister: 
             }
 
             // format time for report view
-            val timeFormatter = SimpleDateFormat("HH:MM")
+            val timeFormatter = SimpleDateFormat("HH:mm", Locale.GERMAN)
             val reportTime = timeFormatter.format(report.created)
 
             // calculate votes
-            val votes = report.metadata.upvotes - report.metadata.downvotes
+            val votes = report.metadata.upvotes.amount - report.metadata.downvotes.amount
 
             // fill report params in layout elements
-            day_text.text = reportDate
-            time_text.text = reportTime
-            username_text.text = report.author
-            id_text.text = report.transport.tag
-            report_text.text = report.description
-            comment_amount.text = report.comments.size.toString()
-            confirm_index.text = votes.toString()
-            report_id = report._id
-
+            dayText.text = reportDate
+            timeText.text = reportTime
+            usernameText.text = report.author
+            idText.text = report.transport.tag
+            reportText.text = report.description
+            commentAmount.text = report.comments.size.toString()
+            confirmIndex.text = votes.toString()
+            reportId = report._id
         }
     }
 
@@ -118,32 +111,35 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, val onCommentLister: 
         if(recycleFilter == null){
             recycleFilter = RecyclerFilter()
         }
+
         return recycleFilter as RecyclerFilter
     }
 
     inner class RecyclerFilter : Filter(){
-        override fun performFiltering(p0: CharSequence?): FilterResults {
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
             val results = FilterResults()
-            if (p0 != null && p0.isNotEmpty()) {
+            if (!constraint.isNullOrBlank()) {
                 val localList: ArrayList<Report> = ArrayList<Report>()
-                for (i: Int in 0..reportListFull.size.minus(1)) {
-                    if (reportListFull.get(i).transport.tag.toLowerCase().contains(p0.toString().toLowerCase().trim())){
-                        localList.add(reportListFull.get(i))
+                for (r: Report in reportList) {
+                    if (r.transport.tag.toLowerCase(Locale.GERMAN).contains(
+                            constraint.toString().toLowerCase(Locale.GERMAN).trim())) {
+                        localList.add(r)
                     }
                 }
+
                 results.values = localList
                 results.count = localList.size
-             }else {
+
+             } else {
                 results.values = reportListFull
                 results.count = reportListFull.size
             }
             return results
         }
 
-        override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
-            reportList = p1?.values as Array<Report>
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            reportList = results?.values as Array<Report>
             notifyDataSetChanged()
         }
     }
 }
-

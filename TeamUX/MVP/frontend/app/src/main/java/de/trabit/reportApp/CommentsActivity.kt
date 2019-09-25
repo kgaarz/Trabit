@@ -104,7 +104,7 @@ class CommentsActivity : AppCompatActivity() {
 
                     // TODO: refactor date formatting
                     // format date for report view
-                    val dateFormatter = SimpleDateFormat("dd.MM.YYYY")
+                    val dateFormatter = SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN)
                     val today = Calendar.getInstance()
                     val yesterday = Calendar.getInstance()
                     yesterday.add(Calendar.DAY_OF_YEAR, -1)
@@ -116,7 +116,7 @@ class CommentsActivity : AppCompatActivity() {
                     }
 
                     // format time for report view
-                    val timeFormatter = SimpleDateFormat("HH:MM")
+                    val timeFormatter = SimpleDateFormat("HH:mm", Locale.GERMAN)
                     val reportTime = timeFormatter.format(report.created)
 
                     // fill report overview with the corresponding values
@@ -125,7 +125,7 @@ class CommentsActivity : AppCompatActivity() {
                     id_text_comments_overview.text = report.transport.tag
                     day_text_comments_overview.text = reportDate
                     time_text_comments_overview.text = reportTime
-                    voteNumber.text = (report.metadata.upvotes - report.metadata.downvotes).toString()
+                    voteNumber.text = (report.metadata.upvotes.amount - report.metadata.downvotes.amount).toString()
 
                     // send comments to adapter
                     comments_recycler_view.adapter = CommentsRecyclerAdapter(report.comments)
