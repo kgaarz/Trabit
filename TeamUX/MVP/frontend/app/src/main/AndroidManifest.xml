@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="de.trabit.directionsApp.MapActivity"></activity>
+        <activity android:name="de.trabit.directionsApp.DirectionSelectionActivity"></activity>
+        <activity android:name="de.trabit.directionsApp.MapActivity" />
         <activity android:name="de.trabit.directionsApp.DirectionsActivity" />
         <activity android:name=".CommentsActivity" />
         <activity android:name=".ThirdAddActivity" />

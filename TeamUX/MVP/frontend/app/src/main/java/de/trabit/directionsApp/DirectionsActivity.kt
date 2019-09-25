@@ -1,9 +1,11 @@
 package de.trabit.directionsApp
 
+import ErrorSnackbar
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.DatePicker
 import android.widget.ImageButton
 import android.widget.TimePicker
@@ -16,6 +18,10 @@ import java.util.*
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
 import de.trabit.reportApp.R
+import kotlinx.android.synthetic.main.activity_directions.*
+
+
+
 
 
 class DirectionsActivity : AppCompatActivity() {
@@ -26,11 +32,16 @@ class DirectionsActivity : AppCompatActivity() {
     var hour: Int= 0
     var minute: Int= 0
     var timestamp: Long= 0
+    var originLat: Double = 0.0
+    var originLong: Double = 0.0
+    var destinationLat: Double = 0.0
+    var destinationLong: Double = 0.0
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_directions)
+
 
         // Get current calendar date and time.
         val currCalendar = Calendar.getInstance()
@@ -41,8 +52,6 @@ class DirectionsActivity : AppCompatActivity() {
         hour = currCalendar.get(Calendar.HOUR_OF_DAY)
         minute = currCalendar.get(Calendar.MINUTE)
         timestamp = currCalendar.getTimeInMillis();
-
-        showUserSelectDateTime()
 
         // Get date picker object.
         val datePicker = findViewById(R.id.datePicker) as DatePicker
@@ -57,7 +66,6 @@ class DirectionsActivity : AppCompatActivity() {
 
             this@DirectionsActivity.timestamp = currCalendar.getTimeInMillis()
 
-            showUserSelectDateTime()
         }
 
         // Get time picker object.
@@ -72,8 +80,6 @@ class DirectionsActivity : AppCompatActivity() {
             currCalendar.set(this@DirectionsActivity.year, this@DirectionsActivity.month, this@DirectionsActivity.day, hour, minute)
 
             this@DirectionsActivity.timestamp = currCalendar.getTimeInMillis()
-
-            showUserSelectDateTime()
         }
 
         timePicker.setIs24HourView(true)
@@ -97,7 +103,7 @@ class DirectionsActivity : AppCompatActivity() {
 
         directionsIcon.setOnClickListener {
             val intent = Intent(this, DirectionsActivity::class.java)
-            startActivity(intent);
+            startActivity(intent)
         }
 
 
@@ -117,6 +123,9 @@ class DirectionsActivity : AppCompatActivity() {
                 override fun onPlaceSelected(place: Place) {
                     // TODO: Get info about the selected place.
                     Log.i("TAG", "Place: " + place.latLng)
+                    this@DirectionsActivity.originLat = place.latLng?.latitude ?: 0.0
+                    this@DirectionsActivity.originLong = place.latLng?.longitude ?: 0.0
+
                 }
 
                 fun onError() {
@@ -139,6 +148,8 @@ class DirectionsActivity : AppCompatActivity() {
                 override fun onPlaceSelected(place: Place) {
                     // TODO: Get info about the selected place.
                     Log.i("TAG", "Place: " + place.latLng)
+                    this@DirectionsActivity.destinationLat = place.latLng?.latitude ?: 0.0
+                    this@DirectionsActivity.destinationLong = place.latLng?.longitude ?: 0.0
                 }
 
                 fun onError() {
@@ -147,6 +158,31 @@ class DirectionsActivity : AppCompatActivity() {
                 }
             })
         }
+
+        val createRouteButton = findViewById(R.id.buttonCreateRoute) as Button
+
+
+
+            createRouteButton.setOnClickListener {
+
+                if(this.originLat != 0.0 || this.destinationLat != 0.0) {
+                val extras = Bundle()
+                extras.putLong("TIMESTAMP", this.timestamp)
+                extras.putDouble("ORIGIN_LAT", this.originLat)
+                extras.putDouble("ORIGIN_LONG", this.originLong)
+                extras.putDouble("DESTINATION_LAT", this.destinationLat)
+                extras.putDouble("DESTINATION_LONG", this.destinationLong)
+
+                val intent = Intent(this, DirectionSelectionActivity::class.java)
+
+                intent.putExtras(extras)
+
+                startActivity(intent)
+                } else {
+                    ErrorSnackbar(linearLayout_directions).show("Bitte gebe Start und Ziel an!")
+                }
+            }
+
     }
 
     fun initPlaces(){
@@ -155,15 +191,6 @@ class DirectionsActivity : AppCompatActivity() {
 
         // Create a new Places client instance
         val placesClient = Places.createClient(this)
-    }
-
-    fun showUserSelectDateTime(){
-        Log.i("PICKER", this.year.toString())
-        Log.i("PICKER", this.month.toString())
-        Log.i("PICKER", this.day.toString())
-        Log.i("PICKER", this.hour.toString())
-        Log.i("PICKER", this.minute.toString())
-        Log.i("TIMESTAMP", this.timestamp.toString())
     }
 }
 
