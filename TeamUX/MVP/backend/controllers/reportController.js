@@ -1,6 +1,9 @@
 const {
     Report
 } = require('../models/reportSchema');
+const {
+    Votes
+} = require('../models/reportSchema');
 const UserController = require('./userController');
 const GeodataService = require('../services/geodataService');
 const ApiError = require('../exceptions/apiExceptions');
@@ -87,32 +90,84 @@ class ReportController {
         return await Report.findByIdAndRemove(report._id);
     }
 
-    async upvote(reportId) {
+    async getVotes(type, reportId) {
         const report = await this.getSpecific(reportId);
-        // calculate new upvote value
-        const newUpvotes = report.metadata.upvotes + 1;
-        return await Report.updateOne({
-            _id: reportId
-        }, {
-            'metadata.upvotes': newUpvotes
-        });
+        return report.metadata[type];
     }
 
-    async downvote(reportId) {
+    async addVote(type, reportId, userId) {
         const report = await this.getSpecific(reportId);
-        // calculate new downvote value
-        const newDownvotes = report.metadata.downvotes + 1;
-        return await Report.updateOne({
-            _id: reportId
-        }, {
-            'metadata.downvotes': newDownvotes
-        });
+        await UserController.getSpecific(userId);
+        const antiType = type == 'upvotes' ? 'downvotes' : 'upvotes';
+        // check if vote for antiType exists & remove if applicable
+        if (report.metadata[antiType].users.includes(userId)) {
+            await this.removeVote(antiType, report._id, userId);
+        }
+        if (!report.metadata[type].users.includes(userId)) {
+            const newAmount = report.metadata[type].users.push(userId);
+            const newVotes = new Votes({
+                amount: newAmount,
+                users: report.metadata[type].users
+            });
+            switch (type) {
+                case "upvotes":
+                    await Report.updateOne({
+                        _id: report._id
+                    }, {
+                        "metadata.upvotes": newVotes
+                    });
+                    break;
+                case "downvotes":
+                    await Report.updateOne({
+                        _id: report._id
+                    }, {
+                        "metadata.downvotes": newVotes
+                    });
+                    break;
+                default:
+                    throw new ApiError(`Type "${type}" not supported!`, 400);
+            }
+        }
+        return 204;
+    }
+
+    async removeVote(type, reportId, userId) {
+        const report = await this.getSpecific(reportId);
+        await UserController.getSpecific(userId);
+        if (report.metadata[type].users.includes(userId)) {
+            const newUsers = report.metadata[type].users.filter(user => user !== userId);
+            const newVotes = new Votes({
+                amount: newUsers.length,
+                users: newUsers
+            });
+            switch (type) {
+                case "upvotes":
+                    await Report.updateOne({
+                        _id: report._id
+                    }, {
+                        "metadata.upvotes": newVotes
+                    });
+                    break;
+                case "downvotes":
+                    await Report.updateOne({
+                        _id: report._id
+                    }, {
+                        "metadata.downvotes": newVotes
+                    });
+                    break;
+                default:
+                    throw new ApiError(`Type "${type}" not supported!`, 400);
+            }
+            return 204;
+        } else {
+            return 404;
+        }
     }
 
     async updateVerificationState(reportId) {
         const report = await this.getSpecific(reportId);
-        const downvotes = report.metadata.downvotes;
-        const upvotes = report.metadata.upvotes;
+        const downvotes = report.metadata.downvotes.amount;
+        const upvotes = report.metadata.upvotes.amount;
         const threshold = process.env.VERIFICATION_THRESHOLD;
         // check new verification state
         const newVerified = ((upvotes > (downvotes * threshold)) || (upvotes > (2 * threshold) && downvotes < 2));
