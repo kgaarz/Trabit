@@ -12,6 +12,7 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.api_test.dataClasses.Report
 import com.google.gson.Gson
@@ -115,6 +116,22 @@ class CommentsActivity : AppCompatActivity() {
                         else -> dateFormatter.format(report.created)
                     }
 
+                    // upvote action
+                    if (report.metadata.upvotes.users.contains(BuildConfig.DEMO_USERID)) {
+                        voteUpButton.setImageResource(R.mipmap.check_positive_blue)
+                    }
+                    voteUpButton.setOnClickListener{
+                        addUpvote(report, BuildConfig.DEMO_USERID)
+                    }
+
+                    // downvote action
+                    if (report.metadata.downvotes.users.contains(BuildConfig.DEMO_USERID)) {
+                        voteDownButton.setImageResource(R.mipmap.check_negative_blue)
+                    }
+                    voteDownButton.setOnClickListener{
+                        addDownvote(report, BuildConfig.DEMO_USERID)
+                    }
+
                     // format time for report view
                     val timeFormatter = SimpleDateFormat("HH:mm", Locale.GERMAN)
                     val reportTime = timeFormatter.format(report.created)
@@ -137,6 +154,121 @@ class CommentsActivity : AppCompatActivity() {
                 it.printStackTrace()
                 ErrorSnackbar(linearLayout_comments).show(errorMessage)
             })
+        mQueue.add(request)
+    }
+
+    //TODO: refactoring of all vote request methods
+    private fun addUpvote(report : Report, userId : String) {
+        // check if user already upvoted
+        if (report.metadata.upvotes.users.contains(userId)) {
+            removeUpvote(report, userId)
+            return
+        }
+        val requestUrl = BuildConfig.REPORTAPI_BASE_URL + "reports/${report._id}/upvotes"
+        val mQueue: RequestQueue = Volley.newRequestQueue(this)
+        val request = object : StringRequest(Method.PUT, requestUrl,
+            Response.Listener {
+                voteUpButton.setImageResource(R.mipmap.check_positive_blue)
+                voteDownButton.setImageResource(R.mipmap.check_negative_grey)
+                getVotes(report)
+            }, Response.ErrorListener {
+                it.printStackTrace()
+                ErrorSnackbar(linearLayout_comments).show("Upvote fehlgeschlagen!")
+            })
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["userId"] = userId
+                return headers
+            }
+        }
+        mQueue.add(request)
+    }
+
+    private fun addDownvote(report : Report, userId : String) {
+        // check if user already downvoted
+        if (report.metadata.downvotes.users.contains(userId)) {
+            removeDownvote(report, userId)
+            return
+        }
+        val requestUrl = BuildConfig.REPORTAPI_BASE_URL + "reports/${report._id}/downvotes"
+        val mQueue: RequestQueue = Volley.newRequestQueue(this)
+        val request = object : StringRequest(
+            Method.PUT, requestUrl,
+            Response.Listener {
+                voteDownButton.setImageResource(R.mipmap.check_negative_blue)
+                voteUpButton.setImageResource(R.mipmap.check_positive_grey)
+                getVotes(report)
+            }, Response.ErrorListener {
+                it.printStackTrace()
+                ErrorSnackbar(linearLayout_comments).show("Downvote fehlgeschlagen!")
+            })
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["userId"] = userId
+                return headers
+            }
+        }
+        mQueue.add(request)
+    }
+
+    private fun getVotes(report : Report) {
+        val requestUrl = BuildConfig.REPORTAPI_BASE_URL + "reports/${report._id}"
+        val mQueue: RequestQueue = Volley.newRequestQueue(this)
+        val request = StringRequest(Request.Method.GET, requestUrl,
+            Response.Listener {
+                val gson = GsonBuilder().create()
+                val reportResult = gson.fromJson(it.toString(), Report::class.java)
+                voteNumber.text = (reportResult.metadata.upvotes.amount - reportResult.metadata.downvotes.amount).toString()
+                report.metadata.upvotes = reportResult.metadata.upvotes
+                report.metadata.downvotes = reportResult.metadata.downvotes
+            }, Response.ErrorListener {
+                it.printStackTrace()
+                ErrorSnackbar(linearLayout_comments).show("Abrufen der Stimmen fehlgeschlagen!")
+            })
+        mQueue.add(request)
+    }
+
+    private fun removeUpvote(report : Report, userId : String) {
+        val requestUrl = BuildConfig.REPORTAPI_BASE_URL + "reports/${report._id}/upvotes"
+        val mQueue: RequestQueue = Volley.newRequestQueue(this)
+        val request = object : StringRequest(Method.DELETE, requestUrl,
+            Response.Listener {
+                voteUpButton.setImageResource(R.mipmap.check_positive_grey)
+                getVotes(report)
+            }, Response.ErrorListener {
+                it.printStackTrace()
+                ErrorSnackbar(linearLayout_comments).show("Upvote entfernen fehlgeschlagen!")
+            })
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["userId"] = userId
+                return headers
+            }
+        }
+        mQueue.add(request)
+    }
+
+    private fun removeDownvote(report : Report, userId : String) {
+        val requestUrl = BuildConfig.REPORTAPI_BASE_URL + "reports/${report._id}/downvotes"
+        val mQueue: RequestQueue = Volley.newRequestQueue(this)
+        val request = object : StringRequest(Method.DELETE, requestUrl,
+            Response.Listener {
+                voteDownButton.setImageResource(R.mipmap.check_negative_grey)
+                getVotes(report)
+            }, Response.ErrorListener {
+                it.printStackTrace()
+                ErrorSnackbar(linearLayout_comments).show("Downvote entfernen fehlgeschlagen!")
+            })
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["userId"] = userId
+                return headers
+            }
+        }
         mQueue.add(request)
     }
 }
