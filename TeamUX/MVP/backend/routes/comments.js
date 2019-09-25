@@ -2,6 +2,15 @@ const express = require('express');
 const router = express.Router();
 const CommentController = require('../controllers/commentController');
 
+// get comment
+router.get('/comments/:commentId', async (req, res) => {
+    try {
+        res.status(200).send(await CommentController.getSpecific(req.params.commentId));
+    } catch (error) {
+        res.status(error.statusCode ? error.statusCode : 500).json(error.message);
+    }
+});
+
 // delete comment
 router.delete('/comments/:commentId', async (req, res) => {
     try {

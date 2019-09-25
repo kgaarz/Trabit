@@ -9,6 +9,15 @@ const ReportController = require('../controllers/reportController');
 const ApiError = require('../exceptions/apiExceptions');
 
 class CommentController {
+    async getSpecific(commentId) {
+        const report = await ReportController.getByCommentId(commentId);
+        const comment = report.comments.id(commentId);
+        if (!comment) {
+            throw new ApiError('Comment ID not found!', 404);
+        }
+        return comment;
+    }
+
     async delete(commentId) {
         const report = await ReportController.getByCommentId(commentId);
         const comment = report.comments.id(commentId);
