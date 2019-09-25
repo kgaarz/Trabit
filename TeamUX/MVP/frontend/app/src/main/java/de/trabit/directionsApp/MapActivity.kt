@@ -31,8 +31,15 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 
-    // Erstellung der Routenpunkte
-    //
+    // Auslese der Routenpunkte
+    private val origin = LatLng(50.941357, 6.958307)
+    private val point0 = LatLng(50.943302, 6.958905)
+    private val destination = LatLng(51.023220, 7.566177)
+
+    // Auslese der identifizierten Mobilitätsmöglichkeiten
+    private val bike = LatLng(50.943342, 6.960945)
+    private val car = LatLng(50.943342, 6.956945)
+    private val train = LatLng(50.943342, 6.958935)
 
     private fun setUpMap() {
         if (ActivityCompat.checkSelfPermission(this,
@@ -43,6 +50,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         }
 
         map.isMyLocationEnabled = true
+
+        map.mapType = GoogleMap.MAP_TYPE_NORMAL
 
         fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
             if (location != null) {
@@ -57,16 +66,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
 
 
     private fun placeMarkerOnMap() {
-        val origin = LatLng(51.0355, 7.55231)
-        val point0 = LatLng(51.023033, 7.566130)
-        val destination = LatLng(50.943342, 6.958945)
-        val bike = LatLng(51.0305, 7.55231)
-        val car = LatLng(51.0325, 7.55231)
-        val train = LatLng(51.023093, 7.566190)
-
-        map.addMarker(MarkerOptions().position(origin).title("Start"))
-        map.addMarker(MarkerOptions().position(point0).title("Umstieg auf Zug: RB25 Richtung Köln"))
-        map.addMarker(MarkerOptions().position(destination).title("Ziel: HBF Köln"))
+        map.addMarker(MarkerOptions().position(origin).title("Start").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_start)))
+        map.addMarker(MarkerOptions().position(point0).title("Umstieg auf Zug: RB25 Richtung Köln").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_step)))
+        map.addMarker(MarkerOptions().position(destination).title("Ziel: HBF Köln").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_ziel)))
         map.addMarker(MarkerOptions().position(bike).title("Fahrrad").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_bike)))
         map.addMarker(MarkerOptions().position(car).title("Auto").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_car)))
         map.addMarker(MarkerOptions().position(train).title("Bahnstation").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_train)))
