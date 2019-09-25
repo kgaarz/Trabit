@@ -29,7 +29,6 @@
                 android:scaleType="fitCenter"
             />
 
-
             <TextView
                 android:text="Standort"
                 android:layout_width="wrap_content"
