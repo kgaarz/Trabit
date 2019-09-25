@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId();
 const GeodataService = require('../services/geodataService');
 const ApiError = require('../exceptions/apiExceptions');
 
@@ -35,14 +36,30 @@ const transport = new mongoose.Schema({
   _id: false
 });
 
-const metadata = new mongoose.Schema({
-  upvotes: {
+const votes = new mongoose.Schema({
+  amount: {
     type: Number,
+    required: true,
     default: 0
   },
+  users: {
+    type: Array,
+    of: ObjectId,
+    required: true,
+    default: []
+  }
+}, {
+  _id: false
+});
+
+const metadata = new mongoose.Schema({
+  upvotes: {
+    type: votes,
+    default: {}
+  },
   downvotes: {
-    type: Number,
-    default: 0
+    type: votes,
+    default: {}
   },
   verified: {
     type: Boolean,
@@ -71,12 +88,12 @@ const comment = new mongoose.Schema({
   },
   metadata: {
     upvotes: {
-      type: Number,
-      default: 0
+      type: votes,
+      default: {}
     },
     downvotes: {
-      type: Number,
-      default: 0
+      type: votes,
+      default: {}
     }
   }
 });
@@ -150,6 +167,7 @@ report.pre('save', async function (next) {
 const reportSchema = mongoose.model('report', report);
 const locationSchema = mongoose.model('location', location);
 const transportSchema = mongoose.model('transport', transport);
+const votesSchema = mongoose.model('votes', votes);
 const metadataSchema = mongoose.model('metadata', metadata);
 const commentSchema = mongoose.model('comment', comment);
 
@@ -157,6 +175,7 @@ module.exports = {
   Report: reportSchema,
   Location: locationSchema,
   Transport: transportSchema,
+  Votes: votesSchema,
   Metadata: metadataSchema,
   Comment: commentSchema
 };
