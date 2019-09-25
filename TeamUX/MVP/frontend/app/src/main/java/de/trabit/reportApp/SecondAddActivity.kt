@@ -8,6 +8,14 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_second_add.*
+import android.widget.ArrayAdapter
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
+
 
 class SecondAddActivity : AppCompatActivity() {
 
@@ -15,12 +23,11 @@ class SecondAddActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second_add)
 
-
         //read out user input from edittext (Id Means of Transport and destination Location)
-        val meansOfTransportIdButton = findViewById<EditText>(R.id.inputTextNr)
-        val meansOfTransportId = meansOfTransportIdButton.text
-        val destinationLocationButton = findViewById<EditText>(R.id.inputTextDestination)
-        val destinationLocation = destinationLocationButton.text
+        val meansOfTransportIdField = findViewById<EditText>(R.id.inputTextNr)
+        val meansOfTransportId = meansOfTransportIdField.text
+        val destinationLocationField = findViewById<AutoCompleteTextView>(R.id.inputTextDestination)
+        val destinationLocation = destinationLocationField.text
         val confirmBtn = findViewById<Button>(R.id.btn_next)
 
         //store the value (chosen means of transport) in a variable
@@ -55,7 +62,7 @@ class SecondAddActivity : AppCompatActivity() {
             "car" -> {
                 imageMeansOfTransport.setImageResource(R.mipmap.car_icon_clicked)
                 textMeansOfTransport.text = "Auto"
-                meansOfTransportIdButton.setVisibility(View.GONE)
+                meansOfTransportIdField.setVisibility(View.GONE)
                 confirmBtn.setOnClickListener{
                     NextActivityCar(meansOfTransportId, destinationLocation,chosenMeansOfTransport)
                 }
@@ -76,7 +83,16 @@ class SecondAddActivity : AppCompatActivity() {
             startActivity(backIntent)
         }
 
+        // Array of City Names
+        val citys = arrayOf(
+            "Gummersbach", "Gundelfingen", "Stuttgart", "Sindelfingen", "Köln", "Hamburg", "Engelskirchen",
+            "Düsseldorf", "Dortmund", "Overath", "Kiel", "Sindelfingen", "Berlin","Eschweiler"
+        )
+        val adapter = ArrayAdapter<String>(
+            this, android.R.layout.simple_list_item_1, citys
+        )
 
+        destinationLocationField.setAdapter(adapter)
     }
 
     fun NextActivity (meansOfTransportId : Editable, destinationLocation: Editable, chosenMeansOfTransport: String){

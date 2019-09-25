@@ -53,19 +53,63 @@ router.delete('/reports/:reportId', async (req, res) => {
     }
 });
 
-// increment upvotes
-router.patch('/reports/:reportId/upvotes', async (req, res) => {
+// get upvotes
+router.get('/reports/:reportId/upvotes', async (req, res) => {
     try {
-        res.status(204).send(await ReportController.upvote(req.params.reportId));
+        res.status(200).send(await ReportController.getVotes('upvotes', req.params.reportId));
     } catch (error) {
         res.status(error.statusCode ? error.statusCode : 500).json(error.message);
     }
 });
 
-// increment downvotes
-router.patch('/reports/:reportId/downvotes', async (req, res) => {
+// get downvotes
+router.get('/reports/:reportId/downvotes', async (req, res) => {
     try {
-        res.status(204).send(await ReportController.downvote(req.params.reportId));
+        res.status(200).send(await ReportController.getVotes('downvotes', req.params.reportId));
+    } catch (error) {
+        res.status(error.statusCode ? error.statusCode : 500).json(error.message);
+    }
+});
+
+// add upvote
+router.put('/reports/:reportId/upvotes', async (req, res) => {
+    try {
+        const userId = req.header('userId');
+        const statusCode = await ReportController.addVote('upvotes', req.params.reportId, userId);
+        res.status(statusCode).send();
+    } catch (error) {
+        res.status(error.statusCode ? error.statusCode : 500).json(error.message);
+    }
+});
+
+// add downvote
+router.put('/reports/:reportId/downvotes', async (req, res) => {
+    try {
+        const userId = req.header('userId');
+        const statusCode = await ReportController.addVote('downvotes', req.params.reportId, userId);
+        res.status(statusCode).send();
+    } catch (error) {
+        res.status(error.statusCode ? error.statusCode : 500).json(error.message);
+    }
+});
+
+// remove upvote
+router.delete('/reports/:reportId/upvotes', async (req, res) => {
+    try {
+        const userId = req.header('userId');
+        const statusCode = await ReportController.removeVote('upvotes', req.params.reportId, userId);
+        res.status(statusCode).send();
+    } catch (error) {
+        res.status(error.statusCode ? error.statusCode : 500).json(error.message);
+    }
+});
+
+// remove downvote
+router.delete('/reports/:reportId/downvotes', async (req, res) => {
+    try {
+        const userId = req.header('userId');
+        const statusCode = await ReportController.removeVote('downvotes', req.params.reportId, userId);
+        res.status(statusCode).send();
     } catch (error) {
         res.status(error.statusCode ? error.statusCode : 500).json(error.message);
     }

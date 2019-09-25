@@ -24,4 +24,13 @@ router.delete('/routeAlerts/:routeAlertId', async (req, res) => {
     }
 });
 
+// get route alerts by directionsId
+router.get('/routeAlerts/directions/:directionsId', async (req, res) => {
+    try {
+        res.status(200).send(await RouteAlertController.getByDirections(req.params.directionsId));
+    } catch (error) {
+        res.status(error.statusCode ? error.statusCode : 500).json(error.message);
+    }
+});
+
 module.exports = router;

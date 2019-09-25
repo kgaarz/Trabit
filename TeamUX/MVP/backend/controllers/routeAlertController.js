@@ -19,6 +19,16 @@ class RouteAlertController {
         return routeAlert;
     }
 
+    async getByDirections(directionsId) {
+        const routeAlert = await RouteAlert.find({
+            directions: directionsId
+        });
+        if (!routeAlert) {
+            throw new ApiError('No RouteAlerts with given directionsId found!', 404);
+        }
+        return routeAlert;
+    }
+
     async getAll() {
         return RouteAlert.find();
     }

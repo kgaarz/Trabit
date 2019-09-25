@@ -109,7 +109,8 @@
         android:layout_marginBottom="20dp"
         android:orientation="horizontal">
 
-        <EditText
+
+        <AutoCompleteTextView
             android:id="@+id/inputTextDestination"
             android:layout_width="318dp"
             android:layout_height="match_parent"
@@ -118,11 +119,14 @@
             android:layout_marginLeft="46dp"
             android:layout_marginRight="46dp"
             android:ems="10"
+            android:completionThreshold="1"
             android:fontFamily="@font/oxygen"
             android:hint="Zielort"
             android:inputType="textPersonName"
             android:textColor="@color/colorMiddleGrey"
             android:typeface="normal" />
+
+
     </RelativeLayout>
 
     <RelativeLayout
