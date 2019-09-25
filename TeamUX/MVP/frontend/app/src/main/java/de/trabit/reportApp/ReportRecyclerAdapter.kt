@@ -122,7 +122,7 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, private val onComment
                 removeUpvote(report, userId)
                 return
             }
-            val requestUrl = BuildConfig.REPORTAPI_BASE_URL + "reports/$reportId/upvotes"
+            val requestUrl = BuildConfig.REPORTAPI_BASE_URL + "reports/${report._id}/upvotes"
             val mQueue: RequestQueue = Volley.newRequestQueue(itemView.context)
             val request = object : StringRequest(
                 Method.PUT, requestUrl,
