@@ -85,7 +85,6 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, private val onComment
                 itemView.voteUpButton.setImageResource(R.mipmap.check_positive_blue)
             }
             itemView.voteUpButton.setOnClickListener{
-                println("upvote!")
                 addUpvote(report, BuildConfig.DEMO_USERID)
             }
 
@@ -94,7 +93,6 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, private val onComment
                 itemView.voteDownButton.setImageResource(R.mipmap.check_negative_blue)
             }
             itemView.voteDownButton.setOnClickListener{
-                println("downvote!")
                 addDownvote(report, BuildConfig.DEMO_USERID)
             }
 
