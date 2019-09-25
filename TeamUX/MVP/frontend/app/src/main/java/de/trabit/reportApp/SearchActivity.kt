@@ -30,10 +30,17 @@ class SearchActivity : AppCompatActivity() {
         //Find View By Id For SearchView
         val searchView = findViewById(R.id.searchView) as SearchView
 
-        // Array of City Names
+        // Array of City Names (dummy data)
         val name = arrayOf(
             "Gummersbach", "Gundelfingen", "Stuttgart", "Sindelfingen", "Köln", "Hamburg", "Engelskirchen",
-            "Düsseldorf", "Dortmund", "Overath", "Kiel", "Sindelfingen", "Berlin","Eschweiler"
+            "Düsseldorf", "Dortmund", "Overath", "Kiel", "Sindelfingen", "Berlin","Eschweiler","Aalen", "AAchen", "Aschaffenburg",
+            "Bamberg","Berlin","Bruchsal","Calw","Cottbus","Cuxhafen","Crailsheim","Cloppenburg","Darmstadt","Ditzingen","Dresden",
+            "Duisburg", "Delbrück", "Eisenach", "Emmendingen","Engen","Eppingen","Erding","Erlangen","Essen","Ettlingen","Euskirchen",
+            "Flensburg","Frankfurt am Main","Frankfurt","Frechen","Freising","Freudenstadt","Fulda","Fürth","Füssen","Furtwangen","Füssen",
+            "Geisingen","Geislingen","Göppingen","Göttingen","Günzburg","Gütersloh","Haigerloch","Heidelberg","Heilbronn","Herrenberg",
+            "Hockenheim","Hornberg","Hückeswagen","Hüfingen","Hürth","Ingolstadt","Immenau","Ingelfingen","Jena","Kaiserslautern","Karlsruhe",
+            "Kassel","Kempten","Kierspe","Koblenz","Konstanz","Künzelsau","Landshut","Leipzig","Leonberg","Lindau","Löffingen","Lörrach",
+            "Ludwigsburg","Moers","Mosbach","Müllheim","Neuss","Nürnberg","Regensburg","Ravensburg","Rottweil"
         )
 
         listview.visibility = View.INVISIBLE
