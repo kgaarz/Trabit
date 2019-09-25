@@ -20,6 +20,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import de.trabit.directionsApp.DirectionsActivity
+import de.trabit.directionsApp.MapActivity
 
 class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentListener {
     lateinit var reportList : Array<Report>
@@ -68,6 +70,7 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         val overviewIcon = findViewById<ImageButton>(R.id.overviewNavigation)
         val profileIcon = findViewById<ImageButton>(R.id.profileNavigation)
         val directionsIcon = findViewById<ImageButton>(R.id.directonsNavigation)
+        val mapIcon = findViewById<ImageButton>(R.id.mapNavigation)
 
         overviewIcon.setOnClickListener{
             overviewIcon.setImageResource(R.mipmap.overview_active)
@@ -85,6 +88,11 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
             startActivity(intent)
         }
 
+        mapIcon.setOnClickListener {
+            val intent = Intent(this, MapActivity::class.java)
+            startActivity(intent)
+        }
+
         //store the value (chosen city) via Intent from the SearchActivity in a variable
         val locationTitle = findViewById<TextView>(R.id.locationHeader)
         val manuallyLocationTitle = intent.getStringExtra("newLocation")
@@ -95,7 +103,7 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         }
 
         //Find View By Id for ClickListener Add Clicklistener to Imagebutton (Location) and link to SearchActivity
-        val locationBtn = findViewById<ImageButton>(R.id.locationChange)
+        val locationBtn = findViewById<RelativeLayout>(R.id.location_change_relative_layout)
 
         locationBtn.setOnClickListener{
             val intent = Intent(this,SearchActivity::class.java)

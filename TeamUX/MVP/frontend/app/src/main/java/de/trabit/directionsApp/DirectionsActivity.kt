@@ -1,4 +1,4 @@
-package de.trabit.reportApp
+package de.trabit.directionsApp
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import java.util.*
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
+import de.trabit.reportApp.R
 
 
 class DirectionsActivity : AppCompatActivity() {

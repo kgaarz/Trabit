@@ -22,20 +22,8 @@
             android:orientation="horizontal"
             android:padding="10dp">
 
-            <ImageButton
-                android:id="@+id/locationChange"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                app:srcCompat="@mipmap/location_icon" />
-
             <TextView
-                android:id="@+id/headerStartScreen"
+                android:id="@+id/headerReports"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -45,18 +33,38 @@
                 android:textSize="20sp"
                 app:fontFamily="@font/oxygen" />
 
-            <TextView
-                android:id="@+id/locationHeader"
+            <RelativeLayout
+                android:id="@+id/location_change_relative_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="35dp"
-                android:text="Gummersbach"
-                android:textColor="#F9F9F9"
-                android:textSize="15sp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/headerReports"
+                android:layout_marginTop="7dp"
+                android:clickable="true"
+                >
 
-                />
+                <ImageView
+                    android:id="@+id/locationChange"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@mipmap/location_icon" />
+
+                <TextView
+                    android:id="@+id/locationHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="Gummersbach"
+                    android:layout_toRightOf="@id/locationChange"
+                    android:layout_centerInParent="true"
+                    android:textColor="#F9F9F9"
+                    android:textSize="17sp"
+                    />
+            </RelativeLayout>
 
             <SearchView
                 android:id="@+id/search_view"
@@ -212,12 +220,14 @@
             android:orientation="horizontal">
 
             <ImageButton
+                android:id="@+id/mapNavigation"
                 android:layout_width="0dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:layout_weight="2"
                 android:background="@null"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_map_black_24dp" />
 
             <ImageButton
                 android:id="@+id/directonsNavigation"
