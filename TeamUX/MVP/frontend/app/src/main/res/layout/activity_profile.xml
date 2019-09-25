@@ -27,7 +27,8 @@
             android:text="Mein Profil"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
-            app:fontFamily="@font/oxygen" />
+            app:fontFamily="@font/oxygen"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -47,23 +48,34 @@
 
         <TextView
             android:id="@+id/nameProfile"
-            android:layout_width="137dp"
+            android:layout_width="171dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imageView3"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="138dp"
-            android:layout_marginLeft="138dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="127dp"
-            android:layout_marginRight="127dp"
-            android:layout_marginBottom="18dp"
+            android:layout_marginStart="122dp"
+            android:layout_marginLeft="122dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="108dp"
+            android:layout_marginRight="108dp"
             android:text="Max Mustermann"
             android:textColor="@color/colorWhite"
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:fontFamily="@font/oxygen" />
+
+        <ImageButton
+            android:id="@+id/btnEdit"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:tint="#FFFFFF"
+            app:srcCompat="@drawable/edit" />
 
 
     </RelativeLayout>
@@ -73,6 +85,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
 
         <TextView
             android:id="@+id/txtUserData"
@@ -85,14 +98,14 @@
             android:layout_alignParentRight="true"
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
-            android:layout_marginTop="29dp"
+            android:layout_marginTop="26dp"
             android:layout_marginEnd="238dp"
             android:layout_marginRight="238dp"
             android:fontFamily="@font/oxygen"
             android:text="Persönliche Daten"
             android:textColor="@color/colorDarkBlue"
+            android:textSize="16dp"
             android:textStyle="bold" />
-
 
         <TextView
             android:id="@+id/txtNameData"
@@ -101,11 +114,11 @@
             android:layout_below="@+id/txtUserData"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="7dp"
-            android:layout_marginLeft="7dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="14dp"
-            android:layout_marginEnd="185dp"
-            android:layout_marginRight="185dp"
+            android:layout_marginEnd="187dp"
+            android:layout_marginRight="187dp"
             android:layout_toEndOf="@+id/txtName"
             android:layout_toRightOf="@+id/txtName"
             android:text="Max Mustermann" />
@@ -130,11 +143,11 @@
             android:layout_below="@+id/txtNameData"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="6dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginTop="22dp"
-            android:layout_marginEnd="142dp"
-            android:layout_marginRight="142dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="143dp"
+            android:layout_marginRight="143dp"
             android:layout_toEndOf="@+id/txtMail"
             android:layout_toRightOf="@+id/txtMail"
             android:text="max.mustermann@mail.de" />
@@ -146,11 +159,10 @@
             android:layout_below="@+id/txtName"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="23dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="14dp"
             android:text="Email:" />
-
 
         <TextView
             android:id="@+id/txtNickname"
@@ -159,9 +171,9 @@
             android:layout_below="@+id/txtPreferences"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginStart="26dp"
-            android:layout_marginLeft="26dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="13dp"
             android:text="Nutzername:" />
 
         <TextView
@@ -171,11 +183,11 @@
             android:layout_below="@+id/txtPreferences"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="243dp"
-            android:layout_marginRight="243dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="246dp"
+            android:layout_marginRight="246dp"
             android:layout_toEndOf="@+id/txtNickname"
             android:layout_toRightOf="@+id/txtNickname"
             android:text="Max007" />
@@ -187,9 +199,9 @@
             android:layout_below="@+id/txtMail"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="15dp"
             android:text="Wohnort:" />
 
         <TextView
@@ -199,32 +211,34 @@
             android:layout_below="@+id/txtMailData"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="7dp"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="259dp"
-            android:layout_marginRight="259dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="223dp"
+            android:layout_marginRight="223dp"
             android:layout_toEndOf="@+id/txtHome"
             android:layout_toRightOf="@+id/txtHome"
             android:text="Köln" />
 
+
         <TextView
             android:id="@+id/txtPreferences"
-            android:layout_width="wrap_content"
+            android:layout_width="166dp"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/txtUserData"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="172dp"
-            android:layout_marginEnd="240dp"
-            android:layout_marginRight="240dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="151dp"
+            android:layout_marginEnd="218dp"
+            android:layout_marginRight="218dp"
             android:fontFamily="@font/oxygen"
             android:text="Kontoeinstellungen"
             android:textColor="@color/colorDarkBlue"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -234,9 +248,9 @@
             android:layout_below="@+id/txtNickname"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="13dp"
             android:text="Passwort:" />
 
         <TextView
@@ -246,11 +260,10 @@
             android:layout_below="@+id/txtNicknameData"
             android:layout_marginStart="6dp"
             android:layout_marginLeft="6dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="13dp"
             android:layout_toEndOf="@+id/txtPassword"
             android:layout_toRightOf="@+id/txtPassword"
             android:text="**********" />
-
 
         <Button
             android:id="@+id/btn_logout"
@@ -263,7 +276,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginStart="49dp"
             android:layout_marginLeft="49dp"
-            android:layout_marginTop="61dp"
+            android:layout_marginTop="31dp"
             android:layout_marginEnd="64dp"
             android:layout_marginRight="64dp"
             android:layout_marginBottom="10dp"
