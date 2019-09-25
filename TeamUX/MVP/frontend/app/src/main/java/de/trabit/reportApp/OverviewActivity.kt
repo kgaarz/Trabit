@@ -80,6 +80,8 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         profileIcon.setOnClickListener{
             profileIcon.setImageResource(R.mipmap.profile_active)
             overviewIcon.setImageResource(R.mipmap.overview)
+            val profileIntent = Intent(this,ProfileActivity::class.java)
+            startActivity(profileIntent)
         }
 
         directionsIcon.setOnClickListener {
