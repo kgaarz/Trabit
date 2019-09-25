@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteBlue"
+    android:orientation="vertical">
+
+
+    //header
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:background="@drawable/custom_header"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/headerStartScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:text="MeinProfil"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            app:fontFamily="@font/oxygen" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="105dp"
+            android:layout_height="84dp"
+            android:layout_below="@+id/headerStartScreen"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="159dp"
+            android:layout_marginLeft="159dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="156dp"
+            android:layout_marginRight="156dp"
+            android:src="@mipmap/profile_active" />
+
+        <TextView
+            android:id="@+id/nameProfile"
+            android:layout_width="137dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView3"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="138dp"
+            android:layout_marginLeft="138dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="127dp"
+            android:layout_marginRight="127dp"
+            android:layout_marginBottom="18dp"
+            android:text="Max Mustermann"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"
+            app:fontFamily="@font/oxygen" />
+
+
+    </RelativeLayout>
+
+
+
+    //Footer
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="45dp"
+            android:background="@drawable/drop_shadow_footer" />
+
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="298dp"
+            android:layout_height="35dp"
+            android:layout_below="@+id/txtPasswordData"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="49dp"
+            android:layout_marginLeft="49dp"
+            android:layout_marginTop="61dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginRight="64dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_button_next"
+            android:fontFamily="@font/oxygen"
+            android:text="Abmelden"
+            android:textColor="@color/colorDarkBlue"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtDelete"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_logout"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="162dp"
+            android:layout_marginLeft="162dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="153dp"
+            android:layout_marginRight="153dp"
+            android:layout_marginBottom="6dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Konto löschen"
+            android:textColor="@color/colorLightGrey" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/custom_footer"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@null"
+                android:scaleType="fitCenter" />
+
+            <ImageButton
+                android:id="@+id/directonsNavigation"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/directions_icon" />
+
+
+            <ImageButton
+                android:id="@+id/overviewNavigation"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/overview" />
+
+            <ImageButton
+                android:id="@+id/profileNavigation"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/profile_active" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtUserData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="29dp"
+            android:layout_marginEnd="238dp"
+            android:layout_marginRight="238dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Persönliche Daten"
+            android:textColor="@color/colorDarkBlue"
+            android:textStyle="bold" />
+
+
+
+
+        <TextView
+            android:id="@+id/txtNameData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtUserData"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="7dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="185dp"
+            android:layout_marginRight="185dp"
+            android:layout_toEndOf="@+id/txtName"
+            android:layout_toRightOf="@+id/txtName"
+            android:text="Max Mustermann" />
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtUserData"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="13dp"
+            android:text="Name:" />
+
+        <ImageView
+            android:layout_width="346dp"
+            android:layout_height="19dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="363dp"
+            android:src="@mipmap/linie_blau" />
+
+        <TextView
+            android:id="@+id/txtMailData"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtNameData"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="6dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="142dp"
+            android:layout_marginRight="142dp"
+            android:layout_toEndOf="@+id/txtMail"
+            android:layout_toRightOf="@+id/txtMail"
+            android:text="max.mustermann@mail.de" />
+
+        <TextView
+            android:id="@+id/txtMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtName"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="23dp"
+            android:text="Email:" />
+
+        <ImageView
+            android:layout_width="348dp"
+            android:layout_height="19dp"
+            android:layout_below="@+id/txtNicknameData"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="241dp"
+            android:src="@mipmap/linie_blau" />
+
+
+        <TextView
+            android:id="@+id/txtNickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtPreferences"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="26dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="18dp"
+            android:text="Nutzername:" />
+
+        <TextView
+            android:id="@+id/txtNicknameData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtPreferences"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="243dp"
+            android:layout_marginRight="243dp"
+            android:layout_toEndOf="@+id/txtNickname"
+            android:layout_toRightOf="@+id/txtNickname"
+            android:text="Max007" />
+
+        <TextView
+            android:id="@+id/txtHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtMail"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="24dp"
+            android:text="Wohnort:" />
+
+        <TextView
+            android:id="@+id/txtHomeData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtMailData"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="7dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="259dp"
+            android:layout_marginRight="259dp"
+            android:layout_toEndOf="@+id/txtHome"
+            android:layout_toRightOf="@+id/txtHome"
+            android:text="Köln" />
+
+        <TextView
+            android:id="@+id/txtPreferences"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/txtUserData"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="172dp"
+            android:layout_marginEnd="240dp"
+            android:layout_marginRight="240dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Kontoeinstellungen"
+            android:textColor="@color/colorDarkBlue"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="345dp"
+            android:layout_height="19dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="26dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="405dp"
+            android:src="@mipmap/linie_blau" />
+
+        <TextView
+            android:id="@+id/txtPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtNickname"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="18dp"
+            android:text="Passwort:" />
+
+        <TextView
+            android:id="@+id/txtPasswordData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtNicknameData"
+            android:layout_marginStart="6dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="18dp"
+            android:layout_toEndOf="@+id/txtPassword"
+            android:layout_toRightOf="@+id/txtPassword"
+            android:text="**********" />
+
+    </RelativeLayout>
+
+</LinearLayout>
+
