@@ -3,6 +3,7 @@ package de.trabit.directionsApp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import de.trabit.directionsApp.requestHelper.RequestActivity
 import de.trabit.reportApp.R
 
 
@@ -23,5 +24,7 @@ class DirectionSelectionActivity : AppCompatActivity() {
         val text = findViewById<TextView>(R.id.textView)
         text.setText(timestamp.toString() + " " + originLat.toString() + " " + originLong.toString() + " " + destinationLat.toString() + " " + destinationLong.toString())
 
+        val request = RequestActivity()
+        request.getRequest(getApplicationContext(), "traffics", "5d5414fa043e699565a4795e")
     }
 }
