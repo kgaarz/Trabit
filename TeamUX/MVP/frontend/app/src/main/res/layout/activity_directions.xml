@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout_main"
+    android:id="@+id/linearLayout_directions"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/places_autocomplete_toolbar_shadow"
@@ -36,12 +36,12 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/btn_next3"
+            android:id="@+id/buttonCreateRoute"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="46dp"
-            android:layout_marginTop="415dp"
+            android:layout_marginTop="350dp"
             android:layout_marginRight="46dp"
             android:background="@drawable/custom_button_send"
             android:fontFamily="@font/oxygen"
@@ -116,14 +116,14 @@
                 android:layout_width="200dp"
                 android:layout_height="155dp"
                 android:layout_marginLeft="200dp"
-                android:layout_marginTop="155dp"
+                android:layout_marginTop="160dp"
                 android:timePickerMode="spinner" />
 
             <DatePicker
                 android:id="@+id/datePicker"
                 android:layout_width="225dp"
                 android:layout_height="155dp"
-                android:layout_marginTop="155dp"
+                android:layout_marginTop="160dp"
                 android:calendarViewShown="false"
                 android:datePickerMode="spinner" />
         </RelativeLayout>
