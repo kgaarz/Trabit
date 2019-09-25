@@ -27,6 +27,10 @@ const routeAlert = new mongoose.Schema({
         type: ObjectId,
         required: true,
     },
+    directions: {
+        type: ObjectId,
+        required: true,
+    },
     location: {
         origin: {
             type: Object,
