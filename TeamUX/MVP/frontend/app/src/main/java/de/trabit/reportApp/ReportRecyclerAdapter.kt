@@ -1,18 +1,25 @@
 package de.trabit.reportApp
 
+import ErrorSnackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.api_test.dataClasses.Report
+import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.report_item.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 //Adapter Class to adapt the ReportsRecyclerview with the Layout
-class ReportRecyclerAdapter(var reportList: Array<Report>, private val onCommentLister: OnCommentListener) : RecyclerView.Adapter<ReportRecyclerAdapter.ViewHolder>(), Filterable
+class ReportRecyclerAdapter(var reportList: Array<Report>, private val onCommentListener: OnCommentListener) : RecyclerView.Adapter<ReportRecyclerAdapter.ViewHolder>(), Filterable
 {
     //Clone of the reportList to filter the data
     val reportListFull : Array<Report> = reportList
@@ -28,7 +35,7 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, private val onComment
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ReportViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.report_item, parent, false), this.onCommentLister
+            LayoutInflater.from(parent.context).inflate(R.layout.report_item, parent, false), this.onCommentListener
         )
     }
 
@@ -36,22 +43,9 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, private val onComment
        return reportList.size
     }
 
-
     open class ViewHolder (itemView: View, private val onCommentListener: OnCommentListener) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-
         init {
             itemView.commentIcon.setOnClickListener(this)
-
-            itemView.voteUpButton.setOnClickListener{
-                itemView.voteUpButton.setImageResource(R.mipmap.check_positive_blue)
-                itemView.voteDownButton.setImageResource(R.mipmap.check_negative_grey)
-            }
-
-            itemView.voteDownButton.setOnClickListener{
-                itemView.voteDownButton.setImageResource(R.mipmap.check_negative_blue)
-                itemView.voteUpButton.setImageResource(R.mipmap.check_positive_grey)
-            }
-
         }
 
         override fun onClick(v: View?) {
@@ -74,9 +68,8 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, private val onComment
         private var reportId : String? = null
 
         fun bind(report : Report) {
-
             // format date for report view
-            val dateFormatter = SimpleDateFormat("dd.MM.YYYY", Locale.GERMAN)
+            val dateFormatter = SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN)
             val today = Calendar.getInstance()
             val yesterday = Calendar.getInstance()
             yesterday.add(Calendar.DAY_OF_YEAR, -1)
@@ -85,6 +78,24 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, private val onComment
                 dateFormatter.format(today.time) -> "Heute"
                 dateFormatter.format(today.time) -> "Gestern"
                 else -> dateFormatter.format(report.created)
+            }
+
+            // upvote action
+            if (report.metadata.upvotes.users.contains(BuildConfig.DEMO_USERID)) {
+                itemView.voteUpButton.setImageResource(R.mipmap.check_positive_blue)
+            }
+            itemView.voteUpButton.setOnClickListener{
+                println("upvote!")
+                addUpvote(report, BuildConfig.DEMO_USERID)
+            }
+
+            // downvote action
+            if (report.metadata.downvotes.users.contains(BuildConfig.DEMO_USERID)) {
+                itemView.voteDownButton.setImageResource(R.mipmap.check_negative_blue)
+            }
+            itemView.voteDownButton.setOnClickListener{
+                println("downvote!")
+                addDownvote(report, BuildConfig.DEMO_USERID)
             }
 
             // format time for report view
@@ -103,6 +114,121 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, private val onComment
             commentAmount.text = report.comments.size.toString()
             confirmIndex.text = votes.toString()
             reportId = report._id
+        }
+
+        private fun addUpvote(report : Report, userId : String) {
+            // check if user already upvoted
+            if (report.metadata.upvotes.users.contains(userId)) {
+                removeUpvote(report, userId)
+                return
+            }
+            val requestUrl = BuildConfig.REPORTAPI_BASE_URL + "reports/$reportId/upvotes"
+            val mQueue: RequestQueue = Volley.newRequestQueue(itemView.context)
+            val request = object : StringRequest(
+                Method.PUT, requestUrl,
+                Response.Listener {
+                    itemView.voteUpButton.setImageResource(R.mipmap.check_positive_blue)
+                    itemView.voteDownButton.setImageResource(R.mipmap.check_negative_grey)
+                    getVotes(report)
+                }, Response.ErrorListener {
+                    it.printStackTrace()
+                    ErrorSnackbar(itemView).show("Upvote fehlgeschlagen!")
+                })
+            {
+                override fun getHeaders(): MutableMap<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["userId"] = userId
+                    return headers
+                }
+            }
+            mQueue.add(request)
+        }
+
+        private fun addDownvote(report : Report, userId : String) {
+            // check if user already downvoted
+            if (report.metadata.downvotes.users.contains(userId)) {
+                removeDownvote(report, userId)
+                return
+            }
+            val requestUrl = BuildConfig.REPORTAPI_BASE_URL + "reports/${report._id}/downvotes"
+            val mQueue: RequestQueue = Volley.newRequestQueue(itemView.context)
+            val request = object : StringRequest(
+                Method.PUT, requestUrl,
+                Response.Listener {
+                    itemView.voteDownButton.setImageResource(R.mipmap.check_negative_blue)
+                    itemView.voteUpButton.setImageResource(R.mipmap.check_positive_grey)
+                    getVotes(report)
+                }, Response.ErrorListener {
+                    it.printStackTrace()
+                    ErrorSnackbar(itemView).show("Downvote fehlgeschlagen!")
+                })
+            {
+                override fun getHeaders(): MutableMap<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["userId"] = userId
+                    return headers
+                }
+            }
+            mQueue.add(request)
+        }
+
+        private fun getVotes(report : Report) {
+            val requestUrl = BuildConfig.REPORTAPI_BASE_URL + "reports/${report._id}"
+            val mQueue: RequestQueue = Volley.newRequestQueue(itemView.context)
+            val request = StringRequest(Request.Method.GET, requestUrl,
+                Response.Listener {
+                    val gson = GsonBuilder().create()
+                    val reportResult = gson.fromJson(it.toString(), Report::class.java)
+                    itemView.voteNumber.text = (reportResult.metadata.upvotes.amount - reportResult.metadata.downvotes.amount).toString()
+                    report.metadata.upvotes = reportResult.metadata.upvotes
+                    report.metadata.downvotes = reportResult.metadata.downvotes
+                }, Response.ErrorListener {
+                    it.printStackTrace()
+                    ErrorSnackbar(itemView).show("Abrufen der Stimmen fehlgeschlagen!")
+                })
+            mQueue.add(request)
+        }
+
+        private fun removeUpvote(report : Report, userId : String) {
+            val requestUrl = BuildConfig.REPORTAPI_BASE_URL + "reports/${report._id}/upvotes"
+            val mQueue: RequestQueue = Volley.newRequestQueue(itemView.context)
+            val request = object : StringRequest(Method.DELETE, requestUrl,
+                Response.Listener {
+                    itemView.voteUpButton.setImageResource(R.mipmap.check_positive_grey)
+                    getVotes(report)
+                }, Response.ErrorListener {
+                    it.printStackTrace()
+                    ErrorSnackbar(itemView).show("Upvote entfernen fehlgeschlagen!")
+                })
+            {
+                override fun getHeaders(): MutableMap<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["userId"] = userId
+                    return headers
+                }
+            }
+            mQueue.add(request)
+        }
+
+        private fun removeDownvote(report : Report, userId : String) {
+            val requestUrl = BuildConfig.REPORTAPI_BASE_URL + "reports/${report._id}/downvotes"
+            val mQueue: RequestQueue = Volley.newRequestQueue(itemView.context)
+            val request = object : StringRequest(Method.DELETE, requestUrl,
+                Response.Listener {
+                    itemView.voteDownButton.setImageResource(R.mipmap.check_negative_grey)
+                    getVotes(report)
+                }, Response.ErrorListener {
+                    it.printStackTrace()
+                    ErrorSnackbar(itemView).show("Downvote entfernen fehlgeschlagen!")
+                })
+            {
+                override fun getHeaders(): MutableMap<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["userId"] = userId
+                    return headers
+                }
+            }
+            mQueue.add(request)
         }
     }
 
