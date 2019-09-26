@@ -138,6 +138,19 @@
                 android:scaleType="fitCenter"
                 android:src="@mipmap/check_positive_grey" />
 
+            <ImageView
+                android:id="@+id/verifiedStar"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_below="@+id/voteUpButton"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toStartOf="@+id/voteNumber"
+                android:layout_toLeftOf="@+id/voteNumber"
+                android:src="@mipmap/star_yellow"
+                android:visibility="invisible" />
+
             <TextView
                 android:id="@+id/voteNumber"
                 android:layout_width="20dp"

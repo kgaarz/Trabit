@@ -141,6 +141,9 @@ class CommentsActivity : AppCompatActivity() {
                     day_text_comments_overview.text = reportDate
                     time_text_comments_overview.text = reportTime
                     voteNumber.text = (report.metadata.upvotes.amount - report.metadata.downvotes.amount).toString()
+                    if (report.metadata.verified) {
+                        verifiedStar.visibility = View.VISIBLE
+                    }
 
                     // send comments to adapter
                     comments_recycler_view.adapter = CommentsRecyclerAdapter(report.comments)
