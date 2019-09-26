@@ -22,12 +22,11 @@ import kotlinx.android.synthetic.main.activity_comments.*
 import org.json.JSONException
 import org.json.JSONObject
 import de.trabit.reportApp.dataClasses.CreateComment
-import de.trabit.reportApp.requests.Voting
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class CommentsActivity : AppCompatActivity(), Voting.VotingButtons {
+class CommentsActivity : AppCompatActivity() {
     var commentCreated = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
