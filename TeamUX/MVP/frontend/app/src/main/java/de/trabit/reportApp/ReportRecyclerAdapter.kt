@@ -1,6 +1,8 @@
 package de.trabit.reportApp
 
 import ErrorSnackbar
+import android.content.Context
+import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,21 +45,26 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, private val onComment
        return reportList.size
     }
 
-    open class ViewHolder (itemView: View, private val onCommentListener: OnCommentListener) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    open class ViewHolder (itemView: View, private val onCommentListener: OnCommentListener) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
+
         init {
             itemView.commentIcon.setOnClickListener(this)
+
         }
 
         override fun onClick(v: View?) {
             onCommentListener.onCommentClick(adapterPosition)
+
         }
+
     }
 
     interface OnCommentListener {
         fun onCommentClick(position : Int)
     }
 
-    class ReportViewHolder (itemView: View, onCommentListener : OnCommentListener) : ViewHolder(itemView, onCommentListener){
+    class ReportViewHolder (itemView: View, onCommentListener : OnCommentListener) : ViewHolder(itemView, onCommentListener), View.OnCreateContextMenuListener{
+
         private val dayText = itemView.findViewById(R.id.day_text) as TextView
         private val timeText = itemView.findViewById(R.id.time_text) as TextView
         private val usernameText = itemView.findViewById(R.id.username_text) as TextView
@@ -67,9 +74,35 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, private val onComment
         private val commentAmount = itemView.findViewById(R.id.commentNumber) as TextView
         private val confirmIndex = itemView.findViewById(R.id.voteNumber) as TextView
         private val verifiedStar = itemView.findViewById(R.id.verifiedStar) as ImageView
+        private val reportMenu = itemView.findViewById(R.id.reportOptions) as ImageButton
         private var reportId : String? = null
 
         fun bind(report : Report) {
+
+            //set view visible if userId equals to reportitem userId
+
+            if( report.author.toString().toLowerCase() == BuildConfig.DEMO_USERNAME.toString().toLowerCase()){
+                reportMenu.visibility = View.VISIBLE
+            }else{
+                reportMenu.visibility = View.INVISIBLE
+            }
+            //setOnclicklistener to view to open menu and delete Report from database
+
+            reportMenu.setOnClickListener {
+                val context: Context = itemView.getContext()
+            val popupMenu = PopupMenu(context,it)
+                popupMenu.setOnMenuItemClickListener { item ->
+                    when(item.itemId){
+                        R.id.menu_close_report -> {
+                            ErrorSnackbar(itemView).show("Die Störung wurde beendet!")
+                            true
+                        }else -> false
+                    }
+                }
+                popupMenu.inflate(R.menu.reports_menu)
+                popupMenu.show()
+            }
+
             // format date for report view
             val dateFormatter = SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN)
             val today = Calendar.getInstance()
@@ -234,6 +267,7 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, private val onComment
             }
             mQueue.add(request)
         }
+        
     }
 
     //Filter function to filter the reportitems concerning to the searchtext from the searchfield (filter idText)

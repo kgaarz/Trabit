@@ -4,6 +4,8 @@ import ErrorSnackbar
 import SuccessSnackbar
 import android.content.Intent
 import android.os.Bundle
+import android.view.ContextMenu
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import com.android.volley.Request
@@ -22,9 +24,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.trabit.directionsApp.DirectionsActivity
 import de.trabit.directionsApp.MapActivity
+import kotlinx.android.synthetic.main.report_item.view.*
 
 class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentListener {
-    private lateinit var reportList : Array<Report>
+    private lateinit var reportList: Array<Report>
 
     override fun onCommentClick(position: Int) {
         val commentIntent = Intent(this, CommentsActivity::class.java)
@@ -36,9 +39,10 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_overview)
 
+
         // get intent extra from report creation
         val reportCreated = intent.getBooleanExtra("reportCreated", false)
-        if(reportCreated) {
+        if (reportCreated) {
             SuccessSnackbar(linearLayout_main).show("Störungsmledung wurde erfolgreich erstellt!")
         }
 
@@ -48,7 +52,7 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
 
         // filter reports via searchView
         val searchView = findViewById<SearchView>(R.id.search_view)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return false
             }
@@ -61,8 +65,8 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
 
         //Add Intent to firstAddActivity to add a report (plus button)
         val addButton = findViewById<ImageButton>(R.id.addButton)
-        addButton.setOnClickListener{
-            val addReportIntent = Intent(this,FirstAddActivity::class.java)
+        addButton.setOnClickListener {
+            val addReportIntent = Intent(this, FirstAddActivity::class.java)
             startActivity(addReportIntent)
         }
 
@@ -72,13 +76,13 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         val directionsIcon = findViewById<ImageButton>(R.id.directonsNavigation)
         val mapIcon = findViewById<ImageButton>(R.id.mapNavigation)
 
-        overviewIcon.setOnClickListener{
+        overviewIcon.setOnClickListener {
             overviewIcon.setImageResource(R.mipmap.overview_active)
             profileIcon.setImageResource(R.mipmap.profile)
         }
 
-        profileIcon.setOnClickListener{
-            val profileIntent = Intent(this,ProfileActivity::class.java)
+        profileIcon.setOnClickListener {
+            val profileIntent = Intent(this, ProfileActivity::class.java)
             startActivity(profileIntent)
             profileIcon.setImageResource(R.mipmap.profile_active)
             overviewIcon.setImageResource(R.mipmap.overview)
@@ -100,15 +104,15 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         val manuallyLocationTitle = intent.getStringExtra("newLocation")
 
         //if a value has been submitted via intent than change the Location Textview accordingly to the passed value from the intent
-        if (manuallyLocationTitle !== null){
+        if (manuallyLocationTitle !== null) {
             locationTitle.text = manuallyLocationTitle
         }
 
         //Find View By Id for ClickListener Add Clicklistener to Imagebutton (Location) and link to SearchActivity
         val locationBtn = findViewById<RelativeLayout>(R.id.location_change_relative_layout)
 
-        locationBtn.setOnClickListener{
-            val intent = Intent(this,SearchActivity::class.java)
+        locationBtn.setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
         }
 
@@ -164,7 +168,7 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         }
     }
 
-    private fun getReports(params : ReportRequestParameters) {
+    private fun getReports(params: ReportRequestParameters) {
         val rootUrl = BuildConfig.REPORTAPI_BASE_URL
         val requestUrl = rootUrl + "reports" + getQueryString(params)
         val mQueue: RequestQueue = Volley.newRequestQueue(this)
@@ -173,7 +177,8 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
                 try {
                     val gson = GsonBuilder().create()
                     reportList = gson.fromJson(it.toString(), Array<Report>::class.java)
-                    recycler_view.adapter = ReportRecyclerAdapter(reportList, this)//?.filter?.filter("test")
+                    recycler_view.adapter =
+                        ReportRecyclerAdapter(reportList, this)//?.filter?.filter("test")
 
                     // hide or show bg picture
                     if (reportList.isEmpty()) {
@@ -198,11 +203,13 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         mQueue.add(request)
     }
 
-    private fun getQueryString (params : ReportRequestParameters) : String {
+    private fun getQueryString(params: ReportRequestParameters): String {
         var queryString = "?originCity=${params.orignCity}&transportType=${params.transportType}"
-        val addParam = { query: String, param: String? -> if(!param.isNullOrBlank()) "$query&$param" else query}
+        val addParam =
+            { query: String, param: String? -> if (!param.isNullOrBlank()) "$query&$param" else query }
         queryString = addParam(queryString, params.transportTag)
         queryString = addParam(queryString, params.destinationCity)
         return queryString
     }
- }
+
+}
