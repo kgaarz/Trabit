@@ -15,8 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ProfileActivity">
-        </activity>
+        <activity android:name=".Login"></activity>
+        <activity android:name=".ProfileActivity"></activity>
         <activity android:name="de.trabit.directionsApp.DirectionSelectionActivity" />
         <activity android:name="de.trabit.directionsApp.MapActivity" />
         <activity android:name="de.trabit.directionsApp.DirectionsActivity" />
@@ -31,7 +31,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <meta-data
