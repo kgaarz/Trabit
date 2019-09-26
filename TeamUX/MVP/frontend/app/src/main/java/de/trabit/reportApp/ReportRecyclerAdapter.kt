@@ -65,6 +65,7 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, private val onComment
         private val reportText = itemView.findViewById(R.id.report_text) as TextView
         private val commentAmount = itemView.findViewById(R.id.commentNumber) as TextView
         private val confirmIndex = itemView.findViewById(R.id.voteNumber) as TextView
+        private val verifiedStar = itemView.findViewById(R.id.verifiedStar) as ImageView
         private var reportId : String? = null
 
         fun bind(report : Report) {
@@ -112,6 +113,9 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, private val onComment
             commentAmount.text = report.comments.size.toString()
             confirmIndex.text = votes.toString()
             reportId = report._id
+            if (report.metadata.verified) {
+                verifiedStar.visibility = View.VISIBLE
+            }
         }
 
         private fun addUpvote(report : Report, userId : String) {

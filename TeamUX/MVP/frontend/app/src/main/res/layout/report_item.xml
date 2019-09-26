@@ -20,8 +20,8 @@
             android:layout_width="290dp"
             android:layout_height="30dp"
             android:layout_alignParentLeft="true"
-            android:id="@+id/linearlayout_header_reports"
-            >
+            android:layout_alignParentStart="true"
+            android:id="@+id/linearlayout_header_reports">
 
             <TextView
                 android:id="@+id/day_text"
@@ -30,8 +30,7 @@
                 android:layout_weight="4"
                 android:fontFamily="@font/oxygen"
                 android:text="Tag"
-                android:textSize="13sp"
-                />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/time_text"
@@ -41,21 +40,22 @@
                 android:fontFamily="@font/oxygen"
                 android:text="Uhrzeit"
                 android:textAlignment="center"
-                android:textSize="13sp"
-                />
+                android:textSize="13sp" />
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="3dp"
                 android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:src="@mipmap/seperate_dot" />
+                android:src="@mipmap/seperate_dot"/>
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:src="@mipmap/profile_icon" />
@@ -65,10 +65,11 @@
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp"
                 android:layout_weight="7"
                 android:fontFamily="@font/oxygen"
                 android:text="Benutzername"
-                android:textSize="13sp" />
+                android:textSize="13sp"/>
 
         </LinearLayout>
 
@@ -90,19 +91,23 @@
             android:fontFamily="@font/oxygen"
             android:text="Kennung"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="9dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/id_text"
+            android:layout_toEndOf="@id/id_text"
             android:layout_toLeftOf="@id/destination_text"
+            android:layout_toStartOf="@id/destination_text"
             android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
             android:layout_marginRight="2dp"
-            android:src="@mipmap/arrow_right"
-         />
+            android:layout_marginEnd="2dp"
+            android:src="@mipmap/arrow_right"/>
 
         <TextView
             android:id="@+id/destination_text"
@@ -111,8 +116,9 @@
             android:fontFamily="@font/oxygen"
             android:text="Gummersbach"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
         </RelativeLayout>
 
         <ImageButton
@@ -120,20 +126,24 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="30dp"
             android:background="@null"
             android:scaleType="fitCenter"
-            android:src="@mipmap/check_positive_grey" />
+            android:src="@mipmap/check_positive_grey"/>
 
         <ImageView
+            android:id="@+id/verifiedStar"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_below="@+id/voteUpButton"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="13dp"
-            android:layout_marginRight="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toStartOf="@+id/voteNumber"
+            android:layout_toLeftOf="@+id/voteNumber"
             android:src="@mipmap/star_yellow"
-            />
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/voteNumber"
@@ -141,10 +151,12 @@
             android:layout_height="20dp"
             android:layout_below="@+id/voteUpButton"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="10dp"
             android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:fontFamily="@font/oxygen"
-            android:text="0" />
+            android:text="0"/>
 
 
         <ImageButton
@@ -153,6 +165,7 @@
             android:layout_height="35dp"
             android:layout_below="@+id/voteNumber"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="10dp"
             android:background="@null"
             android:scaleType="fitCenter"
@@ -164,11 +177,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/relative_layout_id_destination"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/oxygen"
             android:paddingTop="5dp"
             android:text="Kommentar, Kommentar, Kommentar"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <ImageButton
             android:id="@+id/commentIcon"
@@ -176,11 +190,13 @@
             android:layout_height="20dp"
             android:layout_below="@+id/report_text"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="20dp"
             android:background="@null"
             android:scaleType="fitCenter"
-            android:src="@mipmap/comment_icon_black" />
+            android:src="@mipmap/comment_icon_black"/>
 
         <TextView
             android:id="@+id/commentNumber"
@@ -188,11 +204,14 @@
             android:layout_height="20dp"
             android:layout_below="@+id/report_text"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:text="0" />
 
         <ImageButton
+            android:id="@+id/reportOptions"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerHorizontal="true"
@@ -200,8 +219,7 @@
             android:src="@mipmap/dots"
             android:background="@null"
             android:layout_marginTop="25dp"
-            android:scaleType="fitCenter"
-        />
+            android:scaleType="fitCenter" />
 
     </RelativeLayout>
 

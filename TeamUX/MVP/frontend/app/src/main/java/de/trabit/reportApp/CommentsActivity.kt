@@ -27,7 +27,6 @@ import java.util.*
 
 
 class CommentsActivity : AppCompatActivity() {
-    var commentCreated = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +34,7 @@ class CommentsActivity : AppCompatActivity() {
 
         //get reportId
         val reportId = intent.getStringExtra("report_id")
+        val commentCreated = intent.getBooleanExtra("commentCreated", false)
 
         val sendNewComment = findViewById<Button>(R.id.comment_send_button)
         val commentText = findViewById<EditText>(R.id.addComment).text
@@ -77,8 +77,9 @@ class CommentsActivity : AppCompatActivity() {
             Response.Listener {
                 try {
                     val addCommentIntent = Intent(this, CommentsActivity::class.java)
-                    startActivity(addCommentIntent)
-                    commentCreated = true
+                    finish()
+                    addCommentIntent.putExtra("commentCreated", true).putExtra("report_id", reportId)
+                    startActivity(addCommentIntent);
                 } catch (e: JSONException) {
                     e.printStackTrace()
                     ErrorSnackbar(linearLayout_comments).show("Kommentar konnte nicht erstellt werden!")
@@ -141,6 +142,9 @@ class CommentsActivity : AppCompatActivity() {
                     day_text_comments_overview.text = reportDate
                     time_text_comments_overview.text = reportTime
                     voteNumber.text = (report.metadata.upvotes.amount - report.metadata.downvotes.amount).toString()
+                    if (report.metadata.verified) {
+                        verifiedStar.visibility = View.VISIBLE
+                    }
 
                     // send comments to adapter
                     comments_recycler_view.adapter = CommentsRecyclerAdapter(report.comments)
