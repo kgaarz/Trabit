@@ -4,6 +4,7 @@ import ErrorSnackbar
 import SuccessSnackbar
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,13 +22,12 @@ import kotlinx.android.synthetic.main.activity_comments.*
 import org.json.JSONException
 import org.json.JSONObject
 import de.trabit.reportApp.dataClasses.CreateComment
+import de.trabit.reportApp.requests.Voting
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class CommentsActivity : AppCompatActivity() {
-    //dummy username for MVP
-    val username = "maxiboi"
+class CommentsActivity : AppCompatActivity(), Voting.VotingButtons {
     var commentCreated = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,11 +35,10 @@ class CommentsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_comments)
 
         //get reportId
-        println(intent.getStringExtra("report_id"))
         val reportId = intent.getStringExtra("report_id")
 
         val sendNewComment = findViewById<Button>(R.id.comment_send_button)
-        var commentText = findViewById<EditText>(R.id.addComment).text
+        val commentText = findViewById<EditText>(R.id.addComment).text
 
         // get comments
         getComments(reportId)
@@ -61,7 +60,7 @@ class CommentsActivity : AppCompatActivity() {
             if(commentText.isNullOrBlank()) {
                 ErrorSnackbar(linearLayout_comments).show("Bitte gebe einen Kommentartext ein!")
             } else {
-                val comment = CreateComment(username, commentText.toString())
+                val comment = CreateComment(BuildConfig.DEMO_USERNAME, commentText.toString())
                 postComment(reportId, comment)
             }
         }

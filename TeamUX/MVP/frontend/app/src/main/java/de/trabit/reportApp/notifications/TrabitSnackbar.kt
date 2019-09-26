@@ -1,12 +1,17 @@
-package de.trabit.reportApp
+package de.trabit.reportApp.notifications
 
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
+import de.trabit.reportApp.R
 
 open class TrabitSnackbar (val view : View) {
-    open val colorText = ContextCompat.getColor(this.view.context, R.color.colorWhite)
-    open val colorBackground = ContextCompat.getColor(this.view.context, R.color.colorLightBlue)
+    open val colorText = ContextCompat.getColor(this.view.context,
+        R.color.colorWhite
+    )
+    open val colorBackground = ContextCompat.getColor(this.view.context,
+        R.color.colorLightBlue
+    )
     open val length = Snackbar.LENGTH_LONG
 
     fun show(message : String) {
