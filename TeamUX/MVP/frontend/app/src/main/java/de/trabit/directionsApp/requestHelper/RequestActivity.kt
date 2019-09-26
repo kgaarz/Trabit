@@ -2,6 +2,7 @@ package de.trabit.directionsApp.requestHelper
 
 import android.content.Context
 import android.os.AsyncTask
+import android.util.Log
 import de.trabit.reportApp.BuildConfig
 import okhttp3.OkHttpClient
 import org.json.JSONObject
@@ -27,9 +28,9 @@ class RequestActivity {
             val url = BuildConfig.DIRECTIONSAPI_BASE_URL + currentPath + "/" + currentId
             val request = okhttp3.Request.Builder().url(url).build()
             val response = client.newCall(request).execute()
-            var stringData = response.body?.string()
-            val jsonData = JSONObject(stringData)
-            return jsonData
+            val stringData = response.body?.string()
+
+            return JSONObject(stringData)
         }
     }
 
