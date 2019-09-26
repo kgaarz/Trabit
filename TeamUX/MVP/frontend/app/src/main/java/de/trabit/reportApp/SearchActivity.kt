@@ -15,7 +15,7 @@ class SearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search)
 
         //Find View By Id for ClickListener
-        var btn = findViewById(R.id.backButton) as ImageButton
+        var btn = findViewById<ImageButton>(R.id.backButton)
 
         //Add Clicklistener to Imagebutton (ArrowBack) and link back to OverviewActivity
         btn.setOnClickListener{
@@ -25,10 +25,10 @@ class SearchActivity : AppCompatActivity() {
        }
 
         //Find View By Id For Listview
-        val listview = findViewById(R.id.listView) as ListView
+        val listview = findViewById<ListView>(R.id.listView)
 
         //Find View By Id For SearchView
-        val searchView = findViewById(R.id.searchView) as SearchView
+        val searchView = findViewById<SearchView>(R.id.searchView)
 
         // Array of City Names (dummy data)
         val name = arrayOf(
@@ -47,11 +47,11 @@ class SearchActivity : AppCompatActivity() {
         val info = ArrayList<HashMap<String, String>>()
 
         // HashMap with all City Names
-        var hashMap: HashMap<String, String> = HashMap<String, String>()
+        var hashMap: HashMap<String, String>
 
-        for (i in 0..name.size - 1) {
+        for (element in name) {
             hashMap = HashMap<String, String>()
-            hashMap.put("name", name[i])
+            hashMap["name"] = element
 
             //Add HashMap to ArrayList
             info.add(hashMap)
@@ -63,13 +63,13 @@ class SearchActivity : AppCompatActivity() {
             listview.adapter = customAdapter
 
             //On Click for ListView Item
-            listview.setOnItemClickListener { adapterView, view, position, l ->
+            listview.setOnItemClickListener { _, _, position, _ ->
 
-                //save the data from the choosen ListView Item in hashMap (name and maybe PlZ to unique identification?)
+                //save the data from the chosen ListView Item in hashMap (name and maybe PlZ to unique identification?)
                 val hashMap: HashMap<String, String> = customAdapter.getItem(position) as HashMap<String, String>
-                val newLocation = hashMap.get("name")
+                val newLocation = hashMap["name"]
 
-                var changeLocationIntent = Intent (this,OverviewActivity::class.java)
+                val changeLocationIntent = Intent (this,OverviewActivity::class.java)
                 changeLocationIntent.putExtra("newLocation", newLocation)
 
                 startActivity(changeLocationIntent)
@@ -85,7 +85,7 @@ class SearchActivity : AppCompatActivity() {
                 override fun onQueryTextChange(newText: String?): Boolean {
 
                     val text = newText
-                    /*Calll filter Method Created in Custom Adapter
+                    /*Call filter Method Created in Custom Adapter
                     This Method Filter ListView According to Search Keyword
                  */
                     customAdapter.filter(text,listview)

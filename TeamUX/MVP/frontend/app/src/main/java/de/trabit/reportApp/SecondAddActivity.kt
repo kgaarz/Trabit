@@ -9,11 +9,6 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_second_add.*
 import android.widget.ArrayAdapter
-import androidx.core.app.ComponentActivity
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
 
 class SecondAddActivity : AppCompatActivity() {
 
@@ -40,21 +35,21 @@ class SecondAddActivity : AppCompatActivity() {
                 imageMeansOfTransport.setImageResource(R.mipmap.bus_icon_clicked)
                 textMeansOfTransport.text = "Bus"
                 confirmBtn.setOnClickListener{
-                    NextActivity(meansOfTransportId, destinationLocation,chosenMeansOfTransport)
+                    nextActivity(meansOfTransportId, destinationLocation,chosenMeansOfTransport)
                 }
             }
             "train" -> {
                 imageMeansOfTransport.setImageResource(R.mipmap.train_icon_clicked)
                 textMeansOfTransport.text = "Zug"
                 confirmBtn.setOnClickListener{
-                    NextActivity(meansOfTransportId, destinationLocation,chosenMeansOfTransport)
+                    nextActivity(meansOfTransportId, destinationLocation,chosenMeansOfTransport)
                 }
                 }
             "subway"  -> {
                 imageMeansOfTransport.setImageResource(R.mipmap.tram_icon_clicked)
                 textMeansOfTransport.text = "U-Bahn / Tram"
                 confirmBtn.setOnClickListener{
-                    NextActivity(meansOfTransportId, destinationLocation,chosenMeansOfTransport)
+                    nextActivity(meansOfTransportId, destinationLocation,chosenMeansOfTransport)
                 }
             }
             "car" -> {
@@ -62,7 +57,7 @@ class SecondAddActivity : AppCompatActivity() {
                 textMeansOfTransport.text = "Auto"
                 meansOfTransportIdField.setVisibility(View.GONE)
                 confirmBtn.setOnClickListener{
-                    NextActivityCar(meansOfTransportId, destinationLocation,chosenMeansOfTransport)
+                    nextActivityCar(destinationLocation,chosenMeansOfTransport)
                 }
             }
         }
@@ -100,9 +95,9 @@ class SecondAddActivity : AppCompatActivity() {
         destinationLocationField.setAdapter(adapter)
     }
 
-    fun NextActivity (meansOfTransportId : Editable, destinationLocation: Editable, chosenMeansOfTransport: String){
+    private fun nextActivity (meansOfTransportId : Editable, destinationLocation: Editable, chosenMeansOfTransport: String){
         //add intent to further button to hand off to SecondAddActivity, checking if something is written in the edittext field
-            if(meansOfTransportId.isNullOrBlank()||destinationLocation.isNullOrBlank()){
+            if(meansOfTransportId.isBlank() || destinationLocation.isBlank()) {
                 ErrorSnackbar(linearLayout_secondAdd).show("Bitte fülle zunächst beide Textfelder aus!")
             } else {
                 val lastAddActivityIntent = Intent(this, ThirdAddActivity::class.java)
@@ -112,9 +107,9 @@ class SecondAddActivity : AppCompatActivity() {
                 startActivity(lastAddActivityIntent)
             }
     }
-    fun NextActivityCar (meansOfTransportId : Editable, destinationLocation: Editable, chosenMeansOfTransport: String) {
+    private fun nextActivityCar (destinationLocation: Editable, chosenMeansOfTransport: String) {
         //add intent to further button to hand off to SecondAddActivity, checking if something is written in the edittext field
-        if (destinationLocation.isNullOrBlank()) {
+        if (destinationLocation.isBlank()) {
             ErrorSnackbar(linearLayout_secondAdd).show("Bitte fülle zunächst das Textfeld aus!")
         } else {
             val lastAddActivityIntent = Intent(this, ThirdAddActivity::class.java)

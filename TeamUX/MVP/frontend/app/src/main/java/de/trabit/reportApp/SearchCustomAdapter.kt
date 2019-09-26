@@ -43,7 +43,7 @@ class SearchCustomAdapter(context: Context, arrayList: ArrayList<HashMap<String,
             val mInflater = (context as Activity).layoutInflater
 
             //Inflating our search_list_row.
-            myview = mInflater!!.inflate(R.layout.search_list_row, parent, false)
+            myview = mInflater.inflate(R.layout.search_list_row, parent, false)
 
             //Create Object of ViewHolder Class and set the View to it
             holder = ViewHolder()
