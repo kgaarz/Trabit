@@ -9,7 +9,6 @@
     app:cardElevation="15dp"
     >
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +19,9 @@
         <LinearLayout
             android:layout_width="290dp"
             android:layout_height="30dp"
-            android:layout_alignParentLeft="true">
+            android:layout_alignParentLeft="true"
+            android:id="@+id/linearlayout_header_reports"
+            >
 
             <TextView
                 android:id="@+id/day_text"
@@ -30,16 +31,7 @@
                 android:fontFamily="@font/oxygen"
                 android:text="Tag"
                 android:textSize="13sp"
-
                 />
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="3dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:src="@mipmap/seperate_dot" />
 
             <TextView
                 android:id="@+id/time_text"
@@ -50,7 +42,6 @@
                 android:text="Uhrzeit"
                 android:textAlignment="center"
                 android:textSize="13sp"
-
                 />
 
             <ImageView
@@ -81,20 +72,48 @@
 
         </LinearLayout>
 
-        <TextView
-
-            android:id="@+id/id_text"
+        <RelativeLayout
             android:layout_width="290dp"
             android:layout_height="35dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/custom_report_item_id_container"
-            android:fontFamily="@font/oxygen"
+            android:layout_below="@id/linearlayout_header_reports"
             android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:paddingTop="5dp"
+            android:background="@drawable/custom_report_item_id_container"
+            android:id="@+id/relative_layout_id_destination"
+            >
+
+        <TextView
+            android:id="@+id/id_text"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:fontFamily="@font/oxygen"
             android:text="Kennung"
+            android:layout_alignParentLeft="true"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="9dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/id_text"
+            android:layout_toLeftOf="@id/destination_text"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="2dp"
+            android:src="@mipmap/arrow_right"
+         />
+
+        <TextView
+            android:id="@+id/destination_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/oxygen"
+            android:text="Gummersbach"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp" />
+        </RelativeLayout>
 
         <ImageButton
             android:id="@+id/voteUpButton"
@@ -105,6 +124,16 @@
             android:background="@null"
             android:scaleType="fitCenter"
             android:src="@mipmap/check_positive_grey" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_below="@+id/voteUpButton"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="13dp"
+            android:layout_marginRight="35dp"
+            android:src="@mipmap/star_yellow"
+            />
 
         <TextView
             android:id="@+id/voteNumber"
@@ -122,7 +151,6 @@
             android:id="@+id/voteDownButton"
             android:layout_width="35dp"
             android:layout_height="35dp"
-
             android:layout_below="@+id/voteNumber"
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
@@ -134,10 +162,9 @@
             android:id="@+id/report_text"
             android:layout_width="290dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/id_text"
+            android:layout_below="@+id/relative_layout_id_destination"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="10dp"
-
             android:fontFamily="@font/oxygen"
             android:paddingTop="5dp"
             android:text="Kommentar, Kommentar, Kommentar"
@@ -165,7 +192,17 @@
             android:layout_marginTop="20dp"
             android:text="0" />
 
-    </RelativeLayout>
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/report_text"
+            android:src="@mipmap/dots"
+            android:background="@null"
+            android:layout_marginTop="25dp"
+            android:scaleType="fitCenter"
+        />
 
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
