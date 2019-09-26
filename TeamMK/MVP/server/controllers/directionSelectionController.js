@@ -39,18 +39,17 @@ module.exports = {
                     selections: values
                   });
 
-                  res.status(200).send(directionsSelections);
-                  // directionsSelections.save(function(error, result) {
-                  //   if (result) {
-                  //     res.status(200).send(result.id);
-                  //   }
-                  //   if (error) {
-                  //     res.status(502).json({
-                  //       message: "Database-Connection failed",
-                  //       error: error
-                  //     });
-                  //   }
-                  // });
+                   directionsSelections.save(function(error, result) {
+                     if (result) {
+                       res.status(200).send(result.id);
+                     }
+                     if (error) {
+                      res.status(502).json({
+                         message: "Database-Connection failed",
+                         error: error
+                       });
+                     }
+                   });
                 }).catch(error => {
                   res.status(404).send(error);
                 });
