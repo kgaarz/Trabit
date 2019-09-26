@@ -136,11 +136,12 @@ class CommentsActivity : AppCompatActivity() {
                     val reportTime = timeFormatter.format(report.created)
 
                     // fill report overview with the corresponding values
-                    username_text_comments_overview.text = report.author
-                    report_text_comments_overview.text = report.description
-                    id_text_comments_overview.text = report.transport.tag
-                    day_text_comments_overview.text = reportDate
-                    time_text_comments_overview.text = reportTime
+                    username_text.text = report.author
+                    report_text.text = report.description
+                    id_text.text = report.transport.tag
+                    destination_text.text = report.location.destination.city
+                    day_text.text = reportDate
+                    time_text.text = reportTime
                     voteNumber.text = (report.metadata.upvotes.amount - report.metadata.downvotes.amount).toString()
                     if (report.metadata.verified) {
                         verifiedStar.visibility = View.VISIBLE
