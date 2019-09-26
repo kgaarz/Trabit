@@ -6,6 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
+    compileOptions.encoding ='UTF-8'
     defaultConfig {
         applicationId "de.trabit.faultdetector"
         minSdkVersion 16
@@ -62,5 +63,6 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.0'
 
 }

@@ -35,21 +35,21 @@ class SecondAddActivity : AppCompatActivity() {
                 imageMeansOfTransport.setImageResource(R.mipmap.bus_icon_clicked)
                 textMeansOfTransport.text = "Bus"
                 confirmBtn.setOnClickListener{
-                    nextActivity(meansOfTransportId, destinationLocation,chosenMeansOfTransport)
+                    nextActivity(meansOfTransportId, destinationLocation, destinationLocationField, chosenMeansOfTransport)
                 }
             }
             "train" -> {
                 imageMeansOfTransport.setImageResource(R.mipmap.train_icon_clicked)
                 textMeansOfTransport.text = "Zug"
                 confirmBtn.setOnClickListener{
-                    nextActivity(meansOfTransportId, destinationLocation,chosenMeansOfTransport)
+                    nextActivity(meansOfTransportId, destinationLocation, destinationLocationField, chosenMeansOfTransport)
                 }
                 }
             "subway"  -> {
                 imageMeansOfTransport.setImageResource(R.mipmap.tram_icon_clicked)
                 textMeansOfTransport.text = "U-Bahn / Tram"
                 confirmBtn.setOnClickListener{
-                    nextActivity(meansOfTransportId, destinationLocation,chosenMeansOfTransport)
+                    nextActivity(meansOfTransportId, destinationLocation, destinationLocationField,chosenMeansOfTransport)
                 }
             }
             "car" -> {
@@ -57,7 +57,7 @@ class SecondAddActivity : AppCompatActivity() {
                 textMeansOfTransport.text = "Auto"
                 meansOfTransportIdField.setVisibility(View.GONE)
                 confirmBtn.setOnClickListener{
-                    nextActivityCar(destinationLocation,chosenMeansOfTransport)
+                    nextActivityCar(destinationLocation, destinationLocationField, chosenMeansOfTransport)
                 }
             }
         }
@@ -95,8 +95,9 @@ class SecondAddActivity : AppCompatActivity() {
         destinationLocationField.setAdapter(adapter)
     }
 
-    private fun nextActivity (meansOfTransportId : Editable, destinationLocation: Editable, chosenMeansOfTransport: String){
+    private fun nextActivity (meansOfTransportId : Editable, destinationLocation: Editable, destinationLocationField: AutoCompleteTextView, chosenMeansOfTransport: String){
         //add intent to further button to hand off to SecondAddActivity, checking if something is written in the edittext field
+            val destinationLocation = destinationLocationField.text
             if(meansOfTransportId.isBlank() || destinationLocation.isBlank()) {
                 ErrorSnackbar(linearLayout_secondAdd).show("Bitte fülle zunächst beide Textfelder aus!")
             } else {
@@ -107,11 +108,13 @@ class SecondAddActivity : AppCompatActivity() {
                 startActivity(lastAddActivityIntent)
             }
     }
-    private fun nextActivityCar (destinationLocation: Editable, chosenMeansOfTransport: String) {
+    private fun nextActivityCar (destinationLocation: Editable, destinationLocationField: AutoCompleteTextView, chosenMeansOfTransport: String) {
         //add intent to further button to hand off to SecondAddActivity, checking if something is written in the edittext field
+        val destinationLocation = destinationLocationField.text
         if (destinationLocation.isBlank()) {
             ErrorSnackbar(linearLayout_secondAdd).show("Bitte fülle zunächst das Textfeld aus!")
         } else {
+            val destinationLocation = destinationLocationField.text
             val lastAddActivityIntent = Intent(this, ThirdAddActivity::class.java)
             lastAddActivityIntent.putExtra("meansOfTransport", chosenMeansOfTransport)
             lastAddActivityIntent.putExtra("destinationLocation", destinationLocation.toString())
