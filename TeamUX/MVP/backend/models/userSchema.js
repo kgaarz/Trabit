@@ -8,6 +8,14 @@ const profile = new mongoose.Schema({
   lastname: {
     type: String,
     required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  residence: {
+    type: String,
+    required: false
   }
 }, {
   _id: false

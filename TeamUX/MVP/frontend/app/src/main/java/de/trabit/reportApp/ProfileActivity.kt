@@ -32,6 +32,8 @@ class ProfileActivity : AppCompatActivity() {
                 nameProfile.text = fullname
                 txtNameData.text = fullname
                 txtNicknameData.text = user.username
+                txtMailData.text = user.profile.email
+                txtHomeData.text = user.profile.residence
             }, Response.ErrorListener {
                 it.printStackTrace()
                 ErrorSnackbar(linearLayout_profile).show("Abrufen des Profils fehlgeschlagen!")
