@@ -1,10 +1,12 @@
-package de.trabit.reportApp
+package de.trabit.reportApp.reports.add
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import de.trabit.reportApp.R
+import de.trabit.reportApp.reports.display.OverviewActivity
 
 class FirstAddActivity : AppCompatActivity() {
 
@@ -16,7 +18,7 @@ class FirstAddActivity : AppCompatActivity() {
         val closeButton = findViewById<ImageButton>(R.id.closeFirstAddButton)
 
         closeButton.setOnClickListener{
-            val closeIntent = Intent(this,OverviewActivity::class.java)
+            val closeIntent = Intent(this, OverviewActivity::class.java)
             startActivity(closeIntent)
         }
 
@@ -29,28 +31,28 @@ class FirstAddActivity : AppCompatActivity() {
         var chosenMeansOfTransport : String
 
         trainTile.setOnClickListener{
-            val nextAddActivtityIntent = Intent(this,SecondAddActivity::class.java)
+            val nextAddActivtityIntent = Intent(this, SecondAddActivity::class.java)
             chosenMeansOfTransport ="train"
             nextAddActivtityIntent.putExtra("meansOfTransport", chosenMeansOfTransport)
             startActivity(nextAddActivtityIntent)
         }
 
         tramTile.setOnClickListener{
-            val nextAddActivtityIntent = Intent(this,SecondAddActivity::class.java)
+            val nextAddActivtityIntent = Intent(this, SecondAddActivity::class.java)
             chosenMeansOfTransport ="subway"
             nextAddActivtityIntent.putExtra("meansOfTransport", chosenMeansOfTransport)
             startActivity(nextAddActivtityIntent)
         }
 
         busTile.setOnClickListener{
-            val nextAddActivtityIntent = Intent(this,SecondAddActivity::class.java)
+            val nextAddActivtityIntent = Intent(this, SecondAddActivity::class.java)
             chosenMeansOfTransport ="bus"
             nextAddActivtityIntent.putExtra("meansOfTransport", chosenMeansOfTransport)
             startActivity(nextAddActivtityIntent)
         }
 
         carTile.setOnClickListener{
-            val nextAddActivtityIntent = Intent(this,SecondAddActivity::class.java)
+            val nextAddActivtityIntent = Intent(this, SecondAddActivity::class.java)
             chosenMeansOfTransport ="car"
             nextAddActivtityIntent.putExtra("meansOfTransport", chosenMeansOfTransport)
             startActivity(nextAddActivtityIntent)

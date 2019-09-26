@@ -1,7 +1,7 @@
 package com.example.api_test.dataClasses
 
-import de.trabit.reportApp.dataClasses.Mobility
-import de.trabit.reportApp.dataClasses.Profile
+import de.trabit.reportApp.user.model.Mobility
+import de.trabit.reportApp.user.model.Profile
 import java.util.*
 
 data class User (val _id : String,

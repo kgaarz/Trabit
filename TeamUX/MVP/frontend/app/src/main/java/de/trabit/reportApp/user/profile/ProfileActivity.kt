@@ -1,4 +1,4 @@
-package de.trabit.reportApp
+package de.trabit.reportApp.user.profile
 
 import ErrorSnackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +10,8 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.api_test.dataClasses.User
 import com.google.gson.GsonBuilder
+import de.trabit.reportApp.BuildConfig
+import de.trabit.reportApp.R
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : AppCompatActivity() {

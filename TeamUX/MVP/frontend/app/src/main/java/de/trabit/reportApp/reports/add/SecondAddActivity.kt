@@ -1,4 +1,4 @@
-package de.trabit.reportApp
+package de.trabit.reportApp.reports.add
 
 import ErrorSnackbar
 import android.content.Intent
@@ -9,6 +9,8 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_second_add.*
 import android.widget.ArrayAdapter
+import de.trabit.reportApp.R
+import de.trabit.reportApp.reports.display.OverviewActivity
 
 class SecondAddActivity : AppCompatActivity() {
 
@@ -65,14 +67,14 @@ class SecondAddActivity : AppCompatActivity() {
         //close Activity by clicking the x and go back to OverviewActivity
         val closeButton = findViewById<ImageButton>(R.id.closeSecondAddButton)
         closeButton.setOnClickListener{
-            val closeIntent = Intent(this,OverviewActivity::class.java)
+            val closeIntent = Intent(this, OverviewActivity::class.java)
             startActivity(closeIntent)
         }
 
         //back Button Intent to FirstAddActivity
         val backBtnToFirstAddActivity = findViewById<ImageButton>(R.id.btn_back)
         backBtnToFirstAddActivity.setOnClickListener{
-            val backIntent = Intent(this,FirstAddActivity::class.java)
+            val backIntent = Intent(this, FirstAddActivity::class.java)
             startActivity(backIntent)
         }
 

@@ -1,4 +1,4 @@
-package de.trabit.reportApp
+package de.trabit.reportApp.reports.add
 
 import ErrorSnackbar
 import android.content.Intent
@@ -15,7 +15,9 @@ import com.example.api_test.dataClasses.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_overview.*
+import de.trabit.reportApp.BuildConfig
+import de.trabit.reportApp.R
+import de.trabit.reportApp.reports.display.OverviewActivity
 import kotlinx.android.synthetic.main.activity_third_add.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -132,7 +134,7 @@ class ThirdAddActivity : AppCompatActivity() {
         //close Activity by clicking the x and go back to OverviewActivity
         val closeButton = findViewById<ImageButton>(R.id.closeThirdAddBtn)
         closeButton.setOnClickListener{
-            val closeIntent = Intent(this,OverviewActivity::class.java)
+            val closeIntent = Intent(this, OverviewActivity::class.java)
             startActivity(closeIntent)
         }
 
@@ -207,11 +209,11 @@ class ThirdAddActivity : AppCompatActivity() {
                     destinationLng = displayPosition.getString("Longitude")
                 } catch (e: JSONException) {
                     e.printStackTrace()
-                    ErrorSnackbar(linearLayout_main).show(errorMessage)
+                    ErrorSnackbar(linearLayout_thirdAdd).show(errorMessage)
                 }
             }, Response.ErrorListener {
                 it.printStackTrace()
-                ErrorSnackbar(linearLayout_main).show(errorMessage)
+                ErrorSnackbar(linearLayout_thirdAdd).show(errorMessage)
             })
         mQueue.add(request)
     }

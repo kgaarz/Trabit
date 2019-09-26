@@ -1,4 +1,4 @@
-package de.trabit.reportApp.dataClasses
+package de.trabit.reportApp.user.model
 
 data class Mobility (val car : Boolean,
                      val driversLicense : Boolean,

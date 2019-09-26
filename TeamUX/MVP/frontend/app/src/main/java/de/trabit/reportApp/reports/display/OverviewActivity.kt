@@ -1,11 +1,9 @@
-package de.trabit.reportApp
+package de.trabit.reportApp.reports.display
 
 import ErrorSnackbar
 import SuccessSnackbar
 import android.content.Intent
 import android.os.Bundle
-import android.view.ContextMenu
-import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import com.android.volley.Request
@@ -24,9 +22,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.trabit.directionsApp.DirectionsActivity
 import de.trabit.directionsApp.MapActivity
-import kotlinx.android.synthetic.main.report_item.view.*
+import de.trabit.reportApp.*
+import de.trabit.reportApp.changelocation.SearchActivity
+import de.trabit.reportApp.comments.CommentsActivity
+import de.trabit.reportApp.user.profile.ProfileActivity
+import de.trabit.reportApp.reports.add.FirstAddActivity
+import de.trabit.reportApp.requests.VotingView
 
-class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentListener {
+class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentListener, VotingView {
     private lateinit var reportList: Array<Report>
 
     override fun onCommentClick(position: Int) {

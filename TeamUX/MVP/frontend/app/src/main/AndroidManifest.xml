@@ -15,17 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Login"></activity>
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".login.Login"></activity>
+        <activity android:name=".user.profile.ProfileActivity"></activity>
         <activity android:name="de.trabit.directionsApp.DirectionSelectionActivity" />
         <activity android:name="de.trabit.directionsApp.MapActivity" />
         <activity android:name="de.trabit.directionsApp.DirectionsActivity" />
-        <activity android:name=".CommentsActivity" />
-        <activity android:name=".ThirdAddActivity" />
-        <activity android:name=".SecondAddActivity" />
-        <activity android:name=".FirstAddActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".OverviewActivity">
+        <activity android:name=".comments.CommentsActivity" />
+        <activity android:name=".reports.add.ThirdAddActivity" />
+        <activity android:name=".reports.add.SecondAddActivity" />
+        <activity android:name=".reports.add.FirstAddActivity" />
+        <activity android:name=".changelocation.SearchActivity" />
+        <activity android:name=".reports.display.OverviewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

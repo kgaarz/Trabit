@@ -1,4 +1,4 @@
-package de.trabit.reportApp
+package de.trabit.reportApp.changelocation
 
 import android.app.Activity
 import android.content.Context
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
 import android.widget.TextView
+import de.trabit.reportApp.R
 import java.util.*
 import kotlin.collections.ArrayList
 

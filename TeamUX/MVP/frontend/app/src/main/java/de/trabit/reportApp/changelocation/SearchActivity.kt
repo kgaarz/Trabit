@@ -1,4 +1,4 @@
-package de.trabit.reportApp
+package de.trabit.reportApp.changelocation
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,8 @@ import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import de.trabit.reportApp.R
+import de.trabit.reportApp.reports.display.OverviewActivity
 
 class SearchActivity : AppCompatActivity() {
 
@@ -20,7 +22,7 @@ class SearchActivity : AppCompatActivity() {
         //Add Clicklistener to Imagebutton (ArrowBack) and link back to OverviewActivity
         btn.setOnClickListener{
 
-            val changeActivityIntent = Intent(this,OverviewActivity::class.java)
+            val changeActivityIntent = Intent(this, OverviewActivity::class.java)
             startActivity(changeActivityIntent)
        }
 
@@ -69,7 +71,8 @@ class SearchActivity : AppCompatActivity() {
                 val hashMap: HashMap<String, String> = customAdapter.getItem(position) as HashMap<String, String>
                 val newLocation = hashMap["name"]
 
-                val changeLocationIntent = Intent (this,OverviewActivity::class.java)
+                val changeLocationIntent = Intent (this,
+                    OverviewActivity::class.java)
                 changeLocationIntent.putExtra("newLocation", newLocation)
 
                 startActivity(changeLocationIntent)
