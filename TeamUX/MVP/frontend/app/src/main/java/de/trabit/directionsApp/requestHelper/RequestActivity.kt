@@ -1,35 +1,62 @@
 package de.trabit.directionsApp.requestHelper
 
 import android.content.Context
-import android.util.Log
-import com.android.volley.Request
-import com.android.volley.RequestQueue
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
+import android.os.AsyncTask
 import de.trabit.reportApp.BuildConfig
-import org.json.JSONException
+import okhttp3.OkHttpClient
+import org.json.JSONObject
+
 
 
 
 class RequestActivity {
-    fun getRequest(context: Context, path: String, id: String){
+    class GetRequest(context: Context, path: String, id: String): AsyncTask<Void, Void, JSONObject>(){
 
-        val requestUrl = BuildConfig.DIRECTIONSAPI_BASE_URL + path + "/" + id
-        val mQueue: RequestQueue = Volley.newRequestQueue(context)
-        val request = JsonObjectRequest(Request.Method.GET, requestUrl, null,
-            Response.Listener {
-                try {
-                    Log.i("TAG", it.toString())
-                } catch (e: JSONException) {
-                    e.printStackTrace()
+        private var currentContext: Context? = null
+        private var currentPath: String = ""
+        private var currentId: String = ""
 
-                }
-            }, Response.ErrorListener {
-                it.printStackTrace()
+        init {
+            currentPath = path
+            currentContext = context
+            currentId = id
+        }
 
-            })
-        mQueue.add(request)
+        override fun doInBackground(vararg params: Void?): JSONObject {
+            val client = OkHttpClient()
+            val url = BuildConfig.DIRECTIONSAPI_BASE_URL + currentPath + "/" + currentId
+            val request = okhttp3.Request.Builder().url(url).build()
+            val response = client.newCall(request).execute()
+            var stringData = response.body?.string()
+            val jsonData = JSONObject(stringData)
+            return jsonData
+        }
+    }
 
+    class PostRequest(context: Context, path: String, userId: String, id: String, requestBody: JSONObject): AsyncTask<Void, Void, JSONObject>(){
+
+        private var currentContext: Context? = null
+        private var currentPath: String = ""
+        private var currentUserId: String = ""
+        private var currentId: String = ""
+        private var currentRequestBody: JSONObject? = null
+
+        init {
+            currentPath = path
+            currentContext = context
+            currentUserId = userId
+            currentId = id
+            currentRequestBody = requestBody
+        }
+
+        override fun doInBackground(vararg params: Void?): JSONObject {
+            val client = OkHttpClient()
+            val url = BuildConfig.DIRECTIONSAPI_BASE_URL + currentPath + "/" + currentId
+            val request = okhttp3.Request.Builder().url(url).build()
+            val response = client.newCall(request).execute()
+            var stringData = response.body?.string()
+            val jsonData = JSONObject(stringData)
+            return jsonData
+        }
     }
 }
