@@ -62,6 +62,7 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, private val onComment
         private val timeText = itemView.findViewById(R.id.time_text) as TextView
         private val usernameText = itemView.findViewById(R.id.username_text) as TextView
         private val idText = itemView.findViewById(R.id.id_text) as TextView
+        private val destinationText =itemView.findViewById(R.id.destination_text) as TextView
         private val reportText = itemView.findViewById(R.id.report_text) as TextView
         private val commentAmount = itemView.findViewById(R.id.commentNumber) as TextView
         private val confirmIndex = itemView.findViewById(R.id.voteNumber) as TextView
@@ -109,6 +110,7 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, private val onComment
             timeText.text = reportTime
             usernameText.text = report.author
             idText.text = report.transport.tag
+            destinationText.text = report.location.destination.city
             reportText.text = report.description
             commentAmount.text = report.comments.size.toString()
             confirmIndex.text = votes.toString()

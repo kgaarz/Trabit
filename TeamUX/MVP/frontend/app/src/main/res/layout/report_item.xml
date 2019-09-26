@@ -26,8 +26,9 @@
             <TextView
                 android:id="@+id/day_text"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_weight="4"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="3"
                 android:fontFamily="@font/oxygen"
                 android:text="Tag"
                 android:textSize="13sp" />
@@ -39,17 +40,8 @@
                 android:layout_weight="5"
                 android:fontFamily="@font/oxygen"
                 android:text="Uhrzeit"
-                android:textAlignment="center"
                 android:textSize="13sp" />
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="3dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:src="@mipmap/seperate_dot"/>
 
             <ImageView
                 android:layout_width="0dp"
@@ -84,41 +76,48 @@
             android:id="@+id/relative_layout_id_destination"
             >
 
-        <TextView
-            android:id="@+id/id_text"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:fontFamily="@font/oxygen"
-            android:text="Kennung"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="15sp"/>
+            <TextView
+                android:id="@+id/id_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:fontFamily="@font/oxygen"
+                android:text="Kennung"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="9dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/id_text"
-            android:layout_toEndOf="@id/id_text"
-            android:layout_toLeftOf="@id/destination_text"
-            android:layout_toStartOf="@id/destination_text"
-            android:layout_marginLeft="3dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginEnd="2dp"
-            android:src="@mipmap/arrow_right"/>
+            <ImageView
+                android:id="@+id/destinationArrow"
+                android:layout_width="40dp"
+                android:layout_height="13dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toEndOf="@+id/id_text"
+                android:layout_toRightOf="@+id/id_text"
+                android:src="@mipmap/arrow_right" />
 
-        <TextView
-            android:id="@+id/destination_text"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/oxygen"
-            android:text="Gummersbach"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="15sp"/>
+            <TextView
+                android:id="@+id/destination_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toEndOf="@+id/destinationArrow"
+                android:layout_toRightOf="@+id/destinationArrow"
+                android:fontFamily="@font/oxygen"
+                android:text="Zielort"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
         </RelativeLayout>
 
         <ImageButton
@@ -179,6 +178,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp"
             android:fontFamily="@font/oxygen"
             android:paddingTop="5dp"
             android:text="Kommentar, Kommentar, Kommentar"
@@ -191,8 +191,7 @@
             android:layout_below="@+id/report_text"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="20dp"
             android:background="@null"
             android:scaleType="fitCenter"
@@ -202,11 +201,9 @@
             android:id="@+id/commentNumber"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_below="@+id/report_text"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginStart="30dp"
+            android:layout_toRightOf="@+id/commentIcon"
+            android:layout_below="@id/report_text"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="20dp"
             android:text="0" />
 
