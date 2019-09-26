@@ -27,7 +27,7 @@ import de.trabit.reportApp.changelocation.SearchActivity
 import de.trabit.reportApp.comments.CommentsActivity
 import de.trabit.reportApp.user.profile.ProfileActivity
 import de.trabit.reportApp.reports.add.FirstAddActivity
-import de.trabit.reportApp.requests.VotingView
+import de.trabit.reportApp.voting.VotingView
 
 class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentListener, VotingView {
     private lateinit var reportList: Array<Report>

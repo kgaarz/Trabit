@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.api_test.dataClasses.Comment
 import de.trabit.reportApp.BuildConfig
 import de.trabit.reportApp.R
-import de.trabit.reportApp.requests.VotingService
-import de.trabit.reportApp.requests.VotingView
+import de.trabit.reportApp.voting.VotingService
+import de.trabit.reportApp.voting.VotingView
 import kotlinx.android.synthetic.main.comments_item.view.*
 import java.text.SimpleDateFormat
 import java.util.*

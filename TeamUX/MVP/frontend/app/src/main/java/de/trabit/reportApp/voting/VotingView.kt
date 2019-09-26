@@ -1,4 +1,4 @@
-package de.trabit.reportApp.requests
+package de.trabit.reportApp.voting
 
 interface VotingView {
     fun setUpvote() {

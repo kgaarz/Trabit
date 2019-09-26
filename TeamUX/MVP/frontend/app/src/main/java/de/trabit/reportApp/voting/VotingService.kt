@@ -1,4 +1,4 @@
-package de.trabit.reportApp.requests
+package de.trabit.reportApp.voting
 
 import ErrorSnackbar
 import android.view.View

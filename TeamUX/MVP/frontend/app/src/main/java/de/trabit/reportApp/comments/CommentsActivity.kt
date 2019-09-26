@@ -24,8 +24,8 @@ import org.json.JSONException
 import org.json.JSONObject
 import de.trabit.reportApp.comments.model.CreateComment
 import de.trabit.reportApp.reports.display.OverviewActivity
-import de.trabit.reportApp.requests.VotingService
-import de.trabit.reportApp.requests.VotingView
+import de.trabit.reportApp.voting.VotingService
+import de.trabit.reportApp.voting.VotingView
 import java.text.SimpleDateFormat
 import java.util.*
 

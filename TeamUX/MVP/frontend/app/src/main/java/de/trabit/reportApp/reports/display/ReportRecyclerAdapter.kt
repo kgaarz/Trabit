@@ -1,6 +1,5 @@
 package de.trabit.reportApp.reports.display
 
-import ErrorSnackbar
 import SuccessSnackbar
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.api_test.dataClasses.Report
 import de.trabit.reportApp.BuildConfig
 import de.trabit.reportApp.R
-import de.trabit.reportApp.requests.VotingService
-import de.trabit.reportApp.requests.VotingView
+import de.trabit.reportApp.voting.VotingService
+import de.trabit.reportApp.voting.VotingView
 import kotlinx.android.synthetic.main.report_item.view.*
 import java.text.SimpleDateFormat
 import java.util.*
