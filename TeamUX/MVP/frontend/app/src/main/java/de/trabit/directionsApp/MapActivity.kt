@@ -34,12 +34,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 
-    // Auslese der Routenpunkte
-    private val origin = LatLng(50.941357, 6.958307)
-    private val point0 = LatLng(50.943302, 6.958905)
-    private val destination = LatLng(51.023220, 7.566177)
-
-
     private fun setUpMap() {
         if (ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -60,19 +54,24 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
             }
         }
 
+        // Mobilities im Umkreis abrufen
         val asyncTask = RequestActivity.GetRequest(applicationContext, "mobilities", "5d5c07108bb94088c3447236")
         asyncTask.execute()
+        val mobilitiesData = asyncTask.get().getJSONObject("data")
 
-        val data = asyncTask.get().get("data").toString()
-        val jsonData = JSONObject(data)
-        placeMarkerOnMap(jsonData)
+        // Ausgewählte Route abrufen
+        val asyncTask2 = RequestActivity.GetRequest(applicationContext, "directions", "5d52cd38dc2ad17bd5153a91")
+        asyncTask2.execute()
+        val directionsData = asyncTask2.get().getJSONObject("data")
+
+        placeMarkerOnMap(mobilitiesData, directionsData)
     }
 
 
-    private fun placeMarkerOnMap(data: JSONObject) {
+    private fun placeMarkerOnMap(mobilitiesData: JSONObject, directionsData: JSONObject) {
         //Auslese der Mobilitätsmöglichkeiten im Umkreis
 
-        val cars = data.getJSONArray("cars")
+        val cars = mobilitiesData.getJSONArray("cars")
         (0 until cars.length() -1).forEach { i ->
             val lat = cars.getJSONObject(i).getJSONObject("geoLocation").getDouble("lat")
             val lng = cars.getJSONObject(i).getJSONObject("geoLocation").getDouble("lng")
@@ -80,7 +79,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
             map.addMarker(MarkerOptions().position(car).title("Auto").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_car)))
         }
 
-        val bikes = data.getJSONArray("bikes")
+        val bikes = mobilitiesData.getJSONArray("bikes")
         (0 until bikes.length() -1).forEach { i ->
             val lat = bikes.getJSONObject(i).getJSONObject("geoLocation").getDouble("lat")
             val lng = bikes.getJSONObject(i).getJSONObject("geoLocation").getDouble("lng")
@@ -88,7 +87,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
             map.addMarker(MarkerOptions().position(bike).title("Fahrrad").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_bike)))
         }
 
-        val transits = data.getJSONArray("transits")
+        val transits = mobilitiesData.getJSONArray("transits")
         (0 until transits.length() -1).forEach { i ->
             val lat = transits.getJSONObject(i).getJSONObject("geoLocation").getDouble("lat")
             val lng = transits.getJSONObject(i).getJSONObject("geoLocation").getDouble("lng")
@@ -96,10 +95,27 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
             map.addMarker(MarkerOptions().position(transit).title("Bahnstation").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_train)))
         }
 
-        map.addMarker(MarkerOptions().position(origin).title("Start").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_start)))
-        map.addMarker(MarkerOptions().position(point0).title("Umstieg auf Zug: RB25 Richtung Köln").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_step)))
-        map.addMarker(MarkerOptions().position(destination).title("Ziel: HBF Köln").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_ziel)))
 
+        // Auslese der Routenpunkte
+
+        val origin = LatLng(directionsData.getJSONObject("startLocation").getDouble("lat"), directionsData.getJSONObject("startLocation").getDouble("lng"))
+        val destination = LatLng(directionsData.getJSONObject("endLocation").getDouble("lat"), directionsData.getJSONObject("endLocation").getDouble("lng"))
+        map.addMarker(MarkerOptions().position(origin).title("Start").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_start)))
+        map.addMarker(MarkerOptions().position(destination).title("Ziel").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_ziel)))
+
+        val steps = directionsData.getJSONArray("steps")
+        if(steps.length() > 1) {
+            (1 until steps.length() - 2).forEach { i ->
+                val lat = steps.getJSONObject(i).getJSONObject("start_location").getDouble("lat")
+                val lng = steps.getJSONObject(i).getJSONObject("start_location").getDouble("lng")
+                val step = LatLng(lat, lng)
+                map.addMarker(
+                    MarkerOptions().position(step).title("Step").icon(
+                        BitmapDescriptorFactory.fromResource(R.mipmap.map_step)
+                    )
+                )
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
