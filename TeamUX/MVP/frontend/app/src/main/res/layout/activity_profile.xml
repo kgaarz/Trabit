@@ -1,35 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linearLayout_profile"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Layout_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/whiteBlue"
-    android:orientation="vertical">
+    android:fillViewport="true"
+    android:scrollbars="none" >
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
 
     //header
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="195dp"
-        android:background="@drawable/custom_header"
-        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:background="@color/whiteBlue"
         android:padding="10dp">
 
+
+
         <TextView
-            android:id="@+id/headerStartScreen"
-            android:layout_width="wrap_content"
-            android:layout_height="37dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+            android:id="@+id/nameProfile"
+            android:layout_width="192dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/headerStartScreen"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="117dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Mein Profil"
-            android:textColor="@color/colorWhite"
+            android:layout_marginLeft="117dp"
+            android:layout_marginEnd="92dp"
+            android:layout_marginRight="92dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Max Mustermann"
+            android:textColor="@color/colorDarkBlue"
             android:textSize="20sp"
-            android:textStyle="bold"
-            app:fontFamily="@font/oxygen" />
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageProfile"
+            android:layout_width="127dp"
+            android:layout_height="123dp"
+            android:layout_below="@+id/nameProfile"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="21dp"
+            android:layout_marginEnd="136dp"
+            android:layout_marginRight="136dp"
+            android:src="@drawable/user_photo" />
 
         <ImageButton
             android:id="@+id/btnEdit"
@@ -37,73 +62,38 @@
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
             android:background="@null"
             android:scaleType="fitCenter"
-            android:tint="#FFFFFF"
-            app:srcCompat="@drawable/edit" />
+            android:tint="@color/colorDarkBlue"
+            android:src="@drawable/edit" />
 
         <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="105dp"
-            android:layout_height="84dp"
-            android:layout_below="@+id/headerStartScreen"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="159dp"
-            android:layout_marginLeft="159dp"
-            android:layout_marginEnd="156dp"
-            android:layout_marginRight="156dp"
-            android:src="@drawable/user_photo" />
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_below="@+id/imageProfile"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
+            android:src="@mipmap/linie_blau" />
 
-        <TextView
-            android:id="@+id/nameProfile"
-            android:layout_width="171dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView3"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="123dp"
-            android:layout_marginLeft="123dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="107dp"
-            android:layout_marginRight="107dp"
-            android:text="Max Mustermann"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp"
-            app:fontFamily="@font/oxygen" />
-
-
-    </RelativeLayout>
-
-
-    //Main
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
         //Persönliche Daten
 
+
         <TextView
             android:id="@+id/txtUserData"
-            android:layout_width="wrap_content"
+            android:layout_width="166dp"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/line1"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
-            android:layout_marginTop="35dp"
-            android:layout_marginEnd="238dp"
-            android:layout_marginRight="238dp"
+            android:layout_marginTop="19dp"
             android:fontFamily="@font/oxygen"
             android:text="Persönliche Daten"
             android:textColor="@color/colorDarkBlue"
@@ -193,17 +183,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtMailData"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="223dp"
-            android:layout_marginRight="223dp"
             android:layout_toEndOf="@+id/txtHome"
             android:layout_toRightOf="@+id/txtHome"
             android:fontFamily="@font/oxygen"
-            android:text="Köln"
+            android:text="Gummersbach"
             android:textSize="14dp" />
 
 
@@ -216,13 +202,9 @@
             android:layout_below="@+id/txtHomeData"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="26dp"
-            android:layout_marginEnd="218dp"
-            android:layout_marginRight="218dp"
             android:fontFamily="@font/oxygen"
             android:text="Kontoeinstellungen"
             android:textColor="@color/colorDarkBlue"
@@ -248,13 +230,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtPreferences"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="246dp"
-            android:layout_marginRight="246dp"
             android:layout_toEndOf="@+id/txtNickname"
             android:layout_toRightOf="@+id/txtNickname"
             android:fontFamily="@font/oxygen"
@@ -289,22 +267,137 @@
             android:text="**********"
             android:textSize="14dp" />
 
+
+        <TextView
+            android:id="@+id/txtMobilities"
+            android:layout_width="166dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtPasswordData"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="26dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Meine Mobilitäten"
+            android:textColor="@color/colorDarkBlue"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+
+        <Switch
+            android:id="@+id/mob1"
+            android:track="@drawable/switch_track"
+            android:thumb="@drawable/switch_thumb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtMobilities"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="12dp"
+            android:checked="true"
+            android:fontFamily="@font/oxygen"
+            android:text="Auto   "
+            android:textColor="@color/colorMiddleGrey"
+            android:textSize="14dp"
+            tools:checked="true" />
+
+        <Switch
+            android:id="@+id/mob2"
+            android:track="@drawable/switch_track"
+            android:thumb="@drawable/switch_thumb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mob1"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="12dp"
+            android:checked="false"
+            android:fontFamily="@font/oxygen"
+            android:text="Führerschein   "
+            android:textColor="@color/colorMiddleGrey"
+            android:textSize="14dp"
+            tools:checked="false" />
+
+        <Switch
+            android:id="@+id/mob3"
+            android:track="@drawable/switch_track"
+            android:thumb="@drawable/switch_thumb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mob2"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="12dp"
+            android:checked="true"
+            android:fontFamily="@font/oxygen"
+            android:text="Fahrrad   "
+            android:textColor="@color/colorMiddleGrey"
+            android:textSize="14dp"
+            tools:checked="true" />
+
+        <Switch
+            android:id="@+id/mob4"
+            android:track="@drawable/switch_track"
+            android:thumb="@drawable/switch_thumb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mob3"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="12dp"
+            android:checked="false"
+            android:fontFamily="@font/oxygen"
+            android:text="Zugticket   "
+            android:textColor="@color/colorMiddleGrey"
+            android:textSize="14dp"
+            tools:checked="false" />
+
+        <Switch
+            android:id="@+id/mob5"
+            android:track="@drawable/switch_track"
+            android:thumb="@drawable/switch_thumb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mob4"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="12dp"
+            android:checked="true"
+            android:fontFamily="@font/oxygen"
+            android:text="Fahrgemeinschaft   "
+            android:textColor="@color/colorMiddleGrey"
+            android:textSize="14dp"
+            tools:checked="true" />
+
+
+
         //Buttons
 
         <Button
             android:id="@+id/btn_logout"
             android:layout_width="298dp"
             android:layout_height="35dp"
-            android:layout_below="@+id/txtPasswordData"
+            android:layout_below="@+id/mob5"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="49dp"
-            android:layout_marginLeft="49dp"
-            android:layout_marginTop="55dp"
-            android:layout_marginEnd="64dp"
-            android:layout_marginRight="64dp"
+            android:layout_marginStart="58dp"
+            android:layout_marginLeft="58dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="75dp"
+            android:layout_marginRight="75dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/custom_button_next"
             android:fontFamily="@font/oxygen"
@@ -319,13 +412,9 @@
             android:layout_below="@+id/btn_logout"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_marginStart="154dp"
             android:layout_marginLeft="154dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="146dp"
-            android:layout_marginRight="146dp"
             android:layout_marginBottom="6dp"
             android:fontFamily="@font/oxygen"
             android:text="Konto löschen"
@@ -333,7 +422,11 @@
             android:textSize="16dp" />
 
 
+
     </RelativeLayout>
+
+
+        //Footer
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -396,7 +489,9 @@
         </LinearLayout>
 
 
-    </RelativeLayout>
+        </RelativeLayout>
 
-</LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
 

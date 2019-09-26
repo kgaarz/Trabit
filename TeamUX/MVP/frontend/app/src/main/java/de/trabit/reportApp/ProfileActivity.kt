@@ -36,7 +36,7 @@ class ProfileActivity : AppCompatActivity() {
                 txtHomeData.text = user.profile.residence
             }, Response.ErrorListener {
                 it.printStackTrace()
-                ErrorSnackbar(linearLayout_profile).show("Abrufen des Profils fehlgeschlagen!")
+                ErrorSnackbar(Layout_profile).show("Abrufen des Profils fehlgeschlagen!")
             })
         mQueue.add(request)
     }
