@@ -63,7 +63,7 @@ class ReportRecyclerAdapter(var reportList: Array<Report>, private val onComment
         fun onCommentClick(position : Int)
     }
 
-    class ReportViewHolder (itemView: View, onCommentListener : OnCommentListener) : ViewHolder(itemView, onCommentListener), View.OnCreateContextMenuListener{
+    class ReportViewHolder (itemView: View, onCommentListener : OnCommentListener) : ViewHolder(itemView, onCommentListener){
 
         private val dayText = itemView.findViewById(R.id.day_text) as TextView
         private val timeText = itemView.findViewById(R.id.time_text) as TextView
