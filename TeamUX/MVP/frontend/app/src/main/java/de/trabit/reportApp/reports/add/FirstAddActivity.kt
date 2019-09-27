@@ -3,7 +3,9 @@ package de.trabit.reportApp.reports.add
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import de.trabit.reportApp.R
 import de.trabit.reportApp.reports.display.OverviewActivity
@@ -31,6 +33,10 @@ class FirstAddActivity : AppCompatActivity() {
         var chosenMeansOfTransport : String
 
         trainTile.setOnClickListener{
+            val trainImage = findViewById(R.id.trainTileImage) as ImageView
+            trainImage.setImageResource(R.mipmap.train_icon_clicked)
+            val trainText = findViewById(R.id.trainTileText) as TextView
+            trainText.setTextColor(0xff1C6A9C.toInt())
             val nextAddActivtityIntent = Intent(this, SecondAddActivity::class.java)
             chosenMeansOfTransport ="train"
             nextAddActivtityIntent.putExtra("meansOfTransport", chosenMeansOfTransport)
@@ -38,6 +44,10 @@ class FirstAddActivity : AppCompatActivity() {
         }
 
         tramTile.setOnClickListener{
+            val tramImage = findViewById(R.id.tramTileImage) as ImageView
+            tramImage.setImageResource(R.mipmap.tram_icon_clicked)
+            val tramText = findViewById(R.id.tramTileText) as TextView
+            tramText.setTextColor(0xff1C6A9C.toInt())
             val nextAddActivtityIntent = Intent(this, SecondAddActivity::class.java)
             chosenMeansOfTransport ="subway"
             nextAddActivtityIntent.putExtra("meansOfTransport", chosenMeansOfTransport)
@@ -45,6 +55,10 @@ class FirstAddActivity : AppCompatActivity() {
         }
 
         busTile.setOnClickListener{
+            val busImage = findViewById(R.id.busTileImage) as ImageView
+            busImage.setImageResource(R.mipmap.bus_icon_clicked)
+            val busText = findViewById(R.id.busTileText) as TextView
+            busText.setTextColor(0xff1C6A9C.toInt())
             val nextAddActivtityIntent = Intent(this, SecondAddActivity::class.java)
             chosenMeansOfTransport ="bus"
             nextAddActivtityIntent.putExtra("meansOfTransport", chosenMeansOfTransport)
@@ -52,6 +66,10 @@ class FirstAddActivity : AppCompatActivity() {
         }
 
         carTile.setOnClickListener{
+            val carImage = findViewById(R.id.carTileImage) as ImageView
+            carImage.setImageResource(R.mipmap.car_icon_clicked)
+            val carText = findViewById(R.id.carTileText) as TextView
+            carText.setTextColor(0xff1C6A9C.toInt())
             val nextAddActivtityIntent = Intent(this, SecondAddActivity::class.java)
             chosenMeansOfTransport ="car"
             nextAddActivtityIntent.putExtra("meansOfTransport", chosenMeansOfTransport)

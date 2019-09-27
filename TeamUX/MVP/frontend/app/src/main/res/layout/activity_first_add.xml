@@ -95,6 +95,7 @@
                     app:srcCompat="@mipmap/train_icon_grey" />
 
                 <TextView
+                    android:id="@+id/trainTileText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -126,6 +127,7 @@
                     app:srcCompat="@mipmap/tram_icon_grey" />
 
                 <TextView
+                    android:id="@+id/tramTileText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -167,6 +169,7 @@
              >
 
             <ImageView
+                android:id="@+id/busTileImage"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 app:srcCompat="@mipmap/bus_icon_grey"
@@ -174,6 +177,7 @@
             />
 
             <TextView
+                android:id="@+id/busTileText"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:text="Bus"
@@ -197,6 +201,7 @@
         >
 
             <ImageView
+                android:id="@+id/carTileImage"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 app:srcCompat="@mipmap/car_icon_grey"
@@ -204,6 +209,7 @@
             />
 
             <TextView
+                android:id="@+id/carTileText"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:text="Auto"
