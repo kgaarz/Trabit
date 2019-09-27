@@ -4,7 +4,7 @@
     android:id="@+id/linearLayout_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLighterGrey"
+    android:background="@color/whiteBlue"
     android:orientation="vertical">
 
 
@@ -101,19 +101,48 @@
             android:hint="Passwort"
             android:inputType="textPassword" />
 
-        <Button
+        <RelativeLayout
             android:id="@+id/btn_next"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_below="@+id/txtLoginPassword"
             android:layout_marginLeft="46dp"
             android:layout_marginTop="38dp"
             android:layout_marginRight="46dp"
-            android:background="@drawable/custom_button_send"
+            android:background="@drawable/sign_in_btn"
             android:fontFamily="@font/oxygen"
-            android:text="Anmelden"
+            android:elevation="4dp"
             android:textColor="@color/colorWhite"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:clickable="true"
+            >
+            <TextView
+                android:id="@+id/signInText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Anmelden"
+                android:layout_centerInParent="true"
+                android:textColor="@color/colorWhite"
+                />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_centerInParent="true"
+                android:visibility="invisible"
+                android:indeterminateDrawable="@drawable/progress_bar_login"
+                />
+            <ImageView
+                android:id="@+id/validationIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:visibility="invisible"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/check"
+                >
+            </ImageView>
+        </RelativeLayout>
 
     </RelativeLayout>
 
