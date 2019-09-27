@@ -22,39 +22,22 @@
         android:padding="10dp">
 
 
-
         <TextView
             android:id="@+id/nameProfile"
-            android:layout_width="192dp"
-            android:layout_height="wrap_content"
+            android:layout_width="175dp"
+            android:layout_height="33dp"
             android:layout_below="@+id/headerStartScreen"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="117dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="117dp"
-            android:layout_marginEnd="92dp"
-            android:layout_marginRight="92dp"
+            android:layout_toStartOf="@+id/btnEdit"
+            android:layout_toLeftOf="@+id/btnEdit"
             android:fontFamily="@font/oxygen"
             android:text="Max Mustermann"
             android:textColor="@color/colorDarkBlue"
             android:textSize="20sp"
             android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/imageProfile"
-            android:layout_width="127dp"
-            android:layout_height="123dp"
-            android:layout_below="@+id/nameProfile"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="21dp"
-            android:layout_marginEnd="136dp"
-            android:layout_marginRight="136dp"
-            android:src="@drawable/user_photo" />
 
         <ImageButton
             android:id="@+id/btnEdit"
@@ -70,30 +53,30 @@
             android:src="@drawable/edit" />
 
         <ImageView
-            android:id="@+id/line1"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_below="@+id/imageProfile"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="30dp"
-            android:src="@mipmap/linie_blau" />
+            android:id="@+id/imageProfile"
+            android:layout_width="127dp"
+            android:layout_height="123dp"
+            android:layout_below="@+id/nameProfile"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="121dp"
+            android:layout_marginRight="121dp"
+            android:src="@drawable/user_photo" />
 
 
         //Persönliche Daten
-
 
         <TextView
             android:id="@+id/txtUserData"
             android:layout_width="166dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line1"
+            android:layout_below="@+id/imageProfile"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
-            android:layout_marginTop="19dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="@font/oxygen"
             android:text="Persönliche Daten"
             android:textColor="@color/colorDarkBlue"
@@ -119,13 +102,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtUserData"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="187dp"
-            android:layout_marginRight="187dp"
             android:layout_toEndOf="@+id/txtName"
             android:layout_toRightOf="@+id/txtName"
             android:fontFamily="@font/oxygen"
@@ -151,13 +130,9 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtNameData"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="143dp"
-            android:layout_marginRight="143dp"
             android:layout_toEndOf="@+id/txtMail"
             android:layout_toRightOf="@+id/txtMail"
             android:fontFamily="@font/oxygen"
@@ -407,89 +382,25 @@
 
         <TextView
             android:id="@+id/txtDelete"
-            android:layout_width="111dp"
-            android:layout_height="41dp"
+            android:layout_width="172dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/btn_logout"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginStart="154dp"
-            android:layout_marginLeft="154dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="107dp"
+            android:layout_marginLeft="107dp"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="122dp"
+            android:layout_marginRight="122dp"
             android:layout_marginBottom="6dp"
             android:fontFamily="@font/oxygen"
             android:text="Konto löschen"
             android:textColor="@color/colorLightGrey"
             android:textSize="16dp" />
 
-
-
     </RelativeLayout>
-
-
-        //Footer
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="45dp"
-            android:background="@drawable/drop_shadow_footer" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/custom_footer"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:background="@null"
-                android:scaleType="fitCenter" />
-
-            <ImageButton
-                android:id="@+id/directonsNavigation"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/directions_icon" />
-
-
-            <ImageButton
-                android:id="@+id/overviewNavigation"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/overview" />
-
-            <ImageButton
-                android:id="@+id/profileNavigation"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@mipmap/profile_active" />
-
-        </LinearLayout>
-
-
-        </RelativeLayout>
 
     </LinearLayout>
 
