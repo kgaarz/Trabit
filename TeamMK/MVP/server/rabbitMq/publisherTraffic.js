@@ -13,12 +13,10 @@ module.exports = function(req, res, next) {
 }
 
 
-//var timer = setInterval(function(){getTrafficForDirections();}, 20000);
+var timer = setInterval(function(){getTrafficForDirections();}, 6000);
 
-//function getTrafficForDirections(){
+function getTrafficForDirections(){
 getAllRoutes(Directions).then((result) => {
-
-  //  for(i =0; i<result.length; i++){
 
   amqp.connect('amqp://localhost', (error0, connection) => {
     if (error0) {
@@ -31,51 +29,52 @@ getAllRoutes(Directions).then((result) => {
       var exchange = 'headers_logs';
       var msg = [];
       var rountingKey = "Warning";
-
-      var headerOptions = new Map();
-          for(i=0; i<result.length; i++){
-            for(n=0; n<result[i].length; n++){
-            headerOptions.set(result[i][n].directionID, result[i][n].step);
-            msg.push(result[i][n].trafficID);
-          }
+      /*
+            var headerOptions = new Map();
+                for(i=0; i<result.length; i++){
+                  for(n=0; n<result[i].length; n++){
+                  headerOptions.set(result[i][n].directionID, result[i][n].step);
+                  msg.push(result[i][n].trafficID);
+                }
+              }
+                headerOptions.forEach((value, key) => {
+                  let store = {
+                    'key': key,
+                    'value': value
+                  };
+                  opts.push({
+                    headers: store
+                  });
+                });
+      */
+     var opts = [];
+      for (i = 0; i < result.length; i++) {
+        for (n = 0; n < result[i].length; n++) {
+          opts.push({
+            headers: {
+              'key': JSON.stringify(result[i][n].directionID),
+              'value': JSON.stringify(result[i][n].step)
+            }
+          });
+          msg.push(JSON.stringify(result[i][n].trafficID));
         }
-
-      /*var headerValue = {
-        lat: "51.941357",
-        lng: "7.958307"
-      };
-      var headerValue2 = {
-        lat: "50.941357",
-        lng: "6.958307"
-      };
-      headerOptions.set("test", headerValue);
-      headerOptions.set("test", headerValue2*/
-      var opts = [];
-      headerOptions.forEach((value, key) => {
-        let store = {
-          'key': key,
-          'value': value
-        };
-        opts.push({
-          headers: store
-        });
-      });
+      }
       channel.assertExchange(exchange, 'headers', {
         durable: false
       });
       for (i = 0; i < opts.length; i++) {
-        channel.publish(exchange, rountingKey, Buffer.from(msg), opts[i]);
+        channel.publish(exchange, rountingKey, Buffer.from(msg[i]), opts[i]);
         console.log("Sent Header:" + opts[i].headers.key + "; " + opts[i].headers.value + " and Message: " + msg[i]);
       }
     });
-      setTimeout(()=> {
-        connection.close();
-        process.exit(0)
-      }, 10000);
+    setTimeout(() => {
+      connection.close();
+      process.exit(0)
+    }, 10000);
   });
 });
 
-
+}
 function getAllRoutes(schema) {
   return new Promise(function(resolve, reject) {
     schema.find({})
@@ -145,19 +144,19 @@ function createTrafficScheme(trafficValues) {
           "incidents": trafficValues[b][0].incidents
         },
       });
-      array.push(saveTraffic(trafficResult,trafficValues,b));
+      array.push(saveTraffic(trafficResult, trafficValues, b));
     }
-    Promise.all(array).then((values)=>{
-  resolve(values);
-},
-(error) => {
-  reject(error);
-});
+    Promise.all(array).then((values) => {
+        resolve(values);
+      },
+      (error) => {
+        reject(error);
+      });
   });
 }
 
-function saveTraffic(trafficResult,trafficValues, b){
-  return new Promise(function(resolve,reject){
+function saveTraffic(trafficResult, trafficValues, b) {
+  return new Promise(function(resolve, reject) {
     trafficResult.save(function(error, result) {
       if (result) {
         var tempDirectionId = trafficValues[b][0].directionID;
