@@ -1,8 +1,10 @@
 package de.trabit.reportApp.user.profile
 
 import ErrorSnackbar
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageButton
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -11,16 +13,25 @@ import com.android.volley.toolbox.Volley
 import com.example.api_test.dataClasses.User
 import com.google.gson.GsonBuilder
 import de.trabit.reportApp.BuildConfig
+import de.trabit.reportApp.EditProfile
 import de.trabit.reportApp.R
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+
         // get user data
         getUser(BuildConfig.DEMO_USERID)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+        //click Button to edit Profile - Account Settings
+        val profileEdit = findViewById<ImageButton>(R.id.btnEdit)
+        profileEdit.setOnClickListener {
+            val changeAccountSettings = Intent(this, EditProfile::class.java)
+            startActivity(changeAccountSettings)
+        }
     }
 
     private fun getUser(userId: String) {
@@ -42,4 +53,7 @@ class ProfileActivity : AppCompatActivity() {
             })
         mQueue.add(request)
     }
+
+
+
 }
