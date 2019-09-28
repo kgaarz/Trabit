@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/Layout_profile"
     android:layout_width="match_parent"
@@ -24,61 +25,89 @@
 
         <TextView
             android:id="@+id/nameProfile"
-            android:layout_width="175dp"
-            android:layout_height="33dp"
-            android:layout_below="@+id/headerStartScreen"
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="126dp"
+            android:layout_marginLeft="126dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginRight="32dp"
+            android:layout_marginEnd="99dp"
+            android:layout_marginRight="99dp"
             android:layout_marginBottom="10dp"
-            android:layout_toStartOf="@+id/btnEdit"
-            android:layout_toLeftOf="@+id/btnEdit"
             android:fontFamily="@font/oxygen"
             android:text="Max Mustermann"
             android:textColor="@color/colorDarkBlue"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/btnEdit"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:tint="@color/colorDarkBlue"
-            android:src="@drawable/edit" />
-
         <ImageView
             android:id="@+id/imageProfile"
-            android:layout_width="127dp"
-            android:layout_height="123dp"
+            android:layout_width="122dp"
+            android:layout_height="117dp"
             android:layout_below="@+id/nameProfile"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="121dp"
-            android:layout_marginRight="121dp"
+            android:layout_marginStart="147dp"
+            android:layout_marginLeft="147dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="132dp"
+            android:layout_marginRight="132dp"
             android:src="@drawable/user_photo" />
 
-
-        //Persönliche Daten
-
-        <TextView
-            android:id="@+id/txtUserData"
-            android:layout_width="166dp"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="400dp"
+            android:layout_height="25dp"
             android:layout_below="@+id/imageProfile"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginRight="10dp"
+            app:srcCompat="@mipmap/linie_blau" />
+
+        //Persönliche Daten
+
+        <ImageButton
+            android:id="@+id/btnEdit"
+            android:layout_width="32dp"
+            android:layout_height="21dp"
+            android:layout_below="@+id/imageView2"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="137dp"
+            android:layout_marginRight="137dp"
+            android:layout_toEndOf="@+id/txtUserData"
+            android:layout_toRightOf="@+id/txtUserData"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/edit"
+            android:tint="@color/colorDarkBlue" />
+
+        <TextView
+            android:id="@+id/txtUserData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView2"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/oxygen"
-            android:text="Persönliche Daten"
+            android:text="Meine Kontoeinstellungen"
             android:textColor="@color/colorDarkBlue"
             android:textSize="16dp"
             android:textStyle="bold" />
@@ -167,30 +196,11 @@
             android:text="Gummersbach"
             android:textSize="14dp" />
 
-
-        //Kontoeinstellungen
-
-        <TextView
-            android:id="@+id/txtPreferences"
-            android:layout_width="166dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtHomeData"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginStart="27dp"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="26dp"
-            android:fontFamily="@font/oxygen"
-            android:text="Kontoeinstellungen"
-            android:textColor="@color/colorDarkBlue"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
         <TextView
             android:id="@+id/txtNickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtPreferences"
+            android:layout_below="@+id/txtHomeData"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_marginStart="27dp"
@@ -204,7 +214,7 @@
             android:id="@+id/txtNicknameData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtPreferences"
+            android:layout_below="@+id/txtHomeData"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="12dp"
@@ -243,21 +253,58 @@
             android:textSize="14dp" />
 
 
+        //Mobilities
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="400dp"
+            android:layout_height="25dp"
+            android:layout_below="@+id/txtPasswordData"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginRight="37dp"
+            app:srcCompat="@mipmap/linie_blau" />
+
         <TextView
             android:id="@+id/txtMobilities"
-            android:layout_width="166dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtPasswordData"
+            android:layout_below="@+id/imageView"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/oxygen"
             android:text="Meine Mobilitäten"
             android:textColor="@color/colorDarkBlue"
             android:textSize="16dp"
             android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/btnEdit2"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_below="@+id/imageView"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="41dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="193dp"
+            android:layout_marginRight="193dp"
+            android:layout_toEndOf="@+id/txtMobilities"
+            android:layout_toRightOf="@+id/txtMobilities"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/edit"
+            android:tint="@color/colorDarkBlue" />
 
 
         <Switch
@@ -382,23 +429,24 @@
 
         <TextView
             android:id="@+id/txtDelete"
-            android:layout_width="172dp"
+            android:layout_width="135dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_logout"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="107dp"
-            android:layout_marginLeft="107dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="122dp"
-            android:layout_marginRight="122dp"
+            android:layout_marginStart="137dp"
+            android:layout_marginLeft="137dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="149dp"
+            android:layout_marginRight="149dp"
             android:layout_marginBottom="6dp"
             android:fontFamily="@font/oxygen"
             android:text="Konto löschen"
             android:textColor="@color/colorLightGrey"
             android:textSize="16dp" />
+
 
     </RelativeLayout>
 
