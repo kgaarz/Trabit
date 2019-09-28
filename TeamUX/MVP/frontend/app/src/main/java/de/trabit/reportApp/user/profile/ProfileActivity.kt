@@ -14,6 +14,7 @@ import com.example.api_test.dataClasses.User
 import com.google.gson.GsonBuilder
 import de.trabit.reportApp.BuildConfig
 import de.trabit.reportApp.EditProfile
+import de.trabit.reportApp.EditProfileMobilities
 import de.trabit.reportApp.R
 import kotlinx.android.synthetic.main.activity_profile.*
 
@@ -26,12 +27,21 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+
+        //click Button to edit Profile - Mobility Settings
+        val profileEditMobilities = findViewById<ImageButton>(R.id.btnEdit2)
+        profileEditMobilities.setOnClickListener {
+            val changeMobilitySettings = Intent(this, EditProfileMobilities::class.java)
+            startActivity(changeMobilitySettings)
+        }
+
         //click Button to edit Profile - Account Settings
         val profileEdit = findViewById<ImageButton>(R.id.btnEdit)
         profileEdit.setOnClickListener {
             val changeAccountSettings = Intent(this, EditProfile::class.java)
             startActivity(changeAccountSettings)
         }
+
     }
 
     private fun getUser(userId: String) {
