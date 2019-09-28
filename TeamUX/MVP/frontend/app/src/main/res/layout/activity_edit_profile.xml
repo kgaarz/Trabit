@@ -36,22 +36,23 @@
 
         <TextView
             android:id="@+id/txtUserData"
-            android:layout_width="283dp"
-            android:layout_height="32dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_below="@+id/imageView2"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="25dp"
-            android:layout_marginEnd="45dp"
-            android:layout_marginRight="45dp"
+            android:layout_marginEnd="86dp"
+            android:layout_marginRight="86dp"
             android:layout_toEndOf="@+id/btn_back"
             android:layout_toRightOf="@+id/btn_back"
             android:fontFamily="@font/oxygen"
             android:text="Meine Kontoeinstellungen"
             android:textColor="@color/colorDarkBlue"
-            android:textSize="22dp"
+            android:textSize="20dp"
             android:textStyle="bold" />
 
     </RelativeLayout>
@@ -71,7 +72,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="34dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
@@ -79,7 +80,7 @@
             android:fontFamily="@font/oxygen"
             android:text="Hier kannst du deine Kontoeinstellungen ändern und speichern."
             android:textColor="@color/colorMiddleGrey"
-            android:textSize="16dp" />
+            android:textSize="18dp" />
 
     </RelativeLayout>
 
@@ -88,9 +89,9 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:background="@drawable/tile_layout_detail"
+        android:background="@drawable/edit_profile"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="8dp">
 
 
         <EditText
@@ -100,8 +101,10 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:ems="10"
+            android:ems="15"
+            android:textSize="16dp"
             android:inputType="textPersonName"
+            android:fontFamily="@font/oxygen"
             android:text="Vorname Nachname" />
 
     </RelativeLayout>
@@ -112,9 +115,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/tile_layout_detail"
+        android:background="@drawable/edit_profile"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="8dp">
 
 
         <EditText
@@ -124,8 +127,10 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:ems="10"
+            android:ems="15"
+            android:textSize="16dp"
             android:inputType="textEmailAddress"
+            android:fontFamily="@font/oxygen"
             android:text="Email-Adresse" />
 
     </RelativeLayout>
@@ -136,9 +141,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/tile_layout_detail"
+        android:background="@drawable/edit_profile"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="8dp">
 
 
         <EditText
@@ -148,8 +153,10 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:ems="10"
+            android:ems="15"
+            android:textSize="16dp"
             android:inputType="text"
+            android:fontFamily="@font/oxygen"
             android:text="Wohnort" />
 
     </RelativeLayout>
@@ -160,9 +167,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/tile_layout_detail"
+        android:background="@drawable/edit_profile"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="8dp">
 
 
         <EditText
@@ -172,8 +179,10 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:ems="10"
+            android:ems="15"
+            android:textSize="16dp"
             android:inputType="text"
+            android:fontFamily="@font/oxygen"
             android:text="Nutzername" />
 
     </RelativeLayout>
@@ -185,21 +194,37 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/tile_layout_detail"
+        android:background="@drawable/edit_profile"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="8dp">
 
 
         <EditText
             android:id="@+id/editPassword"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:ems="10"
+            android:ems="15"
+            android:textSize="16dp"
             android:inputType="textPassword"
+            android:fontFamily="@font/oxygen"
             android:text="Password" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@+id/editPassword"
+            android:layout_toRightOf="@+id/editPassword"
+            android:text="Passwort ändern"
+            android:textSize="16dp"
+            android:textColor="@color/colorLightBlue"
+            />
 
     </RelativeLayout>
 
@@ -216,7 +241,9 @@
             android:layout_height="wrap_content"
             android:background="@drawable/custom_button_send"
             android:text="Speichern"
-            android:textColor="@color/colorWhite" />
+            android:fontFamily="@font/oxygen"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"/>
 
     </RelativeLayout>
 
