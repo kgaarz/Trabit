@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentLeft="true"
+    android:background="@color/colorLighterGrey"
+    android:orientation="vertical"
+    android:windowActionBar="false"
+    tools:context="de.trabit.reportApp.EditProfile">
+
+
+    //header
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="19dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="31dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/arrow_back_black"
+            android:tint="@color/colorDarkBlue" />
+
+        <TextView
+            android:id="@+id/txtUserData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/imageView2"
+            android:layout_marginTop="27dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Meine Mobilitäten"
+            android:textColor="@color/colorDarkBlue"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="383dp"
+            android:layout_height="71dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Hier kannst du verschiedene Mobilitäten angeben und bearbeiten."
+            android:textColor="@color/colorMiddleGrey"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
+
+
+    //Mobilities
+
+    <RelativeLayout
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/edit_profile"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+    <Switch
+        android:id="@+id/mob1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtMobilities"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginLeft="27dp"
+        android:checked="true"
+        android:fontFamily="@font/oxygen"
+        android:text="Auto   "
+        android:textColor="@color/colorMiddleGrey"
+        android:textSize="16dp"
+        android:thumb="@drawable/switch_thumb"
+        android:track="@drawable/switch_track" />
+
+    <Switch
+        android:id="@+id/mob2"
+        android:track="@drawable/switch_track"
+        android:thumb="@drawable/switch_thumb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mob1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="12dp"
+        android:checked="false"
+        android:fontFamily="@font/oxygen"
+        android:text="Führerschein   "
+        android:textColor="@color/colorMiddleGrey"
+        android:textSize="16dp"
+        tools:checked="false" />
+
+    <Switch
+        android:id="@+id/mob3"
+        android:track="@drawable/switch_track"
+        android:thumb="@drawable/switch_thumb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mob2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="12dp"
+        android:checked="true"
+        android:fontFamily="@font/oxygen"
+        android:text="Fahrrad   "
+        android:textColor="@color/colorMiddleGrey"
+        android:textSize="16dp"
+        tools:checked="true" />
+
+    <Switch
+        android:id="@+id/mob4"
+        android:track="@drawable/switch_track"
+        android:thumb="@drawable/switch_thumb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mob3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="12dp"
+        android:checked="false"
+        android:fontFamily="@font/oxygen"
+        android:text="Zugticket   "
+        android:textColor="@color/colorMiddleGrey"
+        android:textSize="16dp"
+        tools:checked="false" />
+
+    <Switch
+        android:id="@+id/mob5"
+        android:track="@drawable/switch_track"
+        android:thumb="@drawable/switch_thumb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mob4"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="12dp"
+        android:checked="true"
+        android:fontFamily="@font/oxygen"
+        android:text="Fahrgemeinschaft   "
+        android:textColor="@color/colorMiddleGrey"
+        android:textSize="16dp"
+        tools:checked="true" />
+
+    </RelativeLayout>
+
+    //Button save new settings
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        >
+
+        <Button
+            android:id="@+id/profileMob_send_button"
+            android:layout_centerHorizontal="true"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_button_send"
+            android:text="Speichern"
+            android:fontFamily="@font/oxygen"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
