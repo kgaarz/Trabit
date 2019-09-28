@@ -17,12 +17,14 @@ const alternativeDirectionsRoute = require('./routes/alternativeDirections');
 const directionsSelectionsRoute = require('./routes/directionsSelections');
 const directionsRoute = require('./routes/directions');
 const trafficsRoute = require('./routes/traffics');
+const publisherTraffic = require('./rabbitMq/publisherTraffic');
 
 app.use('/mobilities', mobilitiesRoute);
 app.use('/alternativeDirections', alternativeDirectionsRoute);
 app.use('/directionsSelections', directionsSelectionsRoute);
 app.use('/directions', directionsRoute);
 app.use('/traffics', trafficsRoute);
+app.use(publisherTraffic);
 
 app.get('/', (req, res) => {
   res.send('Trabit-Server ist online!');
