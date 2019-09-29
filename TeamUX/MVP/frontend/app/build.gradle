@@ -64,7 +64,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.squareup.okhttp3:okhttp:4.2.0'
-    implementation 'com.rabbitmq:amqp-client:5.7.3'
+    //implementation 'com.rabbitmq:amqp-client:5.7.3'
 
 
 }

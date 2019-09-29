@@ -21,7 +21,7 @@ import de.trabit.directionsApp.requestHelper.RequestActivity
 import de.trabit.reportApp.R
 import org.json.JSONArray
 import org.json.JSONObject
-import com.rabbitmq.client.*
+//import com.rabbitmq.client.*
 import java.util.*
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback,
@@ -179,7 +179,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
 
         setUpMap()
     }
-
+/*
     private fun createQueues(directionsData: JSONObject) {
         var directionId = directionsData.getJSONObject("id")
         var steps = directionsData.getJSONArray("steps")
@@ -215,5 +215,5 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
             }
         }
         channel.basicConsume(queueName, true, consumer)
-    }
+    }*/
 }
