@@ -45,13 +45,15 @@ class DirectionsActivity : AppCompatActivity() {
 
         // Get current calendar date and time.
         val currCalendar = Calendar.getInstance()
+        currCalendar.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"))
 
         year = currCalendar.get(Calendar.YEAR)
         month = currCalendar.get(Calendar.MONTH)
         day = currCalendar.get(Calendar.DAY_OF_MONTH)
         hour = currCalendar.get(Calendar.HOUR_OF_DAY)
         minute = currCalendar.get(Calendar.MINUTE)
-        timestamp = currCalendar.getTimeInMillis();
+        timestamp = currCalendar.getTimeInMillis()
+        timestamp /= 1000
 
         // Get date picker object.
         val datePicker = findViewById(R.id.datePicker) as DatePicker
@@ -65,6 +67,8 @@ class DirectionsActivity : AppCompatActivity() {
             currCalendar.set(year, month, day, this@DirectionsActivity.hour, this@DirectionsActivity.minute)
 
             this@DirectionsActivity.timestamp = currCalendar.getTimeInMillis()
+            this@DirectionsActivity.timestamp /= 1000
+
 
         }
 
@@ -80,6 +84,7 @@ class DirectionsActivity : AppCompatActivity() {
             currCalendar.set(this@DirectionsActivity.year, this@DirectionsActivity.month, this@DirectionsActivity.day, hour, minute)
 
             this@DirectionsActivity.timestamp = currCalendar.getTimeInMillis()
+            this@DirectionsActivity.timestamp /= 1000
         }
 
         timePicker.setIs24HourView(true)
@@ -122,7 +127,6 @@ class DirectionsActivity : AppCompatActivity() {
 
                 override fun onPlaceSelected(place: Place) {
                     // TODO: Get info about the selected place.
-                    Log.i("TAG", "Place: " + place.latLng)
                     this@DirectionsActivity.originLat = place.latLng?.latitude ?: 0.0
                     this@DirectionsActivity.originLong = place.latLng?.longitude ?: 0.0
 
@@ -147,7 +151,6 @@ class DirectionsActivity : AppCompatActivity() {
 
                 override fun onPlaceSelected(place: Place) {
                     // TODO: Get info about the selected place.
-                    Log.i("TAG", "Place: " + place.latLng)
                     this@DirectionsActivity.destinationLat = place.latLng?.latitude ?: 0.0
                     this@DirectionsActivity.destinationLong = place.latLng?.longitude ?: 0.0
                 }
