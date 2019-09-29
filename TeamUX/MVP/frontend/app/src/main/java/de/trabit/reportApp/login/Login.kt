@@ -42,7 +42,7 @@ class Login : AppCompatActivity() {
                     progressBar.setVisibility(View.GONE)
                     checkImage.visibility = View.VISIBLE
                 }
-            },3100)
+            },1000)
 
         }
 
