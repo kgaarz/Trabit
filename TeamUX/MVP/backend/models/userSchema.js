@@ -65,7 +65,7 @@ const user = new mongoose.Schema({
     of: profile,
     required: true
   },
-  mobility: {
+  availableMobilityOptions: {
     type: Object,
     of: mobility,
     required: true
