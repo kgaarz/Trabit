@@ -68,7 +68,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="34dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:fontFamily="@font/oxygen"
@@ -107,7 +107,7 @@
         android:id="@+id/editLastNameLayout"
         android:layout_width="352dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
         android:background="@drawable/edit_profile"
         android:orientation="horizontal"
@@ -134,7 +134,7 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/edit_profile"
         android:orientation="vertical"
         android:padding="8dp">
@@ -160,7 +160,7 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/edit_profile"
         android:orientation="vertical"
         android:padding="8dp">
@@ -186,7 +186,7 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/edit_profile"
         android:orientation="vertical"
         android:padding="8dp">
@@ -213,7 +213,7 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/edit_profile"
         android:orientation="vertical"
         android:padding="8dp">
@@ -253,18 +253,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
+        android:layout_marginTop="10dp"
         >
 
         <Button
             android:id="@+id/profile_send_button"
-            android:layout_centerHorizontal="true"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:background="@drawable/custom_button_send"
-            android:text="Speichern"
             android:fontFamily="@font/oxygen"
+            android:padding="14dp"
+            android:text="Änderungen speichern"
+            android:textAllCaps="false"
+            android:textSize="16dp"
             android:textColor="@color/colorWhite"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
