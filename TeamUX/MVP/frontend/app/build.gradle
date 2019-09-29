@@ -25,6 +25,7 @@ android {
             buildConfigField "String", "REPORTAPI_HERE_APPCODE", '"paQLGvxQZxsT_eZD7HVA4g"'
             buildConfigField "String", "DEMO_USERID", '"5d8b8166f830a003c8bde141"'
             buildConfigField "String", "DEMO_USERNAME", '"maxiboi"'
+            buildConfigField "String", "DEMO_USERID_MONGODB", '"5d4aa8752365ca2d27dd0e95"'
         }
         debug {
             buildConfigField "String", "REPORTAPI_BASE_URL", '"http://18.184.239.236:3000/"'
@@ -33,6 +34,7 @@ android {
             buildConfigField "String", "REPORTAPI_HERE_APPCODE", '"paQLGvxQZxsT_eZD7HVA4g"'
             buildConfigField "String", "DEMO_USERID", '"5d8b8166f830a003c8bde141"'
             buildConfigField "String", "DEMO_USERNAME", '"maxiboi"'
+            buildConfigField "String", "DEMO_USERID_MONGODB", '"5d4aa8752365ca2d27dd0e95"'
         }
         staging {
             buildConfigField "String", "REPORTAPI_BASE_URL", '"http://18.184.239.236:3000/"'
@@ -41,8 +43,10 @@ android {
             buildConfigField "String", "REPORTAPI_HERE_APPCODE", '"paQLGvxQZxsT_eZD7HVA4g"'
             buildConfigField "String", "DEMO_USERID", '"5d8b8166f830a003c8bde141"'
             buildConfigField "String", "DEMO_USERNAME", '"maxiboi"'
+            buildConfigField "String", "DEMO_USERID_MONGODB", '"5d4aa8752365ca2d27dd0e95"'
         }
     }
+    buildToolsVersion = '28.0.3'
 }
 
 dependencies {
