@@ -20,6 +20,8 @@ import de.trabit.directionsApp.requestHelper.RequestActivity
 import de.trabit.reportApp.R
 import org.json.JSONArray
 import org.json.JSONObject
+import com.rabbitmq.client.*
+import java.util.*
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener {
@@ -32,6 +34,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+        const val EXCHANGE_NAME = "headers_logs"
     }
 
     private fun setUpMap() {
@@ -63,7 +66,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         val asyncTask2 = RequestActivity.GetRequest(applicationContext, "directions", "5d52cd38dc2ad17bd5153a91")
         asyncTask2.execute()
         val directionsData = asyncTask2.get().getJSONObject("data")
-
+        createQueues(directionsData)
         placeMarkerOnMap(mobilitiesData, directionsData)
     }
 
@@ -137,4 +140,38 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
 
         setUpMap()
     }
+
+    private fun createQueues(directionsData: JSONObject){
+        var directionId = directionsData.getJSONObject("id")
+        var steps = directionsData.getJSONArray("steps")
+        val factory = ConnectionFactory()
+        factory.host = "localhost"
+        val connection = factory.newConnection()
+        val channel = connection.createChannel()
+
+        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.HEADERS)
+
+        val routingKeyFromUser = ""
+       //x-match und any hinzufügen
+
+        (0 until steps.length()).forEach { i ->
+            val header = object{var key: String = directionId, var value: String = i.toString()};
+            val queueName = channel.queueDeclare().queue
+            channel.queueBind(queueName,EXCHANGE_NAME, routingKeyFromUser, header)
+        }
+        println("gestartet")
+
+        val consumer = object : DefaultConsumer(channel) {
+            override fun handleDelivery(consumerTag: String, envelope: Envelope,
+                                        properties: AMQP.BasicProperties, body: ByteArray) {
+                val message = String(body, charset("UTF-8"))
+                System.out.println(" [x] Received '" + envelope.routingKey + "':'" + message + "'")
+                Toast.makeText(this@MapActivity, message.content.toString(), Toast.LENGTH_SHORT).show()
+            }
+        }
+        channel.basicConsume(queueName, true, consumer)
+    }
+
+    }
 }
+}}
