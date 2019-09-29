@@ -74,7 +74,7 @@ class ReportController {
         if (Object.keys(query).length === 0) {
             throw new ApiError('Please provide at least one valid query parameter!', 400);
         }
-        return await Report.find(query);
+        return await Report.find(query).sort("-created");
     }
 
     async getSpecific(reportId) {
