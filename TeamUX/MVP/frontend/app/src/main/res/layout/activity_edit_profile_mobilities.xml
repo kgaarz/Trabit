@@ -11,13 +11,10 @@
     android:windowActionBar="false"
     tools:context="de.trabit.reportApp.user.profile.EditProfileActivity">
 
-
     //header
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
 
         <ImageButton
             android:id="@+id/btn_back"
@@ -39,21 +36,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/imageView2"
             android:layout_marginTop="27dp"
             android:fontFamily="@font/oxygen"
             android:text="Meine Mobilitäten"
             android:textColor="@color/colorDarkBlue"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
 
         <TextView
             android:id="@+id/textView3"
@@ -70,17 +64,16 @@
             android:fontFamily="@font/oxygen"
             android:text="Hier kannst du verschiedene Mobilitäten angeben und bearbeiten."
             android:textColor="@color/colorMiddleGrey"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
     </RelativeLayout>
 
-
     //Mobilities
-
     <RelativeLayout
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
         android:background="@drawable/edit_profile"
         android:orientation="vertical"
         android:padding="20dp">
@@ -89,16 +82,15 @@
         android:id="@+id/mob1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtMobilities"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_marginStart="27dp"
         android:layout_marginLeft="27dp"
-        android:checked="true"
+        android:checked="false"
         android:fontFamily="@font/oxygen"
         android:text="Auto   "
         android:textColor="@color/colorMiddleGrey"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:thumb="@drawable/switch_thumb"
         android:track="@drawable/switch_track" />
 
@@ -118,7 +110,7 @@
         android:fontFamily="@font/oxygen"
         android:text="Führerschein   "
         android:textColor="@color/colorMiddleGrey"
-        android:textSize="16dp"
+        android:textSize="16sp"
         tools:checked="false" />
 
     <Switch
@@ -133,12 +125,11 @@
         android:layout_marginStart="27dp"
         android:layout_marginLeft="27dp"
         android:layout_marginTop="12dp"
-        android:checked="true"
+        android:checked="false"
         android:fontFamily="@font/oxygen"
         android:text="Fahrrad   "
         android:textColor="@color/colorMiddleGrey"
-        android:textSize="16dp"
-        tools:checked="true" />
+        android:textSize="16sp"/>
 
     <Switch
         android:id="@+id/mob4"
@@ -156,7 +147,7 @@
         android:fontFamily="@font/oxygen"
         android:text="Zugticket   "
         android:textColor="@color/colorMiddleGrey"
-        android:textSize="16dp"
+        android:textSize="16sp"
         tools:checked="false" />
 
     <Switch
@@ -171,12 +162,11 @@
         android:layout_marginStart="27dp"
         android:layout_marginLeft="27dp"
         android:layout_marginTop="12dp"
-        android:checked="true"
+        android:checked="false"
         android:fontFamily="@font/oxygen"
         android:text="Fahrgemeinschaft   "
         android:textColor="@color/colorMiddleGrey"
-        android:textSize="16dp"
-        tools:checked="true" />
+        android:textSize="16sp"/>
 
     </RelativeLayout>
 
@@ -184,17 +174,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        >
+        android:layout_margin="30dp">
 
         <Button
             android:id="@+id/profileMob_send_button"
             android:layout_centerHorizontal="true"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="14dp"
             android:background="@drawable/custom_button_send"
             android:text="Speichern"
             android:fontFamily="@font/oxygen"
+            android:textSize="16sp"
             android:textColor="@color/colorWhite"
             android:textStyle="bold"/>
 
