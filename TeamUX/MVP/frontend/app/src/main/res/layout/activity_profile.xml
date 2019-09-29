@@ -69,7 +69,7 @@
             android:layout_height="25dp"
             android:layout_below="@+id/imageView2"
             android:layout_marginStart="9dp"
-            android:layout_marginLeft="7dp"
+            android:layout_marginLeft="9dp"
             android:layout_marginTop="15dp"
             android:layout_toEndOf="@+id/txtUserData"
             android:layout_toRightOf="@+id/txtUserData"
@@ -236,7 +236,7 @@
             android:layout_marginLeft="27dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/oxygen"
-            android:text="Meine Mobilitäten"
+            android:text="Meine Mobilitätsmöglichkeiten"
             android:textColor="@color/colorDarkBlue"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -246,13 +246,9 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_below="@+id/imageView"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="7dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginLeft="9dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="169dp"
-            android:layout_marginRight="169dp"
             android:layout_toEndOf="@+id/txtMobilities"
             android:layout_toRightOf="@+id/txtMobilities"
             android:background="@null"
@@ -270,7 +266,7 @@
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="12dp"
-            android:checked="true"
+            android:checked="false"
             android:clickable="false"
             android:fontFamily="@font/oxygen"
             android:text="Auto   "
@@ -311,13 +307,12 @@
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="12dp"
-            android:checked="true"
+            android:checked="false"
             android:clickable="false"
             android:fontFamily="@font/oxygen"
             android:text="Fahrrad   "
             android:textColor="@color/colorMiddleGrey"
-            android:textSize="16sp"
-            tools:checked="true" />
+            android:textSize="16sp"/>
 
         <Switch
             android:id="@+id/mob4"
@@ -351,13 +346,12 @@
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="12dp"
-            android:checked="true"
+            android:checked="false"
             android:clickable="false"
             android:fontFamily="@font/oxygen"
             android:text="Fahrgemeinschaft   "
             android:textColor="@color/colorMiddleGrey"
-            android:textSize="16sp"
-            tools:checked="true" />
+            android:textSize="16sp"/>
 
         //Buttons
         <Button
