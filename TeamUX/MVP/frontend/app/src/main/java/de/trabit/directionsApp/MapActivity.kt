@@ -4,6 +4,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -20,6 +21,8 @@ import de.trabit.directionsApp.requestHelper.RequestActivity
 import de.trabit.reportApp.R
 import org.json.JSONArray
 import org.json.JSONObject
+//import com.rabbitmq.client.*
+import java.util.*
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener {
@@ -32,13 +35,20 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+        const val EXCHANGE_NAME = "headers_logs"
     }
 
     private fun setUpMap() {
-        if (ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
             return
         }
 
@@ -55,15 +65,17 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         }
 
         // Mobilities im Umkreis abrufen
-        val asyncTask = RequestActivity.GetRequest(applicationContext, "mobilities", "5d5c07108bb94088c3447236")
+        val asyncTask =
+            RequestActivity.GetRequest(applicationContext, "mobilities", "5d5c07108bb94088c3447236")
         asyncTask.execute()
         val mobilitiesData = asyncTask.get().getJSONObject("data")
 
         // Ausgewählte Route abrufen
-        val asyncTask2 = RequestActivity.GetRequest(applicationContext, "directions", "5d52cd38dc2ad17bd5153a91")
+        val asyncTask2 =
+            RequestActivity.GetRequest(applicationContext, "directions", "5d52cd38dc2ad17bd5153a91")
         asyncTask2.execute()
         val directionsData = asyncTask2.get().getJSONObject("data")
-
+      //  createQueues(directionsData)
         placeMarkerOnMap(mobilitiesData, directionsData)
     }
 
@@ -72,39 +84,69 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         //Auslese der Mobilitätsmöglichkeiten im Umkreis
 
         val cars = mobilitiesData.getJSONArray("cars")
-        (0 until cars.length() -1).forEach { i ->
+        (0 until cars.length() - 1).forEach { i ->
             val lat = cars.getJSONObject(i).getJSONObject("geoLocation").getDouble("lat")
             val lng = cars.getJSONObject(i).getJSONObject("geoLocation").getDouble("lng")
             val car = LatLng(lat, lng)
-            map.addMarker(MarkerOptions().position(car).title("Auto").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_car)))
+            map.addMarker(
+                MarkerOptions().position(car).title("Auto").icon(
+                    BitmapDescriptorFactory.fromResource(
+                        R.mipmap.map_car
+                    )
+                )
+            )
         }
 
         val bikes = mobilitiesData.getJSONArray("bikes")
-        (0 until bikes.length() -1).forEach { i ->
+        (0 until bikes.length() - 1).forEach { i ->
             val lat = bikes.getJSONObject(i).getJSONObject("geoLocation").getDouble("lat")
             val lng = bikes.getJSONObject(i).getJSONObject("geoLocation").getDouble("lng")
             val bike = LatLng(lat, lng)
-            map.addMarker(MarkerOptions().position(bike).title("Fahrrad").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_bike)))
+            map.addMarker(
+                MarkerOptions().position(bike).title("Fahrrad").icon(
+                    BitmapDescriptorFactory.fromResource(R.mipmap.map_bike)
+                )
+            )
         }
 
         val transits = mobilitiesData.getJSONArray("transits")
-        (0 until transits.length() -1).forEach { i ->
+        (0 until transits.length() - 1).forEach { i ->
             val lat = transits.getJSONObject(i).getJSONObject("geoLocation").getDouble("lat")
             val lng = transits.getJSONObject(i).getJSONObject("geoLocation").getDouble("lng")
             val transit = LatLng(lat, lng)
-            map.addMarker(MarkerOptions().position(transit).title("Bahnstation").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_train)))
+            map.addMarker(
+                MarkerOptions().position(transit).title("Bahnstation").icon(
+                    BitmapDescriptorFactory.fromResource(R.mipmap.map_train)
+                )
+            )
         }
 
 
         // Auslese der Routenpunkte
 
-        val origin = LatLng(directionsData.getJSONObject("startLocation").getDouble("lat"), directionsData.getJSONObject("startLocation").getDouble("lng"))
-        val destination = LatLng(directionsData.getJSONObject("endLocation").getDouble("lat"), directionsData.getJSONObject("endLocation").getDouble("lng"))
-        map.addMarker(MarkerOptions().position(origin).title("Start").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_start)))
-        map.addMarker(MarkerOptions().position(destination).title("Ziel").icon(BitmapDescriptorFactory.fromResource(R.mipmap.map_ziel)))
+        val origin = LatLng(
+            directionsData.getJSONObject("startLocation").getDouble("lat"),
+            directionsData.getJSONObject("startLocation").getDouble("lng")
+        )
+        val destination = LatLng(
+            directionsData.getJSONObject("endLocation").getDouble("lat"),
+            directionsData.getJSONObject("endLocation").getDouble("lng")
+        )
+        map.addMarker(
+            MarkerOptions().position(origin).title("Start").icon(
+                BitmapDescriptorFactory.fromResource(
+                    R.mipmap.map_start
+                )
+            )
+        )
+        map.addMarker(
+            MarkerOptions().position(destination).title("Ziel").icon(
+                BitmapDescriptorFactory.fromResource(R.mipmap.map_ziel)
+            )
+        )
 
         val steps = directionsData.getJSONArray("steps")
-        if(steps.length() > 1) {
+        if (steps.length() > 1) {
             (1 until steps.length() - 2).forEach { i ->
                 val lat = steps.getJSONObject(i).getJSONObject("start_location").getDouble("lat")
                 val lng = steps.getJSONObject(i).getJSONObject("start_location").getDouble("lng")
@@ -137,4 +179,41 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
 
         setUpMap()
     }
+/*
+    private fun createQueues(directionsData: JSONObject) {
+        var directionId = directionsData.getJSONObject("id")
+        var steps = directionsData.getJSONArray("steps")
+        val factory = ConnectionFactory()
+        factory.host = "localhost"
+        val connection = factory.newConnection()
+        val channel = connection.createChannel()
+
+        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.HEADERS)
+
+        val routingKeyFromUser = ""
+        //x-match und any hinzufügen
+
+        var header = mutableMapOf<String, Any>();
+        (0 until steps.length()).forEach { i ->
+            header.put(directionId.toString(),i)
+        }
+        header.put("x-match", "any")
+        println(header)
+        val queueName = channel.queueDeclare().queue
+        channel.queueBind(queueName, EXCHANGE_NAME, routingKeyFromUser, header)
+
+        println("gestartet")
+
+        val consumer = object : DefaultConsumer(channel) {
+            override fun handleDelivery(
+                consumerTag: String, envelope: Envelope,
+                properties: AMQP.BasicProperties, body: ByteArray
+            ) {
+                val message = String(body, charset("UTF-8"))
+                System.out.println(" [x] Received '" + envelope.routingKey + "':'" + message + "'")
+                Toast.makeText(this@MapActivity, message.toString(), Toast.LENGTH_SHORT).show()
+            }
+        }
+        channel.basicConsume(queueName, true, consumer)
+    }*/
 }

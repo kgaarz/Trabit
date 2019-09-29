@@ -74,7 +74,7 @@ class UserController {
         return await User.updateOne({
             _id: user._id
         }, {
-            mobility: newMobility
+            availableMobilityOptions: newMobility
         });
     }
 
