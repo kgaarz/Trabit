@@ -23,7 +23,7 @@ android {
             buildConfigField "String", "DIRECTIONSAPI_BASE_URL", '"https://trabit-api-mk.herokuapp.com/"'
             buildConfigField "String", "REPORTAPI_HERE_APPID", '"YtUpT0K3WRtzL5wWqpwY"'
             buildConfigField "String", "REPORTAPI_HERE_APPCODE", '"paQLGvxQZxsT_eZD7HVA4g"'
-            buildConfigField "String", "DEMO_USERID", '"5d8b8166f830a003c8bde141"'
+            buildConfigField "String", "DEMO_USERID", '"5d910e51c5a2ac1708af7e3e"'
             buildConfigField "String", "DEMO_USERNAME", '"maxiboi"'
         }
         debug {
@@ -31,7 +31,7 @@ android {
             buildConfigField "String", "DIRECTIONSAPI_BASE_URL", '"https://trabit-api-mk.herokuapp.com/"'
             buildConfigField "String", "REPORTAPI_HERE_APPID", '"YtUpT0K3WRtzL5wWqpwY"'
             buildConfigField "String", "REPORTAPI_HERE_APPCODE", '"paQLGvxQZxsT_eZD7HVA4g"'
-            buildConfigField "String", "DEMO_USERID", '"5d8b8166f830a003c8bde141"'
+            buildConfigField "String", "DEMO_USERID", '"5d910e51c5a2ac1708af7e3e"'
             buildConfigField "String", "DEMO_USERNAME", '"maxiboi"'
         }
         staging {
@@ -39,7 +39,7 @@ android {
             buildConfigField "String", "DIRECTIONSAPI_BASE_URL", '"https://trabit-api-mk.herokuapp.com/"'
             buildConfigField "String", "REPORTAPI_HERE_APPID", '"YtUpT0K3WRtzL5wWqpwY"'
             buildConfigField "String", "REPORTAPI_HERE_APPCODE", '"paQLGvxQZxsT_eZD7HVA4g"'
-            buildConfigField "String", "DEMO_USERID", '"5d8b8166f830a003c8bde141"'
+            buildConfigField "String", "DEMO_USERID", '"5d910e51c5a2ac1708af7e3e"'
             buildConfigField "String", "DEMO_USERNAME", '"maxiboi"'
         }
     }

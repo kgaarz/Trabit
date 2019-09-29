@@ -8,7 +8,7 @@ data class User (val _id : String,
                  val username : String,
                  val password : String,
                  val profile : Profile,
-                 val mobility : Mobility,
+                 val availableMobilityOptions : Mobility,
                  val created : Date,
                  val modified : Date) {
 }
