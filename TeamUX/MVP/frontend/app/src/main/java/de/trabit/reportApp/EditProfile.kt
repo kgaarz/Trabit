@@ -29,10 +29,6 @@ class EditProfile : AppCompatActivity() {
         //get user data
         getUser(BuildConfig.DEMO_USERID)
 
-
-        val editFullName = findViewById<EditText>(R.id.editName)
-
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
@@ -57,11 +53,18 @@ class EditProfile : AppCompatActivity() {
         val request = StringRequest(Request.Method.GET, requestUrl, Response.Listener {
             val gson = GsonBuilder().create()
             val user = gson.fromJson(it.toString(), User::class.java)
-            val fullname = "${user.profile.firstname} ${user.profile.lastname}"
-            //editName.text = fullname
-            //editMail.text = user.username
-            //editMail.text = user.profile.email
-            //editHome.text = user.profile.residence
+            val firstname = "${user.profile.firstname}"
+            editName.setText(firstname)
+            val lastname = "${user.profile.lastname}"
+            editLastName.setText(lastname)
+            val mail = "${user.profile.email}"
+            editMail.setText(mail)
+            val home = "${user.profile.residence}"
+            editHome.setText(home)
+            val personalnickname = "${user.username}"
+            editNickname.setText(personalnickname)
+            val personalPassword = "${user.password}"
+            editPassword.setText(personalPassword)
         }, Response.ErrorListener {
             it.printStackTrace()
             ErrorSnackbar(Layout_profile_edit).show("Bearbeiten fehlgeschlagen")
