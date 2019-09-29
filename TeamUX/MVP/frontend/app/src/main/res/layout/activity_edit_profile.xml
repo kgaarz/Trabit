@@ -9,7 +9,7 @@
     android:background="@color/colorLighterGrey"
     android:orientation="vertical"
     android:windowActionBar="false"
-    tools:context="de.trabit.reportApp.EditProfile"
+    tools:context="de.trabit.reportApp.user.profile.EditProfileActivity"
     android:id="@+id/Layout_profile_edit"
     >
 
@@ -96,7 +96,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:ems="15"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:inputType="text"
             android:fontFamily="@font/oxygen"
             android:text="Vorname" />
@@ -178,73 +178,6 @@
             android:inputType="text"
             android:fontFamily="@font/oxygen"
             android:text="Wohnort" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/editNicknameLayout"
-        android:layout_width="352dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edit_profile"
-        android:orientation="vertical"
-        android:padding="8dp">
-
-
-        <EditText
-            android:id="@+id/editNickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:ems="15"
-            android:textSize="16dp"
-            android:inputType="text"
-            android:fontFamily="@font/oxygen"
-            android:text="Nutzername" />
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/editPasswordLayout"
-        android:layout_width="352dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edit_profile"
-        android:orientation="vertical"
-        android:padding="8dp">
-
-
-        <EditText
-            android:id="@+id/editPassword"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:ems="15"
-            android:textSize="16dp"
-            android:inputType="textPassword"
-            android:fontFamily="@font/oxygen"
-            android:text="Password" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="12dp"
-            android:layout_toEndOf="@+id/editPassword"
-            android:layout_toRightOf="@+id/editPassword"
-            android:text="Passwort ändern"
-            android:textSize="16dp"
-            android:textColor="@color/colorLightBlue"
-            />
 
     </RelativeLayout>
 

@@ -9,7 +9,7 @@
     android:background="@color/colorLighterGrey"
     android:orientation="vertical"
     android:windowActionBar="false"
-    tools:context="de.trabit.reportApp.EditProfile">
+    tools:context="de.trabit.reportApp.user.profile.EditProfileActivity">
 
 
     //header

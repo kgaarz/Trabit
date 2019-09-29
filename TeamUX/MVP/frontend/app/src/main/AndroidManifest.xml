@@ -15,8 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".EditProfileMobilities"></activity>
-        <activity android:name=".EditProfile" />
+        <activity android:name=".user.profile.EditProfileMobilities"></activity>
+        <activity android:name=".user.profile.EditProfileActivity" />
         <activity android:name=".login.Login"></activity>
         <activity android:name=".user.profile.ProfileActivity" />
         <activity android:name="de.trabit.directionsApp.DirectionSelectionActivity" />

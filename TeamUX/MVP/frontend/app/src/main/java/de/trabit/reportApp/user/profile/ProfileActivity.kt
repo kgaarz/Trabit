@@ -1,6 +1,7 @@
 package de.trabit.reportApp.user.profile
 
 import ErrorSnackbar
+import SuccessSnackbar
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,35 +14,40 @@ import com.android.volley.toolbox.Volley
 import com.example.api_test.dataClasses.User
 import com.google.gson.GsonBuilder
 import de.trabit.reportApp.BuildConfig
-import de.trabit.reportApp.EditProfile
-import de.trabit.reportApp.EditProfileMobilities
 import de.trabit.reportApp.R
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        // get user data
-        getUser(BuildConfig.DEMO_USERID)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+        val profileSaved = intent.getBooleanExtra("profileSaved", false)
 
-        //click Button to edit Profile - Mobility Settings
-        val profileEditMobilities = findViewById<ImageButton>(R.id.btnEdit2)
-        profileEditMobilities.setOnClickListener {
-            val changeMobilitySettings = Intent(this, EditProfileMobilities::class.java)
-            startActivity(changeMobilitySettings)
+        if (profileSaved) {
+            SuccessSnackbar(Layout_profile).show("Änderungen am Profil wurden gespeichert!")
+        }
+        // get user data
+        getUser(BuildConfig.DEMO_USERID)
+
+        //click button to edit profile
+        val editProfileButton = findViewById<ImageButton>(R.id.btnEdit)
+        editProfileButton.setOnClickListener {
+            val editProfile = Intent(this, EditProfileActivity::class.java)
+            startActivity(editProfile
+                .putExtra("firstname", txtFirstnameData.text)
+                .putExtra("lastname", txtLastnameData.text)
+                .putExtra("email", txtMailData.text)
+                .putExtra("residence", txtHomeData.text)
+            )
         }
 
-        //click Button to edit Profile - Account Settings
-        val profileEdit = findViewById<ImageButton>(R.id.btnEdit)
-        profileEdit.setOnClickListener {
-            val changeAccountSettings = Intent(this, EditProfile::class.java)
-            startActivity(changeAccountSettings)
+        //click button to edit mobility settings
+        val editMobilitiesButton = findViewById<ImageButton>(R.id.btnEdit2)
+        editMobilitiesButton.setOnClickListener {
+            val editMobilities = Intent(this, EditProfileMobilities::class.java)
+            startActivity(editMobilities)
         }
-
     }
 
     private fun getUser(userId: String) {
@@ -51,10 +57,9 @@ class ProfileActivity : AppCompatActivity() {
             Response.Listener {
                 val gson = GsonBuilder().create()
                 val user = gson.fromJson(it.toString(), User::class.java)
-                val fullname = "${user.profile.firstname} ${user.profile.lastname}"
-                nameProfile.text = fullname
-                txtNameData.text = fullname
-                txtNicknameData.text = user.username
+                nameProfile.text = user.username
+                txtFirstnameData.text = user.profile.firstname
+                txtLastnameData.text = user.profile.lastname
                 txtMailData.text = user.profile.email
                 txtHomeData.text = user.profile.residence
             }, Response.ErrorListener {

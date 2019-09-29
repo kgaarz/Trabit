@@ -1,11 +1,11 @@
-package de.trabit.reportApp
+package de.trabit.reportApp.user.profile
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
-import de.trabit.reportApp.user.profile.ProfileActivity
+import de.trabit.reportApp.R
 
 class EditProfileMobilities : AppCompatActivity() {
 
