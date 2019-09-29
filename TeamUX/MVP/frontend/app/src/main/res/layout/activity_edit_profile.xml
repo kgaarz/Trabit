@@ -99,7 +99,33 @@
             android:textSize="16dp"
             android:inputType="text"
             android:fontFamily="@font/oxygen"
-            android:text="Vorname Nachname" />
+            android:text="Vorname" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/editLastNameLayout"
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/edit_profile"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+
+        <EditText
+            android:id="@+id/editLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:ems="15"
+            android:fontFamily="@font/oxygen"
+            android:inputType="text"
+            android:text="Nachname"
+            android:textSize="16dp" />
 
     </RelativeLayout>
 
