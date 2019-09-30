@@ -36,7 +36,7 @@ module.exports = {
 
                 Promise.all([fastestRoute, sustainableRoute]).then(values => {
                   const directionsSelections = new DirectionsSelections({
-                    selections: values
+                    selections: values[0]
                   });
 
                    directionsSelections.save(function(error, result) {

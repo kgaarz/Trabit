@@ -3,12 +3,17 @@ package de.trabit.directionsApp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.RelativeLayout
 import android.widget.TextView
 import de.trabit.directionsApp.requestHelper.RequestActivity
 import de.trabit.reportApp.BuildConfig
 import de.trabit.reportApp.R
-import org.json.JSONArray
 import org.json.JSONObject
+
+
+
 
 
 
@@ -19,6 +24,17 @@ class DirectionSelectionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_direction_selection)
+
+        val modesTextView = findViewById<TextView>(R.id.modesInput1)
+        val durationTextView = findViewById<TextView>(R.id.durationInput1)
+        val distanceTextView = findViewById<TextView>(R.id.distanceInput1)
+        val switchesTextView = findViewById<TextView>(R.id.switchesInput1)
+        val sustainibilityTextView = findViewById<TextView>(R.id.sustainibilityInput1)
+        val modesTextView2 = findViewById<TextView>(R.id.modesInput2)
+        val durationTextView2 = findViewById<TextView>(R.id.durationInput2)
+        val distanceTextView2 = findViewById<TextView>(R.id.distanceInput2)
+        val switchesTextView2 = findViewById<TextView>(R.id.switchesInput2)
+        val sustainibilityTextView2 = findViewById<TextView>(R.id.sustainibilityInput2)
 
         val intent = intent
         val extras = intent.extras
@@ -35,10 +51,6 @@ class DirectionSelectionActivity : AppCompatActivity() {
         var destination = JSONObject()
         destination.put("lat", destinationLat)
         destination.put("lng", destinationLong)
-
-        val text = findViewById<TextView>(R.id.textView)
-        text.setText(timestamp.toString() + " " + originLat.toString() + " " + originLong.toString() + " " + destinationLat.toString() + " " + destinationLong.toString())
-
 
         //POST Mobilities with current location
         var requestBodyM = JSONObject()
@@ -70,9 +82,45 @@ class DirectionSelectionActivity : AppCompatActivity() {
         var selectionOne: JSONObject = asyncGet2.get().getJSONObject("data").getJSONArray("selections").getJSONArray(0).getJSONObject(0)
         var selectionTwo: JSONObject = asyncGet2.get().getJSONObject("data").getJSONArray("selections").getJSONArray(0).getJSONObject(1)
 
-        Log.i("TAG", selectionOne.toString())
-        Log.i("TAG", selectionTwo.toString())
+        val duration1: Int = selectionOne.getInt("duration") / 60
+        val distance1: Int = selectionOne.getInt("distance") / 1000
 
+        modesTextView.setText(selectionOne.getString("modes"))
+        durationTextView.setText(duration1.toString() + "min")
+        distanceTextView.setText(distance1.toString() + "km")
+        switchesTextView.setText(selectionOne.getString("switches"))
+        sustainibilityTextView.setText(selectionOne.getString("sustainability"))
+
+        val duration2: Int = selectionTwo.getInt("duration") / 60
+        val distance2: Int = selectionTwo.getInt("distance") / 1000
+
+        modesTextView2.setText(selectionTwo.getString("modes"))
+        durationTextView2.setText(duration2.toString() + "min")
+        distanceTextView2.setText(distance2.toString() + "km")
+        switchesTextView2.setText(selectionTwo.getString("switches"))
+        sustainibilityTextView2.setText(selectionTwo.getString("sustainability"))
+
+        val button1 = findViewById(R.id.buttonRoute1) as Button
+        button1.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View) {
+                var requestBodyD1 = JSONObject()
+                requestBodyD1.put("selection", 0)
+                val asyncPostForDirection1 = RequestActivity.PostRequest(getApplicationContext(),"directions", BuildConfig.DEMO_USERID_MONGODB , asyncPost.get().toString(), requestBodyD1.toString())
+                asyncPostForDirection1.execute()
+                Log.i("TAG", asyncPostForDirection1.get().toString())
+            }
+        })
+
+        val button2 = findViewById(R.id.buttonRoute2) as Button
+        button2.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View) {
+                var requestBodyD2 = JSONObject()
+                requestBodyD2.put("selection", 1)
+                val asyncPostForDirection2 = RequestActivity.PostRequest(getApplicationContext(),"directions", BuildConfig.DEMO_USERID_MONGODB , asyncPost.get().toString(), requestBodyD2.toString())
+                asyncPostForDirection2.execute()
+                Log.i("TAG", asyncPostForDirection2.get().toString())
+            }
+        })
 
 
     }
