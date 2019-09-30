@@ -10,22 +10,19 @@
     android:scrollbars="none" >
 
     <LinearLayout android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-
     //header
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/whiteBlue"
         android:padding="10dp">
 
-
         <TextView
             android:id="@+id/nameProfile"
-            android:layout_width="176dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
@@ -33,7 +30,7 @@
             android:layout_marginRight="99dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/oxygen"
-            android:text="Max Mustermann"
+            android:text="Nickname"
             android:textColor="@color/colorDarkBlue"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -45,7 +42,8 @@
             android:layout_below="@+id/nameProfile"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="22dp"
-            android:src="@drawable/user_photo" />
+            android:src="@drawable/user_photo"
+            android:contentDescription="profileImage" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -61,24 +59,25 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="27dp"
             android:layout_marginRight="10dp"
-            app:srcCompat="@mipmap/linie_blau" />
+            app:srcCompat="@mipmap/linie_blau"
+            android:contentDescription="hr" />
 
-        //Persönliche Daten
-
+        //Profil
         <ImageButton
             android:id="@+id/btnEdit"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_below="@+id/imageView2"
             android:layout_marginStart="9dp"
-            android:layout_marginLeft="7dp"
+            android:layout_marginLeft="9dp"
             android:layout_marginTop="15dp"
             android:layout_toEndOf="@+id/txtUserData"
             android:layout_toRightOf="@+id/txtUserData"
             android:background="@null"
             android:scaleType="fitCenter"
             android:src="@drawable/edit"
-            android:tint="@color/colorDarkBlue" />
+            android:tint="@color/colorDarkBlue"
+            android:contentDescription="editProfile" />
 
         <TextView
             android:id="@+id/txtUserData"
@@ -91,13 +90,13 @@
             android:layout_marginLeft="37dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/oxygen"
-            android:text="Meine Kontoeinstellungen"
+            android:text="Mein Profil"
             android:textColor="@color/colorDarkBlue"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txtName"
+            android:id="@+id/txtFirstname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtUserData"
@@ -107,28 +106,56 @@
             android:layout_marginLeft="27dp"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/oxygen"
-            android:text="Name:"
-            android:textSize="16dp" />
+            android:text="Vorname:"
+            android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/txtNameData"
+            android:id="@+id/txtFirstnameData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtUserData"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="12dp"
-            android:layout_toEndOf="@+id/txtName"
-            android:layout_toRightOf="@+id/txtName"
+            android:layout_toEndOf="@+id/txtFirstname"
+            android:layout_toRightOf="@+id/txtFirstname"
             android:fontFamily="@font/oxygen"
-            android:text="Max Mustermann"
-            android:textSize="16dp" />
+            android:text="Max"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtLastname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtFirstname"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Nachname:"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtLastnameData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtFirstnameData"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@+id/txtLastname"
+            android:layout_toRightOf="@+id/txtLastname"
+            android:fontFamily="@font/oxygen"
+            android:text="Mustermann"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/txtMail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtName"
+            android:layout_below="@+id/txtLastname"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_marginStart="27dp"
@@ -136,13 +163,13 @@
             android:layout_marginTop="12dp"
             android:fontFamily="@font/oxygen"
             android:text="Email:"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/txtMailData"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtNameData"
+            android:layout_below="@+id/txtLastnameData"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="12dp"
@@ -150,7 +177,7 @@
             android:layout_toRightOf="@+id/txtMail"
             android:fontFamily="@font/oxygen"
             android:text="max.mustermann@mail.de"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/txtHome"
@@ -164,7 +191,7 @@
             android:layout_marginTop="12dp"
             android:fontFamily="@font/oxygen"
             android:text="Wohnort:"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/txtHomeData"
@@ -178,72 +205,14 @@
             android:layout_toRightOf="@+id/txtHome"
             android:fontFamily="@font/oxygen"
             android:text="Gummersbach"
-            android:textSize="16dp" />
-
-        <TextView
-            android:id="@+id/txtNickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtHomeData"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginStart="27dp"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/oxygen"
-            android:text="Nutzername:"
-            android:textSize="16dp" />
-
-        <TextView
-            android:id="@+id/txtNicknameData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtHomeData"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="12dp"
-            android:layout_toEndOf="@+id/txtNickname"
-            android:layout_toRightOf="@+id/txtNickname"
-            android:fontFamily="@font/oxygen"
-            android:text="Max007"
-            android:textSize="16dp" />
-
-        <TextView
-            android:id="@+id/txtPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtNickname"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginStart="27dp"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/oxygen"
-            android:text="Passwort:"
-            android:textSize="16dp" />
-
-        <TextView
-            android:id="@+id/txtPasswordData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtNicknameData"
-            android:layout_marginStart="6dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="12dp"
-            android:layout_toEndOf="@+id/txtPassword"
-            android:layout_toRightOf="@+id/txtPassword"
-            android:fontFamily="@font/oxygen"
-            android:text="**********"
-            android:textSize="16dp" />
-
+            android:textSize="16sp" />
 
         //Mobilities
-
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="400dp"
             android:layout_height="25dp"
-            android:layout_below="@+id/txtPasswordData"
+            android:layout_below="@+id/txtHome"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
@@ -253,7 +222,8 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="27dp"
             android:layout_marginRight="37dp"
-            app:srcCompat="@mipmap/linie_blau" />
+            app:srcCompat="@mipmap/linie_blau"
+            android:contentDescription="hr" />
 
         <TextView
             android:id="@+id/txtMobilities"
@@ -266,9 +236,9 @@
             android:layout_marginLeft="27dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/oxygen"
-            android:text="Meine Mobilitäten"
+            android:text="Meine Mobilitätsmöglichkeiten"
             android:textColor="@color/colorDarkBlue"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <ImageButton
@@ -276,20 +246,15 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_below="@+id/imageView"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="7dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginLeft="9dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="169dp"
-            android:layout_marginRight="169dp"
             android:layout_toEndOf="@+id/txtMobilities"
             android:layout_toRightOf="@+id/txtMobilities"
             android:background="@null"
             android:scaleType="fitCenter"
             android:src="@drawable/edit"
             android:tint="@color/colorDarkBlue" />
-
 
         <Switch
             android:id="@+id/mob1"
@@ -301,12 +266,12 @@
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="12dp"
-            android:checked="true"
+            android:checked="false"
             android:clickable="false"
             android:fontFamily="@font/oxygen"
             android:text="Auto   "
             android:textColor="@color/colorMiddleGrey"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:thumb="@drawable/switch_thumb"
             android:track="@drawable/switch_track" />
 
@@ -327,7 +292,7 @@
             android:fontFamily="@font/oxygen"
             android:text="Führerschein   "
             android:textColor="@color/colorMiddleGrey"
-            android:textSize="16dp"
+            android:textSize="16sp"
             tools:checked="false" />
 
         <Switch
@@ -342,13 +307,12 @@
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="12dp"
-            android:checked="true"
+            android:checked="false"
             android:clickable="false"
             android:fontFamily="@font/oxygen"
             android:text="Fahrrad   "
             android:textColor="@color/colorMiddleGrey"
-            android:textSize="16dp"
-            tools:checked="true" />
+            android:textSize="16sp"/>
 
         <Switch
             android:id="@+id/mob4"
@@ -367,7 +331,7 @@
             android:fontFamily="@font/oxygen"
             android:text="Zugticket   "
             android:textColor="@color/colorMiddleGrey"
-            android:textSize="16dp"
+            android:textSize="16sp"
             tools:checked="false" />
 
         <Switch
@@ -382,18 +346,14 @@
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="12dp"
-            android:checked="true"
+            android:checked="false"
             android:clickable="false"
             android:fontFamily="@font/oxygen"
             android:text="Fahrgemeinschaft   "
             android:textColor="@color/colorMiddleGrey"
-            android:textSize="16dp"
-            tools:checked="true" />
-
-
+            android:textSize="16sp"/>
 
         //Buttons
-
         <Button
             android:id="@+id/btn_logout"
             android:layout_width="298dp"
@@ -419,12 +379,8 @@
             android:fontFamily="@font/oxygen"
             android:text="Konto löschen"
             android:textColor="@color/colorLightGrey"
-            android:textSize="16dp" />
-
-
+            android:textSize="16sp" />
     </RelativeLayout>
-
     </LinearLayout>
-
 </ScrollView>
 

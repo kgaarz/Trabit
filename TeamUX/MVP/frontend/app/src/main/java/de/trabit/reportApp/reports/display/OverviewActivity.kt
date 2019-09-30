@@ -31,6 +31,10 @@ import de.trabit.reportApp.voting.VotingView
 
 class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentListener, VotingView {
     private lateinit var reportList: Array<Report>
+    private lateinit var carBtn : ImageButton
+    private lateinit var trainBtn : ImageButton
+    private lateinit var tramBtn : ImageButton
+    private lateinit var busBtn : ImageButton
 
     override fun onCommentClick(position: Int) {
         val commentIntent = Intent(this, CommentsActivity::class.java)
@@ -42,8 +46,8 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_overview)
 
-
-        // get intent extra from report creation
+        // get intent extras from report creation
+        val reportTransportType = intent.getStringExtra("reportTransportType")
         val reportCreated = intent.getBooleanExtra("reportCreated", false)
         if (reportCreated) {
             SuccessSnackbar(linearLayout_main).show("Störungsmledung wurde erfolgreich erstellt!")
@@ -66,14 +70,14 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
             }
         })
 
-        //Add Intent to firstAddActivity to add a report (plus button)
+        // add report (plus button)
         val addButton = findViewById<ImageButton>(R.id.addButton)
         addButton.setOnClickListener {
             val addReportIntent = Intent(this, FirstAddActivity::class.java)
             startActivity(addReportIntent)
         }
 
-        //Navigation Icons (active mode)
+        // navigation icons (active mode)
         val overviewIcon = findViewById<ImageButton>(R.id.overviewNavigation)
         val profileIcon = findViewById<ImageButton>(R.id.profileNavigation)
         val directionsIcon = findViewById<ImageButton>(R.id.directonsNavigation)
@@ -102,18 +106,15 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
             startActivity(intent)
         }
 
-        //store the value (chosen city) via Intent from the SearchActivity in a variable
+        // change location textView to manually set location (if exists)
         val locationTitle = findViewById<TextView>(R.id.locationHeader)
-        val manuallyLocationTitle = intent.getStringExtra("newLocation")
-
-        //if a value has been submitted via intent than change the Location Textview accordingly to the passed value from the intent
-        if (manuallyLocationTitle !== null) {
-            locationTitle.text = manuallyLocationTitle
+        val manualLocationTitle = intent.getStringExtra("newLocation")
+        if (manualLocationTitle !== null) {
+            locationTitle.text = manualLocationTitle
         }
 
-        //Find View By Id for ClickListener Add Clicklistener to Imagebutton (Location) and link to SearchActivity
+        // link location ImageButton to SearchActivity
         val locationBtn = findViewById<RelativeLayout>(R.id.location_change_relative_layout)
-
         locationBtn.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
@@ -122,52 +123,54 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         // set location string
         val location = locationTitle.text.toString()
 
-        //Find Views By Id for ClickListener
-        val carBtn = findViewById<ImageButton>(R.id.carIcon)
-        val trainBtn = findViewById<ImageButton>(R.id.trainIcon)
-        val tramBtn = findViewById<ImageButton>(R.id.tramIcon)
-        val busBtn = findViewById<ImageButton>(R.id.busIcon)
+        // find views by ID for onClickListeners
+        carBtn = findViewById(R.id.carIcon)
+        trainBtn = findViewById(R.id.trainIcon)
+        tramBtn = findViewById(R.id.tramIcon)
+        busBtn = findViewById(R.id.busIcon)
 
-        //Set the train Button default on clicked
-        trainBtn.setImageResource(R.mipmap.train_icon_clicked)
-        var transportType = "train"
-        getReports(ReportRequestParameters(location, transportType, null, null))
-
-        //Add Clicklistener to Imagebuttons (Car, bus, train, tram icon) to Change Color of Image (Clicked)
-        carBtn.setOnClickListener {
-            carBtn.setImageResource(R.mipmap.car_icon_clicked)
-            trainBtn.setImageResource(R.mipmap.train_icon_grey)
-            tramBtn.setImageResource(R.mipmap.tram_icon_grey)
-            busBtn.setImageResource(R.mipmap.bus_icon_grey)
-            transportType = "car"
-            getReports(ReportRequestParameters(location, transportType, null, null))
+        //set active tab
+        when (reportTransportType) {
+            "train"     -> setActiveTab("train", location)
+            "subway"    -> setActiveTab("subway", location)
+            "bus"       -> setActiveTab("bus", location)
+            "car"       -> setActiveTab("car", location)
+            else        -> setActiveTab("train", location)
         }
 
-        trainBtn.setOnClickListener {
-            trainBtn.setImageResource(R.mipmap.train_icon_clicked)
-            carBtn.setImageResource(R.mipmap.car_icon_grey)
-            tramBtn.setImageResource(R.mipmap.tram_icon_grey)
-            busBtn.setImageResource(R.mipmap.bus_icon_grey)
-            transportType = "train"
-            getReports(ReportRequestParameters(location, transportType, null, null))
-        }
+        // add onClickListeners to ImageButtons to change active tab
+        carBtn.setOnClickListener {setActiveTab("car", location)}
+        trainBtn.setOnClickListener {setActiveTab("train", location)}
+        tramBtn.setOnClickListener {setActiveTab("subway", location)}
+        busBtn.setOnClickListener {setActiveTab("bus", location)}
+    }
 
-        tramBtn.setOnClickListener {
-            tramBtn.setImageResource(R.mipmap.tram_icon_clicked)
-            carBtn.setImageResource(R.mipmap.car_icon_grey)
-            trainBtn.setImageResource(R.mipmap.train_icon_grey)
-            busBtn.setImageResource(R.mipmap.bus_icon_grey)
-            transportType = "subway"
-            getReports(ReportRequestParameters(location, transportType, null, null))
-        }
-
-        busBtn.setOnClickListener {
-            busBtn.setImageResource(R.mipmap.bus_icon_clicked)
-            carBtn.setImageResource(R.mipmap.car_icon_grey)
-            trainBtn.setImageResource(R.mipmap.train_icon_grey)
-            tramBtn.setImageResource(R.mipmap.tram_icon_grey)
-            transportType = "bus"
-            getReports(ReportRequestParameters(location, transportType, null, null))
+    private fun setActiveTab (transportType : String, location : String) {
+        when (transportType) {
+            "train" -> {
+                trainBtn.setImageResource(R.mipmap.train_icon_clicked)
+                carBtn.setImageResource(R.mipmap.car_icon_grey)
+                tramBtn.setImageResource(R.mipmap.tram_icon_grey)
+                busBtn.setImageResource(R.mipmap.bus_icon_grey)
+                getReports(ReportRequestParameters(location, "train", null, null))}
+            "subway" -> {
+                tramBtn.setImageResource(R.mipmap.tram_icon_clicked)
+                carBtn.setImageResource(R.mipmap.car_icon_grey)
+                trainBtn.setImageResource(R.mipmap.train_icon_grey)
+                busBtn.setImageResource(R.mipmap.bus_icon_grey)
+                getReports(ReportRequestParameters(location, "subway", null, null))}
+            "bus" -> {
+                busBtn.setImageResource(R.mipmap.bus_icon_clicked)
+                carBtn.setImageResource(R.mipmap.car_icon_grey)
+                trainBtn.setImageResource(R.mipmap.train_icon_grey)
+                tramBtn.setImageResource(R.mipmap.tram_icon_grey)
+                getReports(ReportRequestParameters(location, "bus", null, null))}
+            "car" -> {
+                carBtn.setImageResource(R.mipmap.car_icon_clicked)
+                trainBtn.setImageResource(R.mipmap.train_icon_grey)
+                tramBtn.setImageResource(R.mipmap.tram_icon_grey)
+                busBtn.setImageResource(R.mipmap.bus_icon_grey)
+                getReports(ReportRequestParameters(location, "car", null, null))}
         }
     }
 
@@ -214,5 +217,4 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         queryString = addParam(queryString, params.destinationCity)
         return queryString
     }
-
 }
