@@ -13,9 +13,10 @@ import de.trabit.reportApp.NotificationTestActivity
 import de.trabit.reportApp.R
 
 class TrabitFirebaseMessagingService : FirebaseMessagingService() {
-    private lateinit var reportId : String
     private lateinit var transportType : String
     private lateinit var transportTag : String
+    private lateinit var destinationCity : String
+    private lateinit var reportId : String
     private lateinit var reportDescription : String
     val CHANNEL_ID = "trabitChannel"
 
@@ -31,14 +32,16 @@ class TrabitFirebaseMessagingService : FirebaseMessagingService() {
             transportType = message.data.getValue("transportType")
             transportTag = message.data.getValue("transportTag")
             reportDescription = message.data.getValue("reportDescription")
+            destinationCity = message.data.getValue("destinationCity")
 
             intent
-                .putExtra("reportId", reportId)
                 .putExtra("transportType", transportType)
                 .putExtra("transportTag", transportTag)
+                .putExtra("destinationCity", destinationCity)
+                .putExtra("reportId", reportId)
                 .putExtra("reportDescription", reportDescription)
 
-            sendNotification("Störung: $transportTag", "Deine Route ist eventuell beeinträchtigt!", intent)
+            sendNotification("Störung: $transportTag --> $destinationCity", "Deine Route ist eventuell beeinträchtigt!", intent)
         }
     }
 

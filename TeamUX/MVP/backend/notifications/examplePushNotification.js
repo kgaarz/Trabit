@@ -13,6 +13,7 @@ var message = {
         reportId: '5d910e52c5a2ac1708af7e4b',
         transportType: 'train',
         transportTag: 'RB25',
+        destinationCity: 'Gummersbach',
         reportDescription: 'Zug fällt aus... schon wieder!'
     }
 };
