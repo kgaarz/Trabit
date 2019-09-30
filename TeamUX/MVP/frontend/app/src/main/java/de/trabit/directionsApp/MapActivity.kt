@@ -72,7 +72,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
 
         // Ausgewählte Route abrufen
         val asyncTask2 =
-            RequestActivity.GetRequest(applicationContext, "directions", "5d52cd38dc2ad17bd5153a91")
+            RequestActivity.GetRequest(applicationContext, "directions", "5d91d090d1be3300049a94ee")
         asyncTask2.execute()
         val directionsData = asyncTask2.get().getJSONObject("data")
       //  createQueues(directionsData)
@@ -148,8 +148,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         val steps = directionsData.getJSONArray("steps")
         if (steps.length() > 1) {
             (1 until steps.length() - 2).forEach { i ->
-                val lat = steps.getJSONObject(i).getJSONObject("start_location").getDouble("lat")
-                val lng = steps.getJSONObject(i).getJSONObject("start_location").getDouble("lng")
+                val lat = steps.getJSONObject(i).getJSONObject("startLocation").getDouble("lat")
+                val lng = steps.getJSONObject(i).getJSONObject("startLocation").getDouble("lng")
                 val step = LatLng(lat, lng)
                 map.addMarker(
                     MarkerOptions().position(step).title("Step").icon(
