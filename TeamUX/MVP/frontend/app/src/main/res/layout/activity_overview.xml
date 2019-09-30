@@ -11,13 +11,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="160dp"
         android:background="@color/colorWhite"
         android:orientation="horizontal">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="100dp"
             android:background="@drawable/custom_header"
             android:orientation="horizontal"
             android:padding="10dp">
@@ -75,6 +75,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/border_bottom_search_overview"
                 android:paddingLeft="-15dp"
+                android:visibility="invisible"
                 android:theme="@style/AppTheme.SearchReports" />
 
 

@@ -9,6 +9,8 @@ import android.renderscript.ScriptGroup
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
+import de.trabit.directionsApp.DirectionsActivity
+import de.trabit.directionsApp.MapActivity
 import de.trabit.reportApp.R
 import de.trabit.reportApp.reports.display.OverviewActivity
 
@@ -37,13 +39,12 @@ class Login : AppCompatActivity() {
                 run(){
 
                     val LoginIntent = Intent (this,
-                        OverviewActivity::class.java)
+                        DirectionsActivity::class.java)
                     startActivity(LoginIntent)
                     progressBar.setVisibility(View.GONE)
                     checkImage.visibility = View.VISIBLE
                 }
             },1000)
-
         }
 
     }
