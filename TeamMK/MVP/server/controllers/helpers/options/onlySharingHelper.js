@@ -195,7 +195,7 @@ function createWalkingCarRoute(flinksterData, origin, destination, departureTime
             modes: ["walking", "driving"],
             duration: totalRoute.duration,
             distance: totalRoute.distance,
-            switches: getSwitchesHelper(totalRote.steps),
+            switches: getSwitchesHelper(totalRoute.steps),
             sustainability: generateSustainabilityScoreHelper(totalRoute.steps),
             route: totalRoute
           }

@@ -64,15 +64,34 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
             }
         }
 
+        var mobilitiesId = "5d921d2936b0b100048798b5"
+        var directionsId = "5d921d2e36b0b100048798b7"
+
+        if( getIntent().getExtras() != null)
+        {
+            val intent = intent
+            val extras = intent.extras
+            var mobilitiesIdIntent:String? = extras.getString("MOBILITIES_ID")
+            var directionsIdIntent:String? = extras.getString("DIRECTIONS_ID")
+
+            if (mobilitiesIdIntent != null) {
+                mobilitiesId = mobilitiesIdIntent
+            }
+
+            if (directionsIdIntent != null) {
+                directionsId = directionsIdIntent
+            }
+        }
+
         // Mobilities im Umkreis abrufen
         val asyncTask =
-            RequestActivity.GetRequest(applicationContext, "mobilities", "5d5c07108bb94088c3447236")
+            RequestActivity.GetRequest(applicationContext, "mobilities", mobilitiesId)
         asyncTask.execute()
         val mobilitiesData = asyncTask.get().getJSONObject("data")
 
         // Ausgewählte Route abrufen
         val asyncTask2 =
-            RequestActivity.GetRequest(applicationContext, "directions", "5d91d090d1be3300049a94ee")
+            RequestActivity.GetRequest(applicationContext, "directions", directionsId)
         asyncTask2.execute()
         val directionsData = asyncTask2.get().getJSONObject("data")
       //  createQueues(directionsData)
@@ -150,9 +169,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
             (1 until steps.length() - 2).forEach { i ->
                 val lat = steps.getJSONObject(i).getJSONObject("startLocation").getDouble("lat")
                 val lng = steps.getJSONObject(i).getJSONObject("startLocation").getDouble("lng")
+                val mode = steps.getJSONObject(i).getString("mode")
+                val instructions = steps.getJSONObject(i).getString("instructions")
                 val step = LatLng(lat, lng)
                 map.addMarker(
-                    MarkerOptions().position(step).title("Step").icon(
+                    MarkerOptions().position(step).title("Step,$i, $mode,$instructions").icon(
                         BitmapDescriptorFactory.fromResource(R.mipmap.map_step)
                     )
                 )
@@ -167,6 +188,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }

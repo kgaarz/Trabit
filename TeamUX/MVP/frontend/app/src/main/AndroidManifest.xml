@@ -32,7 +32,13 @@
         <activity android:name=".NotificationTestActivity"/>
         <activity android:name=".user.profile.EditMobilityActivity" />
         <activity android:name=".user.profile.EditProfileActivity" />
-        <activity android:name=".login.Login" />
+        <activity android:name=".login.Login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".user.profile.ProfileActivity" />
         <activity android:name="de.trabit.directionsApp.DirectionSelectionActivity" />
         <activity android:name="de.trabit.directionsApp.MapActivity" />
@@ -43,11 +49,6 @@
         <activity android:name=".reports.add.FirstAddActivity" />
         <activity android:name=".changelocation.SearchActivity" />
         <activity android:name=".reports.display.OverviewActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data

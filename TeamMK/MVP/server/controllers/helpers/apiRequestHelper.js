@@ -217,7 +217,8 @@ function comprimiseSteps(data) {
       distance: data[i].distance.value,
       duration: data[i].duration.value,
       startLocation: data[i].start_location,
-      endLocation: data[i].end_location
+      endLocation: data[i].end_location,
+      instructions: data[i].html_instructions
     };
     steps[i] = object;
   }

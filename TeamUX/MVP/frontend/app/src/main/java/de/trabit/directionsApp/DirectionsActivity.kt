@@ -18,6 +18,9 @@ import java.util.*
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
 import de.trabit.reportApp.R
+import de.trabit.reportApp.comments.CommentsActivity
+import de.trabit.reportApp.reports.display.OverviewActivity
+import de.trabit.reportApp.user.profile.ProfileActivity
 import kotlinx.android.synthetic.main.activity_directions.*
 
 
@@ -97,11 +100,15 @@ class DirectionsActivity : AppCompatActivity() {
 
 
         overviewIcon.setOnClickListener{
+            val overviewReportsIntent = Intent(this, OverviewActivity::class.java)
+            startActivity(overviewReportsIntent)
             overviewIcon.setImageResource(R.mipmap.overview_active)
             profileIcon.setImageResource(R.mipmap.profile)
         }
 
         profileIcon.setOnClickListener{
+            val profileIconIntent = Intent(this, ProfileActivity::class.java)
+            startActivity(profileIconIntent)
             profileIcon.setImageResource(R.mipmap.profile_active)
             overviewIcon.setImageResource(R.mipmap.overview)
         }
