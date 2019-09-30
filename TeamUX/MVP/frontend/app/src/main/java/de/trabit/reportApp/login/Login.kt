@@ -1,23 +1,23 @@
 package de.trabit.reportApp.login
 
-import android.animation.ValueAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.renderscript.ScriptGroup
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.widget.*
+import com.google.firebase.messaging.FirebaseMessaging
+import de.trabit.directionsApp.DirectionsActivity
 import de.trabit.reportApp.R
-import de.trabit.reportApp.reports.display.OverviewActivity
-
 
 class Login : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        // subscribe to FCM topic
+        FirebaseMessaging.getInstance().subscribeToTopic("RB25")
 
         //set progressbar animation
 
@@ -37,13 +37,12 @@ class Login : AppCompatActivity() {
                 run(){
 
                     val LoginIntent = Intent (this,
-                        OverviewActivity::class.java)
+                        DirectionsActivity::class.java)
                     startActivity(LoginIntent)
                     progressBar.setVisibility(View.GONE)
                     checkImage.visibility = View.VISIBLE
                 }
             },1000)
-
         }
 
     }
