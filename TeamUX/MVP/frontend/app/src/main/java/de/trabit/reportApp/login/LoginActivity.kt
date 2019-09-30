@@ -10,7 +10,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import de.trabit.directionsApp.DirectionsActivity
 import de.trabit.reportApp.R
 
-class Login : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
