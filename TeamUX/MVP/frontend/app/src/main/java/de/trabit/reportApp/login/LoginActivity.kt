@@ -11,7 +11,6 @@ import de.trabit.directionsApp.DirectionsActivity
 import de.trabit.reportApp.R
 
 class Login : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -20,30 +19,23 @@ class Login : AppCompatActivity() {
         FirebaseMessaging.getInstance().subscribeToTopic("RB25")
 
         //set progressbar animation
-
-        val signInBtn = findViewById(R.id.btn_next) as RelativeLayout
-        val progressBar = findViewById(R.id.progressBar) as ProgressBar
-        val signInText = findViewById(R.id.signInText) as TextView
-        val checkImage = findViewById(R.id.validationIcon) as ImageView
+        val signInBtn = findViewById<RelativeLayout>(R.id.btn_next)
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        val signInText = findViewById<TextView>(R.id.signInText)
+        val checkImage = findViewById<ImageView>(R.id.validationIcon)
 
         signInText.visibility = View.VISIBLE
-
-        signInBtn.setOnClickListener() {
-
+        signInBtn.setOnClickListener {
             progressBar.visibility = View.VISIBLE
-            signInText.setVisibility(View.GONE)
-
-            Handler().postDelayed(Runnable(){
-                run(){
-
-                    val LoginIntent = Intent (this,
-                        DirectionsActivity::class.java)
-                    startActivity(LoginIntent)
-                    progressBar.setVisibility(View.GONE)
+            signInText.visibility = View.GONE
+            Handler().postDelayed({
+                run {
+                    progressBar.visibility = View.GONE
                     checkImage.visibility = View.VISIBLE
+                    val loginIntent = Intent (this, DirectionsActivity::class.java)
+                    startActivity(loginIntent)
                 }
             },1000)
         }
-
     }
 }
