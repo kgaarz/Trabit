@@ -200,7 +200,9 @@ class ThirdAddActivity : AppCompatActivity() {
             Response.Listener {
                 try {
                     val addReportIntent = Intent(this, OverviewActivity::class.java)
-                    startActivity(addReportIntent.putExtra("reportCreated", true))
+                    startActivity(addReportIntent
+                        .putExtra("reportCreated", true)
+                        .putExtra("reportTransportType", report.transport.type))
                 } catch (e: JSONException) {
                     e.printStackTrace()
                     ErrorSnackbar(linearLayout_thirdAdd).show("Störungsmeldung konnte nicht erstellt werden!")
