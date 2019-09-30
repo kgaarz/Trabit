@@ -23,9 +23,6 @@ import org.json.JSONException
 import org.json.JSONObject
 
 class ThirdAddActivity : AppCompatActivity() {
-    private lateinit var destinationLat : String
-    private lateinit var destinationLng : String
-
     // create client for location
     private lateinit var fusedLocationClient : FusedLocationProviderClient
 
@@ -46,11 +43,9 @@ class ThirdAddActivity : AppCompatActivity() {
         //store the value (chosen means of transport and Id) in a variable
         val meansOfTransportName = intent.getStringExtra("meansOfTransport")
         val meansOfTransportId = intent.getStringExtra("meansOfTransportId")
-        val destinationLocation = intent.getStringExtra("destinationLocation")
+        val destinationLat = intent.getStringExtra("destinationLat")
+        val destinationLng = intent.getStringExtra("destinationLng")
         var reportComment : String
-
-        // get geodata from destination city
-        getGeodataFromCity(destinationLocation)
 
         //Adapt the activity layout to the appropriate means of transport
         val imageMeansOfTransport = findViewById<ImageView>(R.id.imageMeansOfTransport)
@@ -195,27 +190,6 @@ class ThirdAddActivity : AppCompatActivity() {
                 postReport(report)
             }
         }
-    }
-
-    private fun getGeodataFromCity (city : String) {
-        val errorMessage = "Geodaten der Ziel-Stadt konnten nicht ermittelt werden!"
-        val requestUrl = "https://geocoder.api.here.com/6.2/geocode.json?app_id=${BuildConfig.REPORTAPI_HERE_APPID}&app_code=${BuildConfig.REPORTAPI_HERE_APPCODE}&searchtext=${city}"
-        val mQueue: RequestQueue = Volley.newRequestQueue(this)
-        val request = JsonObjectRequest(Request.Method.GET, requestUrl, null,
-            Response.Listener {
-                try {
-                    val displayPosition = it.getJSONObject("Response").getJSONArray("View").getJSONObject(0).getJSONArray("Result").getJSONObject(0).getJSONObject("Location").getJSONObject("DisplayPosition")
-                    destinationLat = displayPosition.getString("Latitude")
-                    destinationLng = displayPosition.getString("Longitude")
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                    ErrorSnackbar(linearLayout_thirdAdd).show(errorMessage)
-                }
-            }, Response.ErrorListener {
-                it.printStackTrace()
-                ErrorSnackbar(linearLayout_thirdAdd).show(errorMessage)
-            })
-        mQueue.add(request)
     }
 
     private fun postReport(report : CreateReport) {
