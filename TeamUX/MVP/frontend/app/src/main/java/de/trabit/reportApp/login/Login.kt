@@ -9,6 +9,7 @@ import android.renderscript.ScriptGroup
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
+import com.google.firebase.messaging.FirebaseMessaging
 import de.trabit.reportApp.R
 import de.trabit.reportApp.reports.display.OverviewActivity
 
@@ -18,6 +19,9 @@ class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        // subscribe to FCM topic
+        FirebaseMessaging.getInstance().subscribeToTopic("RB25")
 
         //set progressbar animation
 
