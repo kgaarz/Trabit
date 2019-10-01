@@ -156,18 +156,25 @@
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/generateAlternativeRouteBtn"
-        android:layout_width="match_parent"
+    <RelativeLayout
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="46dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="46dp"
-        android:background="@drawable/custom_button_send"
-        android:fontFamily="@font/oxygen"
-        android:text="Alternativroute berechnen"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold" />
+        android:layout_width="match_parent">
+
+        <Button
+            android:id="@+id/generateAlternativeRouteBtn"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_button_send"
+            android:fontFamily="@font/oxygen"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="Alternativroute berechnen" />
+
+    </RelativeLayout>
 
 </LinearLayout>

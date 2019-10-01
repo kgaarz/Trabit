@@ -47,7 +47,6 @@
 
     </RelativeLayout>
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -181,9 +180,7 @@
             android:text="Wohnort:"
             android:textSize="14sp" />
 
-        //Mobilities
-
-
+<!--        Mobilities-->
         <TextView
             android:id="@+id/txtHomeData"
             android:layout_width="wrap_content"
@@ -344,8 +341,7 @@
             android:track="@drawable/switch_track" />
 
 
-        //Buttons
-
+<!--        Buttons-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="127dp"
@@ -355,23 +351,24 @@
 
             <Button
                 android:id="@+id/btn_logout"
-                android:layout_width="200dp"
-                android:layout_height="36dp"
                 android:layout_alignParentTop="true"
+                android:layout_marginTop="30dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="55dp"
-                android:background="@drawable/custom_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_button_logout"
                 android:fontFamily="@font/oxygen"
-                android:padding="8dp"
-                android:text="Abmelden"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
                 android:textColor="@color/colorWhite"
+                android:textStyle="bold"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                android:text="Abmelden"
+            />
 
         </RelativeLayout>
 
-
-        //Tabbar
+<!--        Tabbar-->
         <View
             android:layout_width="match_parent"
             android:layout_height="5dp"

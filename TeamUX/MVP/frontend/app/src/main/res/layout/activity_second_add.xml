@@ -139,16 +139,17 @@
 
         <Button
             android:id="@+id/btn_next"
-            android:layout_width="300dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:layout_centerHorizontal="true"
-            android:layout_marginLeft="46dp"
-            android:layout_marginRight="46dp"
             android:background="@drawable/custom_button_send"
             android:fontFamily="@font/oxygen"
-            android:text="Weiter"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
             android:textColor="@color/colorWhite"
-            android:textStyle="bold" />
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="Weiter" />
 
     </RelativeLayout>
 

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linearLayout_main"
+    android:id="@+id/loginLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/whiteBlue"
     android:orientation="vertical">
 
 
-    //header
-
+<!--    header-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="252dp"
@@ -19,12 +18,8 @@
             android:id="@+id/imageView3"
             android:layout_width="142dp"
             android:layout_height="165dp"
-            android:layout_below="@+id/headerStartScreen"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_marginTop="25dp"
-            android:layout_marginEnd="138dp"
-            android:layout_marginRight="138dp"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/logo_rund" />
 
         <TextView
@@ -32,11 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="39dp"
             android:layout_below="@+id/imageView3"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="175dp"
-            android:layout_marginRight="175dp"
+            android:layout_centerHorizontal="true"
             android:text="TRABIT"
             android:textColor="@color/colorDarkBlue"
             android:textSize="20sp"
@@ -45,8 +36,7 @@
 
     </RelativeLayout>
 
-    //Main
-
+<!--    Main-->
     <RelativeLayout
         android:layout_width="372dp"
         android:layout_height="304dp"
@@ -60,14 +50,11 @@
 
         <TextView
             android:id="@+id/txtLogin"
-            android:layout_width="wrap_content"
+            android:layout_width="271dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
+            android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="31dp"
-            android:layout_marginLeft="31dp"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="20dp"
             android:text="Login"
             android:textColor="@color/colorDarkBlue"
             android:textSize="20sp"
@@ -78,10 +65,7 @@
             android:layout_width="271dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtLogin"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginStart="44dp"
-            android:layout_marginLeft="44dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
             android:ems="10"
             android:hint="Nutzername"
@@ -92,10 +76,7 @@
             android:layout_width="269dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtLoginName"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginStart="47dp"
-            android:layout_marginLeft="47dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="11dp"
             android:ems="10"
             android:hint="Passwort"
@@ -103,27 +84,29 @@
 
         <RelativeLayout
             android:id="@+id/btn_next"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
+            android:layout_width="140dp"
+            android:layout_height="47dp"
+            android:layout_centerHorizontal="true"
             android:layout_below="@+id/txtLoginPassword"
-            android:layout_marginLeft="46dp"
-            android:layout_marginTop="38dp"
-            android:layout_marginRight="46dp"
+            android:layout_marginTop="35dp"
             android:background="@drawable/sign_in_btn"
             android:fontFamily="@font/oxygen"
-            android:elevation="4dp"
             android:textColor="@color/colorWhite"
             android:textStyle="bold"
             android:clickable="true"
-            >
+            android:focusable="true">
+
             <TextView
                 android:id="@+id/signInText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Anmelden"
                 android:layout_centerInParent="true"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oxygen"
                 android:textColor="@color/colorWhite"
-                />
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textAlignment="center"
+                android:text="ANMELDEN" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -150,6 +133,7 @@
         android:layout_width="372dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
         android:orientation="vertical"
         android:padding="10dp">
 
@@ -157,24 +141,15 @@
             android:id="@+id/txtRegister"
             android:layout_width="226dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
+            android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="65dp"
-            android:layout_marginLeft="65dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="71dp"
-            android:layout_marginRight="71dp"
             android:gravity="center_horizontal"
-            android:text="Du hast noch keinen Account? Dann registriere dich jetzt."
+            android:text="Du hast noch keinen Account? Dann registriere dich jetzt!"
             android:textColor="@color/colorDarkBlue"
             android:textSize="16sp"
             app:fontFamily="@font/oxygen" />
 
     </RelativeLayout>
 
-
 </LinearLayout>
-

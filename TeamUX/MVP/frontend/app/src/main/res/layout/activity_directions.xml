@@ -35,21 +35,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/buttonCreateRoute"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="46dp"
-            android:layout_marginTop="425dp"
-            android:layout_marginRight="46dp"
-            android:background="@drawable/custom_button_send"
-            android:fontFamily="@font/oxygen"
-            android:text="Route erstellen"
-            android:textColor="@color/colorWhite"
-            android:textStyle="bold" />
-
         <RelativeLayout
+            android:id="@+id/createRoute"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -128,7 +115,25 @@
                 android:datePickerMode="spinner" />
         </RelativeLayout>
 
+
+        <Button
+            android:id="@+id/buttonCreateRoute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/createRoute"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/custom_button_send"
+            android:fontFamily="@font/oxygen"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="Route erstellen" />
+
         <View
+            android:id="@+id/footerShadow"
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:layout_alignParentBottom="true"
