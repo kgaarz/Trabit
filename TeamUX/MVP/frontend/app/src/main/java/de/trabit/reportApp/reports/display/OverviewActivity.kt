@@ -50,7 +50,11 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         val reportTransportType = intent.getStringExtra("reportTransportType")
         val reportCreated = intent.getBooleanExtra("reportCreated", false)
         if (reportCreated) {
-            SuccessSnackbar(linearLayout_main).show("Störungsmledung wurde erfolgreich erstellt!")
+            SuccessSnackbar(linearLayout_main).show("Störungsmledung wurde erstellt!")
+        }
+        val reportDeleted = intent.getBooleanExtra("reportDeleted", false)
+        if (reportDeleted) {
+            SuccessSnackbar(linearLayout_main).show("Die Störung wurde beendet!")
         }
 
         // init layout objects
