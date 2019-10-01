@@ -171,7 +171,7 @@ class ReportController {
         const upvotes = report.metadata.upvotes.amount;
         const threshold = process.env.VERIFICATION_THRESHOLD;
         // check new verification state
-        const newVerified = ((upvotes > (downvotes * threshold)) || (upvotes > (2 * threshold) && downvotes < 2));
+        const newVerified = (((upvotes > (downvotes * threshold) && downvotes > 1)) || (upvotes > (2 * threshold) && downvotes < 2));
         // update if state has changed
         if (newVerified !== report.metadata.verified) {
             console.debug(`updating ${reportId}`);
