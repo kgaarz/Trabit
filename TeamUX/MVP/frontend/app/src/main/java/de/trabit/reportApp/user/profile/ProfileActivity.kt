@@ -13,8 +13,11 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.api_test.dataClasses.User
 import com.google.gson.GsonBuilder
+import de.trabit.directionsApp.DirectionsActivity
+import de.trabit.directionsApp.MapActivity
 import de.trabit.reportApp.BuildConfig
 import de.trabit.reportApp.R
+import de.trabit.reportApp.reports.display.OverviewActivity
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : AppCompatActivity() {
@@ -60,6 +63,39 @@ class ProfileActivity : AppCompatActivity() {
                 .putExtra("trainTicket", mob4.isChecked)
                 .putExtra("sharing", mob5.isChecked))
         }
+
+        //navigation
+        val overviewIcon = findViewById<ImageButton>(R.id.overviewNavigation)
+        val profileIcon = findViewById<ImageButton>(R.id.profileNavigation)
+        val directionsIcon = findViewById<ImageButton>(R.id.directonsNavigation)
+        val mapIcon = findViewById<ImageButton>(R.id.mapNavigation)
+
+        overviewIcon.setOnClickListener {
+            val overviewIntent = Intent(this, OverviewActivity::class.java)
+            startActivity(overviewIntent)
+            overviewIcon.setImageResource(R.mipmap.overview_active)
+            profileIcon.setImageResource(R.mipmap.profile)
+        }
+
+        profileIcon.setOnClickListener {
+            val profileIntent = Intent(this, ProfileActivity::class.java)
+            startActivity(profileIntent)
+            profileIcon.setImageResource(R.mipmap.profile_active)
+            overviewIcon.setImageResource(R.mipmap.overview)
+        }
+
+        directionsIcon.setOnClickListener {
+            // Handler code here.
+            val intent = Intent(this, DirectionsActivity::class.java)
+            startActivity(intent)
+        }
+
+        mapIcon.setOnClickListener {
+            val intent = Intent(this, MapActivity::class.java)
+            startActivity(intent)
+        }
+
+
     }
 
     private fun getUser(userId: String) {
