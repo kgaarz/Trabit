@@ -6,19 +6,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import de.trabit.directionsApp.requestHelper.RequestActivity
 import de.trabit.reportApp.BuildConfig
 import de.trabit.reportApp.R
+import de.trabit.reportApp.reports.display.OverviewActivity
+import de.trabit.reportApp.user.profile.ProfileActivity
 import org.json.JSONObject
-
-
-
-
-
-
-
-
 
 class DirectionSelectionActivity : AppCompatActivity() {
 
@@ -143,6 +138,38 @@ class DirectionSelectionActivity : AppCompatActivity() {
             }
         })
 
+        //navigation
+        val mapIcon = findViewById<ImageButton>(R.id.mapNavigation)
+        val directionsIcon = findViewById<ImageButton>(R.id.directonsNavigation)
+        val overviewIcon = findViewById<ImageButton>(R.id.overviewNavigation)
+        val profileIcon = findViewById<ImageButton>(R.id.profileNavigation)
+
+        // navigation item links
+        mapIcon.setOnClickListener {
+            directionsIcon.setImageResource(R.mipmap.directions_icon)
+            mapIcon.setImageResource(R.drawable.ic_map_blue_24dp)
+            val mapIntent = Intent(this, MapActivity::class.java)
+            startActivity(mapIntent)
+        }
+
+        directionsIcon.setOnClickListener {
+            val directionsIntent = Intent(this, DirectionsActivity::class.java)
+            startActivity(directionsIntent)
+        }
+
+        overviewIcon.setOnClickListener{
+            directionsIcon.setImageResource(R.mipmap.directions_icon)
+            overviewIcon.setImageResource(R.mipmap.overview_active)
+            val overviewIntent = Intent(this, OverviewActivity::class.java)
+            startActivity(overviewIntent)
+        }
+
+        profileIcon.setOnClickListener{
+            directionsIcon.setImageResource(R.mipmap.directions_icon)
+            profileIcon.setImageResource(R.mipmap.profile_active)
+            val profileIntent = Intent(this, ProfileActivity::class.java)
+            startActivity(profileIntent)
+        }
 
     }
 }
