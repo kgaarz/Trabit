@@ -94,10 +94,11 @@ class DirectionsActivity : AppCompatActivity() {
 
         initPlaces()
 
+
+        //navigation
         val overviewIcon = findViewById(R.id.overviewNavigation) as ImageButton
         val profileIcon = findViewById(R.id.profileNavigation) as ImageButton
         val directionsIcon = findViewById(R.id.directonsNavigation) as ImageButton
-
 
         overviewIcon.setOnClickListener{
             val overviewReportsIntent = Intent(this, OverviewActivity::class.java)
@@ -116,7 +117,11 @@ class DirectionsActivity : AppCompatActivity() {
         directionsIcon.setOnClickListener {
             val intent = Intent(this, DirectionsActivity::class.java)
             startActivity(intent)
+            directionsIcon.setImageResource(R.mipmap.directions_icon_active)
+            overviewIcon.setImageResource(R.mipmap.overview)
+            profileIcon.setImageResource(R.mipmap.profile)
         }
+
 
 
         val autocompleteFragmentOrigin = supportFragmentManager.findFragmentById(R.id.autocomplete_fragment_origin) as AutocompleteSupportFragment?

@@ -88,13 +88,16 @@ class ProfileActivity : AppCompatActivity() {
             // Handler code here.
             val intent = Intent(this, DirectionsActivity::class.java)
             startActivity(intent)
+            directionsIcon.setImageResource(R.mipmap.directions_icon_active)
+            overviewIcon.setImageResource(R.mipmap.overview)
+            profileIcon.setImageResource(R.mipmap.profile)
+
         }
 
         mapIcon.setOnClickListener {
             val intent = Intent(this, MapActivity::class.java)
             startActivity(intent)
         }
-
 
     }
 
