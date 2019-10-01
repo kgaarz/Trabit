@@ -38,7 +38,7 @@
                 android:layout_weight="2"
                 android:background="@null"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_map_black_24dp" />
+                android:src="@drawable/ic_map_blue_24dp" />
 
             <ImageButton
                 android:id="@+id/directonsNavigation"
@@ -59,7 +59,7 @@
                 android:layout_weight="2"
                 android:background="@null"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/overview_active" />
+                android:src="@mipmap/overview" />
 
             <ImageButton
                 android:id="@+id/profileNavigation"

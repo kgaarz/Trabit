@@ -193,40 +193,40 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        // navigation icons (active mode)
+
+
+        //navigation
+        val mapIcon = findViewById<ImageButton>(R.id.mapNavigation)
+        val directionsIcon = findViewById<ImageButton>(R.id.directonsNavigation)
         val overviewIcon = findViewById<ImageButton>(R.id.overviewNavigation)
         val profileIcon = findViewById<ImageButton>(R.id.profileNavigation)
-        val directionsIcon = findViewById<ImageButton>(R.id.directonsNavigation)
-        val mapIcon = findViewById<ImageButton>(R.id.mapNavigation)
 
-        overviewIcon.setOnClickListener {
-            val overviewIntent = Intent(this, OverviewActivity::class.java)
-            startActivity(overviewIntent)
-            overviewIcon.setImageResource(R.mipmap.overview_active)
-            profileIcon.setImageResource(R.mipmap.profile)
-        }
-
-        profileIcon.setOnClickListener {
-            val profileIntent = Intent(this, ProfileActivity::class.java)
-            startActivity(profileIntent)
-            profileIcon.setImageResource(R.mipmap.profile_active)
-            overviewIcon.setImageResource(R.mipmap.overview)
+        // navigation item links
+        mapIcon.setOnClickListener {
+            val mapIntent = Intent(this, MapActivity::class.java)
+            startActivity(mapIntent)
         }
 
         directionsIcon.setOnClickListener {
-            // Handler code here.
-            val intent = Intent(this, DirectionsActivity::class.java)
-            startActivity(intent)
+            mapIcon.setImageResource(R.drawable.ic_map_black_24dp)
             directionsIcon.setImageResource(R.mipmap.directions_icon_active)
-            overviewIcon.setImageResource(R.mipmap.overview)
-            profileIcon.setImageResource(R.mipmap.profile)
+            val directionsIntent = Intent(this, DirectionsActivity::class.java)
+            startActivity(directionsIntent)
         }
 
-        mapIcon.setOnClickListener {
-            mapIcon.setImageResource(R.drawable.ic_map_blue_24dp)
-            profileIcon.setImageResource(R.mipmap.profile)
+        overviewIcon.setOnClickListener{
+            mapIcon.setImageResource(R.drawable.ic_map_black_24dp)
+            overviewIcon.setImageResource(R.mipmap.overview_active)
+            val overviewIntent = Intent(this, OverviewActivity::class.java)
+            startActivity(overviewIntent)
         }
 
+        profileIcon.setOnClickListener{
+            mapIcon.setImageResource(R.drawable.ic_map_black_24dp)
+            profileIcon.setImageResource(R.mipmap.profile_active)
+            val profileIntent = Intent(this, ProfileActivity::class.java)
+            startActivity(profileIntent)
+        }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }
