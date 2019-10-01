@@ -3,14 +3,14 @@ const {
 } = require('../models/routeAlertSchema');
 const UserController = require('./userController');
 const ApiError = require('../exceptions/apiExceptions');
-// const Notification = require('../notifications/notifications');
+// const RouteAlertNotification = require('../notifications/routeAlertNotification');
 
 class RouteAlertController {
     async create(body /*, registrationToken*/ ) {
         // check if user exists
         await UserController.getSpecific(body.user);
         const routeAlert = new RouteAlert(body);
-        // Notification.subscribe(registrationToken, routeAlert.transport.tag);
+        // RouteAlertNotification.subscribe(registrationToken, routeAlert.transport.tag);
         // TODO: create job to unsubscribe from topic after routeAlert duration
         return await routeAlert.save();
     }
@@ -41,7 +41,7 @@ class RouteAlertController {
         const routeAlert = await this.getSpecific(routeAlertId);
         // const topic = routeAlert.transport.tag;
         return await RouteAlert.findByIdAndRemove(routeAlert._id);
-        // Notification.unsubscribe(registrationToken, topic);
+        // RouteAlertNotification.unsubscribe(registrationToken, topic);
     }
 }
 

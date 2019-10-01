@@ -7,7 +7,7 @@ const {
 const UserController = require('./userController');
 const GeodataService = require('../services/geodataService');
 const ApiError = require('../exceptions/apiExceptions');
-// const Notification = require('../notifications/notifications');
+// const RouteAlertNotification = require('../notifications/routeAlertNotification');
 
 class ReportController {
     constructor() {
@@ -182,7 +182,7 @@ class ReportController {
             });
             // // send push notificaiton to topic if report got verified
             // if(newVerified) {
-            //     Notification.push(reportId);
+            //     RouteAlertNotification.push(reportId);
             // }
         }
     }

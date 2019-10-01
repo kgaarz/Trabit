@@ -11,7 +11,7 @@ admin.initializeApp({
     databaseURL: "https://frontend-efcfb.firebaseio.com"
 });
 
-class Notification {
+class RouteAlertNotification {
     async push(reportId) {
         try {
             const report = await Report.getSpecific(reportId);
@@ -55,4 +55,4 @@ class Notification {
     }
 }
 
-module.exports = Notification;
+module.exports = RouteAlertNotification;
