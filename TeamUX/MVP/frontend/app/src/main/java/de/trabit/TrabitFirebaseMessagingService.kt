@@ -12,6 +12,7 @@ import com.google.firebase.messaging.RemoteMessage
 import de.trabit.reportApp.NotificationTestActivity
 import de.trabit.reportApp.R
 
+
 class TrabitFirebaseMessagingService : FirebaseMessagingService() {
     private lateinit var transportType : String
     private lateinit var transportTag : String
@@ -43,6 +44,7 @@ class TrabitFirebaseMessagingService : FirebaseMessagingService() {
 
             sendNotification("Störung: $transportTag --> $destinationCity", "Deine Route ist eventuell beeinträchtigt!", intent)
         }
+
     }
 
     fun sendNotification(title: String, body: String, intent: Intent) {

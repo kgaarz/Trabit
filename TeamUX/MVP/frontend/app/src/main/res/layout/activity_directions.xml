@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="46dp"
-            android:layout_marginTop="350dp"
+            android:layout_marginTop="425dp"
             android:layout_marginRight="46dp"
             android:background="@drawable/custom_button_send"
             android:fontFamily="@font/oxygen"
@@ -65,7 +65,7 @@
                 android:id="@+id/durationText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="160dp"
+                android:layout_marginTop="220dp"
                 android:paddingLeft="10dp"
                 android:text="Abfahrtszeit"
                 android:textColor="#000000"
@@ -76,7 +76,7 @@
                 android:id="@+id/route2Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:paddingLeft="10dp"
                 android:text="Start"
                 android:textColor="#000000"
@@ -88,14 +88,14 @@
                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="140dp"
                 android:textColor="@color/colorWhite" />
 
             <TextView
                 android:id="@+id/modesText2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="120dp"
                 android:paddingLeft="10dp"
                 android:text="Ziel"
                 android:textColor="#000000"
@@ -107,7 +107,7 @@
                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 android:textColor="@color/colorWhite" />
 
             <TimePicker
@@ -116,14 +116,14 @@
                 android:layout_width="200dp"
                 android:layout_height="155dp"
                 android:layout_marginLeft="200dp"
-                android:layout_marginTop="160dp"
+                android:layout_marginTop="230dp"
                 android:timePickerMode="spinner" />
 
             <DatePicker
                 android:id="@+id/datePicker"
                 android:layout_width="225dp"
                 android:layout_height="155dp"
-                android:layout_marginTop="160dp"
+                android:layout_marginTop="230dp"
                 android:calendarViewShown="false"
                 android:datePickerMode="spinner" />
         </RelativeLayout>
