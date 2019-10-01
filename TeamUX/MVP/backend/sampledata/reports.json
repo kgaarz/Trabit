@@ -1,0 +1,340 @@
+[{
+        "author": "kleine-karla",
+        "location": {
+            "origin": {
+                "lat": "50.937531",
+                "lng": "6.960279",
+                "city": "Köln"
+            },
+            "destination": {
+                "lat": "51.028351",
+                "lng": "7.565430",
+                "city": "Gummersbach"
+            }
+        },
+        "transport": {
+            "type": "train",
+            "tag": "RB25"
+        },
+        "description": "Zug fällt aus... schon wieder!",
+        "metadata": {
+            "upvotes": {
+                "amount": 0,
+                "users": []
+            },
+            "downvotes": {
+                "amount": 0,
+                "users": []
+            },
+            "verified": false,
+            "active": true
+        },
+        "comments": [{
+                "author": "michi1979",
+                "content": "Oh Mann... danke für die Info!",
+                "metadata": {
+                    "upvotes": {
+                        "amount": 0,
+                        "users": []
+                    },
+                    "downvotes": {
+                        "amount": 0,
+                        "users": []
+                    }
+                }
+            },
+            {
+                "author": "MundM",
+                "content": "diese doofe bahn!! nix kriegen die auf die reihe!",
+                "metadata": {
+                    "upvotes": {
+                        "amount": 0,
+                        "users": []
+                    },
+                    "downvotes": {
+                        "amount": 0,
+                        "users": []
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "author": "katzi",
+        "location": {
+            "origin": {
+                "lat": "51.028351",
+                "lng": "7.565430",
+                "city": "Gummersbach"
+            },
+            "destination": {
+                "lat": "50.937531",
+                "lng": "6.960279",
+                "city": "Köln"
+            }
+        },
+        "transport": {
+            "type": "train",
+            "tag": "RB25"
+        },
+        "description": "Zug wurde abgesagt wegen Schienenstörung...",
+        "metadata": {
+            "upvotes": {
+                "amount": 0,
+                "users": []
+            },
+            "downvotes": {
+                "amount": 0,
+                "users": []
+            },
+            "verified": false,
+            "active": true
+        },
+        "comments": [{
+                "author": "MundM",
+                "content": "Kann ich bestätigen! Auf der Tafel steht \"Fällt aus\"!",
+                "metadata": {
+                    "upvotes": {
+                        "amount": 0,
+                        "users": []
+                    },
+                    "downvotes": {
+                        "amount": 0,
+                        "users": []
+                    }
+                }
+            },
+            {
+                "author": "sasa",
+                "content": "Quatsch! Das stimmt nicht! Der Zug steht noch immer auf der Tafel und kommt wie geplant!",
+                "metadata": {
+                    "upvotes": {
+                        "amount": 0,
+                        "users": []
+                    },
+                    "downvotes": {
+                        "amount": 0,
+                        "users": []
+                    }
+                }
+            },
+            {
+                "author": "panda123",
+                "content": "FALSCHMELDUNG!",
+                "metadata": {
+                    "upvotes": {
+                        "amount": 0,
+                        "users": []
+                    },
+                    "downvotes": {
+                        "amount": 0,
+                        "users": []
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "author": "sasa",
+        "location": {
+            "origin": {
+                "lat": "50.937531",
+                "lng": "6.960279",
+                "city": "Köln"
+            },
+            "destination": {
+                "lat": "50.965630",
+                "lng": "7.157030",
+                "city": "Bensberg"
+            }
+        },
+        "transport": {
+            "type": "subway",
+            "tag": "1"
+        },
+        "description": "Unfall auf Aachener Straße... fährt ab Melaten nicht mehr weiter in Richtung Innenstadt. Stehen hier schon 10min rum!",
+        "metadata": {
+            "upvotes": {
+                "amount": 0,
+                "users": []
+            },
+            "downvotes": {
+                "amount": 0,
+                "users": []
+            },
+            "verified": false,
+            "active": true
+        },
+        "comments": [{
+                "author": "heria",
+                "content": "Was ist passiert?",
+                "metadata": {
+                    "upvotes": {
+                        "amount": 0,
+                        "users": []
+                    },
+                    "downvotes": {
+                        "amount": 0,
+                        "users": []
+                    }
+                }
+            },
+            {
+                "author": "panda123",
+                "content": "Auto von Bahn gerammt, ist aber keiner verletzt wies aussieht.",
+                "metadata": {
+                    "upvotes": {
+                        "amount": 0,
+                        "users": []
+                    },
+                    "downvotes": {
+                        "amount": 0,
+                        "users": []
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "author": "nail_artist",
+        "location": {
+            "origin": {
+                "lat": "51.028351",
+                "lng": "7.565430",
+                "city": "Gummersbach"
+            },
+            "destination": {
+                "lat": "50.932560",
+                "lng": "7.284720",
+                "city": "Overath"
+            }
+        },
+        "transport": {
+            "type": "bus",
+            "tag": "310"
+        },
+        "description": "Bus kommt nicht an Haltestelle \"Bahnhof\" :(",
+        "metadata": {
+            "upvotes": {
+                "amount": 0,
+                "users": []
+            },
+            "downvotes": {
+                "amount": 0,
+                "users": []
+            },
+            "verified": false,
+            "active": true
+        }
+    },
+    {
+        "author": "porschefan",
+        "location": {
+            "origin": {
+                "lat": "51.052929",
+                "lng": "7.540945",
+                "city": "Gummersbach"
+            },
+            "destination": {
+                "lat": "51.081081",
+                "lng": "7.535533",
+                "city": "Marienheide"
+            }
+        },
+        "transport": {
+            "type": "car",
+            "tag": "A4"
+        },
+        "description": "Stau wegen Unfall",
+        "metadata": {
+            "upvotes": {
+                "amount": 0,
+                "users": []
+            },
+            "downvotes": {
+                "amount": 0,
+                "users": []
+            },
+            "verified": false,
+            "active": true
+        },
+        "comments": [{
+            "author": "sasa",
+            "content": "geht wieder weiter!",
+            "metadata": {
+                "upvotes": {
+                    "amount": 0,
+                    "users": []
+                },
+                "downvotes": {
+                    "amount": 0,
+                    "users": []
+                }
+            }
+        }]
+    },
+    {
+        "author": "michi1979",
+        "location": {
+            "origin": {
+                "lat": "50.937531",
+                "lng": "6.960279",
+                "city": "Köln"
+            },
+            "destination": {
+                "lat": "49.749992",
+                "lng": "6.637143",
+                "city": "Trier"
+            }
+        },
+        "transport": {
+            "type": "train",
+            "tag": "RE12"
+        },
+        "description": "35 min Verspätung laut Tafel!! Das gibt es doch nicht!!",
+        "metadata": {
+            "upvotes": {
+                "amount": 0,
+                "users": []
+            },
+            "downvotes": {
+                "amount": 0,
+                "users": []
+            },
+            "verified": false,
+            "active": true
+        }
+    },
+    {
+        "author": "MundM",
+        "location": {
+            "origin": {
+                "lat": "50.937531",
+                "lng": "6.960279",
+                "city": "Köln"
+            },
+            "destination": {
+                "lat": "50.775345",
+                "lng": "6.083887",
+                "city": "Aachen"
+            }
+        },
+        "transport": {
+            "type": "train",
+            "tag": "RE1"
+        },
+        "description": "Mal wieder die gewohnte Verspätung von 50 min",
+        "metadata": {
+            "upvotes": {
+                "amount": 0,
+                "users": []
+            },
+            "downvotes": {
+                "amount": 0,
+                "users": []
+            },
+            "verified": false,
+            "active": true
+        }
+    }
+]
