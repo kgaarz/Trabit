@@ -31,8 +31,8 @@ class ThirdAddActivity : AppCompatActivity() {
         setContentView(R.layout.activity_third_add)
 
         // get users location data
-        var originLat = "51.028351"
-        var originLng = "7.565430"
+        var originLat = "50.943373"
+        var originLng = "6.958602"
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location : android.location.Location? ->
