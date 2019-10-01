@@ -90,24 +90,17 @@ class DirectionsActivity : AppCompatActivity() {
         initPlaces()
 
         //navigation
-        val overviewIcon = findViewById(R.id.overviewNavigation) as ImageButton
-        val profileIcon = findViewById(R.id.profileNavigation) as ImageButton
-        val directionsIcon = findViewById(R.id.directonsNavigation) as ImageButton
-        val mapIcon = findViewById(R.id.mapNavigation) as ImageButton
+        val mapIcon = findViewById<ImageButton>(R.id.mapNavigation)
+        val directionsIcon = findViewById<ImageButton>(R.id.directonsNavigation)
+        val overviewIcon = findViewById<ImageButton>(R.id.overviewNavigation)
+        val profileIcon = findViewById<ImageButton>(R.id.profileNavigation)
 
         // navigation item links
-        overviewIcon.setOnClickListener{
+        mapIcon.setOnClickListener {
             directionsIcon.setImageResource(R.mipmap.directions_icon)
-            overviewIcon.setImageResource(R.mipmap.overview_active)
-            val overviewReportsIntent = Intent(this, OverviewActivity::class.java)
-            startActivity(overviewReportsIntent)
-        }
-
-        profileIcon.setOnClickListener{
-            directionsIcon.setImageResource(R.mipmap.directions_icon)
-            profileIcon.setImageResource(R.mipmap.profile_active)
-            val profileIconIntent = Intent(this, ProfileActivity::class.java)
-            startActivity(profileIconIntent)
+            mapIcon.setImageResource(R.drawable.ic_map_blue_24dp)
+            val mapIntent = Intent(this, MapActivity::class.java)
+            startActivity(mapIntent)
         }
 
         directionsIcon.setOnClickListener {
@@ -115,11 +108,18 @@ class DirectionsActivity : AppCompatActivity() {
             startActivity(directionsIntent)
         }
 
-        mapIcon.setOnClickListener {
+        overviewIcon.setOnClickListener{
             directionsIcon.setImageResource(R.mipmap.directions_icon)
-            mapIcon.setImageResource(R.drawable.ic_map_blue_24dp)
-            val mapIntent = Intent(this, MapActivity::class.java)
-            startActivity(mapIntent)
+            overviewIcon.setImageResource(R.mipmap.overview_active)
+            val overviewIntent = Intent(this, OverviewActivity::class.java)
+            startActivity(overviewIntent)
+        }
+
+        profileIcon.setOnClickListener{
+            directionsIcon.setImageResource(R.mipmap.directions_icon)
+            profileIcon.setImageResource(R.mipmap.profile_active)
+            val profileIntent = Intent(this, ProfileActivity::class.java)
+            startActivity(profileIntent)
         }
 
         val autocompleteFragmentOrigin = supportFragmentManager.findFragmentById(R.id.autocomplete_fragment_origin) as AutocompleteSupportFragment?
@@ -173,27 +173,23 @@ class DirectionsActivity : AppCompatActivity() {
         }
 
         val createRouteButton = findViewById(R.id.buttonCreateRoute) as Button
+        createRouteButton.setOnClickListener {
 
+        if(this.originLat != 0.0 || this.destinationLat != 0.0) {
+            val extras = Bundle()
+            extras.putLong("TIMESTAMP", this.timestamp)
+            extras.putDouble("ORIGIN_LAT", this.originLat)
+            extras.putDouble("ORIGIN_LONG", this.originLong)
+            extras.putDouble("DESTINATION_LAT", this.destinationLat)
+            extras.putDouble("DESTINATION_LONG", this.destinationLong)
 
+            val selectionIntent = Intent(this, DirectionSelectionActivity::class.java)
+            selectionIntent.putExtras(extras)
 
-            createRouteButton.setOnClickListener {
-
-                if(this.originLat != 0.0 || this.destinationLat != 0.0) {
-                val extras = Bundle()
-                extras.putLong("TIMESTAMP", this.timestamp)
-                extras.putDouble("ORIGIN_LAT", this.originLat)
-                extras.putDouble("ORIGIN_LONG", this.originLong)
-                extras.putDouble("DESTINATION_LAT", this.destinationLat)
-                extras.putDouble("DESTINATION_LONG", this.destinationLong)
-
-                val intent = Intent(this, DirectionSelectionActivity::class.java)
-
-                intent.putExtras(extras)
-
-                startActivity(intent)
-                } else {
-                    ErrorSnackbar(linearLayout_directions).show("Bitte gebe Start und Ziel an!")
-                }
+            startActivity(selectionIntent)
+        } else {
+            ErrorSnackbar(linearLayout_directions).show("Bitte gebe Start und Ziel an!")
+        }
             }
 
     }

@@ -81,38 +81,37 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
             startActivity(addReportIntent)
         }
 
-        // navigation icons (active mode)
+        // navigation
+        val mapIcon = findViewById<ImageButton>(R.id.mapNavigation)
+        val directionsIcon = findViewById<ImageButton>(R.id.directonsNavigation)
         val overviewIcon = findViewById<ImageButton>(R.id.overviewNavigation)
         val profileIcon = findViewById<ImageButton>(R.id.profileNavigation)
-        val directionsIcon = findViewById<ImageButton>(R.id.directonsNavigation)
-        val mapIcon = findViewById<ImageButton>(R.id.mapNavigation)
 
-        overviewIcon.setOnClickListener {
-            overviewIcon.setImageResource(R.mipmap.overview_active)
-            profileIcon.setImageResource(R.mipmap.profile)
-        }
-
-        profileIcon.setOnClickListener {
-            val profileIntent = Intent(this, ProfileActivity::class.java)
-            startActivity(profileIntent)
-            profileIcon.setImageResource(R.mipmap.profile_active)
+        // navigation item links
+        mapIcon.setOnClickListener {
             overviewIcon.setImageResource(R.mipmap.overview)
+            mapIcon.setImageResource(R.drawable.ic_map_blue_24dp)
+            val mapIntent = Intent(this, MapActivity::class.java)
+            startActivity(mapIntent)
         }
 
         directionsIcon.setOnClickListener {
-            // Handler code here.
-            val intent = Intent(this, DirectionsActivity::class.java)
-            startActivity(intent)
-            directionsIcon.setImageResource(R.mipmap.directions_icon_active)
             overviewIcon.setImageResource(R.mipmap.overview)
-            profileIcon.setImageResource(R.mipmap.profile)
+            directionsIcon.setImageResource(R.mipmap.directions_icon_active)
+            val directionsIntent = Intent(this, DirectionsActivity::class.java)
+            startActivity(directionsIntent)
         }
 
-        mapIcon.setOnClickListener {
-            val intent = Intent(this, MapActivity::class.java)
-            startActivity(intent)
-            mapIcon.setImageResource(R.drawable.ic_map_blue_24dp)
-            profileIcon.setImageResource(R.mipmap.profile)
+        overviewIcon.setOnClickListener {
+            val overviewReportsIntent = Intent(this, OverviewActivity::class.java)
+            startActivity(overviewReportsIntent)
+        }
+
+        profileIcon.setOnClickListener {
+            overviewIcon.setImageResource(R.mipmap.overview)
+            profileIcon.setImageResource(R.mipmap.profile_active)
+            val profileIntent = Intent(this, ProfileActivity::class.java)
+            startActivity(profileIntent)
         }
 
         // change location textView to manually set location (if exists)
