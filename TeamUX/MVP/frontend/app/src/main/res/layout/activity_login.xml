@@ -74,7 +74,7 @@
             app:fontFamily="@font/oxygen" />
 
         <EditText
-            android:id="@+id/txtLoginMail"
+            android:id="@+id/txtLoginName"
             android:layout_width="271dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtLogin"
@@ -91,7 +91,7 @@
             android:id="@+id/txtLoginPassword"
             android:layout_width="269dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtLoginMail"
+            android:layout_below="@+id/txtLoginName"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_marginStart="47dp"
