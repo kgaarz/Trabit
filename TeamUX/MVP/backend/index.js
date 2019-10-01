@@ -52,7 +52,6 @@ require('dotenv').config();
         });
         reports.forEach(async (report) => {
             return await ReportController.updateVerificationState(report._id);
-            // TODO: push routeAlerts if a report gets verified!
         });
     });
 
