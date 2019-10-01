@@ -42,7 +42,7 @@ class TrabitFirebaseMessagingService : FirebaseMessagingService() {
                 .putExtra("reportId", reportId)
                 .putExtra("reportDescription", reportDescription)
 
-            sendNotification("Störung: $transportTag --> $destinationCity", "Deine Route ist eventuell beeinträchtigt!", intent)
+            sendNotification("Störung: $transportTag --> $destinationCity", "Deine Route ist beeinträchtigt!", intent)
         }
 
     }
