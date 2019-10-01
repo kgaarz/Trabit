@@ -60,6 +60,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
             android:layout_toEndOf="@+id/txtUserData"
             android:layout_toRightOf="@+id/txtUserData"
             android:background="@null"
@@ -70,7 +71,7 @@
 
         <TextView
             android:id="@+id/txtUserData"
-            android:layout_width="93dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
@@ -78,7 +79,7 @@
             android:layout_marginLeft="37dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/oxygen"
-            android:text="Mein Profil"
+            android:text="Meine Profildaten"
             android:textColor="@color/colorDarkBlue"
             android:textSize="16sp" />
 
@@ -101,8 +102,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtUserData"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/txtFirstname"
             android:layout_toRightOf="@+id/txtFirstname"
@@ -129,8 +130,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtFirstnameData"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginLeft="14dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/txtLastname"
             android:layout_toRightOf="@+id/txtLastname"
@@ -157,8 +158,8 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtLastnameData"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="47dp"
+            android:layout_marginLeft="47dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/txtMail"
             android:layout_toRightOf="@+id/txtMail"
@@ -180,22 +181,22 @@
             android:text="Wohnort:"
             android:textSize="14sp" />
 
+        //Mobilities
+
+
         <TextView
             android:id="@+id/txtHomeData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtMailData"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginLeft="26dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/txtHome"
             android:layout_toRightOf="@+id/txtHome"
             android:fontFamily="@font/oxygen"
             android:text="Gummersbach"
             android:textSize="14sp" />
-
-        //Mobilities
-
 
         <TextView
             android:id="@+id/txtMobilities"
@@ -235,10 +236,10 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginStart="27dp"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="315dp"
-            android:layout_marginRight="315dp"
+            android:layout_marginLeft="304dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="38dp"
+            android:layout_marginRight="38dp"
             android:checked="false"
             android:clickable="false"
             android:fontFamily="@font/oxygen"
@@ -260,8 +261,8 @@
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="263dp"
-            android:layout_marginRight="263dp"
+            android:layout_marginEnd="38dp"
+            android:layout_marginRight="38dp"
             android:checked="false"
             android:clickable="false"
             android:fontFamily="@font/oxygen"
@@ -284,8 +285,8 @@
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="294dp"
-            android:layout_marginRight="294dp"
+            android:layout_marginEnd="38dp"
+            android:layout_marginRight="38dp"
             android:checked="false"
             android:clickable="false"
             android:fontFamily="@font/oxygen"
@@ -307,8 +308,8 @@
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="282dp"
-            android:layout_marginRight="282dp"
+            android:layout_marginEnd="38dp"
+            android:layout_marginRight="38dp"
             android:checked="false"
             android:clickable="false"
             android:fontFamily="@font/oxygen"
@@ -331,8 +332,8 @@
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="242dp"
-            android:layout_marginRight="242dp"
+            android:layout_marginEnd="38dp"
+            android:layout_marginRight="38dp"
             android:checked="false"
             android:clickable="false"
             android:fontFamily="@font/oxygen"
@@ -342,8 +343,8 @@
             android:thumb="@drawable/switch_thumb"
             android:track="@drawable/switch_track" />
 
-        //Buttons
 
+        //Buttons
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -354,15 +355,12 @@
 
             <Button
                 android:id="@+id/btn_logout"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
+                android:layout_width="200dp"
+                android:layout_height="36dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="96dp"
-                android:layout_marginLeft="96dp"
-                android:layout_marginTop="49dp"
-                android:background="@drawable/custom_button_send"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="55dp"
+                android:background="@drawable/custom_button"
                 android:fontFamily="@font/oxygen"
                 android:padding="8dp"
                 android:text="Abmelden"
@@ -370,28 +368,10 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/txtDelete"
-                android:layout_width="97dp"
-                android:layout_height="23dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="57dp"
-                android:layout_marginEnd="107dp"
-                android:layout_marginRight="107dp"
-                android:layout_toEndOf="@+id/btn_logout"
-                android:layout_toRightOf="@+id/btn_logout"
-                android:fontFamily="@font/oxygen"
-                android:text="Konto löschen"
-                android:textColor="@color/colorLightGrey"
-                android:textSize="14sp" />
-
         </RelativeLayout>
 
 
+        //Tabbar
         <View
             android:layout_width="match_parent"
             android:layout_height="5dp"
