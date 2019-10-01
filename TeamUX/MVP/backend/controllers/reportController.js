@@ -7,6 +7,7 @@ const {
 const UserController = require('./userController');
 const GeodataService = require('../services/geodataService');
 const ApiError = require('../exceptions/apiExceptions');
+// const Notification = require('../notifications/notifications');
 
 class ReportController {
     constructor() {
@@ -179,6 +180,10 @@ class ReportController {
             }, {
                 'metadata.verified': newVerified
             });
+            // // send push notificaiton to topic if report got verified
+            // if(newVerified) {
+            //     Notification.push(reportId);
+            // }
         }
     }
 
