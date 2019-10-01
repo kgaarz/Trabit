@@ -18,12 +18,9 @@ import java.util.*
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
 import de.trabit.reportApp.R
-import de.trabit.reportApp.comments.CommentsActivity
 import de.trabit.reportApp.reports.display.OverviewActivity
 import de.trabit.reportApp.user.profile.ProfileActivity
 import kotlinx.android.synthetic.main.activity_directions.*
-import kotlinx.android.synthetic.main.activity_map.*
-
 
 class DirectionsActivity : AppCompatActivity() {
 
@@ -92,43 +89,38 @@ class DirectionsActivity : AppCompatActivity() {
 
         initPlaces()
 
-
         //navigation
         val overviewIcon = findViewById(R.id.overviewNavigation) as ImageButton
         val profileIcon = findViewById(R.id.profileNavigation) as ImageButton
         val directionsIcon = findViewById(R.id.directonsNavigation) as ImageButton
-        //val mapIcon = findViewById(R.id.mapNavigation) as ImageButton
+        val mapIcon = findViewById(R.id.mapNavigation) as ImageButton
 
+        // navigation item links
         overviewIcon.setOnClickListener{
+            directionsIcon.setImageResource(R.mipmap.directions_icon)
+            overviewIcon.setImageResource(R.mipmap.overview_active)
             val overviewReportsIntent = Intent(this, OverviewActivity::class.java)
             startActivity(overviewReportsIntent)
-            overviewIcon.setImageResource(R.mipmap.overview_active)
-            profileIcon.setImageResource(R.mipmap.profile)
-
         }
 
         profileIcon.setOnClickListener{
+            directionsIcon.setImageResource(R.mipmap.directions_icon)
+            profileIcon.setImageResource(R.mipmap.profile_active)
             val profileIconIntent = Intent(this, ProfileActivity::class.java)
             startActivity(profileIconIntent)
-            profileIcon.setImageResource(R.mipmap.profile_active)
-            overviewIcon.setImageResource(R.mipmap.overview)
         }
 
         directionsIcon.setOnClickListener {
-            val intent = Intent(this, DirectionsActivity::class.java)
-            startActivity(intent)
-            directionsIcon.setImageResource(R.mipmap.directions_icon_active)
-            overviewIcon.setImageResource(R.mipmap.overview)
-            profileIcon.setImageResource(R.mipmap.profile)
+            val directionsIntent = Intent(this, DirectionsActivity::class.java)
+            startActivity(directionsIntent)
         }
 
-        /*mapIcon.setOnClickListener {
+        mapIcon.setOnClickListener {
+            directionsIcon.setImageResource(R.mipmap.directions_icon)
+            mapIcon.setImageResource(R.drawable.ic_map_blue_24dp)
             val mapIntent = Intent(this, MapActivity::class.java)
             startActivity(mapIntent)
-        }*/
-
-
-
+        }
 
         val autocompleteFragmentOrigin = supportFragmentManager.findFragmentById(R.id.autocomplete_fragment_origin) as AutocompleteSupportFragment?
         val autocompleteFragmentDestination = supportFragmentManager.findFragmentById(R.id.autocomplete_fragment_destination) as AutocompleteSupportFragment?
@@ -214,4 +206,3 @@ class DirectionsActivity : AppCompatActivity() {
         val placesClient = Places.createClient(this)
     }
 }
-

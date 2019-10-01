@@ -144,7 +144,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/mapNavigation2"
+                android:id="@+id/mapNavigation"
                 android:layout_width="0dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center"
