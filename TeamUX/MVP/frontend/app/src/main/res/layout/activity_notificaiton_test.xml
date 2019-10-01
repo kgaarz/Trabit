@@ -41,7 +41,7 @@
                 android:layout_marginStart="100dp"
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="25dp"
-                android:text="Notification Test"
+                android:text="Hinweis"
                 android:textColor="#F9F9F9"
                 android:textSize="20sp"
                 app:fontFamily="@font/oxygen" />
@@ -50,36 +50,124 @@
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/txtTransportTag"
+    <TextView
+        android:id="@+id/route2Text2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="transportTag" />
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="30dp"
+        android:text="Auf deiner Route wurde eine Störung identifiziert!"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        app:fontFamily="@font/oxygen" />
 
-    <EditText
-        android:id="@+id/txtTransportType"
+    <RelativeLayout
+        android:id="@+id/layoutRoute1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="transportType" />
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_button_next"
+        android:clickable="true"
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/txtReportId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="reportId" />
+        <TextView
+            android:id="@+id/richtungInput1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:paddingLeft="190dp"
+            android:text="Richtung"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:fontFamily="@font/oxygen" />
 
-    <EditText
-        android:id="@+id/txtReportDescription"
+        <TextView
+            android:id="@+id/linieInput1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="190dp"
+            android:text="Linie"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:fontFamily="@font/oxygen" />
+
+        <TextView
+            android:id="@+id/richtungText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:paddingLeft="40dp"
+            android:text="Richtung"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:fontFamily="@font/oxygen" />
+
+        <TextView
+            android:id="@+id/beschreibungText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:paddingLeft="40dp"
+            android:text="Beschreibung"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:fontFamily="@font/oxygen" />
+
+        <TextView
+            android:id="@+id/beschreibungInput1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:paddingLeft="40dp"
+            android:text="Beschreibung"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:fontFamily="@font/oxygen" />
+
+        <TextView
+            android:id="@+id/sustainibilityText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:paddingLeft="100dp"
+            android:paddingBottom="10dp"
+            android:text="Die Störmeldung wurde verifiziert!"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:fontFamily="@font/oxygen" />
+
+        <TextView
+            android:id="@+id/linieText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="40dp"
+            android:text="Linie"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:fontFamily="@font/oxygen" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/generateAlternativeRouteBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="reportDescription" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="46dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="46dp"
+        android:background="@drawable/custom_button_send"
+        android:fontFamily="@font/oxygen"
+        android:text="Alternativroute berechnen"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold" />
 
 </LinearLayout>
