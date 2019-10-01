@@ -111,6 +111,8 @@ class OverviewActivity : AppCompatActivity(), ReportRecyclerAdapter.OnCommentLis
         mapIcon.setOnClickListener {
             val intent = Intent(this, MapActivity::class.java)
             startActivity(intent)
+            mapIcon.setImageResource(R.drawable.ic_map_blue_24dp)
+            profileIcon.setImageResource(R.mipmap.profile)
         }
 
         // change location textView to manually set location (if exists)

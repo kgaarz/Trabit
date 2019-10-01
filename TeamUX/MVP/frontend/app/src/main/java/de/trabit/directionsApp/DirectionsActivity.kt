@@ -22,9 +22,7 @@ import de.trabit.reportApp.comments.CommentsActivity
 import de.trabit.reportApp.reports.display.OverviewActivity
 import de.trabit.reportApp.user.profile.ProfileActivity
 import kotlinx.android.synthetic.main.activity_directions.*
-
-
-
+import kotlinx.android.synthetic.main.activity_map.*
 
 
 class DirectionsActivity : AppCompatActivity() {
@@ -99,12 +97,14 @@ class DirectionsActivity : AppCompatActivity() {
         val overviewIcon = findViewById(R.id.overviewNavigation) as ImageButton
         val profileIcon = findViewById(R.id.profileNavigation) as ImageButton
         val directionsIcon = findViewById(R.id.directonsNavigation) as ImageButton
+        //val mapIcon = findViewById(R.id.mapNavigation) as ImageButton
 
         overviewIcon.setOnClickListener{
             val overviewReportsIntent = Intent(this, OverviewActivity::class.java)
             startActivity(overviewReportsIntent)
             overviewIcon.setImageResource(R.mipmap.overview_active)
             profileIcon.setImageResource(R.mipmap.profile)
+
         }
 
         profileIcon.setOnClickListener{
@@ -121,6 +121,12 @@ class DirectionsActivity : AppCompatActivity() {
             overviewIcon.setImageResource(R.mipmap.overview)
             profileIcon.setImageResource(R.mipmap.profile)
         }
+
+        /*mapIcon.setOnClickListener {
+            val mapIntent = Intent(this, MapActivity::class.java)
+            startActivity(mapIntent)
+        }*/
+
 
 
 
