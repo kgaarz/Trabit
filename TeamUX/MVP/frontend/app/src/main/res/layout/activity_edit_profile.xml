@@ -18,7 +18,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="80dp"
+        android:background="@drawable/custom_header"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp">
 
 
         <ImageButton
@@ -30,21 +34,21 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="19dp"
             android:layout_marginLeft="19dp"
-            android:layout_marginTop="31dp"
+            android:layout_marginTop="24dp"
             android:background="@null"
             android:scaleType="fitCenter"
             android:src="@mipmap/arrow_back_black"
-            android:tint="@color/colorDarkBlue" />
+            android:tint="@color/whiteBlue" />
 
         <TextView
             android:id="@+id/txtUserData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/oxygen"
             android:text="Meine Kontoeinstellungen"
-            android:textColor="@color/colorDarkBlue"
+            android:textColor="@color/whiteBlue"
             android:textSize="20dp" />
 
     </RelativeLayout>
@@ -94,6 +98,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:ems="15"
+            android:hint="Vorname"
             android:textSize="16sp"
             android:inputType="text"
             android:fontFamily="@font/oxygen"
@@ -120,6 +125,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:ems="15"
+            android:hint="Nachname"
             android:fontFamily="@font/oxygen"
             android:inputType="text"
             android:text="Nachname"
@@ -146,6 +152,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:ems="15"
+            android:hint="Email"
             android:textSize="16dp"
             android:inputType="textEmailAddress"
             android:fontFamily="@font/oxygen"
@@ -172,6 +179,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:ems="15"
+            android:hint="Wohnort"
             android:textSize="16dp"
             android:inputType="text"
             android:fontFamily="@font/oxygen"
@@ -199,6 +207,17 @@
             android:textSize="16sp"
             android:textColor="@color/colorWhite"
             android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/txtDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Konto löschen"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="16sp" />
 
     </RelativeLayout>
 

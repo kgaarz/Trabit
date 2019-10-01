@@ -15,7 +15,11 @@
     //header
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="80dp"
+        android:background="@drawable/custom_header"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp">
 
         <ImageButton
             android:id="@+id/btn_back"
@@ -26,21 +30,21 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="19dp"
             android:layout_marginLeft="19dp"
-            android:layout_marginTop="31dp"
+            android:layout_marginTop="24dp"
             android:background="@null"
             android:scaleType="fitCenter"
             android:src="@mipmap/arrow_back_black"
-            android:tint="@color/colorDarkBlue" />
+            android:tint="@color/whiteBlue" />
 
         <TextView
             android:id="@+id/txtUserData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/oxygen"
             android:text="Meine Mobilitäten"
-            android:textColor="@color/colorDarkBlue"
+            android:textColor="@color/whiteBlue"
             android:textSize="20sp" />
 
     </RelativeLayout>
@@ -88,8 +92,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
-            android:layout_marginEnd="206dp"
-            android:layout_marginRight="206dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
             android:checked="false"
             android:fontFamily="@font/oxygen"
             android:text="Auto"
@@ -110,8 +114,8 @@
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="153dp"
-            android:layout_marginRight="153dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
             android:checked="false"
             android:fontFamily="@font/oxygen"
             android:text="Führerschein"
@@ -133,8 +137,8 @@
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="189dp"
-            android:layout_marginRight="189dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
             android:checked="false"
             android:fontFamily="@font/oxygen"
             android:text="Fahrrad"
@@ -155,8 +159,8 @@
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="176dp"
-            android:layout_marginRight="176dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
             android:checked="false"
             android:fontFamily="@font/oxygen"
             android:text="Zugticket"
@@ -178,8 +182,8 @@
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="117dp"
-            android:layout_marginRight="117dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
             android:checked="false"
             android:fontFamily="@font/oxygen"
             android:text="Car-/Bikesharing"
