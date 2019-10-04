@@ -4,6 +4,19 @@
 
 Dieses Repository beinhaltet den Quellcode und weitere Artefakte des semesterübergreifenden Projekts des [Medieninformatik Masters](https://www.medieninformatik.th-koeln.de) der TH Köln im Schwerpunkt [Human-Computer Interaction](https://www.medieninformatik.th-koeln.de/study/master/schwerpunkte/hci/).
 
+### :file_folder: Ordner-Struktur
+Die Ordnerstruktur wurde zu Beginn in zwei Hauptordner unterteilt, damit die beiden Unterteams getrennt voneinander arbeiten konnten. Da sich **TeamUX** bereits zu Beginn mit der Implementierung des Clients beschäftigte, ist er entsprechend in ihrem Unterordner abgelegt. **TeamMK** hat hier jedoch ebenfalls mitgewirkt, sodass die Ordnerstruktur nicht die strengen Zuständigkeitsbereiche wiederspiegelt. Die konkreten Artefakte der Applikation sind in folgenden Ordnern zu finden:
+
+#### Directions-Server
+[:open_file_folder:TeamMK/MVP/server](https://github.com/kgaarz/Trabit/tree/master/TeamMK/MVP/server)
+
+#### Report-Server
+[:open_file_folder:TeamUX/MVP/backend](https://github.com/kgaarz/Trabit/tree/master/TeamUX/MVP/backend)
+
+#### Gemeinsamer Client
+[:open_file_folder:TeamUX/MVP/frontend](https://github.com/kgaarz/Trabit/tree/master/TeamUX/MVP/frontend)
+
+### :blue_book: Dokumentation
 Die Dokumentation befindet sich im [:book:Wiki](https://github.com/kgaarz/Trabit/wiki).
 
 
