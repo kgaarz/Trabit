@@ -18,7 +18,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "REPORTAPI_BASE_URL", '"http://18.184.239.236:3000/"'
+            buildConfigField "String", "REPORTAPI_BASE_URL", '"https://trabit-reports.herokuapp.com/"'
             buildConfigField "String", "DIRECTIONSAPI_BASE_URL", '"https://trabit-api-mk.herokuapp.com/"'
             buildConfigField "String", "REPORTAPI_HERE_APPID", '"YtUpT0K3WRtzL5wWqpwY"'
             buildConfigField "String", "REPORTAPI_HERE_APPCODE", '"paQLGvxQZxsT_eZD7HVA4g"'
@@ -27,7 +27,7 @@ android {
             buildConfigField "String", "DEMO_USERID_MONGODB", '"5d4aa8752365ca2d27dd0e95"'
         }
         debug {
-            buildConfigField "String", "REPORTAPI_BASE_URL", '"http://18.184.239.236:3000/"'
+            buildConfigField "String", "REPORTAPI_BASE_URL", '"https://trabit-reports.herokuapp.com/"'
             buildConfigField "String", "DIRECTIONSAPI_BASE_URL", '"https://trabit-api-mk.herokuapp.com/"'
             buildConfigField "String", "REPORTAPI_HERE_APPID", '"YtUpT0K3WRtzL5wWqpwY"'
             buildConfigField "String", "REPORTAPI_HERE_APPCODE", '"paQLGvxQZxsT_eZD7HVA4g"'
@@ -36,7 +36,7 @@ android {
             buildConfigField "String", "DEMO_USERID_MONGODB", '"5d4aa8752365ca2d27dd0e95"'
         }
         staging {
-            buildConfigField "String", "REPORTAPI_BASE_URL", '"http://18.184.239.236:3000/"'
+            buildConfigField "String", "REPORTAPI_BASE_URL", '"https://trabit-reports.herokuapp.com/"'
             buildConfigField "String", "DIRECTIONSAPI_BASE_URL", '"https://trabit-api-mk.herokuapp.com/"'
             buildConfigField "String", "REPORTAPI_HERE_APPID", '"YtUpT0K3WRtzL5wWqpwY"'
             buildConfigField "String", "REPORTAPI_HERE_APPCODE", '"paQLGvxQZxsT_eZD7HVA4g"'
