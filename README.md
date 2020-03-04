@@ -1,5 +1,5 @@
 <p align="center">
-<img src="TeamUX/ressourcen/Logo/trabit_git_logo.png" width="60%">
+<img src="development/TeamUX/ressourcen/Logo/trabit_git_logo.png" width="60%">
 </p>
 
 Dieses Repository beinhaltet den Quellcode und weitere Artefakte des semesterübergreifenden Projekts des [Medieninformatik Masters](https://www.medieninformatik.th-koeln.de) der TH Köln im Schwerpunkt [Human-Computer Interaction](https://www.medieninformatik.th-koeln.de/study/master/schwerpunkte/hci/).
