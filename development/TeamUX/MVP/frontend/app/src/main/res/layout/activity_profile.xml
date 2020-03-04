@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Layout_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/whiteBlue">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="109dp"
+        android:background="@drawable/custom_header"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/nameProfile"
+            android:layout_width="116dp"
+            android:layout_height="26dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="30dp"
+            android:layout_toEndOf="@+id/imageProfile"
+            android:layout_toRightOf="@+id/imageProfile"
+            android:fontFamily="@font/oxygen"
+            android:text="Nickname"
+            android:textColor="@color/whiteBlue"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/imageProfile"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="65dp"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="profileImage"
+            android:src="@drawable/user_photo" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <ImageButton
+            android:id="@+id/btnEdit"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_toEndOf="@+id/txtUserData"
+            android:layout_toRightOf="@+id/txtUserData"
+            android:background="@null"
+            android:contentDescription="editProfile"
+            android:scaleType="fitCenter"
+            android:src="@drawable/edit"
+            android:tint="@color/colorDarkBlue" />
+
+        <TextView
+            android:id="@+id/txtUserData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="37dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Meine Profildaten"
+            android:textColor="@color/colorDarkBlue"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtFirstname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtUserData"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Vorname:"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtFirstnameData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtUserData"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/txtFirstname"
+            android:layout_toRightOf="@+id/txtFirstname"
+            android:fontFamily="@font/oxygen"
+            android:text="Max"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtLastname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtFirstname"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Nachname:"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtLastnameData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtFirstnameData"
+            android:layout_marginStart="14dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/txtLastname"
+            android:layout_toRightOf="@+id/txtLastname"
+            android:fontFamily="@font/oxygen"
+            android:text="Mustermann"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtLastname"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Email:"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtMailData"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtLastnameData"
+            android:layout_marginStart="47dp"
+            android:layout_marginLeft="47dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/txtMail"
+            android:layout_toRightOf="@+id/txtMail"
+            android:fontFamily="@font/oxygen"
+            android:text="max.mustermann@mail.de"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtMail"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Wohnort:"
+            android:textSize="14sp" />
+
+<!--        Mobilities-->
+        <TextView
+            android:id="@+id/txtHomeData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtMailData"
+            android:layout_marginStart="26dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/txtHome"
+            android:layout_toRightOf="@+id/txtHome"
+            android:fontFamily="@font/oxygen"
+            android:text="Gummersbach"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtMobilities"
+            android:layout_width="232dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtHomeData"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="35dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Meine Mobilitätsmöglichkeiten"
+            android:textColor="@color/colorDarkBlue"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/btnEdit2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/txtHomeData"
+            android:layout_marginTop="30dp"
+            android:layout_toEndOf="@+id/txtMobilities"
+            android:layout_toRightOf="@+id/txtMobilities"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/edit"
+            android:tint="@color/colorDarkBlue" />
+
+        <Switch
+            android:id="@+id/mob1"
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtMobilities"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="304dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="38dp"
+            android:layout_marginRight="38dp"
+            android:checked="false"
+            android:clickable="false"
+            android:fontFamily="@font/oxygen"
+            android:text="Auto"
+            android:textColor="@color/colorMiddleGrey"
+            android:textSize="14sp"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track" />
+
+        <Switch
+            android:id="@+id/mob2"
+            android:layout_width="121dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mob1"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="38dp"
+            android:layout_marginRight="38dp"
+            android:checked="false"
+            android:clickable="false"
+            android:fontFamily="@font/oxygen"
+            android:text="Führerschein"
+            android:textColor="@color/colorMiddleGrey"
+            android:textSize="14sp"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track"
+            tools:checked="false" />
+
+        <Switch
+            android:id="@+id/mob3"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mob2"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="38dp"
+            android:layout_marginRight="38dp"
+            android:checked="false"
+            android:clickable="false"
+            android:fontFamily="@font/oxygen"
+            android:text="Fahrrad"
+            android:textColor="@color/colorMiddleGrey"
+            android:textSize="14sp"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track" />
+
+        <Switch
+            android:id="@+id/mob4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mob3"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="38dp"
+            android:layout_marginRight="38dp"
+            android:checked="false"
+            android:clickable="false"
+            android:fontFamily="@font/oxygen"
+            android:text="Zugticket"
+            android:textColor="@color/colorMiddleGrey"
+            android:textSize="14sp"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track"
+            tools:checked="false" />
+
+        <Switch
+            android:id="@+id/mob5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mob4"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="38dp"
+            android:layout_marginRight="38dp"
+            android:checked="false"
+            android:clickable="false"
+            android:fontFamily="@font/oxygen"
+            android:text="Car-/Bikesharing"
+            android:textColor="@color/colorMiddleGrey"
+            android:textSize="14sp"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track" />
+
+
+<!--        Buttons-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="127dp"
+            android:layout_below="@+id/mob5"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_logout"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_button_logout"
+                android:fontFamily="@font/oxygen"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:text="Abmelden"
+            />
+
+        </RelativeLayout>
+
+<!--        Tabbar-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_above="@+id/layout_footer"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/drop_shadow_footer" />
+
+        <LinearLayout
+            android:id="@+id/layout_footer"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/custom_footer"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/mapNavigation"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_map_black_24dp" />
+
+            <ImageButton
+                android:id="@+id/directonsNavigation"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/directions_icon" />
+
+
+            <ImageButton
+                android:id="@+id/overviewNavigation"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/overview" />
+
+            <ImageButton
+                android:id="@+id/profileNavigation"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/profile_active" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

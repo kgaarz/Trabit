@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".changelocation.SearchActivity">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:background="@drawable/custom_header"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_marginBottom="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="20dp"
+                app:srcCompat="@mipmap/arrow_back"
+                android:id="@+id/backButton"
+                android:background="@null"
+                android:scaleType="fitCenter"
+            />
+
+            <TextView
+                android:text="Standort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/headerCaption"
+                android:textSize="20sp"
+                android:textColor="#F9F9F9"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="100dp"
+                app:fontFamily="@font/oxygen"
+            />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:theme="@style/AppTheme.Searchbar"
+            android:background="@drawable/border_bottom_searchview"
+    />
+
+<ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+    />
+
+
+</LinearLayout>

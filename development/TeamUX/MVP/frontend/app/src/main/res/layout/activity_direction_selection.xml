@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout_directions"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/places_autocomplete_toolbar_shadow"
+    android:orientation="vertical"
+    tools:context="de.trabit.directionsApp.DirectionSelectionActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_header"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/headerStartScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:text="Route auswählen"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            app:fontFamily="@font/oxygen" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/layoutRoute1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_button_next"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonRoute1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/custom_button_send"
+                android:fontFamily="@font/oxygen"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:text="Auswählen" />
+
+            <TextView
+                android:id="@+id/durationInput1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:paddingLeft="175dp"
+                android:text="Dauer"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/distanceInput1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="130dp"
+                android:paddingLeft="175dp"
+                android:text="Distanz"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/switchesInput1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="160dp"
+                android:paddingLeft="175dp"
+                android:text="Umstiege"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/sustainibilityInput1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="190dp"
+                android:paddingLeft="175dp"
+                android:text="Nachhaltigkeits-Score"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/modesInput1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:paddingLeft="175dp"
+                android:text="Modes"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/durationText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:paddingLeft="10dp"
+                android:text="Dauer"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/distanceText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="130dp"
+                android:paddingLeft="10dp"
+                android:text="Distanz"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/switchesText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="160dp"
+                android:paddingLeft="10dp"
+                android:text="Umstiege"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/sustainibilityText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="190dp"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"
+                android:text="Nachhaltigkeits-Score"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/modesText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:paddingLeft="10dp"
+                android:text="Modes"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/route1Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:text="Route 1"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                app:fontFamily="@font/oxygen" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutRoute2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="250dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_button_next"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonRoute2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/custom_button_send"
+                android:fontFamily="@font/oxygen"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:text="Auswählen" />
+
+            <TextView
+                android:id="@+id/durationInput2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:paddingLeft="175dp"
+                android:text="Dauer"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/distanceInput2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="130dp"
+                android:paddingLeft="175dp"
+                android:text="Distanz"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/switchesInput2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="160dp"
+                android:paddingLeft="175dp"
+                android:text="Umstiege"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/sustainibilityInput2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="190dp"
+                android:paddingLeft="175dp"
+                android:text="Nachhaltigkeits-Score"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/modesInput2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:paddingLeft="175dp"
+                android:text="Modes"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/durationText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:paddingLeft="10dp"
+                android:text="Dauer"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/distanceText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="130dp"
+                android:paddingLeft="10dp"
+                android:text="Distanz"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/switchesText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="160dp"
+                android:paddingLeft="10dp"
+                android:text="Umstiege"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/sustainibilityText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="190dp"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"
+                android:text="Nachhaltigkeits-Score"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/modesText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:paddingLeft="10dp"
+                android:text="Modes"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:fontFamily="@font/oxygen" />
+
+            <TextView
+                android:id="@+id/route2Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:text="Route 2"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                app:fontFamily="@font/oxygen" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="45dp"
+            android:background="@drawable/drop_shadow_footer" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/custom_footer"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/mapNavigation"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_map_black_24dp" />
+
+            <ImageButton
+                android:id="@+id/directonsNavigation"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/directions_icon_active" />
+
+
+            <ImageButton
+                android:id="@+id/overviewNavigation"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/overview" />
+
+            <ImageButton
+                android:id="@+id/profileNavigation"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/profile" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

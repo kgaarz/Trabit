@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="15dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="290dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/linearlayout_header_reports">
+
+            <TextView
+                android:id="@+id/day_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="3"
+                android:fontFamily="@font/oxygen"
+                android:text="Tag"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/time_text"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="5"
+                android:fontFamily="@font/oxygen"
+                android:text="Uhrzeit"
+                android:textSize="13sp" />
+
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:src="@mipmap/profile_icon" />
+
+            <TextView
+                android:id="@+id/username_text"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginStart="7dp"
+                android:layout_weight="7"
+                android:fontFamily="@font/oxygen"
+                android:text="Benutzername"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="290dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/linearlayout_header_reports"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:background="@drawable/custom_report_item_id_container"
+            android:id="@+id/relative_layout_id_destination"
+            >
+
+            <TextView
+                android:id="@+id/id_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:fontFamily="@font/oxygen"
+                android:text="Kennung"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/destinationArrow"
+                android:layout_width="40dp"
+                android:layout_height="13dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toEndOf="@+id/id_text"
+                android:layout_toRightOf="@+id/id_text"
+                android:src="@mipmap/arrow_right" />
+
+            <TextView
+                android:id="@+id/destination_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toEndOf="@+id/destinationArrow"
+                android:layout_toRightOf="@+id/destinationArrow"
+                android:fontFamily="@font/oxygen"
+                android:text="Zielort"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/voteUpButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="30dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/check_positive_grey"/>
+
+        <ImageView
+            android:id="@+id/verifiedStar"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_below="@+id/voteUpButton"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toStartOf="@+id/voteNumber"
+            android:layout_toLeftOf="@+id/voteNumber"
+            android:src="@mipmap/star_yellow"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/voteNumber"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/voteUpButton"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
+            android:fontFamily="@font/oxygen"
+            android:text="0"/>
+
+
+        <ImageButton
+            android:id="@+id/voteDownButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_below="@+id/voteNumber"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/check_negative_grey" />
+
+        <TextView
+            android:id="@+id/report_text"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relative_layout_id_destination"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/oxygen"
+            android:paddingTop="5dp"
+            android:text="Kommentar, Kommentar, Kommentar"
+            android:textSize="16sp"/>
+
+        <ImageButton
+            android:id="@+id/commentIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/report_text"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/comment_icon_black"/>
+
+        <TextView
+            android:id="@+id/commentNumber"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_toRightOf="@+id/commentIcon"
+            android:layout_below="@id/report_text"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:text="0" />
+
+        <ImageButton
+            android:id="@+id/reportOptions"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/report_text"
+            android:src="@mipmap/dots"
+            android:background="@null"
+            android:layout_marginTop="25dp"
+            android:scaleType="fitCenter" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

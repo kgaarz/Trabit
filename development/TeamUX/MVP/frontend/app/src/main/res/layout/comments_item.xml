@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="15dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:padding="10dp"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="290dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            >
+
+            <TextView
+                android:id="@+id/dayText"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_weight="4"
+                android:fontFamily="@font/oxygen"
+                android:text="Tag"
+                android:textSize="13sp"
+
+                />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="3dp"
+                android:layout_weight="1"
+                android:src="@mipmap/seperate_dot"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
+                />
+
+            <TextView android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="5"
+                android:fontFamily="@font/oxygen"
+                android:text="Uhrzeit"
+                android:textSize="13sp"
+                android:id="@+id/timeText"
+                android:textAlignment="center"
+                />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="3dp"
+                android:layout_weight="1"
+                android:src="@mipmap/seperate_dot"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="3dp"
+                />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_weight="1"
+                android:src="@mipmap/profile_icon"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="5dp"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="7"
+                android:layout_height="30dp"
+                android:fontFamily="@font/oxygen"
+                android:text="Benutzername"
+                android:textSize="13sp"
+                android:id="@+id/usernameText"
+                android:layout_marginLeft="7dp"
+                />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/check_positive_grey"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:id="@+id/voteUpButton"
+            />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="3dp"
+            android:text="0"
+            android:fontFamily="@font/oxygen"
+            android:id="@+id/vote_number"
+            />
+
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="90dp"
+            android:src="@mipmap/check_negative_grey"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:id="@+id/voteDownButton"
+            />
+
+        <TextView
+            android:layout_width="290dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="40dp"
+            android:text="Kommentar, Kommentar, Kommentar"
+            android:textSize="16sp"
+            android:layout_alignParentLeft="true"
+            android:paddingTop="5dp"
+            android:fontFamily="@font/oxygen"
+            android:id="@+id/commentText"
+            />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

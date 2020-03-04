@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentLeft="true"
+    android:background="@color/whiteBlue"
+    android:orientation="vertical"
+    android:windowActionBar="false"
+    tools:context="de.trabit.reportApp.user.profile.EditProfileActivity"
+    android:id="@+id/Layout_profile_edit"
+    >
+
+
+    //header
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/custom_header"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp">
+
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="19dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="24dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/arrow_back_black"
+            android:tint="@color/whiteBlue" />
+
+        <TextView
+            android:id="@+id/txtUserData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Meine Kontoeinstellungen"
+            android:textColor="@color/whiteBlue"
+            android:textSize="20dp" />
+
+    </RelativeLayout>
+
+
+    //customize account settings
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="383dp"
+            android:layout_height="71dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Hier kannst du deine Kontoeinstellungen ändern und speichern."
+            android:textColor="@color/colorMiddleGrey"
+            android:textSize="16dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/editNameLayout"
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/edit_profile"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:ems="15"
+            android:hint="Vorname"
+            android:textSize="16sp"
+            android:inputType="text"
+            android:fontFamily="@font/oxygen"
+            android:text="Vorname" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/editLastNameLayout"
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/edit_profile"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+
+        <EditText
+            android:id="@+id/editLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:ems="15"
+            android:hint="Nachname"
+            android:fontFamily="@font/oxygen"
+            android:inputType="text"
+            android:text="Nachname"
+            android:textSize="16dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/editMailLayout"
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_profile"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+
+        <EditText
+            android:id="@+id/editMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:ems="15"
+            android:hint="Email"
+            android:textSize="16dp"
+            android:inputType="textEmailAddress"
+            android:fontFamily="@font/oxygen"
+            android:text="Email-Adresse" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/editHomeLayout"
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_profile"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+
+        <EditText
+            android:id="@+id/editHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:ems="15"
+            android:hint="Wohnort"
+            android:textSize="16dp"
+            android:inputType="text"
+            android:fontFamily="@font/oxygen"
+            android:text="Wohnort" />
+
+    </RelativeLayout>
+
+    //Button save new settings
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_marginTop="10dp"
+        >
+
+        <Button
+            android:id="@+id/profile_send_button"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_button_send"
+            android:fontFamily="@font/oxygen"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:text="Speichern" />
+
+        <TextView
+            android:id="@+id/txtDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:fontFamily="@font/oxygen"
+            android:text="Konto löschen"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>
