@@ -1,5 +1,5 @@
 <p align="center">
-<img src="development/TeamUX/ressourcen/Logo/trabit_git_logo.png" width="60%">
+<img src="TeamUX/ressourcen/Logo/trabit_git_logo.png" width="60%">
 </p>
 
 ## :file_folder: Ordner-Struktur
