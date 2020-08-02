@@ -37,3 +37,8 @@ Die Mitglieder des Trabit Teams…
 *	sind mit der Programmierung von JavaScript und Kotlin-Anwendungen vertraut
 *	können die Kernfunktionen eines Produktes vor dem Hintergrund neuerer Erkenntnisse und Entwicklungen in der Medieninformatik identifizieren und kommunizieren und sind in der Lage, durch die Erstellung eines Businessplans, einen Prototypen als “minimal viable product” auch aus betriebswirtschaftlichen Perspektiven zu betrachten, bzgl. Modellen, Systemen und Prozessen für Medienkonzeption, -produktion, -bearbeitung, -distribution und -nutzung zu analysieren und zu evaluieren und in den Markt oder die Community zu bringen
 *	können, durch die Projektarbeit im Modul Forschung und Verwertung, die gewonnen Erkenntnisse aus dem Produkt in der Community z.B. in Form eines Konferenzbeitrags sichtbar machen und einen wissenschaftlichen Diskurs dazu führen.
+
+## :trophy: Auszeichnung
+
+Verein zur Förderung des Campus Gummersbach der Technischen Hoschule Köln e.V. (1. Platz):
+https://www.th-koeln.de/hochschule/masterstudierende-der-medieninformatik-praesentierten-innovative-geschaeftsideen_72665.php
