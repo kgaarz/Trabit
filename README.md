@@ -9,6 +9,15 @@ Dieses Repository beinhaltet den Quellcode und weitere Artefakte des semesterüb
 Im ersten Projektteil wurde eine Idee für ein Produkt entwickelt, eine Recherche des Marktes und Standes von Wissenschaft und Technik durchgeführt, und ein Konzept soweit definiert und dokumentiert, dass im nachfolgenden Projekt das Team in der Lage war, einen ersten Prototyp, ein „Minimum Viable Product“, zu realisieren. Auf Basis des bereits ausgearbeiteten Prototypen wurden im dritten Projektteil die Schritte Qualitätssicherung und Evaluierung, Produktmanagement und -marketing, ein Businessplan sowie die wissenschaftliche Forschung geplant, durchgeführt und kritisch reflektiert.
 <br><br>
 
+## :blue_car: Was ist Trabit?
+Für die Vielzahl verschiedener öffentlicher Mobilitätsmöglichkeiten fehlt eine zentrale Stelle, an der die Informationen aller möglichen Verkehrsmöglichkeiten eingesehen und sinnvoll verknüpft werden können. Zudem werden Verzögerungen und Ausfälle oftmals gar nicht oder nur unzureichend an die Kunden der Verkehrsbetriebe kommuniziert. Die mobile App Trabit löst diese Probleme, indem sie alle zur Verfügung stehenden Verkehrsmittel in einer Route verknüpft. Um auf Störungen reagieren zu können, werden neben offiziellen Meldungen auch Community-Störungsmeldungen beachtet, welche die Benutzer in Trabit selbst erfassen können. Ein eigens entwickelter Glaubwürdigkeitsindex stellt dabei den Wahrheitsgehalt der Meldungen sicher. Bei Störungen werden betroffene Benutzer benachrichtigt und ihnen wird eine kurzfristige Alternative bereitgestellt.
+
+Die Benutzer profitieren von einer eigenen Community, die sich gegenseitig informiert und unterstützt. Die Routengenerierung wird individuell auf die Benutzer-Konfiguration angepasst und zieht alle verfügbaren Teilstrecken und Störungsmeldungen in Betracht.
+
+Die eigens entwickelten Heuristiken und Logiken zur Bildung von Mobilitätsketten garantieren optimierte Kombinationen von Teilstrecken, welche auf die dem individuellen Benutzer zur Verfügung stehenden Mobilitätsmöglichkeiten angepasst sind. Das Crowdsourcing von Verkehrsbeeinträchtigungen öffentlicher Verkehrsmittel und deren Verifizierung ist eine innovative Symbiose aus Mobilitäts- und Social-Aspekten, die bisher noch nicht auf dem Markt zu finden ist.
+
+![Trabit-Screens](https://user-images.githubusercontent.com/22495353/89123150-610f5380-d4cd-11ea-95d5-a221bec0d315.png)
+
 ## :blue_book: Dokumentation
 Die Dokumentation befindet sich im [:book:Wiki](https://github.com/kgaarz/Trabit/wiki).
 <br><br>
