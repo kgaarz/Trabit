@@ -141,4 +141,7 @@ crashlytics-build.properties
 *.war
 *.ear
 
-*.env
+.env
+.env.example
+.env.local
+.env.staging
